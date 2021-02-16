@@ -27,7 +27,7 @@ install.packages("bookdown")
 Clone CDM-manual using [GitHub Desktop](https://desktop.github.com) or from your terminal:
 
 ```{bash}
-git clone https://github.com/gilesnknight/CDM-manual.git
+git clone https://github.com/AquaticEcoDynamics/CDM.git
 ```
 
 #### 3. Edit a chapter
