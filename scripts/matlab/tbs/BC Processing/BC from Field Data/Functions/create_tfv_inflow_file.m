@@ -266,7 +266,8 @@ t_data_NoNaN = t_data(ss);
 %disp(['Number of sameples to be interp: ',num2str(size(t_data_NoNaN_years))]);
 
 if length(t_date_NoNaN_years) > 1
-    var = interp1(t_date_NoNaN_years,t_data_NoNaN_years,mtime,'linear',mean(t_data_NoNaN_years));
+    %var = interp1(t_date_NoNaN_years,t_data_NoNaN_years,mtime,'linear',mean(t_data_NoNaN_years));
+    var = interp1(t_date_NoNaN_years,t_data_NoNaN_years,mtime,'linear');
 else
     var(1:length(mtime),1) = mean(t_data_NoNaN_years);
 end
@@ -342,12 +343,30 @@ tdate_1(:,1) = tdate;
 
 [yyyy,~,~] = datevec(mtime);
 
-[tyyy,~,~] = datevec(tdate_1);
+[tyyy,tmmm,~] = datevec(tdate_1);
 
 u_years = unique(yyyy);
 
 date_year = [];
 data_year = [];
+
+%Create a monthly average;
+
+for i = 1:12
+    aveMonth_date(i) = i;
+    
+    sss = find(tmmm == i);
+    
+    if ~isempty(sss)
+        aveMonth_data(i) = mean(tdata_1(sss));
+    else
+        aveMonth_data(i) = mean(tdata_1);
+    end
+end
+
+
+
+
 
 for i = 1:length(u_years)
     
@@ -377,9 +396,14 @@ for i = 1:length(u_years)
             dateshift = (tyyy(tt) - u_years(i)) * 365;
 
         %disp(['Data for closest year: ',num2str(tyyy(ind(1)))]);
-        new_date(:,1) = tdate_1(bb) - dateshift;
-        new_data(:,1) = tdata_1(bb);
+%         new_date(:,1) = tdate_1(bb) - dateshift;
+%         new_data(:,1) = tdata_1(bb);
         
+
+% Adding code for monthly average
+    new_date(:,1) = datenum(u_years(i),aveMonth_date,15);
+    new_data(:,1) = aveMonth_data;
+
         %disp(['Amount of replicated data: ',num2str(length(new_data))])
         
         date_year = [date_year;new_date];
@@ -399,6 +423,45 @@ end
 %disp(['Size of data: ',num2str(length(data_year))])
 [date_year_u,ind2] = unique(date_year,'sorted');
 data_year_u = data_year(ind2);
+
+%Now fill missing months
+[yyy,mmm] = datevec(date_year_u);
+[~,maxmonth] = datevec(date_year_u(end));
+minyear = min(yyy);
+maxyear = max(yyy);
+
+for i = minyear:1:maxyear-1
+    for j = 1:12
+        
+        sss = find(yyy == i & mmm == j);
+        
+        if isempty(sss)
+            date_year_u = [date_year_u;datenum(i,j,15)];
+            data_year_u = [data_year_u;aveMonth_data(j)];
+        end
+        
+    end
+ 
+end
+for i = maxyear
+    for j = 1:maxmonth
+        
+        sss = find(yyy == i & mmm == j);
+        
+        if isempty(sss)
+            date_year_u = [date_year_u;datenum(i,j,15)];
+            data_year_u = [data_year_u;aveMonth_data(j)];
+        end
+        
+    end
+ 
+end
+
+
+
+[date_year_u,ind2] = unique(date_year,'sorted');
+data_year_u = data_year(ind2);
+
 
 %disp(['Number of sameples to be interp: ',num2str(size(data_year_u))]);
 

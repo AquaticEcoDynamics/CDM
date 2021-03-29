@@ -2,13 +2,13 @@ clear all; close all;
 
 addpath(genpath('Functions'));
 
-outdir = 'BCs_BAR_1990_2020/';
+outdir = 'BCs_BAR_1990_2020_Monthly_Ave_Merged/';
 
 if ~exist(outdir,'dir')
     mkdir(outdir);
 end
 
-load lowerlakes.mat;
+load ../../../modeltools/matfiles/lowerlakes_BC.mat;
 
 
 lowerlakes = limit_datasites(lowerlakes,1);
