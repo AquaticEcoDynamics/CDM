@@ -69,7 +69,19 @@ for i = 1:length(sites)
     if isfield(dwlbc.(sites{i}),'Conductivity')
         dwlbc.(sites{i}).SAL = dwlbc.(sites{i}).Conductivity;
         
-        dwlbc.(sites{i}).SAL.Data = conductivity2salinity(dwlbc.(sites{i}).Conductivity.Data);
+        if isfield(dwlbc.(sites{i}),'TEMP')
+            if length(dwlbc.(sites{i}).TEMP.Data) == length(dwlbc.(sites{i}).Conductivity.Data)
+                disp('Calculating SAL with Temp')
+                dwlbc.(sites{i}).SAL.Data = conductivity2salinity_withtemp(dwlbc.(sites{i}).Conductivity.Data,...
+                    dwlbc.(sites{i}).TEMP.Data);
+            else
+                
+        
+            dwlbc.(sites{i}).SAL.Data = conductivity2salinity(dwlbc.(sites{i}).Conductivity.Data);
+            end
+        else
+            dwlbc.(sites{i}).SAL.Data = conductivity2salinity(dwlbc.(sites{i}).Conductivity.Data);
+        end
         
     end
     if isfield(dwlbc.(sites{i}),'Level')

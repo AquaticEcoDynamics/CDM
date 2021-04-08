@@ -12,4 +12,4 @@ load dwlbc.mat;
 
 save dwlbc.mat dwlbc -mat
 
-summerise_data('dwlbc.mat','DWLBC/');
+%summerise_data('dwlbc.mat','DWLBC/');
