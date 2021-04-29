@@ -43,51 +43,76 @@ headers = {...
 % % 
 % % % 
 % % % % ____________________________________________________
-filename = [outdir,'Tauwitchere.csv'];
-subdir = [outdir,'Tauwitchere/'];
+% filename = [outdir,'Tauwitchere.csv'];
+% subdir = [outdir,'Tauwitchere/'];
+% 
+% X = 321940.0;
+% Y = 6061790.0;
+% 
+% create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Tauwitchere');
+% 
+% 
+% filename = [outdir,'Ewe.csv'];
+% subdir = [outdir,'Ewe/'];
+% 
+% X = 317190.0;
+% Y = 6063300.0;
+% 
+% create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Ewe');
+% 
+% 
+% filename = [outdir,'Boundary.csv'];
+% subdir = [outdir,'Boundary/'];
+% 
+% X = 315780.0;
+% Y = 6067390.0;
+% 
+% create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Boundary');
+% 
+% 
+% filename = [outdir,'Mundoo.csv'];
+% subdir = [outdir,'Mundoo/'];
+% 
+% X = 314110.0;
+% Y = 6068270.0;
+% 
+% create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Mundoo');
+% 
+% 
+% filename = [outdir,'Goolwa.csv'];
+% subdir = [outdir,'Goolwa/'];
+% 
+% X = 299425.0;
+% Y = 6067810.0;
+% 
+% create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Goolwa');
 
-X = 321940.0;
-Y = 6061790.0;
 
-create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Tauwitchere');
+filename = [outdir,'Albert_Opening.csv'];
+subdir = [outdir,'Albert_Opening/'];
 
+X = 344391.0;
+Y = 6063658.0;
 
-filename = [outdir,'Ewe.csv'];
-subdir = [outdir,'Ewe/'];
-
-X = 317190.0;
-Y = 6063300.0;
-
-create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Ewe');
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Albert_Opening');
 
 
-filename = [outdir,'Boundary.csv'];
-subdir = [outdir,'Boundary/'];
+filename = [outdir,'Albert_SouthWest.csv'];
+subdir = [outdir,'Albert_SouthWest/'];
 
-X = 315780.0;
-Y = 6067390.0;
+X = 341650.0;
+Y = 6050496.0;
 
-create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Boundary');
-
-
-filename = [outdir,'Mundoo.csv'];
-subdir = [outdir,'Mundoo/'];
-
-X = 314110.0;
-Y = 6068270.0;
-
-create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Mundoo');
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Albert_SouthWest');
 
 
-filename = [outdir,'Goolwa.csv'];
-subdir = [outdir,'Goolwa/'];
+filename = [outdir,'Albert_Water_Level_Recorder.csv'];
+subdir = [outdir,'Albert_Water_Level_Recorder/'];
 
-X = 299425.0;
-Y = 6067810.0;
+X = 349307.0;
+Y = 6058801.0;
 
-create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Goolwa');
-
-
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Albert_Water_Level_Recorder');
 
 
 

@@ -57,7 +57,7 @@ for i = 1:length(sites)
     end
 end
 
-save lowerlakes_BC.mat lowerlakes -mat -v7.3;
+save lowerlakes_BC.mat lowerlakes -mat;
 
 
 
