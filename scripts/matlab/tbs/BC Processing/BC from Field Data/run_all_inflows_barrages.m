@@ -114,6 +114,14 @@ Y = 6058801.0;
 
 create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Albert_Water_Level_Recorder');
 
+filename = [outdir,'Meningie.csv'];
+subdir = [outdir,'Meningie/'];
+
+X = 348605.0;
+Y = 6052257.0;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Meningie');
+
 
 
 
