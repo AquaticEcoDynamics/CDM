@@ -12,7 +12,7 @@ A large volume of monitoring data is collected for the Coorong for a range of si
 **Data Sources and Status**
 
 
-| File Name | Description | Agency  | Agency Code | Date Range | Imported |
+| File Name | Description | Provider  | Provider Code | Date Range | Imported |
 |:---------:|:------------|:--------|:------------|:----------:|:---------|
 |**Trials & Investigations Component 1**|
 | Coorong Data 1995_2020_Final.xlsx | WQ Spot Data | UA | UA Collated | 1998 - 2019 | Yes |
