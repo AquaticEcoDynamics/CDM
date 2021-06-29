@@ -14,5 +14,7 @@ A large volume of monitoring data is collected for the Coorong for a range of si
 
 | File Name | Description | Agency  | Agency Code | Date Range | Imported |
 |:---------:|:------------|:--------|:------------|:----------:|:---------|
+|**Trials & Investigations 1**|
 | Coorong Data 1995_2020_Final.xlsx | WQ Spot Data | UA | UA Collated | 1998 - 2019 | Yes |
+|**Trials & Investigations 2**|
 | All HOBO temperature data to March 2020.xlsx| High Frequency Temperature Data | UA | UA Logger | 2019 - 2020 | Yes |
