@@ -30,3 +30,5 @@ A large volume of monitoring data is collected for the Coorong for a range of si
 | _DEW:Hydrology:Compiled:_ FINAL_compiledSaltCkData_1990-2020.xlsx| High Frequency Salt Creek Hydrology | DEW | DEW SC | 1990 - 2021 | Pending | |
 |**BOM**|
 |_BOM:_ | High Frequency Met data | BOM | BOM | Pre 1960 - 2021 | Yes | _BOM:_ metdata_sorted.mat |
+|**NRM AWS**|
+|_NRMAWS:_ | Narrung High Frequency Met data | NRMAWS | NRMAWS | 2016 - 2021 | Yes | _NRMAWS:_ metdata.mat |
