@@ -7,6 +7,9 @@ library(tidyr)
 NRMAWSData<-function(siteName,startDate,endDate)
 {
 
+
+
+  
 email<-"Matt.Gibbs@sa.gov.au"
 pw<-"3ijOGslFtK"
 
@@ -79,11 +82,17 @@ NRMAWSStationNames<-function()
 }
 
 siteName<-"Narrung" #can use NRMStationNames() to see what sites are available with this login
-startDate<-"2021-01-01"
-endDate<-Sys.Date()
-#endDate<-"2021-01-01"
+
+
+
+theyear<-"2021"
+startDate<-paste0(theyear,"-01-01")
+#endDate<-Sys.Date()
+endDate<-paste0(theyear,"-12-31")
+
 data<-NRMAWSData(siteName,startDate,endDate)
-write.csv(data,paste0(siteName,"_2021.csv"),row.names = FALSE)
+write.csv(data,paste0(siteName,"_",theyear,".csv"),row.names = FALSE)
 
 library(ggplot2)
 ggplot(data)+geom_line(aes(time,`Wind Speed_average_km/h`))
+
