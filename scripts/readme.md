@@ -6,9 +6,20 @@ The Scripts directory folder is separated out into three folders:
 * datatools
 * modeltools
 
+## dataimport
+
+The data import folder contains all the scripts that:
+  * Download data from 3rd party
+  * Import and convert and data in the data/incoming directory
+
+Converted data is then stored in the data/store directory.
+
+## datatools
+
+The data tools folder contains scripts that:
+  * Create BC files from data in the data/store directory
+  * Create GIS files from imported data
+  * Create model I.C. files
 
 
-
-
-
-![schematic_v2](https://user-images.githubusercontent.com/19967037/126591007-ea011b6d-3a95-4f1c-9c3c-c4c61fe0003b.png)
+![scripts_schematic_v1](https://user-images.githubusercontent.com/19967037/126591194-e87579a5-c026-4a04-90b1-f41a513e83f9.png)
