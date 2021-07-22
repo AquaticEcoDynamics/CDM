@@ -27,3 +27,5 @@ The model tools directory contains all scripts that post process any model outpu
 
 
 ![scripts_schematic_v1](https://user-images.githubusercontent.com/19967037/126591194-e87579a5-c026-4a04-90b1-f41a513e83f9.png)
+
+**Figure. Design schematic for how the scripts in the different folders interact with the other parts of the CDM repository**
