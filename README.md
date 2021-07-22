@@ -2,6 +2,7 @@
 This is the repository for relevant **data, models and documents** for the Healthy Coorong, Healthy Basin Project
 
 
-<img width="667" alt="CDM" src="https://user-images.githubusercontent.com/19967037/123719988-83644980-d8b5-11eb-87da-ffe8dff47eb7.png">
+![schematic_v2](https://user-images.githubusercontent.com/19967037/126590944-a3b7bc89-6e7b-4134-ac14-7e3c22173760.png)
+
 
 **Figure 1. Design schematic for the CDM repository**
