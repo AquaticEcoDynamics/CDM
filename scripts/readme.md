@@ -21,5 +21,9 @@ The data tools folder contains scripts that:
   * Create GIS files from imported data
   * Create model I.C. files
 
+## modeltools
+
+The model tools directory contains all scripts that post process any model output data.
+
 
 ![scripts_schematic_v1](https://user-images.githubusercontent.com/19967037/126591194-e87579a5-c026-4a04-90b1-f41a513e83f9.png)
