@@ -124,7 +124,7 @@ for i = 1:length(mtime)
     end
 end
 
-ncid = netcdf.create('DEWNR_Wx_Wy_2010_2020.nc', 'NETCDF4');
+ncid = netcdf.create('DEWNR_Wx_Wy_2016_2021.nc', 'NETCDF4');
 
 
 
