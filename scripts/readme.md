@@ -25,12 +25,12 @@ The data tools folder contains scripts that:
 
 The model tools directory contains all scripts that post process any model output data.
 
-![scripts_schematic_v1](https://user-images.githubusercontent.com/19967037/126724271-80d0d73b-87ac-452a-9482-a1de825d019c.png)
+![scripts_schematic_v1](https://user-images.githubusercontent.com/19967037/126728276-5baab5bb-1d18-4ac8-bdda-6bfe258ebe2f.png)
 
 
 **Figure. Design schematic for how the scripts in the different folders interact with the other parts of the CDM repository**
 
-![Example_workflow](https://user-images.githubusercontent.com/19967037/126721518-98eb56c4-1efc-467b-8472-473120064439.png)
+![Example_workflow](https://user-images.githubusercontent.com/19967037/126728289-1accbe35-482b-4685-8f9e-7a4bb3e622cd.png)
 
 **Figure. Example workflow highlighting dataimport and datatools**
 
