@@ -1,3 +1,3 @@
-![datatools_example](https://user-images.githubusercontent.com/19967037/126721674-3cddc41b-fe90-4b23-98d5-d90d9e89d19a.png)
+![datatools_example](https://user-images.githubusercontent.com/19967037/126728348-2a3278f0-1551-49f9-ba89-98dad4d965d2.png)
 
 **Figure: Example workflow for the datatools scripts
