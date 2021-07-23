@@ -1,6 +1,6 @@
 clear all; close all;
 
-addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
+addpath(genpath('../../../../../aed_matlab_modeltools//TUFLOWFV/tuflowfv/'));
 
 
 filename = '../../../../data/incoming/DEW/wind/BulkExport-A4260603,A4261110,A4261123,A4261124-20210702140250.csv ';
@@ -127,7 +127,6 @@ end
 ncid = netcdf.create('DEWNR_Wx_Wy_2016_2021.nc', 'NETCDF4');
 
 
-
 % Need to change from [row,col,time] to [x,y,time];
 Wx_netcdf = permute(Wx,[2,1,3]);
 Wy_netcdf = permute(Wy,[2,1,3]);
@@ -154,6 +153,14 @@ x_varid = netcdf.defVar(ncid,'lon','double',x_dimID);
 y_varid = netcdf.defVar(ncid,'lat','double',y_dimID);
 u_varid = netcdf.defVar(ncid,'u','double',[x_dimID,y_dimID,time_dimID]);
 v_varid = netcdf.defVar(ncid,'v','double',[x_dimID,y_dimID,time_dimID]);
+%Compression
+netcdf.defVarDeflate(ncid,x_varid,true,true,5);
+netcdf.defVarDeflate(ncid,x_varid,true,true,5);
+netcdf.defVarDeflate(ncid,y_varid,true,true,5);
+netcdf.defVarDeflate(ncid,u_varid,true,true,5);
+netcdf.defVarDeflate(ncid,v_varid,true,true,5);
+
+
 
 % Time
 netcdf.putAtt(ncid,time_varid,'long_name','time in decimal hours since 01/01/1990 00:00');
