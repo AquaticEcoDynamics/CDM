@@ -3,8 +3,14 @@ clear all; close all;
 addpath(genpath('../../../../../aed_matlab_modeltools//TUFLOWFV/tuflowfv/'));
 
 
-filename = '../../../../data/incoming/DEW/wind/BulkExport-A4260603,A4261110,A4261123,A4261124-20210702140250.csv ';
+filename = ['../../../../data/incoming/DEW/wind/',...
+    'Updated_',datestr(now,'dd-mm-yyyy'),'-A4260603,A4261110,A4261123,A4261124-20210702140250.csv '];
 
+url = 'https://water.data.sa.gov.au/Export/BulkExport?DateRange=EntirePeriodOfRecord&TimeZone=9.5&Calendar=CALENDARYEAR&Interval=PointsAsRecorded&Step=1&ExportFormat=csv&TimeAligned=True&RoundData=False&IncludeGradeCodes=False&IncludeApprovalLevels=False&IncludeInterpolationTypes=False&Datasets[0].DatasetName=Wind%20Dir.Best%20Available--Continuous%40A4260603&Datasets[0].Calculation=Instantaneous&Datasets[0].UnitId=52&Datasets[1].DatasetName=Wind%20Vel.Best%20Available--Continuous%40A4260603&Datasets[1].Calculation=Instantaneous&Datasets[1].UnitId=185&Datasets[2].DatasetName=Wind%20Dir.Best%20Available--Wind%20Sensor-Pylon%40A4261110&Datasets[2].Calculation=Instantaneous&Datasets[2].UnitId=52&Datasets[3].DatasetName=Wind%20Vel.Best%20Available--Wind%20Sensor-Pylon%40A4261110&Datasets[3].Calculation=Instantaneous&Datasets[3].UnitId=185&Datasets[4].DatasetName=Wind%20Dir.Best%20Available--Continuous%40A4261123&Datasets[4].Calculation=Instantaneous&Datasets[4].UnitId=52&Datasets[5].DatasetName=Wind%20Vel.Best%20Available--Continuous%40A4261123&Datasets[5].Calculation=Instantaneous&Datasets[5].UnitId=185&Datasets[6].DatasetName=Wind%20Dir.Best%20Available--Continuous%40A4261124&Datasets[6].Calculation=Instantaneous&Datasets[6].UnitId=52&Datasets[7].DatasetName=Wind%20Vel.Best%20Available--Continuous%40A4261124&Datasets[7].Calculation=Instantaneous&Datasets[7].UnitId=185&_=1627605204179';
+
+options = weboptions('Timeout',Inf);
+
+outfilename = websave(filename,url,options);
 
 
 fid = fopen(filename,'rt');
