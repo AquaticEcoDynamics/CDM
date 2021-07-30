@@ -29,9 +29,9 @@ A large volume of monitoring data is collected for the Coorong for a range of si
 | _DEW:Hydrology:Daily_| Daily Hydrology data at all sites | DEW | DEW | 1990 - 2021 | Yes |_hydro:_ dew_daily.mat |
 | _DEW:Hydrology:Compiled:_ FINAL_compiledSaltCkData_1990-2020.xlsx| High Frequency Salt Creek Hydrology | DEW | DEW SC | 1990 - 2020 | Pending | |
 | _DEW:Hydrology:Compiled:_ FINAL_compiledSaltCkData_1990-2021.xlsx| High Frequency Salt Creek Hydrology | DEW | DEW SC | 1990 - 2021 | Pending | |
-| _DEW:Hydrology:Compiled:_ FINAL_compiledTideData_1990-2021.xlsx.xlsx| High Frequency Tidal Data | DEW | DEW TIDE | 1990 - 2021 | TBD | |
+| _DEW:Hydrology:Compiled:_ FINAL_compiledTideData_1990-2021.xlsx.xlsx| High Frequency Tidal Data | DEW | DEW TIDE | 1990 - 2021 | Depreciated | |
 | _DEW:Hydrology:Compiled:_ FINAL_compiledTideData_1990-2021_DatumCorrection.xlsx| High Frequency Tidal Data | DEW | DEW TIDE | 1990 - 2021 | Pending | |
-| _DEW:Barrages:_ FINAL_compiledBarragesData_1990-2020.xlsx| Barrage Flow Data | DEW | DEW BAR | 1990 - 2020 | Pending | |
+| _DEW:Barrages:_ FINAL_compiledBarragesData_1990-2020.xlsx| Barrage Flow Data | DEW | DEW BAR | 1990 - 2020 | Depreciated | |
 | _DEW:Barrages:_ FINAL_compiledBarragesData_1990-2021.xlsx| Barrage Flow Data | DEW | DEW BAR | 1990 - 2021 | Pending | |
 |**BOM**|
 |_BOM:_ | High Frequency Met data | BOM | BOM | Pre 1960 - 2021 | Yes | _metocean:_ bom_metdata_sorted.mat |
