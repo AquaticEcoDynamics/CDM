@@ -1,0 +1,33 @@
+clear all; close all;
+
+filename = '../../../../data/incoming/DEW/barrages/FINAL_compiledBarragesData_1990-2021.xlsx';
+
+[~,barrage_name] = xlsread(filename,'B1:G1');
+
+barrage_name = regexprep(barrage_name,' ','_');
+
+[snum,sstr] = xlsread(filename,'A3:G11508');
+
+mdate = datenum(sstr(:,1),'dd/mm/yyyy');
+
+figure
+
+for i = 1:length(barrage_name)
+    
+    barrages.(barrage_name{i}).Date = mdate;
+    barrages.(barrage_name{i}).Data = snum(:,i);
+    
+    plot(barrages.(barrage_name{i}).Date,barrages.(barrage_name{i}).Data);hold on
+
+end
+
+
+legend(regexprep(barrage_name,'_',' '));
+
+datetick('x');
+
+xlabel('Date');
+ylabel('Flow (m^3/s)');
+title('Barrage Flow: 1990 - 2021');
+
+save('../../../../data/store/hydro/dew_barrage.mat','barrages'

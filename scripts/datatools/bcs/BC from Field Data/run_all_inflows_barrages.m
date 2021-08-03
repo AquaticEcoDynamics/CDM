@@ -2,18 +2,18 @@ clear all; close all;
 
 addpath(genpath('Functions'));
 
-outdir = 'BCs_BAR_1990_2020_Monthly_Ave_Merged/';
+outdir = 'BCs_BAR_1990_2021_Monthly_Ave_Merged/';
 
 if ~exist(outdir,'dir')
     mkdir(outdir);
 end
 
-load ../../../modeltools/matfiles/lowerlakes_BC.mat;
+load '../../../../data/store/archive/lowerlakes_BC.mat';
 
 
 lowerlakes = limit_datasites(lowerlakes,1);
 
-datearray(:,1) = datenum(1990,01,01,00,00,00):1:datenum(2020,07,01,00,00,00);
+datearray(:,1) = datenum(1990,01,01,00,00,00):1:datenum(2021,07,01,00,00,00);
 
 
 
@@ -43,49 +43,49 @@ headers = {...
 % % 
 % % % 
 % % % % ____________________________________________________
-% filename = [outdir,'Tauwitchere.csv'];
-% subdir = [outdir,'Tauwitchere/'];
-% 
-% X = 321940.0;
-% Y = 6061790.0;
-% 
-% create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Tauwitchere');
-% 
-% 
-% filename = [outdir,'Ewe.csv'];
-% subdir = [outdir,'Ewe/'];
-% 
-% X = 317190.0;
-% Y = 6063300.0;
-% 
-% create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Ewe');
-% 
-% 
-% filename = [outdir,'Boundary.csv'];
-% subdir = [outdir,'Boundary/'];
-% 
-% X = 315780.0;
-% Y = 6067390.0;
-% 
-% create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Boundary');
-% 
-% 
-% filename = [outdir,'Mundoo.csv'];
-% subdir = [outdir,'Mundoo/'];
-% 
-% X = 314110.0;
-% Y = 6068270.0;
-% 
-% create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Mundoo');
-% 
-% 
-% filename = [outdir,'Goolwa.csv'];
-% subdir = [outdir,'Goolwa/'];
-% 
-% X = 299425.0;
-% Y = 6067810.0;
-% 
-% create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Goolwa');
+filename = [outdir,'Tauwitchere.csv'];
+subdir = [outdir,'Tauwitchere/'];
+
+X = 321940.0;
+Y = 6061790.0;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Tauwitchere');
+
+
+filename = [outdir,'Ewe.csv'];
+subdir = [outdir,'Ewe/'];
+
+X = 317190.0;
+Y = 6063300.0;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Ewe');
+
+
+filename = [outdir,'Boundary.csv'];
+subdir = [outdir,'Boundary/'];
+
+X = 315780.0;
+Y = 6067390.0;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Boundary');
+
+
+filename = [outdir,'Mundoo.csv'];
+subdir = [outdir,'Mundoo/'];
+
+X = 314110.0;
+Y = 6068270.0;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Mundoo');
+
+
+filename = [outdir,'Goolwa.csv'];
+subdir = [outdir,'Goolwa/'];
+
+X = 299425.0;
+Y = 6067810.0;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Goolwa');
 
 
 filename = [outdir,'Albert_Opening.csv'];
@@ -250,13 +250,13 @@ create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Meningi
 % create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Finniss_BC_v2');
 % % % 
 % % % __________________________________________________
-% filename = [outdir,'Salt_2017.csv'];
-% subdir = [outdir,'Salt_2017/'];
-% 
-% X = 378834.;
-% Y = 6001351.5;
-% 
-% create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Salt_2017');
+filename = [outdir,'Salt_2017.csv'];
+subdir = [outdir,'Salt_2017/'];
+
+X = 378834.;
+Y = 6001351.5;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Salt_2017');
 % % % 
 % % % 
 % % % __________________________________________________
@@ -271,16 +271,16 @@ create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Meningi
 % % % % % % __________________________________________________
 % % % % 
 % % % % % 
-% clear datearray;
-% datearray(:,1) = datenum(2012,01,01,00,00,00):15/(60*24):datenum(2020,07,01,00,00,00);
-% 
-% headers{1} = 'H';
-% 
-% filename = [outdir,'BK_2017.csv'];
-% subdir = [outdir,'BK_2017/'];
-% 
-% X = 309703.3;
-% Y = 6062973;
+clear datearray;
+datearray(:,1) = datenum(2012,01,01,00,00,00):15/(60*24):datenum(2021,07,01,00,00,00);
+
+headers{1} = 'H';
+
+filename = [outdir,'BK_2017.csv'];
+subdir = [outdir,'BK_2017/'];
+
+X = 309703.3;
+Y = 6062973;
 % 
 % create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'BK_2017');
 % % % % 
