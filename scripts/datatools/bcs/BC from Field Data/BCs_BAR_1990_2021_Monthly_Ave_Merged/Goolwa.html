@@ -218,10 +218,6 @@ ol.toc > li {
   list-style:none;
 }
 
-ol.loc > li {
-  list-style:none;
-}
-
 table {
   border-collapse:collapse;
   border-color:#000000;
@@ -271,34 +267,9 @@ ol.toc > li > * {
   text-indent: 0;
 }
 
-ol.loc {
-  /*counter-reset: numsection;*/
-  list-style-type: none;
-  padding-left: 32px;
-}
-
-ol.loc > li {
-  /*counter-increment: numsection;*/
-  text-indent: -12px;
-  padding-left: 12px;
-}
-
-ol.loc > li > * {
-  text-indent: 0;
-}
-
 a.toc_sec_title::before {
   /*content: counters(numsection, ".") ". ";*/
   font-weight: bold;
-}
-
-a.loc_sec_title::before {
-  /*content: counters(numsection, ".") ". ";*/
-  font-weight: bold;
-}
-
-a.loc_sec_title{
-  color:blue;
 }
 
 a.toc_no_title {
@@ -331,7 +302,7 @@ body {
     margin: 0;
 }
 
-.wrapper-sidebar {
+.toc-sidebar {
     height: 100%;
     width: 200px;
     background-color: #fff;
@@ -342,7 +313,7 @@ body {
     word-break: break-all;
 }
 
-.sidebar-animate-left {
+.toc-animate-left {
     position: relative;
     animation: animateleft 0.4s;
 }
@@ -384,7 +355,7 @@ body {
     }
 }
 
-.sidebar-button {
+.toc-button {
     border: none;
     display: inline-block;
     padding: 8px 16px;
@@ -400,7 +371,7 @@ body {
     position: fixed;
 }
 
-.sidebar-button:hover {
+.toc-button:hover {
     color: #000!important;
     background-color: #ccc!important;
 }
@@ -409,7 +380,7 @@ body {
     padding: 0.01em 16px 16px 60px;
 }
 
-.current-sidebar-item {
+.current-toc-item {
     background-color: rgb(247, 175, 175);
 }
 
@@ -454,146 +425,6 @@ var cssrule;
 })(cssrule || (cssrule = {}));        
         //]]>
     </script>
-  
-    <script>
-      //<![CDATA[
-var sidebar;
-(function (sidebar) {
-
-    function createSidebar() {
-        // Get all the body content now, this will exclude TOC/LOC. Wrap them in container div
-        var contentWrapper = document.createElement('div');
-        contentWrapper.className = 'container';
-
-        // Move the body's children into this wrapper and then append wrapper to the body
-        while (document.body.firstChild) {
-            contentWrapper.appendChild(document.body.firstChild);
-        }
-        document.body.appendChild(contentWrapper);
-
-        // Add button to open side bar
-        var sidebar_button = document.createElement('button');
-        sidebar_button.innerHTML = '&#9776';
-        sidebar_button.className = 'sidebar-button';
-
-        // Add mouse events to open and close sidebar
-        sidebar_button.addEventListener("mouseover", function () {
-            openSidebar();
-
-            highlightSelectedEntry();
-
-            var sideBar = document.getElementById("Sidebar");
-            sideBar.addEventListener("mouseleave", closeSidebar);
-        });
-
-        // Add touch events to open and close Sidebar
-        sidebar_button.addEventListener("touchstart", function () {
-            openSidebar();
-
-            highlightSelectedEntry();
-
-            var overlay = document.getElementById("SidebarOverlay");
-            overlay.addEventListener("touchstart", closeSidebar);
-        });
-
-        contentWrapper.parentNode.insertBefore(sidebar_button, contentWrapper);
-
-        // Add div for overlay
-        var overlayDiv = document.createElement('div');
-        overlayDiv.id = 'SidebarOverlay';
-        overlayDiv.className = 'overlay animate-opacity';
-        sidebar_button.parentNode.insertBefore(overlayDiv, sidebar_button);
-
-        var sidebarWrapper = document.createElement('div');
-        sidebarWrapper.id = 'Sidebar';
-        sidebarWrapper.className = 'wrapper-sidebar sidebar-animate-left';
-        overlayDiv.parentNode.insertBefore(sidebarWrapper, overlayDiv);
-
-        // Function to open sidebar
-        function openSidebar() {
-            document.getElementById("Sidebar").style.display = "block";
-            document.getElementById("SidebarOverlay").style.display = "block";
-        }
-
-        // Function to close sidebar
-        function closeSidebar() {
-            document.getElementById("Sidebar").style.display = "none";
-            document.getElementById("SidebarOverlay").style.display = "none";
-        }
-
-        // Function to highlight the selected entry in the Sidebar
-        function highlightSelectedEntry() {
-            var sidebarItemList = document.getElementsByClassName('sidebar_sec_title');
-            for (var i = 0; i < sidebarItemList.length; i++) {
-                sidebarItemList[i].addEventListener('click', function (event) {
-                    for (var j = 0; j < sidebarItemList.length; j++) {
-                        sidebarItemList[j].classList.remove('current-sidebar-item');
-                    }
-                    event.target.classList.add('current-sidebar-item');
-                });
-            }
-        }
-    }
-    sidebar.createSidebar = createSidebar;
-
-    function apppendData(data) {
-        var sidebarWrapper = document.getElementById("Sidebar");
-        sidebarWrapper.appendChild(data);
-    }
-    sidebar.apppendData = apppendData;
-
-})(sidebar || (sidebar = {}));
-    
-      //]]>
-    </script>
-
-    <script>
-      //<![CDATA[
-var loc;
-(function (loc) {
-
-    function getLOCElements(root, streamName) {
-        var str_prefix = streamName + "_loc_caption_id";
-        count = 1;
-       
-        var ol = document.createElement("ol");
-        ol.className = "loc";     
-
-        var h4 = document.createElement("h4");
-        h4.textContent = "List of " + streamName[0].toUpperCase() +  streamName.slice(1) + "s";
-        ol.appendChild(h4);
-        
-        var captions = document.getElementsByClassName("an_" + streamName);
-        for (var i = 0; i < captions.length; i++) {
-            var node = captions[i];
-            var id = str_prefix + count;
-            count = count + 1;
-            node.parentElement.id = id;
-            var li = document.createElement("li");
-            var title = document.createElement("a");
-            title.className = "loc_sec_title sidebar_sec_title";
-
-            title.textContent = node.parentElement.textContent;
-            title.href = "#" + id;
-
-            title.addEventListener("click", function (event) {
-                //event.preventDefault();
-                node.scrollIntoView();
-            }, false);
-
-            li.appendChild(title);
-            ol.appendChild(li);
-        }
-        return ol;
-    }
-    loc.getLOCElements = getLOCElements;
-
-})(loc || (loc = {}));
-
-    
-        //]]>
-    </script>
-  
     <script>
         //<![CDATA[
 var toc;
@@ -602,18 +433,13 @@ var toc;
 
     function createOutline(outline, levels, level) {
         if (level <= levels) {
-        var ol = document.createElement("ol");
-        ol.className = "toc";
-        if(level === 1){
-            var h4 = document.createElement("h4");
-            h4.textContent = "Table of Contents";
-            ol.appendChild(h4);
-        }
-        for (var i = 0; i < outline.length; i++) {
+            var ol = document.createElement("ol");
+            ol.className = "toc";
+            for (var i = 0; i < outline.length; i++) {
                 ol.appendChild(createSection(outline[i], levels, level));
+            }
+            return ol;
         }
-        return ol;
-    }
         return null;
     }
     toc.createOutline = createOutline;
@@ -622,7 +448,7 @@ var toc;
         var li = document.createElement("li");
 
         var title = document.createElement("a");
-        title.className = "toc_sec_title sidebar_sec_title";
+        title.className = "toc_sec_title";
         li.appendChild(title);
 
         if (section.heading === null) {
@@ -943,206 +769,96 @@ else if (currentOutlinee.lastSection.heading === null || node.rank >= currentOut
     }
     toc.HTMLOutline = HTMLOutline;
 
+    function createSideBar() {
+        // If TOC is generated, this method will manipulate the DOM to create the sidebar overlay
+
+        // Get TOC element and remove it from the body
+        var toc_element = document.querySelector('div#toc, toc');
+        document.body.removeChild(toc_element);
+
+        // Get all the body content now, this will exclude TOC. Wrap them in container div
+        var contentWrapper = document.createElement('div');
+        contentWrapper.className = 'container';
+
+        // Move the body's children into this wrapper and then append wrapper to the body
+        while (document.body.firstChild) {
+            contentWrapper.appendChild(document.body.firstChild);
+        }
+        document.body.appendChild(contentWrapper);
+
+        // Add button to open TOC side bar
+        var tocButton = document.createElement('button');
+        tocButton.innerHTML = '&#9776';
+        tocButton.className = 'toc-button';
+
+        // Add mouse events to open and close TOC
+        tocButton.addEventListener("mouseover", function() {
+            openTOC();
+
+            highlightSelectedEntry();
+
+            var sideBar = document.getElementById("TOCSidebar");
+            sideBar.addEventListener("mouseleave", closeTOC);
+        });
+
+        // Add touch events to open and close TOC
+        tocButton.addEventListener("touchstart", function() {
+            openTOC();
+
+            highlightSelectedEntry();
+
+            var overlay = document.getElementById("TOCOverlay");
+            overlay.addEventListener("touchstart", closeTOC);
+        });
+
+        contentWrapper.parentNode.insertBefore(tocButton, contentWrapper);
+
+        // Add div for overlay
+        var overlayDiv = document.createElement('div');
+        overlayDiv.id = 'TOCOverlay';
+        overlayDiv.className = 'overlay animate-opacity';
+        tocButton.parentNode.insertBefore(overlayDiv, tocButton);
+
+        // Wrap toc in a div for sidebar and add it before overlay div
+        var tocWrapper = document.createElement('div');
+        tocWrapper.id = 'TOCSidebar';
+        tocWrapper.className = 'toc-sidebar toc-animate-left';
+        tocWrapper.appendChild(toc_element);
+        overlayDiv.parentNode.insertBefore(tocWrapper, overlayDiv);
+
+        // Function to open TOC sidebar
+        function openTOC() {
+            document.getElementById("TOCSidebar").style.display = "block";
+            document.getElementById("TOCOverlay").style.display = "block";
+        }
+
+        // Function to close TOC sidebar
+        function closeTOC() {
+            document.getElementById("TOCSidebar").style.display = "none";
+            document.getElementById("TOCOverlay").style.display = "none";
+	}
+
+        // Function to highlight the selected entry in the TOC
+        function highlightSelectedEntry() {
+            var tocItemList = document.getElementsByClassName('toc_sec_title');
+            for (var i = 0; i < tocItemList.length; i++) {
+                tocItemList[i].addEventListener('click', function (event) {
+                    for (var j = 0; j < tocItemList.length; j++) {
+                        tocItemList[j].classList.remove('current-toc-item');
+                    }
+                    event.target.classList.add('current-toc-item');
+                });
+            }
+        }
+    }
+    toc.createSideBar = createSideBar;
 })(toc || (toc = {}));
         //]]>
     </script>
-
-    <script>
-          //<![CDATA[
-          var util;
-  (function (util) {
-
-      function autoNumber() {
-      
-            function alphabetize(n) {
-                var ordA = 'A'.charCodeAt(0);
-                var ordZ = 'Z'.charCodeAt(0);
-                var len = ordZ - ordA + 1;
-    
-                var s = "";
-                while(n >= 0) {
-                    s = String.fromCharCode(n % len + ordA-1) + s;
-                    n = Math.floor(n / len) - 1;
-                }
-                return s;
-            }
-    
-            function romanize (num) {
-            if (!+num){
-                return false;
-            }           
-            var	digits = String(+num).split(""),
-            key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-                "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-                "","I","II","III","IV","V","VI","VII","VIII","IX"],
-            roman = "",
-            i = 3;
-            while (i--) {
-                roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-            }   
-            return Array(+digits.join("") + 1).join("M") + roman;
-        }
-        
-        function formatNumber(number, format) {
-            var formattedNumber =  "";
-            switch (format) {
-                case "n":
-                case "N":
-                    formattedNumber = number.toString();
-                break;
-                case "a":
-                    formattedNumber = alphabetize(number).toLowerCase();
-                    break;
-                case "A":
-                    formattedNumber = alphabetize(number);
-                    break;
-                case "i":
-                    formattedNumber = romanize(number).toLowerCase();
-                break;
-                case "I":
-                    formattedNumber = romanize(number);
-                break;
-                default:
-                    formattedNumber = number.toString();
-            }
-            return formattedNumber;
-        }
-          
-      var nodes = document.querySelectorAll("h1, h2, h3, h4, h5, h6, autonumber");
-      var h1Counter = 0;
-      var h2Counter = 0;
-      var h3Counter = 0;
-      var h4Counter = 0;
-      var h5Counter = 0;
-      var h6Counter = 0;
-      var dict = {};
-      for (var i = 0; i < nodes.length; i++) {
-          node = nodes[i];
-          switch (node.nodeName.toLowerCase()) {
-              case "h1":
-                  h1Counter = h1Counter + 1;
-                  h2Counter = 0;
-                  dict["figure"] = 0;
-                  dict["table"] = 0;
-                  break;
-              case "h2":
-                  h2Counter = h2Counter + 1;
-                  h3Counter = 0;
-                  break;
-              case "h3":
-                  h3Counter = h3Counter + 1;
-                  h4Counter = 0;              
-                  break;
-              case "h4":
-                  h4Counter = h4Counter + 1;
-                  h5Counter = 0;
-                  break;
-              case "h5":
-                  h5Counter = h5Counter + 1;
-                  h6Counter = 0;
-                  break;
-              case "h6":
-                  h6Counter = h6Counter + 1;
-                  break;
-              case "autonumber":
-                  var counterName = node.getAttribute("stream-name");
-                  var number = null;
-                  switch (counterName.toLowerCase()) {
-                      case "h1":
-                          number = h1Counter;
-                          break;
-                      case "h2":
-                          number = h2Counter;
-                          break;
-                      case "h3":
-                          number = h3Counter;             
-                          break;
-                      case "h4":
-                          number = h4Counter;
-                          break;
-                      case "h5":
-                          number = h5Counter;
-                          break;
-                      case "h6":
-                          number = h6Counter;
-                          break;
-                  }
-                  
-                  var resetCtrs = node.parentElement.style["counter-reset"].split(" ");
-                  for(reset_idx = 0; reset_idx < resetCtrs.length - 1; reset_idx++){
-                     dict[resetCtrs[reset_idx]] = 0;
-                  }
-
-                  if (number == null) {
-                      if (!dict[counterName])
-                          dict[counterName] = 0;
-
-                      var incrementCtrs = node.parentElement.style["counter-increment"].split(" ");
-                      for(incr_idx = 0; incr_idx < incrementCtrs.length - 1; incr_idx++){
-                        if (incrementCtrs[incr_idx] == counterName) {
-                            dict[incrementCtrs[incr_idx]] += 1;
-                        }
-                      }        
-
-                      number = dict[counterName];
-                  }
-                  var format = node.getAttribute("format");
-                  format = format ? format : "n";
-                  node.innerHTML = formatNumber(number, format);
-                  break
-              default:
-                  number = "";
-          }
-          
-          
-      } 
-    }
-    
-    util.autoNumber = autoNumber;
-
-    function renameSpanToAutonumber() {
-        var nodes = document.querySelectorAll("span.an_sect1, span.an_figure, span.an_table, span[stream-name]");
-        for (var i = 0; i < nodes.length; i++) {
-          node = nodes[i];
-          var streamName = node.getAttribute("stream-name");
-          if(!streamName){
-            switch(node.className){
-                case "an_sect1":
-                    streamName = "h1";
-                    break;
-                case "an_table":
-                    streamName = "table";
-                    break;
-                case "an_figure":
-                    streamName = "figure";
-                    break;
-            }
-          }
-          node.setAttribute("stream-name", streamName);
-          node.outerHTML = node.outerHTML.replace(/span/g,"autonumber");
-          
-        }
-    }
-    util.renameSpanToAutonumber = renameSpanToAutonumber;
-
-    
-  })(util || (util = {}))
-                 //]]>
-    </script>
-
     <script>
         //<![CDATA[
         function outline() {
-            util.renameSpanToAutonumber();
-            util.autoNumber();
             var toc_elements = document.querySelectorAll('div#toc, toc');
-            var loc_elements = document.querySelectorAll('div#loc, loc');
-
-            var sidebar_display = false;
-            if (toc_elements.length != 0 || loc_elements.length != 0){
-                sidebar.createSidebar();
-            }
-            
             if (toc_elements.length != 0) {
                 var content = document.body;
                 toc.HTMLOutline(content);
@@ -1154,20 +870,11 @@ else if (currentOutlinee.lastSection.heading === null || node.rank >= currentOut
                         if (toc_levels_attribute) {
                             toc_levels = Number(toc_levels_attribute);
                         }
-                        toc_element.appendChild(toc.createOutline(content.sectionList, toc_levels, 1));
+                        toc_element.appendChild(toc.createOutline(content.sectionList,toc_levels, 1));
                     }
                 }
-                var toc_element = document.querySelector('div#toc, toc');
-                //document.body.removeChild(toc_element);
-                sidebar.apppendData(toc_element);
-            }
-
-            var loc_elements = document.querySelectorAll('div#loc, loc');
-            for (var i = 0; i < loc_elements.length; i++) {
-                var loc_element = loc_elements[i];
-                var content = document.body;
-                var streamName = loc_element.getAttribute("an-stream-name");
-                sidebar.apppendData(loc.getLOCElements(content, streamName));
+                // Create the sidebar for the TOC
+                toc.createSideBar();
             }
         }
         //]]>
