@@ -5,7 +5,7 @@ addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
 filename = '../BC from Field Data/BCs_BAR_1990_2021_Monthly_Ave_Merged/BK_2017.csv';
 
-load ../../../../data/store/hydro/dew_tide_VH.mat;
+load ../../../../data/store/hydro/dew_tide_VH_uncorrected.mat;
 
 
 outdir = 'Images/Tide/';
@@ -31,7 +31,12 @@ for i = 1:length(vars)
     if i == length(vars)
         fprintf(fid,'%s\n',vars{i});
     else
-        fprintf(fid,'%s,',vars{i});
+        
+        if i == 1
+            fprintf(fid,'ISOTIME,');
+        else
+            fprintf(fid,'%s,',vars{i});
+        end
     end
 end
 

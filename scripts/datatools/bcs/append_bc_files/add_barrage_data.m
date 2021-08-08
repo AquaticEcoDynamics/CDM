@@ -41,8 +41,9 @@ for bb = 1:length(sites)
         
         [tt.Date,ind] = unique(barrages.(sites{bb}).Date);
         tt.Data = barrages.(sites{bb}).Data(ind);
-        data.Flow = [];
-        data.Flow = interp1(tt.Date,tt.Data,data.Date);
+        data.FLOW = [];
+        data.FLOW = interp1(tt.Date,tt.Data,data.Date);
+        
         
         
         fid = fopen([thesite,'.csv'],'wt');
@@ -51,7 +52,11 @@ for bb = 1:length(sites)
             if i == length(vars)
                 fprintf(fid,'%s\n',vars{i});
             else
-                fprintf(fid,'%s,',vars{i});
+                if i == 1
+                    fprintf(fid,'ISOTIME,');
+                else
+                    fprintf(fid,'%s,',vars{i});
+                end
             end
         end
         

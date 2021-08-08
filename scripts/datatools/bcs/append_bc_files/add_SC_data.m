@@ -25,8 +25,10 @@ tt.Data = salt.Flow.Data(ind);
 [ss.Date,ind] = unique(salt.SAL.Date);
 ss.Data = salt.SAL.Data(ind);
 
-data.Flow = [];
-data.Flow = interp1(tt.Date,tt.Data,data.Date);
+
+
+data.FLOW = [];
+data.FLOW = interp1(tt.Date,tt.Data,data.Date);
 data.SAL = interp1(ss.Date,ss.Data,data.Date);
 
 
@@ -36,7 +38,11 @@ for i = 1:length(vars)
     if i == length(vars)
         fprintf(fid,'%s\n',vars{i});
     else
-        fprintf(fid,'%s,',vars{i});
+                        if i == 1
+                    fprintf(fid,'ISOTIME,');
+                else
+                    fprintf(fid,'%s,',vars{i});
+                end
     end
 end
 
