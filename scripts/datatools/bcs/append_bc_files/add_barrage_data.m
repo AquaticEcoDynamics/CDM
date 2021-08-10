@@ -24,7 +24,7 @@ for bb = 1:length(sites)
 
         
         
-        filename = ['../BC from Field Data/BCs_BAR_1990_2021_Monthly_Ave_Merged/',thesite,'.csv'];
+        filename = ['../BC from Field Data/BCs_BAR_1990_2021_Monthly_Ave_Merged_2/',thesite,'.csv'];
         
         
         
