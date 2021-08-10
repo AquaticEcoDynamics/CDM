@@ -99,6 +99,7 @@ for i = 1:length(sites)
         vars = fieldnames(lowerlakes.(sites{i}));
         lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY.X = lowerlakes.(sites{i}).(vars{1}).X;
         lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY.Y = lowerlakes.(sites{i}).(vars{1}).Y;
+        lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY.Agency = 'DEW Sonde';
     else
         stop;
     end
