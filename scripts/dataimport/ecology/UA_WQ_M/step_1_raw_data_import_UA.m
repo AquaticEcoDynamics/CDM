@@ -1,6 +1,6 @@
 clear all; close all;
 
-filename = '..\..\..\data\raw\UA\Data to modellers 5 June 2020\Water quality data collation\Coorong Data 1995_2020_Final.xlsx';
+filename = '../../../../data/incoming/TandI_1/Data to modellers 5 June 2020\Water quality data collation\Coorong Data 1995_2020_Final.xlsx';
 
 sheetname = 'Collated_Data';
 

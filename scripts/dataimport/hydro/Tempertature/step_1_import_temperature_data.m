@@ -1,8 +1,8 @@
 clear all; close all;
 
-addpath(genpath('../../../../aed_matlab_modeltools/TUFLOWFV/bmt_matlab_tools/'));
+addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/bmt_matlab_tools/'));
 
-filename = '..\..\..\data\incoming\TandI_2\UA_Loggers\All HOBO temperature data to March 2020.xlsx';
+filename = '..\..\..\..\data\incoming\TandI_2\UA_Loggers\All HOBO temperature data to March 2020.xlsx';
 
 sheetname = 'all data';
 
@@ -51,21 +51,22 @@ end
 temp.Site10.TEMP.Name = 'Wild Dog Island (inshore)';
 temp.Site10.TEMP.Lat = -36.120183;
 temp.Site10.TEMP.Lon = 139.636667;
-
+temp.Site10.TEMP.Agency = 'UA Logger';
 [temp.Site10.TEMP.X, temp.Site10.TEMP.Y, ~] = ll2utm (temp.Site10.TEMP.Lon, temp.Site10.TEMP.Lat);
 
 
 temp.Site14.TEMP.Name = 'Policeman Point';
 temp.Site14.TEMP.Lat = -36.058983;
 temp.Site14.TEMP.Lon = 139.585867;
-
+temp.Site14.TEMP.Agency = 'UA Logger';
 [temp.Site14.TEMP.X, temp.Site14.TEMP.Y, ~] = ll2utm (temp.Site14.TEMP.Lon, temp.Site14.TEMP.Lat);
 
 
 temp.Site30.TEMP.Name = 'North Magrath Flats';
 temp.Site30.TEMP.Lat = -35.852717;
 temp.Site30.TEMP.Lon = 139.384750;
+temp.Site30.TEMP.Agency = 'UA Logger';
 [temp.Site30.TEMP.X, temp.Site30.TEMP.Y, ~] = ll2utm (temp.Site30.TEMP.Lon, temp.Site30.TEMP.Lat);
 
-save temp.mat temp -mat;
+save ../../../../data/store/hydro/UA_temperature_loggers.mat temp -mat;
     

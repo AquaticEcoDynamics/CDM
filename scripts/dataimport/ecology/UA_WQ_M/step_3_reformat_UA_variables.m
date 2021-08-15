@@ -24,13 +24,13 @@ for i = 1:length(sites)
         
         if strcmpi(newname{ss},'Ignore') == 0;
             
-            UA.(['UA_',sites{i}]).([newname{ss}]) = UAraw.(sites{i}).(oldname{ss});
-            UA.(['UA_',sites{i}]).([newname{ss}]).Data = UA.(['UA_',sites{i}]).([newname{ss}]).Data * conv(ss);
-            UA.(['UA_',sites{i}]).([newname{ss}]).Units = units(ss);
-            
+            UA.([sites{i}]).([newname{ss}]) = UAraw.(sites{i}).(oldname{ss});
+            UA.([sites{i}]).([newname{ss}]).Data = UA.([sites{i}]).([newname{ss}]).Data * conv(ss);
+            UA.([sites{i}]).([newname{ss}]).Units = units(ss);
+            UA.([sites{i}]).([newname{ss}]).Agency = 'UA WQ';
         end
     end
 end
 
-save UA.mat UA -mat;
+save C:\Users\00065525\GITHUB\CDM\data\store\ecology\UA_Coorong_Compiled_WQ.mat UA -mat;
             
