@@ -36,12 +36,25 @@
 
 %_________________________________________________________________________
 
-datafile = 'C:\Users\00065525\GITHUB\CDM\data\store\metocean\NRM_metdata.mat';
+% datafile = 'C:\Users\00065525\GITHUB\CDM\data\store\metocean\NRM_metdata.mat';
+% 
+% summary_folder = 'C:\Users\00065525\GITHUB\CDM\data\summary\NRM_metdata\';
+% 
+% gis_folder = 'C:\Users\00065525\GITHUB\CDM\gis\summary\';
+% 
+% shpname = 'NRM_metdata.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname)
 
-summary_folder = 'C:\Users\00065525\GITHUB\CDM\data\summary\NRM_metdata\';
+%_________________________________________________________________________
+
+
+datafile = 'C:\Users\00065525\GITHUB\CDM\data\store\hydro\dew_tide_VH.mat';
+
+summary_folder = 'C:\Users\00065525\GITHUB\CDM\data\summary\dew_tide_VH\';
 
 gis_folder = 'C:\Users\00065525\GITHUB\CDM\gis\summary\';
 
-shpname = 'NRM_metdata.shp';
+shpname = 'dew_tide_VH.shp';
 
 summerise_data(datafile,summary_folder,gis_folder,shpname)
