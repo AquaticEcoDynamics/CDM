@@ -10,12 +10,38 @@
 % 
 % summerise_data(datafile,summary_folder,gis_folder,shpname)
 
-datafile = 'C:\Users\00065525\GITHUB\CDM\data\store\hydro\UA_temperature_loggers.mat';
+%_________________________________________________________________________
 
-summary_folder = 'C:\Users\00065525\GITHUB\CDM\data\summary\UA_temperature_loggers\';
+% datafile = 'C:\Users\00065525\GITHUB\CDM\data\store\hydro\UA_temperature_loggers.mat';
+% 
+% summary_folder = 'C:\Users\00065525\GITHUB\CDM\data\summary\UA_temperature_loggers\';
+% 
+% gis_folder = 'C:\Users\00065525\GITHUB\CDM\gis\summary\';
+% 
+% shpname = 'UA_temperature_loggers.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname);
+
+%_________________________________________________________________________
+
+% datafile = 'C:\Users\00065525\GITHUB\CDM\data\store\hydro\dew_barrage.mat';
+% 
+% summary_folder = 'C:\Users\00065525\GITHUB\CDM\data\summary\dew_barrage\';
+% 
+% gis_folder = 'C:\Users\00065525\GITHUB\CDM\gis\summary\';
+% 
+% shpname = 'dew_barrage.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname)
+
+%_________________________________________________________________________
+
+datafile = 'C:\Users\00065525\GITHUB\CDM\data\store\metocean\NRM_metdata.mat';
+
+summary_folder = 'C:\Users\00065525\GITHUB\CDM\data\summary\NRM_metdata\';
 
 gis_folder = 'C:\Users\00065525\GITHUB\CDM\gis\summary\';
 
-shpname = 'UA_temperature_loggers.shp';
+shpname = 'NRM_metdata.shp';
 
 summerise_data(datafile,summary_folder,gis_folder,shpname)
