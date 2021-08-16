@@ -1,4 +1,6 @@
 function create_wave_model_from_tfv
+clear all; close all; fclose all;
+
 % This fundtion is designed to take a tuflowfv 2dm file and tuflowfv met
 % file and create a fully functioning SWAN Wave model.
 
@@ -11,11 +13,11 @@ tfv_met = 'TFV/Narrung_met.csv';
 
 % Cell size for the SWAN bathymetry (X and Y will be the same)
 cell_size = 200;
-wind_cell_size = 1000;
+wind_cell_size = 200;% Currently does nothing
 
 % Start & End date of SWAN model - dd/mm/yyyy
-model_start_date = '01/01/2019';
-model_end_date = '01/01/2021';
+model_start_date = '01/11/2020';
+model_end_date = '01/03/2021';
 
 model_wind_increment = 3; %in hours
 % Any factoring of the wind data
@@ -23,7 +25,7 @@ model_wind_factor = 1;
 
 model_output_increment = 1; %in hours
 
-model_project_name = 'Coorong 2019';
+model_project_name = 'Coorong_swn_2020';
 model_project_version = 'v1';
 
 run_model_in_matlab = 0; %1 to run in matlab, 0 to not run 
@@ -35,15 +37,15 @@ run_model_in_matlab = 0; %1 to run in matlab, 0 to not run
 % Do not change anything here........
 
 
-if ~exist('out','dir')
-    mkdir('out');
-else
-    rmdir('out','s');
-    mkdir('out');
-end
+% if ~exist('out','dir')
+%     mkdir('out');
+% else
+%     rmdir('out','s');
+%     mkdir('out');
+% end
 
 % Create the Bathy File
-[xStart,yStart,xLength,yLength,xNum,yNum] = create_swan_bathy_from_2dm(tfv_bathy,cell_size);
+[xStart,yStart,xLength,yLength,xNum,yNum] = create_swan_bathy_from_2dm(tfv_bathy,cell_size,model_project_name);
 
 xNum = xNum -1;
 yNum = yNum - 1;
@@ -52,18 +54,23 @@ xLength = xLength + cell_size;
 yLength = yLength + cell_size;
 
 % Create the wind field files
-% swn_create_wind_from_TFV_met(tfv_met,...
-%     datenum(model_start_date,'dd/mm/yyyy'),...
-%     datenum(model_end_date,'dd/mm/yyyy'),...
-%     model_wind_increment,model_wind_factor);
+swn_create_wind_from_TFV_met(tfv_met,...
+    datenum(model_start_date,'dd/mm/yyyy'),...
+    datenum(model_end_date,'dd/mm/yyyy'),...
+    model_wind_increment,model_wind_factor,model_project_name);
 
-create_swan_init;
+create_swan_init(model_project_name);
 
 create_swan_input(model_start_date,model_end_date,xStart,yStart,...
     xLength,yLength,xNum,yNum,...
     model_output_increment,model_wind_increment,...
     model_project_name,...
     model_project_version,cell_size);
+
+if ~exist([model_project_name,'/04_results/'],'dir')
+    mkdir([model_project_name,'/04_results/']);
+end
+
 
 if run_model_in_matlab
     !swan.exe
@@ -74,9 +81,14 @@ clear all; close all; fclose all;
 
 end
 
-function create_swan_input(sdate,edate,xStart,yStart,xLength,yLength,xNum,yNum,model_output_increment,model_wind_increment,model_project_name,model_project_version,cell_size)
+function create_swan_input(sdate,edate,xStart,yStart,xLength,yLength,xNum,yNum,model_output_increment,model_wind_increment,...
+    model_project_name,model_project_version,cell_size)
 
-fid = fopen('INPUT','wt');
+if ~exist([model_project_name,'/03_simulation/'],'dir')
+    mkdir([model_project_name,'/03_simulation/']);
+end
+
+fid = fopen([model_project_name,'/03_simulation/INPUT'],'wt');
 
 sdate_c = datestr(datenum(sdate,'dd/mm/yyyy'),'yyyymmdd');
 edate_c = datestr(datenum(edate,'dd/mm/yyyy'),'yyyymmdd');
@@ -112,7 +124,7 @@ fprintf(fid,'INPgrid BOTTOM   %8.3f  %8.3f  .0    %d  %d   %d   %d   EXC -999.9\
 fprintf(fid,'\n');
 
 
-fprintf(fid,'READINP BOTTOM -1.0 ''Bathymetry/Bathymetry.dat''  1   0   FREE\n');
+fprintf(fid,'READINP BOTTOM -1.0 ''..\\01_geometry\\Bathymetry.dat''  1   0   FREE\n');
 
 fprintf(fid,'\n');
 
@@ -141,17 +153,20 @@ fprintf(fid,'PROP BSBT\n');
  
 fprintf(fid,'FRAME ''SWAN'' %d %d  16.0 %d %d  %d  %d\n',xStart,yStart,xLength,yLength,xNum,yNum);
 
-fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/depth.mat'' LAY 1 DEPTH OUTPUT %s %d HR\n',sdate_c,model_output_increment);
-fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/tm01.mat''  LAY 1 TM01  OUTPUT %s %d HR\n',sdate_c,model_output_increment);
-fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/h13.mat''   LAY 1 HSIGN OUTPUT %s %d HR\n',sdate_c,model_output_increment);
-fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/ubot.mat''  LAY 1 UBOT  OUTPUT %s %d HR\n',sdate_c,model_output_increment);
-fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/tmbot.mat'' LAY 1 TMBOT OUTPUT %s %d HR\n',sdate_c,model_output_increment);
-fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/wind.mat''  LAY 1 WIND  OUTPUT %s %d HR\n',sdate_c,model_output_increment);
-fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/tra.mat''   LAY 1 TRA   OUTPUT %s %d HR\n',sdate_c,model_output_increment);
-fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/tps.mat''   LAY 1 TPS   OUTPUT %s %d HR\n',sdate_c,model_output_increment);
-fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/dir.mat''   LAY 1 DIR   OUTPUT 2%s %d HR\n',sdate_c,model_output_increment);
-fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/bathy.mat'' LAY 1 BOTL\n');
-fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/WAVE.nc''   LAY 3 HSIGN TPS PDIR UBOT DEPTH OUTPUT %s %d Hr\n',sdate_c,model_output_increment);
+% fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/depth.mat'' LAY 1 DEPTH OUTPUT %s %d HR\n',sdate_c,model_output_increment);
+% fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/tm01.mat''  LAY 1 TM01  OUTPUT %s %d HR\n',sdate_c,model_output_increment);
+% fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/h13.mat''   LAY 1 HSIGN OUTPUT %s %d HR\n',sdate_c,model_output_increment);
+% fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/ubot.mat''  LAY 1 UBOT  OUTPUT %s %d HR\n',sdate_c,model_output_increment);
+% fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/tmbot.mat'' LAY 1 TMBOT OUTPUT %s %d HR\n',sdate_c,model_output_increment);
+% fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/wind.mat''  LAY 1 WIND  OUTPUT %s %d HR\n',sdate_c,model_output_increment);
+% fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/tra.mat''   LAY 1 TRA   OUTPUT %s %d HR\n',sdate_c,model_output_increment);
+% fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/tps.mat''   LAY 1 TPS   OUTPUT %s %d HR\n',sdate_c,model_output_increment);
+% fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/dir.mat''   LAY 1 DIR   OUTPUT 2%s %d HR\n',sdate_c,model_output_increment);
+% fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/bathy.mat'' LAY 1 BOTL\n');
+%fprintf(fid,'BLOCK ''COMPGRID'' NOHEAD ''./out/WAVE.nc''   LAY 3 HSIGN TPS PDIR UBOT DEPTH OUTPUT %s %d Hr\n',sdate_c,model_output_increment);
+
+fprintf(fid,'BLOCK ''COMPGRID'' NOHEADER ''..\\04_results\\WAVE.nc'' &\n');
+fprintf(fid,'HSIGN TPS PDIR UBOT WIND DEPTH OUTPUT %s %d HR\n',sdate_c,model_output_increment);
 
 
 fprintf(fid,'TEST 1 0 \n');
@@ -163,9 +178,9 @@ fclose(fid);
 
 end
 
-function create_swan_init
+function create_swan_init(model_project_name)
 
-fid = fopen('swaninit','wt');
+fid = fopen([model_project_name,'/03_simulation/swaninit'],'wt');
 
 fprintf(fid,'    4                                   version of initialisation file\n');
 fprintf(fid,'Delft University of Technology          name of institute\n');
@@ -179,24 +194,28 @@ fprintf(fid,'    6                                   screen ref. number\n');
 fprintf(fid,'   99                                   highest file ref. number\n');
 fprintf(fid,'$                                       comment identifier\n');
 fprintf(fid,'	                                       TAB character\n');
-fprintf(fid,'/                                       dir sep char in input file\n');
-fprintf(fid,'\\                                       dir sep char replacing previous one\n');
+fprintf(fid,'\\                                       dir sep char in input file\n');
+fprintf(fid,'/                                       dir sep char replacing previous one\n');
 fprintf(fid,'    1                                   default time coding option\n');
 fclose(fid);
 
 end
 
-function swn_create_wind_from_TFV_met(filename,sdate,edate,int,factor)
+function swn_create_wind_from_TFV_met(filename,sdate,edate,int,factor,model_project_name)
 
 data = tfv_readBCfile(filename);
 
+
+if ~exist([model_project_name,'/03_simulation/'],'dir')
+    mkdir([model_project_name,'/03_simulation/']);
+end
 
 
 %int = 3/24;
 
 %factor = 1;
 
-bat = load('Bathymetry/Bathymetry.dat');
+bat = load([model_project_name,'/01_geometry/Bathymetry.dat']);
 
 [y,x] = size(bat);
 
@@ -209,22 +228,22 @@ Wx = Wx .* factor;
 Wy = Wy .* factor;
 
 
-fid4 = fopen('Wind_Map_Series.txt','wt');
+fid4 = fopen([model_project_name,'/03_simulation/Wind_Map_Series.txt'],'wt');
 
-if ~exist('Wind/','dir')
-    mkdir('Wind/');
+if ~exist([model_project_name,'/02_bc_dbase/'],'dir')
+    mkdir([model_project_name,'/02_bc_dbase/']);
 else
-    rmdir('Wind','s');
-    mkdir('Wind/');
+    rmdir([model_project_name,'/02_bc_dbase/'],'s');
+    mkdir([model_project_name,'/02_bc_dbase/']);
 end
 
 
 for i = 1:length(Wx)
 
         
-        fprintf(fid4,'%s\n',['Wind\Wind',num2str(i),'.dat']);
+        fprintf(fid4,'%s\n',['..\02_bc_dbase\Wind',num2str(i),'.dat']);
 
-       fid = fopen(['Wind\Wind',num2str(i),'.dat'],'wt');
+       fid = fopen([model_project_name,'\02_bc_dbase\Wind',num2str(i),'.dat'],'wt');
        
        for jj = 1:y
        for ii = 1:x
@@ -293,10 +312,10 @@ end
 
     
 end
-function [xStart,yStart,xLength,yLength,xNum,yNum] = create_swan_bathy_from_2dm(filename,cell_size)
+function [xStart,yStart,xLength,yLength,xNum,yNum] = create_swan_bathy_from_2dm(filename,cell_size,model_project_name)
 
-if ~exist('Bathymetry/','dir')
-    mkdir('Bathymetry/');
+if ~exist([model_project_name,'/01_geometry/'],'dir')
+    mkdir([model_project_name,'/01_geometry/']);
 end
 
 %[XX,YY,ZZ,nodeID,faces,X,Y,ID] = tfv_get_node_from_2dm(filename);
@@ -362,14 +381,14 @@ scatter(xxx(1,1),yyy(1,1),'*k');
 
 axis equal
 
-saveas(gcf,'Bathymetry/Bathymetry.png')
+saveas(gcf,[model_project_name,'/01_geometry/Bathymetry.png'])
 
 zzz(isnan(zzz)) = 999;
 
 
-save Bathymetry/Bathymetry.mat xxx yyy zzz -mat;
+save([model_project_name,'/01_geometry/Bathymetry.mat'],'xxx','yyy','zzz','-mat');
 
-fid = fopen('Bathymetry/Bathymetry.dat','wt');
+fid = fopen([model_project_name,'/01_geometry/Bathymetry.dat'],'wt');
 
 for i = 1:size(zzz,1)
     for j = 1:size(zzz,2)
@@ -388,7 +407,7 @@ yLength = yarray(end) - yarray(1);
 xNum = length(xarray);
 yNum = length(yarray);
 
-fid = fopen('Bathymetry/Bathymetry_Info.txt','wt');
+fid = fopen([model_project_name,'/01_geometry/Bathymetry_Info.txt'],'wt');
 
 fprintf(fid,'Start X Co-Ord %8.4f\n',xxx(1,1));
 fprintf(fid,'Start Y Co-Ord %8.4f\n',min(min(yyy)));
