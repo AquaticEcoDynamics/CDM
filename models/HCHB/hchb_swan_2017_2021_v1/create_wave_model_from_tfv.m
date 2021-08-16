@@ -14,7 +14,7 @@ cell_size = 200;
 wind_cell_size = 1000;
 
 % Start & End date of SWAN model - dd/mm/yyyy
-model_start_date = '01/07/2017';
+model_start_date = '01/01/2019';
 model_end_date = '01/01/2021';
 
 model_wind_increment = 3; %in hours
@@ -23,7 +23,7 @@ model_wind_factor = 1;
 
 model_output_increment = 1; %in hours
 
-model_project_name = 'Coorong 2017 6 months';
+model_project_name = 'Coorong 2019';
 model_project_version = 'v1';
 
 run_model_in_matlab = 0; %1 to run in matlab, 0 to not run 
@@ -52,10 +52,10 @@ xLength = xLength + cell_size;
 yLength = yLength + cell_size;
 
 % Create the wind field files
-swn_create_wind_from_TFV_met(tfv_met,...
-    datenum(model_start_date,'dd/mm/yyyy'),...
-    datenum(model_end_date,'dd/mm/yyyy'),...
-    model_wind_increment,model_wind_factor);
+% swn_create_wind_from_TFV_met(tfv_met,...
+%     datenum(model_start_date,'dd/mm/yyyy'),...
+%     datenum(model_end_date,'dd/mm/yyyy'),...
+%     model_wind_increment,model_wind_factor);
 
 create_swan_init;
 
@@ -310,7 +310,9 @@ min_depth = min(ZZ);
 
 cell_clip_distance = cell_size;
 
-ZZ = ZZ - max_depth;
+ZZ = ZZ;% - max_depth;
+
+ZZ(ZZ > 0) = 0;
 
 %initial_depth = 1022 - max_depth;
 
