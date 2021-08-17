@@ -1,10 +1,10 @@
 
 
-% datafile = 'C:\Users\00065525\GITHUB\CDM\data\store\ecology\UA_Coorong_Compiled_WQ.mat';
+% datafile = '..\..\..\data\store\ecology\UA_Coorong_Compiled_WQ.mat';
 % 
-% summary_folder = 'C:\Users\00065525\GITHUB\CDM\data\summary\UA_Coorong_WQ\';
+% summary_folder = '..\..\..\data\summary\UA_Coorong_WQ\';
 % 
-% gis_folder = 'C:\Users\00065525\GITHUB\CDM\gis\summary\';
+% gis_folder = '..\..\..\gis\summary\';
 % 
 % shpname = 'UA_Coorong_WQ.shp';
 % 
@@ -12,11 +12,11 @@
 
 %_________________________________________________________________________
 
-% datafile = 'C:\Users\00065525\GITHUB\CDM\data\store\hydro\UA_temperature_loggers.mat';
+% datafile = '..\..\..\data\store\hydro\UA_temperature_loggers.mat';
 % 
-% summary_folder = 'C:\Users\00065525\GITHUB\CDM\data\summary\UA_temperature_loggers\';
+% summary_folder = '..\..\..\data\summary\UA_temperature_loggers\';
 % 
-% gis_folder = 'C:\Users\00065525\GITHUB\CDM\gis\summary\';
+% gis_folder = '..\..\..\gis\summary\';
 % 
 % shpname = 'UA_temperature_loggers.shp';
 % 
@@ -24,11 +24,11 @@
 
 %_________________________________________________________________________
 
-% datafile = 'C:\Users\00065525\GITHUB\CDM\data\store\hydro\dew_barrage.mat';
+% datafile = '..\..\..\data\store\hydro\dew_barrage.mat';
 % 
-% summary_folder = 'C:\Users\00065525\GITHUB\CDM\data\summary\dew_barrage\';
+% summary_folder = '..\..\..\data\summary\dew_barrage\';
 % 
-% gis_folder = 'C:\Users\00065525\GITHUB\CDM\gis\summary\';
+% gis_folder = '..\..\..\gis\summary\';
 % 
 % shpname = 'dew_barrage.shp';
 % 
@@ -36,11 +36,11 @@
 
 %_________________________________________________________________________
 
-% datafile = 'C:\Users\00065525\GITHUB\CDM\data\store\metocean\NRM_metdata.mat';
+% datafile = '..\..\..\data\store\metocean\NRM_metdata.mat';
 % 
-% summary_folder = 'C:\Users\00065525\GITHUB\CDM\data\summary\NRM_metdata\';
+% summary_folder = '..\..\..\data\summary\NRM_metdata\';
 % 
-% gis_folder = 'C:\Users\00065525\GITHUB\CDM\gis\summary\';
+% gis_folder = '..\..\..\gis\summary\';
 % 
 % shpname = 'NRM_metdata.shp';
 % 
@@ -49,12 +49,25 @@
 %_________________________________________________________________________
 
 
-datafile = 'C:\Users\00065525\GITHUB\CDM\data\store\hydro\dew_tide_VH.mat';
+% datafile = '..\..\..\data\store\hydro\dew_tide_VH.mat';
+% 
+% summary_folder = '..\..\..\data\summary\dew_tide_VH\';
+% 
+% gis_folder = '..\..\..\gis\summary\';
+% 
+% shpname = 'dew_tide_VH.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname)
 
-summary_folder = 'C:\Users\00065525\GITHUB\CDM\data\summary\dew_tide_VH\';
+%_________________________________________________________________________
 
-gis_folder = 'C:\Users\00065525\GITHUB\CDM\gis\summary\';
 
-shpname = 'dew_tide_VH.shp';
+datafile = '..\..\..\data\store\hydro\dew_WaterDataSA.mat';
+
+summary_folder = '..\..\..\data\summary\dew_WaterDataSA\';
+
+gis_folder = '..\..\..\gis\summary\';
+
+shpname = 'dew_WaterDataSA.shp';
 
 summerise_data(datafile,summary_folder,gis_folder,shpname)
