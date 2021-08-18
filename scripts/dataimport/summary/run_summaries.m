@@ -62,9 +62,9 @@
 %_________________________________________________________________________
 
 
-datafile = '..\..\..\data\store\hydro\dew_WaterDataSA.mat';
+datafile = '..\..\..\data\store\hydro\dew_WaterDataSA_hourly.mat';
 
-summary_folder = '..\..\..\data\summary\dew_WaterDataSA\';
+summary_folder = '..\..\..\data\summary\dew_WaterDataSA_hourly\';
 
 gis_folder = '..\..\..\gis\summary\';
 

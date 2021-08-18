@@ -1,16 +1,40 @@
 clear all; close all;
+addpath(genpath('Functions'));
 
-load sitelist.mat;
+sdata =  download_Site_Info;
 
 
-thesites = fieldnames(sitelist);
+shp = shaperead('bounding.shp');
+
+
+thesites = [];
+
+allsites = fieldnames(sdata);
+
+for i = 1:length(allsites)
+        
+    if inpolygon(sdata.(allsites{i}).X,sdata.(allsites{i}).Y,shp.X,shp.Y)
+        thesites = [thesites;allsites(i)];
+    end
+end
+    
+thesites = {'A4261159'};
+
+%thesites = fieldnames(sitelist);
 
 
 %thesites = {'A4261123'};%,'A4261134','A4261135','A4260633','A4261209','A4261165'};
 
+theinterval = 'Hourly';%'Points'
 
-thedatasets; clear i
-
+switch theinterval
+    case 'Hourly'
+        thedatasets_hourly; clear i
+    case 'Points'
+        thedatasets; clear i
+    otherwise
+        stop;
+end
 
 
 shp = shaperead('bounding.shp');
@@ -52,7 +76,7 @@ for bb = 1:length(thesites)
         s=dir('temp.csv');
         the_size=s.bytes;
         
-        if the_size < 100
+        if the_size < 1000
             delete('temp.csv');
         else
             copyfile('temp.csv',filename, 'f');
@@ -62,4 +86,11 @@ for bb = 1:length(thesites)
     end
     toc
 end
-
+switch theinterval
+    case 'Hourly'
+        import_datafiles_hourly;
+    case 'Points'
+        import_datafiles;
+    otherwise
+        stop;
+end

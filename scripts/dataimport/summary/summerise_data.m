@@ -74,7 +74,7 @@ for i = 1:length(sites)
     vars = fieldnames(data.(sites{i}));
     
     for j = 1:length(vars)
-        
+        disp([sites{i},':',vars{j}]);
         xdata = data.(sites{i}).(vars{j}).Date;
         ydata = data.(sites{i}).(vars{j}).Data;
         
