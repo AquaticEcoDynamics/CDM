@@ -12,12 +12,12 @@ tfv_bathy = 'TFV/014_Coorong_Salt_Crk_Mouth_Channel_MZ3_Culverts.2dm';
 tfv_met = 'TFV/Narrung_met_20160201_20210401.csv';
 
 % Cell size for the SWAN bathymetry (X and Y will be the same)
-cell_size = 200;
-wind_cell_size = 200;% Currently does nothing
+cell_size = 100;
+wind_cell_size = 2000;% Currently does nothing
 
 % Start & End date of SWAN model - dd/mm/yyyy
-model_start_date = '01/11/2020';
-model_end_date = '01/04/2021';
+model_start_date = '27/02/2021';
+model_end_date = '06/03/2021';
 
 model_wind_increment = 3; %in hours
 % Any factoring of the wind data
@@ -25,7 +25,7 @@ model_wind_factor = 1;
 
 model_output_increment = 1; %in hours
 
-model_project_name = 'Coorong_swn_20201101_20210401';
+model_project_name = 'Coorong_swn_20210227_20210307';
 model_project_version = 'v1';
 
 run_model_in_matlab = 0; %1 to run in matlab, 0 to not run 
@@ -45,13 +45,17 @@ run_model_in_matlab = 0; %1 to run in matlab, 0 to not run
 % end
 
 % Create the Bathy File
-[xStart,yStart,xLength,yLength,xNum,yNum] = create_swan_bathy_from_2dm(tfv_bathy,cell_size,model_project_name);
+[xStart,yStart,xLength,yLength,xNum,yNum,xStartW,yStartW,xLengthW,yLengthW,xNumW,yNumW] = create_swan_bathy_from_2dm(tfv_bathy,cell_size,model_project_name,wind_cell_size);
 
 xNum = xNum -1;
 yNum = yNum - 1;
 
 xLength = xLength + cell_size;
 yLength = yLength + cell_size;
+
+xLengthW = xLengthW + wind_cell_size;
+yLengthW = yLengthW + wind_cell_size;
+
 
 % Create the wind field files
 swn_create_wind_from_TFV_met(tfv_met,...
@@ -63,9 +67,10 @@ create_swan_init(model_project_name);
 
 create_swan_input(model_start_date,model_end_date,xStart,yStart,...
     xLength,yLength,xNum,yNum,...
+    xStartW,yStartW,xLengthW,yLengthW,xNumW,yNumW,...
     model_output_increment,model_wind_increment,...
     model_project_name,...
-    model_project_version,cell_size);
+    model_project_version,cell_size,wind_cell_size);
 
 if ~exist([model_project_name,'/04_results/'],'dir')
     mkdir([model_project_name,'/04_results/']);
@@ -81,8 +86,8 @@ clear all; close all; fclose all;
 
 end
 
-function create_swan_input(sdate,edate,xStart,yStart,xLength,yLength,xNum,yNum,model_output_increment,model_wind_increment,...
-    model_project_name,model_project_version,cell_size)
+function create_swan_input(sdate,edate,xStart,yStart,xLength,yLength,xNum,yNum,xStartW,yStartW,xLengthW,yLengthW,xNumW,yNumW,model_output_increment,model_wind_increment,...
+    model_project_name,model_project_version,cell_size,wind_cell_size)
 
 if ~exist([model_project_name,'/03_simulation/'],'dir')
     mkdir([model_project_name,'/03_simulation/']);
@@ -129,12 +134,12 @@ fprintf(fid,'READINP BOTTOM -1.0 ''..\\01_geometry\\Bathymetry.dat''  1   0   FR
 fprintf(fid,'\n');
 
 fprintf(fid,'INPGRID Wind REG %8.3f  %8.3f  0    %d  %d   %d   %d NONSTATIONARY %s %s HR %s\n',...
-            xStart,...
-    yStart,...
-    xNum,...
-    yNum,...
-    cell_size,...
-    cell_size,...
+            xStartW,...
+    yStartW,...
+    xNumW,...
+    yNumW,...
+    wind_cell_size,...
+    wind_cell_size,...
     sdate_c,...
     num2str(model_wind_increment),...
     edate_c);
@@ -215,7 +220,7 @@ end
 
 %factor = 1;
 
-bat = load([model_project_name,'/01_geometry/Bathymetry.dat']);
+bat = load([model_project_name,'/01_geometry/WIND.dat']);
 
 [y,x] = size(bat);
 
@@ -312,7 +317,7 @@ end
 
     
 end
-function [xStart,yStart,xLength,yLength,xNum,yNum] = create_swan_bathy_from_2dm(filename,cell_size,model_project_name)
+function [xStart,yStart,xLength,yLength,xNum,yNum,xStartW,yStartW,xLengthW,yLengthW,xNumW,yNumW] = create_swan_bathy_from_2dm(filename,cell_size,model_project_name,wind_cell_size)
 
 if ~exist([model_project_name,'/01_geometry/'],'dir')
     mkdir([model_project_name,'/01_geometry/']);
@@ -337,22 +342,34 @@ ZZ(ZZ > 0) = 0;
 
 xarray = [(min(XX)-1000):cell_size:max(XX)+1000];
 yarray = [(min(YY)-1000):cell_size:max(YY)+1000];
+
+xarrayW = [(min(XX)-1000):wind_cell_size:max(XX)+1000];
+yarrayW = [(min(YY)-1000):wind_cell_size:max(YY)+1000];
+
+
+
 [xx,yy] = meshgrid(xarray',yarray');
+[xxW,yyW] = meshgrid(xarrayW',yarrayW');
+
 
 Fx = scatteredInterpolant(XX,YY,ZZ,'linear','none');
 
 zz = Fx(xx,yy);
 
+zzW = Fx(xxW,yyW);
 
 %_ Clip the exterior
 
 pnt(:,1) = xx(:);
 pnt(:,2) = yy(:);
 
+pntW(:,1) = xx(:);
+pntW(:,2) = yy(:);
 
 dtri = DelaunayTri(XX,YY);
 
 pt_id = nearestNeighbor(dtri,pnt);
+pt_idW = nearestNeighbor(dtri,pntW);
 
 for i = 1:length(pt_id)
     
@@ -365,7 +382,16 @@ for i = 1:length(pt_id)
     end
 end
 
-
+% for i = 1:length(pt_idW)
+%     
+%     distW = sqrt((XX(pt_idW(i))-pntW(i,1)) .^2 + (YY(pt_idW(i)) - pntW(i,2)).^2);
+%     
+%     %dist = sqrt((XX(i)-X(pt_id(i))) .^2 + (YY(i) - Y(pt_id(i))).^2);
+%     
+%     if abs(distW) > cell_clip_distance
+%         zzW(i) = NaN;
+%     end
+% end
 
 
 
@@ -374,6 +400,10 @@ end
 xxx = flipud(xx);
 yyy = flipud(yy);
 zzz = flipud(zz);
+
+xxxW = flipud(xxW);
+yyyW = flipud(yyW);
+zzzW = flipud(zzW);
 
 pcolor(xxx,yyy,zzz);shading flat;axis xy;hold on
 colorbar
@@ -384,6 +414,7 @@ axis equal
 saveas(gcf,[model_project_name,'/01_geometry/Bathymetry.png'])
 
 zzz(isnan(zzz)) = 999;
+zzzW(isnan(zzzW)) = 999;
 
 
 save([model_project_name,'/01_geometry/Bathymetry.mat'],'xxx','yyy','zzz','-mat');
@@ -399,6 +430,16 @@ end
 
 fclose(fid);
 
+fid = fopen([model_project_name,'/01_geometry/WIND.dat'],'wt');
+
+for i = 1:size(zzzW,1)
+    for j = 1:size(zzzW,2)
+        fprintf(fid,'%4.3f ',zzzW(i,j));
+    end
+    fprintf(fid,'\n');
+end
+
+fclose(fid);
 
 xStart = xxx(1,1);
 yStart = min(min(yyy));
@@ -406,6 +447,15 @@ xLength = xarray(end) - xarray(1);
 yLength = yarray(end) - yarray(1);
 xNum = length(xarray);
 yNum = length(yarray);
+
+
+xStartW = xxxW(1,1);
+yStartW = min(min(yyyW));
+xLengthW = xarrayW(end) - xarrayW(1);
+yLengthW = yarrayW(end) - yarrayW(1);
+xNumW = length(xarrayW);
+yNumW = length(yarrayW);
+
 
 fid = fopen([model_project_name,'/01_geometry/Bathymetry_Info.txt'],'wt');
 
