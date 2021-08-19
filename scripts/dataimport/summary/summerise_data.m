@@ -74,10 +74,30 @@ for i = 1:length(sites)
     vars = fieldnames(data.(sites{i}));
     
     for j = 1:length(vars)
+        xdata_B = [];
+        ydata_B = [];
+        
         disp([sites{i},':',vars{j}]);
         xdata = data.(sites{i}).(vars{j}).Date;
         ydata = data.(sites{i}).(vars{j}).Data;
         
+        if isfield(data.(sites{i}).(vars{j}),'Depth')
+            sss  = find(data.(sites{i}).(vars{j}).Depth > -2);
+            ttt  = find(data.(sites{i}).(vars{j}).Depth <= -2);
+            if ~isempty(sss)
+                xdata = [];
+                ydata = [];
+                xdata = data.(sites{i}).(vars{j}).Date(sss);
+                ydata = data.(sites{i}).(vars{j}).Data(sss);
+            end
+            if ~isempty(ttt)
+                
+                xdata_B = data.(sites{i}).(vars{j}).Date(ttt);
+                ydata_B = data.(sites{i}).(vars{j}).Data(ttt);
+                
+            end
+            
+        end
         
         outdir = [basedir,sites{i},'/'];
         
@@ -92,6 +112,13 @@ for i = 1:length(sites)
         
         plot(xdata,ydata,'.k');hold on;
         plot(xdata,ydata,'--','color',[0.6 0.6 0.6]);hold on;
+        
+        if ~isempty(ydata_B)
+            plot(xdata,ydata,'.r');hold on;
+            plot(xdata,ydata,'--','color',[0.6 0.6 0.6]);hold on;
+        end
+        
+        
         
         datearray = [min(xdata):(max(xdata) - min(xdata))/5:max(xdata)];
         

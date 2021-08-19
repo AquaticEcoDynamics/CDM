@@ -68,10 +68,10 @@ for i = 3:length(dirlist)
             
             dew.([thesite,'s']).(newnames{tt}).Date = thedate(sss);
             dew.([thesite,'s']).(newnames{tt}).Data = thedata(sss);
-            switch thevar
-                case 'COND_BOTTOM'
+            switch newnames{tt}
+                case 'CONDB'
                     dew.([thesite,'s']).(newnames{tt}).Depth(1:length(thedata(sss)),1) = -10;
-                case 'TEMP_BOTTOM'
+                case 'TEMPB'
                     dew.([thesite,'s']).(newnames{tt}).Depth(1:length(thedata(sss)),1) = -10;
                 otherwise
                     dew.([thesite,'s']).(newnames{tt}).Depth(1:length(thedata(sss)),1) = 0;
@@ -85,10 +85,10 @@ for i = 3:length(dirlist)
             dew.([thesite]).(newnames{tt}).Date = thedate(sss);
             dew.([thesite]).(newnames{tt}).Data = thedata(sss);
             
-            switch thevar
-                case 'COND_BOTTOM'
+            switch newnames{tt}
+                case 'CONDB'
                     dew.([thesite]).(newnames{tt}).Depth(1:length(thedata(sss)),1) = -10;
-                case 'TEMP_BOTTOM'
+                case 'TEMPB'
                     dew.([thesite]).(newnames{tt}).Depth(1:length(thedata(sss)),1) = -10;
                 otherwise
                     dew.([thesite]).(newnames{tt}).Depth(1:length(thedata(sss)),1) = 0;
