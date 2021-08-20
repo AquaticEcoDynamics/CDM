@@ -62,12 +62,25 @@
 %_________________________________________________________________________
 
 
-datafile = '..\..\..\data\store\hydro\dew_WaterDataSA_hourly.mat';
+% datafile = '..\..\..\data\store\hydro\dew_WaterDataSA_hourly.mat';
+% 
+% summary_folder = '..\..\..\data\summary\dew_WaterDataSA_hourly\';
+% 
+% gis_folder = '..\..\..\gis\summary\';
+% 
+% shpname = 'dew_WaterDataSA.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname)
 
-summary_folder = '..\..\..\data\summary\dew_WaterDataSA_hourly\';
+%_________________________________________________________________________
+
+
+datafile = '..\..\..\data\store\metocean\wave_wind.mat';
+
+summary_folder = '..\..\..\data\summary\UA_wave_wind\';
 
 gis_folder = '..\..\..\gis\summary\';
 
-shpname = 'dew_WaterDataSA.shp';
+shpname = 'UA_wave_wind.shp';
 
 summerise_data(datafile,summary_folder,gis_folder,shpname)

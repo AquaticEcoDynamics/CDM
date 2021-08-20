@@ -9,15 +9,15 @@ clear all; close all; fclose all;
 
 % Locations of 2dm file and met file
 tfv_bathy = 'TFV/014_Coorong_Salt_Crk_Mouth_Channel_MZ3_Culverts.2dm';
-tfv_met = 'TFV/Narrung_met_20160201_20210401.csv';
+tfv_met = 'TFV/Nurrung_and_wavedata_merged_202011_202104.csv';
 
 % Cell size for the SWAN bathymetry (X and Y will be the same)
-cell_size = 100;
+cell_size = 200;
 wind_cell_size = 2000;% Currently does nothing
 
 % Start & End date of SWAN model - dd/mm/yyyy
-model_start_date = '27/02/2021';
-model_end_date = '06/03/2021';
+model_start_date = '01/11/2020';
+model_end_date = '01/04/2021';
 
 model_wind_increment = 3; %in hours
 % Any factoring of the wind data
@@ -25,7 +25,7 @@ model_wind_factor = 1;
 
 model_output_increment = 1; %in hours
 
-model_project_name = 'Coorong_swn_20210227_20210307';
+model_project_name = 'Coorong_swn_20201101_20210401_UA_Wind_200g_2000w';
 model_project_version = 'v1';
 
 run_model_in_matlab = 0; %1 to run in matlab, 0 to not run 
@@ -45,10 +45,14 @@ run_model_in_matlab = 0; %1 to run in matlab, 0 to not run
 % end
 
 % Create the Bathy File
-[xStart,yStart,xLength,yLength,xNum,yNum,xStartW,yStartW,xLengthW,yLengthW,xNumW,yNumW] = create_swan_bathy_from_2dm(tfv_bathy,cell_size,model_project_name,wind_cell_size);
+[xStart,yStart,xLength,yLength,xNum,yNum,xStartW,yStartW,xLengthW,yLengthW,xNumW,yNumW] = create_swan_bathy_from_2dm...
+    (tfv_bathy,cell_size,model_project_name,wind_cell_size);
 
 xNum = xNum -1;
 yNum = yNum - 1;
+
+xNumW = xNumW -1;
+yNumW = yNumW - 1;
 
 xLength = xLength + cell_size;
 yLength = yLength + cell_size;
