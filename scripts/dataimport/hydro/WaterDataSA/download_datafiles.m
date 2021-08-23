@@ -18,7 +18,7 @@ for i = 1:length(allsites)
     end
 end
     
-thesites = {'A4261159'};
+%thesites = {'A4261159'};
 
 %thesites = fieldnames(sitelist);
 

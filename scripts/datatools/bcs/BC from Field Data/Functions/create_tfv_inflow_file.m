@@ -69,7 +69,7 @@ for i = 1:length(headers)
     end    
 
     
-    if strcmpi(sitename,'BK_2017') == 1 & strcmpi(headers{i},'SAL') == 1
+    if strcmpi(sitename,'BK') == 1 & strcmpi(headers{i},'SAL') == 1
         tfv_data.(headers{i})(1:length(datearray),1) = 35;
     end
     

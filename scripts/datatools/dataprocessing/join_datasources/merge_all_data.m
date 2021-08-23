@@ -3,16 +3,16 @@ clear all; close all;
 restoredefaultpath
 addpath(genpath('Functions'));
 
-load ../../../../data/store/hydro/dew_TSL_daily_ave.mat;
+load ../../../../data/store/hydro/dew_WaterDataSA_hourly.mat;
 
-lowerlakes = dwlbc;
+lowerlakes = dew;
 
 sites = fieldnames(lowerlakes);
 
-for i = 1:length(sites)
-    
-    lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'DEW');
-end
+% for i = 1:length(sites)
+%     
+%     lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'DEW');
+% end
 load ../../../../data/store/archive/sawater/saw_r.mat;
 
 sites = fieldnames(saw);
@@ -58,19 +58,19 @@ for i = 1:length(sites)
 end
 
 
-load ../../../../data/store/ecology/UA_compiled_wq.mat;
+load ../../../../data/store/ecology/UA_Coorong_Compiled_WQ.mat;
 
 sites = fieldnames(UA);
 
 for i = 1:length(sites)
     lowerlakes.(sites{i}) = UA.(sites{i});
-    lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
+    %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
 end
 
 
 load ../../../../data/store/hydro/UA_temperature_loggers.mat;
 
-load ../../../../data/store/hydro/dew_turbidity.mat;
+%load ../../../../data/store/hydro/dew_turbidity.mat;
 
 
 
@@ -78,34 +78,34 @@ sites = fieldnames(temp);
 
 for i = 1:length(sites)
     lowerlakes.(sites{i}) = temp.(sites{i});
-    lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA Logger');
+    %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA Logger');
 end
 
 
 
-sites = fieldnames(turb);
-
-
-for i = 1:length(sites)
-    
-    
-    
-    if isfield(lowerlakes,sites{i})
-        
-        lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'DEW');
-        
-        lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY = turb.(sites{i}).WQ_DIAG_TOT_TURBIDITY;
-        
-        vars = fieldnames(lowerlakes.(sites{i}));
-        lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY.X = lowerlakes.(sites{i}).(vars{1}).X;
-        lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY.Y = lowerlakes.(sites{i}).(vars{1}).Y;
-        lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY.Agency = 'DEW Sonde';
-    else
-        stop;
-    end
-    
-    
-end
+% sites = fieldnames(turb);
+% 
+% 
+% for i = 1:length(sites)
+%     
+%     
+%     
+%     if isfield(lowerlakes,sites{i})
+%         
+%         lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'DEW');
+%         
+%         lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY = turb.(sites{i}).WQ_DIAG_TOT_TURBIDITY;
+%         
+%         vars = fieldnames(lowerlakes.(sites{i}));
+%         lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY.X = lowerlakes.(sites{i}).(vars{1}).X;
+%         lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY.Y = lowerlakes.(sites{i}).(vars{1}).Y;
+%         lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY.Agency = 'DEW Sonde';
+%     else
+%         stop;
+%     end
+%     
+%     
+% end
 
 
 load ../../../../data/store/archive/saepa/epa_2016.mat;

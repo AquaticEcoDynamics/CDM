@@ -104,23 +104,28 @@ for i = 3:length(dirlist)
     
 end
 
-%Join the depth CONDS
+%Fix Temps
+disp('Calculating SAL')
 
-% sites = fieldnames(dew);
-% 
-% for i = 1:length(sites)
-%     vars = fieldnames(dew.(sites{i}));
-%     
-%     ss = find(strcmpi(vars,'CONDS') == 1);
-%     tt = find(strcmpi(vars,'CONDB') == 1);
-%     
-%     if ~isempty(ss) & ~isempty(tt)
-%         dew.(sites{i}).COND = dew.(sites{i}).CONDS;
-%         dew.(sites{i}).COND.Date = [dew.(sites{i}).COND.Date;dew.(sites{i}).CONDB.Date];
-%         dew.(sites{i}).COND.Data = [dew.(sites{i}).COND.Data;dew.(sites{i}).CONDB.Data];
-%         dew.(sites{i}).COND.Depth = [dew.(sites{i}).COND.Depth;dew.(sites{i}).CONDB.Depth];
-%     end
-% end
+sites = fieldnames(dew);
+
+for i = 1:length(sites)
+    
+    if isfield(dew.(sites{i}),'TEMP')
+        sss = find(dew.(sites{i}).Temp.Data < 100);
+        if ~isempty(sss)
+            dew.(sites{i}).TEMP.Data = dew.(sites{i}).TEMP.Data(sss);
+            dew.(sites{i}).TEMP.Date = dew.(sites{i}).TEMP.Date(sss);
+            dew.(sites{i}).TEMP.Depth = dew.(sites{i}).TEMP.Depth(sss);
+            
+        end
+    end
+end
+
+
+
+
+
 
 
 disp('Calculating SAL')
@@ -141,21 +146,21 @@ for i = 1:length(sites)
     if tt == 1 & yy == 1
         
         
-            COND = dew.(sites{i}).COND.Data;
-            COND_DATE = dew.(sites{i}).COND.Date;
-            TEMP = dew.(sites{i}).TEMP.Data;
-            TEMP_DATE = dew.(sites{i}).TEMP.Date;
-
-            dew.(sites{i}).SAL = dew.(sites{i}).COND;
-            dew.(sites{i}).SAL.Data = conductivity2salinity(COND);
-            % Matching arrays
-
-            [~,condmatch,tempmatch] = intersect(COND_DATE,TEMP_DATE);
-
-
-            if ~isempty(condmatch)
-                dew.(sites{i}).SAL.Data(condmatch) = conductivity2salinity_withtemp(COND(condmatch),TEMP(tempmatch));
-            end
+        COND = dew.(sites{i}).COND.Data;
+        COND_DATE = dew.(sites{i}).COND.Date;
+        TEMP = dew.(sites{i}).TEMP.Data;
+        TEMP_DATE = dew.(sites{i}).TEMP.Date;
+        
+        dew.(sites{i}).SAL = dew.(sites{i}).COND;
+        dew.(sites{i}).SAL.Data = conductivity2salinity(COND);
+        % Matching arrays
+        
+        [~,condmatch,tempmatch] = intersect(COND_DATE,TEMP_DATE);
+        
+        
+        if ~isempty(condmatch)
+            dew.(sites{i}).SAL.Data(condmatch) = conductivity2salinity_withtemp(COND(condmatch),TEMP(tempmatch));
+        end
         
         
     else
@@ -169,52 +174,52 @@ for i = 1:length(sites)
     if zz == 1
         
         
-            COND = dew.(sites{i}).CONDS.Data;
-            COND_DATE = dew.(sites{i}).CONDS.Date;
-            TEMP = dew.(sites{i}).TEMPS.Data;
-            TEMP_DATE = dew.(sites{i}).TEMPS.Date;
-
-            dew.(sites{i}).SALS = dew.(sites{i}).CONDS;
-            dew.(sites{i}).SALS.Data = conductivity2salinity(COND);
-            % Matching arrays
-
-            [~,condmatch,tempmatch] = intersect(COND_DATE,TEMP_DATE);
-
-
-            if ~isempty(condmatch)
-                dew.(sites{i}).SALS.Data(condmatch) = conductivity2salinity_withtemp(COND(condmatch),TEMP(tempmatch));
-            end
-            
-            dew.(sites{i}).SAL = dew.(sites{i}).SALS;
-            dew.(sites{i}).TEMP = dew.(sites{i}).TEMPS;
+        COND = dew.(sites{i}).CONDS.Data;
+        COND_DATE = dew.(sites{i}).CONDS.Date;
+        TEMP = dew.(sites{i}).TEMPS.Data;
+        TEMP_DATE = dew.(sites{i}).TEMPS.Date;
+        
+        dew.(sites{i}).SALS = dew.(sites{i}).CONDS;
+        dew.(sites{i}).SALS.Data = conductivity2salinity(COND);
+        % Matching arrays
+        
+        [~,condmatch,tempmatch] = intersect(COND_DATE,TEMP_DATE);
+        
+        
+        if ~isempty(condmatch)
+            dew.(sites{i}).SALS.Data(condmatch) = conductivity2salinity_withtemp(COND(condmatch),TEMP(tempmatch));
+        end
+        
+        dew.(sites{i}).SAL = dew.(sites{i}).SALS;
+        dew.(sites{i}).TEMP = dew.(sites{i}).TEMPS;
     end
     
     if aa == 1
         
         
-            COND = dew.(sites{i}).CONDB.Data;
-            COND_DATE = dew.(sites{i}).CONDB.Date;
-            TEMP = dew.(sites{i}).TEMPB.Data;
-            TEMP_DATE = dew.(sites{i}).TEMPB.Date;
-
-            dew.(sites{i}).SALB = dew.(sites{i}).CONDB;
-            dew.(sites{i}).SALB.Data = conductivity2salinity(COND);
-            % Matching arrays
-
-            [~,condmatch,tempmatch] = intersect(COND_DATE,TEMP_DATE);
-
-
-            if ~isempty(condmatch)
-                dew.(sites{i}).SALB.Data(condmatch) = conductivity2salinity_withtemp(COND(condmatch),TEMP(tempmatch));
-            end
-            
-            dew.(sites{i}).SAL.Data = [dew.(sites{i}).SAL.Data;dew.(sites{i}).SALB.Data];
-            dew.(sites{i}).SAL.Date = [dew.(sites{i}).SAL.Date;dew.(sites{i}).SALB.Date];
-            dew.(sites{i}).SAL.Depth = [dew.(sites{i}).SAL.Depth;dew.(sites{i}).SALB.Depth];
-            
-            dew.(sites{i}).TEMP.Data = [dew.(sites{i}).TEMP.Data;dew.(sites{i}).TEMPB.Data];
-            dew.(sites{i}).TEMP.Date = [dew.(sites{i}).TEMP.Date;dew.(sites{i}).TEMPB.Date];
-            dew.(sites{i}).TEMP.Depth = [dew.(sites{i}).TEMP.Depth;dew.(sites{i}).TEMPB.Depth];
+        COND = dew.(sites{i}).CONDB.Data;
+        COND_DATE = dew.(sites{i}).CONDB.Date;
+        TEMP = dew.(sites{i}).TEMPB.Data;
+        TEMP_DATE = dew.(sites{i}).TEMPB.Date;
+        
+        dew.(sites{i}).SALB = dew.(sites{i}).CONDB;
+        dew.(sites{i}).SALB.Data = conductivity2salinity(COND);
+        % Matching arrays
+        
+        [~,condmatch,tempmatch] = intersect(COND_DATE,TEMP_DATE);
+        
+        
+        if ~isempty(condmatch)
+            dew.(sites{i}).SALB.Data(condmatch) = conductivity2salinity_withtemp(COND(condmatch),TEMP(tempmatch));
+        end
+        
+        dew.(sites{i}).SAL.Data = [dew.(sites{i}).SAL.Data;dew.(sites{i}).SALB.Data];
+        dew.(sites{i}).SAL.Date = [dew.(sites{i}).SAL.Date;dew.(sites{i}).SALB.Date];
+        dew.(sites{i}).SAL.Depth = [dew.(sites{i}).SAL.Depth;dew.(sites{i}).SALB.Depth];
+        
+        dew.(sites{i}).TEMP.Data = [dew.(sites{i}).TEMP.Data;dew.(sites{i}).TEMPB.Data];
+        dew.(sites{i}).TEMP.Date = [dew.(sites{i}).TEMP.Date;dew.(sites{i}).TEMPB.Date];
+        dew.(sites{i}).TEMP.Depth = [dew.(sites{i}).TEMP.Depth;dew.(sites{i}).TEMPB.Depth];
     end
     
     
