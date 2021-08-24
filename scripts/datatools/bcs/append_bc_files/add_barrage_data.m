@@ -24,7 +24,7 @@ for bb = 1:length(sites)
 
         
         
-        filename = ['../BC from Field Data/BCs_BAR_1990_2021_Monthly_Ave_Merged_2/',thesite,'.csv'];
+        filename = ['../BC from Field Data/BCs_BAR_2019_2021_Monthly_Ave_Hourly/',thesite,'_20190101_20210701.csv'];
         
         
         
@@ -39,14 +39,14 @@ for bb = 1:length(sites)
         vars = fieldnames(data);
         
         
-        [tt.Date,ind] = unique(barrages.(sites{bb}).Date);
-        tt.Data = barrages.(sites{bb}).Data(ind);
+        [tt.Date,ind] = unique(barrages.(sites{bb}).Flow.Date);
+        tt.Data = barrages.(sites{bb}).Flow.Data(ind);
         data.FLOW = [];
         data.FLOW = interp1(tt.Date,tt.Data,data.Date);
         
         
         
-        fid = fopen([thesite,'.csv'],'wt');
+        fid = fopen(['../BC from Field Data/BCs_BAR_2019_2021_Monthly_Ave_Hourly/',thesite,'_20190101_20210701_v2.csv'],'wt');
         
         for i = 1:length(vars)
             if i == length(vars)

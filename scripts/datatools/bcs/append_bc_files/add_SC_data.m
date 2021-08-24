@@ -3,7 +3,7 @@ clear all; close all;
 addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
 
-filename = '../BC from Field Data/BCs_BAR_1990_2021_Monthly_Ave_Merged/Salt_2017.csv';
+filename = '../BC from Field Data/BCs_BAR_2019_2021_Monthly_Ave_Hourly/Salt_Creek_20190101_20210701.csv';
 
 load ../../../../data/store/hydro/dew_saltcreek.mat;
 
@@ -32,7 +32,7 @@ data.FLOW = interp1(tt.Date,tt.Data,data.Date);
 data.SAL = interp1(ss.Date,ss.Data,data.Date);
 
 
-fid = fopen('Salt_Creek_1990_2021.csv','wt');
+fid = fopen('../BC from Field Data/BCs_BAR_2019_2021_Monthly_Ave_Hourly/Salt_Creek_20190101_20210701_v2.csv','wt');
 
 for i = 1:length(vars)
     if i == length(vars)

@@ -7,12 +7,12 @@ ncfile = 'W:\CIIP\Scenarios\Calibration\2017_2019\CoorongBGC_006_validation_2017
 [XX,YY,nodeID,faces,X,Y,ID] = tfv_get_node_from_2dm('../../../models/HCHB/hchb_tfvaed_2019_2021_v1/model/geo/mesh/CoorongBGC_mesh_000.2dm');
 
 
-fid = fopen('initial_conditions_20190101.csv','wt');
+fid = fopen('initial_conditions_20181101.csv','wt');
 
 dat = tfv_readnetcdf(ncfile,'time',1);
 timesteps = dat.Time;
 
-[~,t_ind] = min(abs(timesteps - datenum(2019,01,01,00,00,00)));
+[~,t_ind] = min(abs(timesteps - datenum(2018,11,01,00,00,00)));
 
 
 rawGeo = tfv_readnetcdf(ncfile,'timestep',t_ind);

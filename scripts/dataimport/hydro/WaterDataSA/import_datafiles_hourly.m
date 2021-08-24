@@ -105,14 +105,14 @@ for i = 3:length(dirlist)
 end
 
 %Fix Temps
-disp('Calculating SAL')
+disp('Fixing Temps')
 
 sites = fieldnames(dew);
 
 for i = 1:length(sites)
     
     if isfield(dew.(sites{i}),'TEMP')
-        sss = find(dew.(sites{i}).Temp.Data < 100);
+        sss = find(dew.(sites{i}).TEMP.Data < 75);
         if ~isempty(sss)
             dew.(sites{i}).TEMP.Data = dew.(sites{i}).TEMP.Data(sss);
             dew.(sites{i}).TEMP.Date = dew.(sites{i}).TEMP.Date(sss);

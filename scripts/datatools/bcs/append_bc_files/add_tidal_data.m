@@ -3,7 +3,7 @@ clear all; close all;
 addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
 
-filename = 'VH_Tide_2012_2021.csv';
+filename = '../BC from Field Data/BCs_BAR_2019_2021_Monthly_Ave_Hourly/BK_20190101_20210701.csv';
 
 load ../../../../data/store/hydro/dew_tide_VH.mat;
 
@@ -19,13 +19,13 @@ data = tfv_readBCfile(filename);
 vars = fieldnames(data);
 
 
-[tt.Date,ind] = unique(tide.Date);
-tt.Data = tide.Data(ind);
+[tt.Date,ind] = unique(tide.VH.H.Date);
+tt.Data = tide.VH.H.Data(ind);
 data.VH_Tide_mAHD = [];
 data.VH_Tide_mAHD = interp1(tt.Date,tt.Data,data.Date);
 
 
-fid = fopen('VH_Tide_2012_2021_v2.csv','wt');
+fid = fopen('../BC from Field Data/BCs_BAR_2019_2021_Monthly_Ave_Hourly/VH_20190101_20210701_v2.csv','wt');
 
 for i = 1:length(vars)
     if i == length(vars)

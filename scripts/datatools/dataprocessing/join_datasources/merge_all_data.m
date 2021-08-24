@@ -156,6 +156,7 @@ coorong = remove_Lake_Sites(lowerlakes,'GIS/Coorong_Boundary1.shp');
 
 save('../../../../data/store/archive/coorong.mat','coorong','-mat');
 
+run('../../../../data/store/archive/merge_sites_within_matfile');
 
 % summerise_data('lowerlakes.mat','lowerlakes/');
 % 
