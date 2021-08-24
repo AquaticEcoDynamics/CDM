@@ -31,12 +31,12 @@ textformat = [repmat('%s ',1,x)];
 datacell = textscan(fid,textformat,'Headerlines',1,'Delimiter',',');
 fclose(fid);
 
-mDate = datenum(datacell{1});
+mDate = datenum(datacell{1},'dd/mm/yyyy HH:MM');
 windspeed = str2double(datacell{2});
 winddir= str2double(datacell{3});
 
-Wx = (round(-1.0.*(windspeed).*sin((pi/180).* winddir)*1000000)/1000000)/3.6;
-Wy = (round(-1.0.*(windspeed).*cos((pi/180).* winddir)*1000000)/1000000)/3.6;
+Wx = (round(-1.0.*(windspeed).*sin((pi/180).* winddir)*1000000)/1000000);
+Wy = (round(-1.0.*(windspeed).*cos((pi/180).* winddir)*1000000)/1000000);
 
 siteID = datacell{4};
 

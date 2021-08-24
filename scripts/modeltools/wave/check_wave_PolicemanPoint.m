@@ -1,33 +1,33 @@
 
 % check waves
 clear; close all;
-metfile='W:\CDM\Wave\hchb_swan_2017_2021_v1\TFV\Narrung_met.csv';
-wavefile='W:\CDM\Coorong_swn_20201101_20210401_UA_Wind_200g_2000w\04_results\WAVE.nc';
+metfile='C:\Users\00065525\Github\CDM\models\HCHB\hchb_swan_v1\TFV\Nurrung_and_wavedata_merged_202011_202104.csv';
+metfile2='C:\Users\00065525\Github\CDM\models\HCHB\hchb_swan_v1\TFV\Narrung_met_20160201_20210401.csv';
+
+wavefile='X:\CDM\Coorong_swn_20201101_20210401_UA_Wind_200g_2000w\04_results\WAVE.nc';
+wavefile2='X:\CDM\Coorong_swn_20201101_20210401\04_results\WAVE.nc';
 
 lon1=139+34/60+39.59/60/60;
 lat1=36+3/60+2.95/60/60;
+[utmx,utmy]=ll2utm(-lat1,lon1);
+%[utmx,utmy]=ll2utm(lon1,-lat1);
+%_________________________
 
-[utmx,utmy]=ll2utm(lon1,-lat1);
-
-x=ncread(wavefile,'x');
-y=ncread(wavefile,'y');
-time=ncread(wavefile,'time'); %/86400+datenum(1970,1,1);
-time2=double(time)/86400+datenum(1970,1,1);
 
 t1=datenum(2020,12,1);
 t2=datenum(2020,12,5);
-ind1=find(abs(time2-t1)==min(abs(time2-t1)));
-ind2=find(abs(time2-t2)==min(abs(time2-t2)));
 
-x1=find(abs(x-utmx)==min(abs(x-utmx)));
-y1=find(abs(y-utmy)==min(abs(y-utmy)));
 
 metdata=tfv_readBCfile(metfile);
-hs=ncread(wavefile,'hs',[1 1 ind1],[Inf Inf ind2-ind1]);
-hs2=ncread(wavefile,'hs',[x1 y1 1],[1 1 Inf]);
-wx=ncread(wavefile,'xwnd',[x1 y1 1],[1 1 Inf]);
-wy=ncread(wavefile,'ywnd',[x1 y1 1],[1 1 Inf]);
-wst=sqrt(wx.^2+wy.^2);
+metdata2=tfv_readBCfile(metfile2);
+
+
+[time2,wst,hs,t3,x1,y1]   = process_wavedata(wavefile,t1,t2,utmx,utmy);
+[time22,wst2,hs2,t32,x12,y12]   = process_wavedata(wavefile2,t1,t2,utmx,utmy);
+
+%_________________________
+
+
 %load hs.mat;
 load wave.mat;
 
@@ -39,19 +39,22 @@ set(gcf, 'PaperPositionMode', 'manual');
 set(gcf, 'PaperUnits', 'centimeters');
 set(gcf,'paperposition',[0.635 6.35 18 18])
 
-t3=time2(ind1:ind2-1);
 
 subplot(2,1,1);
 
 ws=sqrt(metdata.Wx.^2+metdata.Wy.^2);
-plot(metdata.Date,ws,'k');
+ws2=sqrt(metdata2.Wx.^2+metdata2.Wy.^2);
+
+plot(metdata.Date,ws,'b');
 hold on;
+plot(metdata2.Date,ws2,'k');
+
 plot(time2,squeeze(wst(1,1,1:length(time2))),'r');
 
 datearray=datenum(2020,12,1:5);
 
 set(gca,'xlim',[datearray(1) datearray(end)],'XTick',datearray,'XTickLabel',datestr(datearray,'dd/mmm'));
-hl=legend('Narrung','model output');set(hl,'Location','Northeast');
+hl=legend('Nurrung and wavedata merged 202011 202104','Narrung met 20160201 20210401','model output');set(hl,'Location','Northeast');
 ylabel('wind speed (m/s)');
 
 title('(a) wind speed at Policeman Point');
@@ -59,15 +62,19 @@ title('(a) wind speed at Policeman Point');
 subplot(2,1,2);
 
 wh=squeeze(hs(x1,y1,:));
+wh2=squeeze(hs2(x12,y12,:));
+
 %t3=time2(ind1:ind2-1);
-plot(t3,wh,'k');
+plot(t3,wh,'b');
+hold on;
+plot(t32,wh2,'k');
 hold on;
 
 plot(data.Date(1:745),data.Significantwaveheight(1:745),'r');
 hold on;
 
 set(gca,'xlim',[datearray(1) datearray(end)],'XTick',datearray,'XTickLabel',datestr(datearray,'dd/mmm'));
-hl=legend('wave model','observations');set(hl,'Location','Northeast');
+hl=legend('Coorong swn 20201101 20210401 UA Wind 200g 2000w','Coorong swn 20201101 20210401','observations');set(hl,'Location','Northeast');
 ylabel('wave height (m)');
 title('(b) significant wave height at Policeman Point');
 
