@@ -22,8 +22,8 @@ metdata=tfv_readBCfile(metfile);
 metdata2=tfv_readBCfile(metfile2);
 
 
-[time2,wst,hs,t3,x1,y1]   = process_wavedata(wavefile,t1,t2,utmx,utmy);
-[time22,wst2,hs2,t32,x12,y12]   = process_wavedata(wavefile2,t1,t2,utmx,utmy);
+[time2,wst,hs,t3,x1,y1,depth]   = process_wavedata(wavefile,t1,t2,utmx,utmy);
+[time22,wst2,hs2,t32,x12,y12,depth2]   = process_wavedata(wavefile2,t1,t2,utmx,utmy);
 
 %_________________________
 
@@ -40,7 +40,7 @@ set(gcf, 'PaperUnits', 'centimeters');
 set(gcf,'paperposition',[0.635 6.35 18 18])
 
 
-subplot(2,1,1);
+subplot(3,1,1);
 
 ws=sqrt(metdata.Wx.^2+metdata.Wy.^2);
 ws2=sqrt(metdata2.Wx.^2+metdata2.Wy.^2);
@@ -59,7 +59,7 @@ ylabel('wind speed (m/s)');
 
 title('(a) wind speed at Policeman Point');
 
-subplot(2,1,2);
+subplot(3,1,2);
 
 wh=squeeze(hs(x1,y1,:));
 wh2=squeeze(hs2(x12,y12,:));
@@ -78,7 +78,21 @@ hl=legend('Coorong swn 20201101 20210401 UA Wind 200g 2000w','Coorong swn 202011
 ylabel('wave height (m)');
 title('(b) significant wave height at Policeman Point');
 
-img_name ='compare_wave_Policeman_v2_2000w.png';
+subplot(3,1,3);
+
+plot(time2,squeeze(depth(1,1,1:length(time2))),'b');
+hold on;
+plot(time22,squeeze(depth2(1,1,1:length(time22))),'k');
+hold on;
+
+set(gca,'xlim',[datearray(1) datearray(end)],'XTick',datearray,'XTickLabel',datestr(datearray,'dd/mmm'));
+hl=legend('Coorong Level 0.25','Coorong Level 0.5');set(hl,'Location','Northeast');
+ylabel('Depth (m)');
+title('(c) depth at Policeman Point');
+
+
+
+img_name ='compare_wave_Policeman_v2_2000w_0.25level.png';
 
 saveas(gcf,img_name);
 
