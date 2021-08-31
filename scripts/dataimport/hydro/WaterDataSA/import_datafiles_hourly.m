@@ -12,12 +12,13 @@ clipdate = datenum(2010,01,01,00,00,00);
 
 
 
-[snum,sstr]  =xlsread('Vars.xlsx','A2:D100');
+[snum,sstr]  =xlsread('Vars.xlsx','A2:E100');
 
 oldnames = sstr(:,1);
 newnames = sstr(:,2);
-conv = snum(:,2);
+conv = snum(:,3);
 isSonde = snum(:,1);
+isMet = snum(:,2);
 
 maindir = 'Output/';
 
@@ -79,24 +80,43 @@ for i = 3:length(dirlist)
             dew.([thesite,'s']).(newnames{tt}).X = X;
             dew.([thesite,'s']).(newnames{tt}).Y = Y;
             dew.([thesite,'s']).(newnames{tt}).Name = sName;
-            dew.([thesite,'s']).(newnames{tt}).Agency = 'DEW Sonde';
+            dew.([thesite,'s']).(newnames{tt}).Agency = 'DEW WDSA Sonde';
             
         else
-            dew.([thesite]).(newnames{tt}).Date = thedate(sss);
-            dew.([thesite]).(newnames{tt}).Data = thedata(sss);
-            
-            switch newnames{tt}
-                case 'CONDB'
-                    dew.([thesite]).(newnames{tt}).Depth(1:length(thedata(sss)),1) = -10;
-                case 'TEMPB'
-                    dew.([thesite]).(newnames{tt}).Depth(1:length(thedata(sss)),1) = -10;
-                otherwise
-                    dew.([thesite]).(newnames{tt}).Depth(1:length(thedata(sss)),1) = 0;
+            if isMet(tt)
+                dew.([thesite,'m']).(newnames{tt}).Date = thedate(sss);
+                dew.([thesite,'m']).(newnames{tt}).Data = thedata(sss);
+                switch newnames{tt}
+                    case 'CONDB'
+                        dew.([thesite,'m']).(newnames{tt}).Depth(1:length(thedata(sss)),1) = -10;
+                    case 'TEMPB'
+                        dew.([thesite,'m']).(newnames{tt}).Depth(1:length(thedata(sss)),1) = -10;
+                    otherwise
+                        dew.([thesite,'m']).(newnames{tt}).Depth(1:length(thedata(sss)),1) = 0;
+                end
+                dew.([thesite,'m']).(newnames{tt}).X = X;
+                dew.([thesite,'m']).(newnames{tt}).Y = Y;
+                dew.([thesite,'m']).(newnames{tt}).Name = sName;
+                dew.([thesite,'m']).(newnames{tt}).Agency = 'DEW WDSA Met';
+            else
+                
+                dew.([thesite]).(newnames{tt}).Date = thedate(sss);
+                dew.([thesite]).(newnames{tt}).Data = thedata(sss);
+                
+                switch newnames{tt}
+                    case 'CONDB'
+                        dew.([thesite]).(newnames{tt}).Depth(1:length(thedata(sss)),1) = -10;
+                    case 'TEMPB'
+                        dew.([thesite]).(newnames{tt}).Depth(1:length(thedata(sss)),1) = -10;
+                    otherwise
+                        dew.([thesite]).(newnames{tt}).Depth(1:length(thedata(sss)),1) = 0;
+                end
+                dew.([thesite]).(newnames{tt}).X = X;
+                dew.([thesite]).(newnames{tt}).Y = Y;
+                dew.([thesite]).(newnames{tt}).Name = sName;
+                dew.([thesite]).(newnames{tt}).Agency = 'DEW WDSA Hydro';
+                
             end
-            dew.([thesite]).(newnames{tt}).X = X;
-            dew.([thesite]).(newnames{tt}).Y = Y;
-            dew.([thesite]).(newnames{tt}).Name = sName;
-            dew.([thesite]).(newnames{tt}).Agency = 'DEW';
             
         end
     end

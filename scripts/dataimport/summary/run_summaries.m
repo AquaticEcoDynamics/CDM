@@ -1,14 +1,14 @@
 
 
-% datafile = '..\..\..\data\store\ecology\UA_Coorong_Compiled_WQ.mat';
-% 
-% summary_folder = '..\..\..\data\summary\UA_Coorong_WQ\';
-% 
-% gis_folder = '..\..\..\gis\summary\';
-% 
-% shpname = 'UA_Coorong_WQ.shp';
-% 
-% summerise_data(datafile,summary_folder,gis_folder,shpname)
+datafile = '..\..\..\data\store\ecology\UA_Coorong_Compiled_WQ.mat';
+
+summary_folder = '..\..\..\data\summary\UA_Coorong_WQ\';
+
+gis_folder = '..\..\..\gis\summary\';
+
+shpname = 'UA_Coorong_WQ.shp';
+
+summerise_data(datafile,summary_folder,gis_folder,shpname)
 
 %_________________________________________________________________________
 
@@ -62,15 +62,15 @@
 %_________________________________________________________________________
 
 
-% datafile = '..\..\..\data\store\hydro\dew_WaterDataSA_hourly.mat';
-% 
-% summary_folder = '..\..\..\data\summary\dew_WaterDataSA_hourly\';
-% 
-% gis_folder = '..\..\..\gis\summary\';
-% 
-% shpname = 'dew_WaterDataSA.shp';
-% 
-% summerise_data(datafile,summary_folder,gis_folder,shpname)
+datafile = '..\..\..\data\store\hydro\dew_WaterDataSA_hourly.mat';
+
+summary_folder = '..\..\..\data\summary\dew_WaterDataSA_hourly\';
+
+gis_folder = '..\..\..\gis\summary\';
+
+shpname = 'dew_WaterDataSA.shp';
+
+summerise_data(datafile,summary_folder,gis_folder,shpname)
 
 %_________________________________________________________________________
 

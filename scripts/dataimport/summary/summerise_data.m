@@ -23,6 +23,9 @@ data = fielddata.(proj{1});
 
 create_summary_spreadsheet(data,summary_folder);
 
+create_var_summary_spreadsheet(data,summary_folder);
+
+
 plot_summary_data(data,summary_folder)
 
 export_shapefile(data,gis_folder,shpname)
@@ -60,10 +63,6 @@ S(3)
 shapewrite(S,[gis_folder,shpname]);
 end
     
-
-
-
-
 
 function plot_summary_data(data,summary_folder)
 
@@ -156,7 +155,45 @@ end
 end
 
 
+function create_var_summary_spreadsheet(data,summary_folder)
 
+sites = fieldnames(data);
+
+allvars = [];
+
+for i = 1:length(sites)
+    
+    vars = fieldnames(data.(sites{i}));
+    allvars = [allvars;vars];
+end
+
+uvars = unique(allvars);
+
+fid = fopen([summary_folder,'Var_Summary.csv'],'wt');
+
+fprintf(fid,'Site,');
+for i = 1:length(uvars)
+    fprintf(fid,'%s,',uvars{i});
+end
+fprintf(fid,'\n');
+
+for i = 1:length(sites)
+    
+    fprintf(fid,'%s,',sites{i});
+    
+    for j = 1:length(uvars)
+        if isfield(data.(sites{i}),uvars{j})
+            fprintf(fid,'x,');
+        else
+            fprintf(fid,' ,');
+        end
+    end
+    fprintf(fid,'\n');
+end
+    
+fclose(fid);
+
+end
 
 function create_summary_spreadsheet(data,summary_folder)
 
