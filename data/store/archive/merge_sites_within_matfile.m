@@ -1,17 +1,17 @@
 clear all; close all;
 
-load lowerlakes.mat;
+load cllmm.mat;
 
-fdata = lowerlakes;
+fdata = cllmm;
 
-clear lowerlakes;
+clear cllmm;
 
 
 distance = 5; % in m;
 
 sites = fieldnames(fdata);
 
-lowerlakes = [];
+cllmm = [];
 
 for i = 1:length(sites)
     vars = fieldnames(fdata.(sites{i}));
@@ -33,31 +33,31 @@ for i = 1:length(sites)
     pol.Y = T.Vertices(:,2);
     
     for j = 1:length(vars)
-        lowerlakes.(sites{i}).(vars{j}) = fdata.(sites{i}).(vars{j});
+        cllmm.(sites{i}).(vars{j}) = fdata.(sites{i}).(vars{j});
         
         for k = 1:length(sites)
             
             if inpolygon(XX(k),YY(k),pol.X,pol.Y)
                 if isfield(fdata.(sites{k}),vars{j})
                     disp('yep');
-                    lowerlakes.(sites{i}).(vars{j}).Data = [lowerlakes.(sites{i}).(vars{j}).Data;...
+                    cllmm.(sites{i}).(vars{j}).Data = [cllmm.(sites{i}).(vars{j}).Data;...
                         fdata.(sites{k}).(vars{j}).Data];
-                    lowerlakes.(sites{i}).(vars{j}).Date = [lowerlakes.(sites{i}).(vars{j}).Date;...
+                    cllmm.(sites{i}).(vars{j}).Date = [cllmm.(sites{i}).(vars{j}).Date;...
                         fdata.(sites{k}).(vars{j}).Date + (rand/100)];
-                    lowerlakes.(sites{i}).(vars{j}).Depth = [lowerlakes.(sites{i}).(vars{j}).Depth;...
+                    cllmm.(sites{i}).(vars{j}).Depth = [cllmm.(sites{i}).(vars{j}).Depth;...
                         fdata.(sites{k}).(vars{j}).Depth];
                 end
             end
         end
         
         
-        [lowerlakes.(sites{i}).(vars{j}).Date,ind] = unique(lowerlakes.(sites{i}).(vars{j}).Date);
-        lowerlakes.(sites{i}).(vars{j}).Data = lowerlakes.(sites{i}).(vars{j}).Data(ind);
-        lowerlakes.(sites{i}).(vars{j}).Depth = lowerlakes.(sites{i}).(vars{j}).Depth(ind);
+        [cllmm.(sites{i}).(vars{j}).Date,ind] = unique(cllmm.(sites{i}).(vars{j}).Date);
+        cllmm.(sites{i}).(vars{j}).Data = cllmm.(sites{i}).(vars{j}).Data(ind);
+        cllmm.(sites{i}).(vars{j}).Depth = cllmm.(sites{i}).(vars{j}).Depth(ind);
     end
 end
 
-save lowerlakes_BC.mat lowerlakes -mat;
+save cllmm_BC.mat cllmm -mat;
 
 
 

@@ -5,9 +5,9 @@ addpath(genpath('Functions'));
 
 load ../../../../data/store/hydro/dew_WaterDataSA_hourly.mat;
 
-lowerlakes = dew;
+cllmm = dew;
 
-sites = fieldnames(lowerlakes);
+sites = fieldnames(cllmm);
 
 % for i = 1:length(sites)
 %     
@@ -18,8 +18,8 @@ load ../../../../data/store/archive/sawater/saw_r.mat;
 sites = fieldnames(saw);
 
 for i = 1:length(sites);
-    lowerlakes.(['SAW_',sites{i}]) = saw.(sites{i});
-    lowerlakes.(['SAW_',sites{i}]) = add_agency(lowerlakes.(['SAW_',sites{i}]),'SA Water');
+    cllmm.(['SAW_',sites{i}]) = saw.(sites{i});
+    cllmm.(['SAW_',sites{i}]) = add_agency(cllmm.(['SAW_',sites{i}]),'SA Water');
 end
 
 load ../../../../data/store/archive/sawater/saw_2017.mat;
@@ -27,8 +27,8 @@ load ../../../../data/store/archive/sawater/saw_2017.mat;
 sites = fieldnames(saw_2017);
 
 for i = 1:length(sites);
-    lowerlakes.(['SAW2017_',sites{i}]) = saw_2017.(sites{i});
-    lowerlakes.(['SAW2017_',sites{i}]) = add_agency(lowerlakes.(['SAW2017_',sites{i}]),'SA Water');
+    cllmm.(['SAW2017_',sites{i}]) = saw_2017.(sites{i});
+    cllmm.(['SAW2017_',sites{i}]) = add_agency(cllmm.(['SAW2017_',sites{i}]),'SA Water');
 end
 
 load ../../../../data/store/archive/sawater/saw_2018.mat;
@@ -36,16 +36,16 @@ load ../../../../data/store/archive/sawater/saw_2018.mat;
 sites = fieldnames(saw_2018);
 
 for i = 1:length(sites);
-    lowerlakes.(['SAW2018_',sites{i}]) = saw_2018.(sites{i});
-    lowerlakes.(['SAW2018_',sites{i}]) = add_agency(lowerlakes.(['SAW2018_',sites{i}]),'SA Water');
+    cllmm.(['SAW2018_',sites{i}]) = saw_2018.(sites{i});
+    cllmm.(['SAW2018_',sites{i}]) = add_agency(cllmm.(['SAW2018_',sites{i}]),'SA Water');
 end
 load ../../../../data/store/archive/sawater/saw_2019.mat;
 
 sites = fieldnames(saw_2019);
 
 for i = 1:length(sites);
-    lowerlakes.(['SAW2019_',sites{i}]) = saw_2019.(sites{i});
-    lowerlakes.(['SAW2019_',sites{i}]) = add_agency(lowerlakes.(['SAW2019_',sites{i}]),'SA Water');
+    cllmm.(['SAW2019_',sites{i}]) = saw_2019.(sites{i});
+    cllmm.(['SAW2019_',sites{i}]) = add_agency(cllmm.(['SAW2019_',sites{i}]),'SA Water');
 end
 
 load ../../../../data/store/archive/sawater/saw_2020.mat;
@@ -53,8 +53,8 @@ load ../../../../data/store/archive/sawater/saw_2020.mat;
 sites = fieldnames(saw_2020);
 
 for i = 1:length(sites)
-    lowerlakes.(['SAW2020_',sites{i}]) = saw_2020.(sites{i});
-    lowerlakes.(['SAW2020_',sites{i}]) = add_agency(lowerlakes.(['SAW2020_',sites{i}]),'SA Water');
+    cllmm.(['SAW2020_',sites{i}]) = saw_2020.(sites{i});
+    cllmm.(['SAW2020_',sites{i}]) = add_agency(cllmm.(['SAW2020_',sites{i}]),'SA Water');
 end
 
 
@@ -63,7 +63,7 @@ load ../../../../data/store/ecology/UA_Coorong_Compiled_WQ.mat;
 sites = fieldnames(UA);
 
 for i = 1:length(sites)
-    lowerlakes.(sites{i}) = UA.(sites{i});
+    cllmm.(sites{i}) = UA.(sites{i});
     %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
 end
 
@@ -77,7 +77,7 @@ load ../../../../data/store/hydro/UA_temperature_loggers.mat;
 sites = fieldnames(temp);
 
 for i = 1:length(sites)
-    lowerlakes.(sites{i}) = temp.(sites{i});
+    cllmm.(sites{i}) = temp.(sites{i});
     %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA Logger');
 end
 
@@ -113,8 +113,8 @@ load ../../../../data/store/archive/saepa/epa_2016.mat;
 sites = fieldnames(epa_2016);
 
 for i = 1:length(sites)
-    lowerlakes.(['EPA_',sites{i}]) = epa_2016.(sites{i});
-    lowerlakes.(['EPA_',sites{i}]) = add_agency(lowerlakes.(['EPA_',sites{i}]),'SA EPA');
+    cllmm.(['EPA_',sites{i}]) = epa_2016.(sites{i});
+    cllmm.(['EPA_',sites{i}]) = add_agency(cllmm.(['EPA_',sites{i}]),'SA EPA');
 end
 
 load ../../../../data/store/archive/saepa/epa_2014.mat;
@@ -122,8 +122,8 @@ load ../../../../data/store/archive/saepa/epa_2014.mat;
 sites = fieldnames(epa_2014);
 
 for i = 1:length(sites)
-    lowerlakes.(['EPA2014_',sites{i}]) = epa_2014.(sites{i});
-    lowerlakes.(['EPA2014_',sites{i}]) = add_agency(lowerlakes.(['EPA2014_',sites{i}]),'SA EPA');
+    cllmm.(['EPA2014_',sites{i}]) = epa_2014.(sites{i});
+    cllmm.(['EPA2014_',sites{i}]) = add_agency(cllmm.(['EPA2014_',sites{i}]),'SA EPA');
 end
 
 
@@ -132,27 +132,27 @@ end
 
 
 
-lowerlakes = check_XY(lowerlakes);
+cllmm = check_XY(cllmm);
 
-lowerlakes = add_offset(lowerlakes);
+cllmm = add_offset(cllmm);
 
 datearray(:,1) = datenum(2008,01:132,01);
 
-lowerlakes = cleanse_sites(lowerlakes);
+cllmm = cleanse_sites(cllmm);
 
 
-lowerlakes = add_secondary_data(lowerlakes,datearray);
+cllmm = add_secondary_data(cllmm,datearray);
 
 
-export_shapefile(lowerlakes,'../../../../gis/mapping/field/fieldsites.shp');
+export_shapefile(cllmm,'../../../../gis/mapping/field/fieldsites.shp');
 
-save ../../../../data/store/archive/lowerlakes.mat lowerlakes -mat;
-
-
+save ../../../../data/store/archive/cllmm.mat cllmm -mat;
 
 
 
-coorong = remove_Lake_Sites(lowerlakes,'GIS/Coorong_Boundary1.shp');
+
+
+coorong = remove_Lake_Sites(cllmm,'GIS/Coorong_Boundary1.shp');
 
 save('../../../../data/store/archive/coorong.mat','coorong','-mat');
 
