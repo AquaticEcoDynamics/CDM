@@ -57,9 +57,9 @@ for i = 1:length(sites)
     
     
 end
-S(1)
-S(2)
-S(3)
+% S(1)
+% S(2)
+% S(3)
 shapewrite(S,[gis_folder,shpname]);
 end
     
