@@ -1,10 +1,10 @@
 clear all; close all;
 
-load cllmm.mat;
+load cllmm_sec.mat;
 
-fdata = cllmm;
+fdata = cllmm_sec;
 
-clear cllmm;
+clear cllmm_sec;
 
 
 distance = 5; % in m;

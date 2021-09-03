@@ -107,25 +107,25 @@ end
 %     
 % end
 
-
-load ../../../../data/store/archive/saepa/epa_2016.mat;
-
-sites = fieldnames(epa_2016);
-
-for i = 1:length(sites)
-    cllmm.(['EPA_',sites{i}]) = epa_2016.(sites{i});
-    cllmm.(['EPA_',sites{i}]) = add_agency(cllmm.(['EPA_',sites{i}]),'SA EPA');
-end
-
-load ../../../../data/store/archive/saepa/epa_2014.mat;
-
-sites = fieldnames(epa_2014);
-
-for i = 1:length(sites)
-    cllmm.(['EPA2014_',sites{i}]) = epa_2014.(sites{i});
-    cllmm.(['EPA2014_',sites{i}]) = add_agency(cllmm.(['EPA2014_',sites{i}]),'SA EPA');
-end
-
+% 
+% load ../../../../data/store/archive/saepa/epa_2016.mat;
+% 
+% sites = fieldnames(epa_2016);
+% 
+% for i = 1:length(sites)
+%     cllmm.(['EPA_',sites{i}]) = epa_2016.(sites{i});
+%     cllmm.(['EPA_',sites{i}]) = add_agency(cllmm.(['EPA_',sites{i}]),'SA EPA');
+% end
+% 
+% load ../../../../data/store/archive/saepa/epa_2014.mat;
+% 
+% sites = fieldnames(epa_2014);
+% 
+% for i = 1:length(sites)
+%     cllmm.(['EPA2014_',sites{i}]) = epa_2014.(sites{i});
+%     cllmm.(['EPA2014_',sites{i}]) = add_agency(cllmm.(['EPA2014_',sites{i}]),'SA EPA');
+% end
+% 
 
 
 
@@ -141,7 +141,7 @@ datearray(:,1) = datenum(2008,01:132,01);
 cllmm = cleanse_sites(cllmm);
 
 
-cllmm = add_secondary_data(cllmm,datearray);
+
 
 
 export_shapefile(cllmm,'../../../../gis/mapping/field/fieldsites.shp');
@@ -149,7 +149,8 @@ export_shapefile(cllmm,'../../../../gis/mapping/field/fieldsites.shp');
 save ../../../../data/store/archive/cllmm.mat cllmm -mat;
 
 
-
+cllmm_sec = add_secondary_data(cllmm,datearray);
+save ../../../../data/store/archive/cllmm_sec.mat cllmm_sec -mat;
 
 
 coorong = remove_Lake_Sites(cllmm,'GIS/Coorong_Boundary1.shp');
