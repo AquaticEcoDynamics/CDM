@@ -67,6 +67,24 @@ for i = 1:length(sites)
     %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
 end
 
+load ../../../../data/store/ecology/ALS.mat;
+
+sites = fieldnames(ALS);
+
+for i = 1:length(sites)
+    cllmm.(sites{i}) = ALS.(sites{i});
+    %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
+end
+
+load ../../../../data/store/ecology/AWQC.mat;
+
+sites = fieldnames(AWQC);
+
+for i = 1:length(sites)
+    cllmm.(sites{i}) = AWQC.(sites{i});
+    %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
+end
+
 
 load ../../../../data/store/hydro/UA_temperature_loggers.mat;
 
