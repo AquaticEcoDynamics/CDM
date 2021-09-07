@@ -9,7 +9,8 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.7/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="css/style.css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="css/style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -40,7 +41,7 @@
 <li><a class="" href="scenario-testing-and-management.html"><span class="header-section-number">6</span> Scenario testing and management</a></li>
 <li><a class="" href="conclusion.html"><span class="header-section-number">7</span> Conclusion</a></li>
 <li><a class="" href="references.html">References</a></li>
-<li><a class="" href="appendix-x.html">Appendix X</a></li>
+<li><a class="" href="appendix-a.html">Appendix A</a></li>
 <li><a class="" href="appendix-y.html">Appendix Y</a></li>
 </ul>
 
@@ -116,6 +117,34 @@
 <h3>
 <span class="header-section-number">3.3.2</span> Model approach<a class="anchor" aria-label="anchor" href="#model-approach"><i class="fas fa-link"></i></a>
 </h3>
+<div id="suspended-solids-and-light" class="section level4" number="3.3.2.1">
+<h4>
+<span class="header-section-number">3.3.2.1</span> Suspended solids and light <a class="anchor" aria-label="anchor" href="#suspended-solids-and-light"><i class="fas fa-link"></i></a>
+</h4>
+<p>The AED component of the simulation is configured to include light (<span class="math inline">\(I\)</span>), and two suspended solids (<span class="math inline">\(SS\)</span>) groups.  The TUFLOW-FV – AED models are dynamically coupled to capture the feedbacks between <span class="math inline">\(SS\)</span>, light, surface heating and (optionally) vegetation presence. </p>
+<p>The model accounts for incident shortwave radiation to be attenuated as it penetrates the water column. The attenuation of light is dependent on the specific bandwidth. For primary production, the shortwave (280-2800 nm) intensity at the surface (<span class="math inline">\(I_0\)</span>) is partitioned to the photosynthetically active component (PAR) based on the assumption that ~45% of the incident spectrum lies between 400-700nm. PAR and other light bandwidths such as ultra-violet (UV, ~3.5%) and near-infrared (NIR, ~51%), penetrate into the water column according to the Beer-Lambert Law:</p>
+<p><span class="math display" id="eq:lagoonhabitat1">\[
+I_{i} = f_{i} I_{0} \text{exp} (-K_{d_{i}} z)
+\tag{3.1}
+\]</span></p>
+<p>where <span class="math inline">\(i\)</span> refers to the specific bandwidth range (e.g., PAR, UV, etc), <span class="math inline">\(f_i\)</span> is the fraction of light intensity within that range at the water surface and <span class="math inline">\(z\)</span> is the water depth. The light extinction coefficient <span class="math inline">\(K_d\)</span> is a variable parameter governing light attenuation, as influenced by the suspended solids (<span class="math inline">\(SS\)</span>) in the water column, filamentous algae density, and vegetation leaf area index. In these simulations it is computed by assuming a background light extinction coefficient <span class="math inline">\(K_w\)</span> and the specific attenuation coefficient, <span class="math inline">\(K_e\)</span>, for <span class="math inline">\(SS\)</span> and algae: </p>
+<p><span class="math display" id="eq:lagoonhabitat2">\[
+K_{d} = K_{w} + K_{e_{s}} SS + K_{e_{F}} FA
+\tag{3.2}
+\]</span></p>
+<p>Computing turbidity from the concentration of particulates is also possible and able to be compared to routinely measured turbidity data. The relation for simulation of turbidity is able to be expressed as:</p>
+<p><span class="math display" id="eq:lagoonhabitat3">\[
+\text{Turbidity} = f_{t_{s}} SS
+\tag{3.3}
+\]</span></p>
+<p>where <span class="math inline">\(f_{t_{s}}\)</span> is an empirical coefficient, determined through site specific correlations or literature.</p>
+<p>The concentration of suspended solids at any location depends on inputs from tributaries, advection of material through the lagoon, and vertical fluxes due to particle resuspension and deposition. Deposition is computed based on a prescribed settling velocity for each particle group. The rate of resuspension (<span class="math inline">\(R\)</span>) varies across the system due to heterogeneity in sediment properties. It is calculated by assuming linearity with the excess shear stress at the bed (Lee et al. 2005), such that:</p>
+<p><span class="math display" id="eq:lagoonhabitat4">\[
+R_i=\sum_{s=1}^{n_s}{{\ \ f}_{s,i}\ {\ \ \varepsilon}_s}\ \ \text{max}\left(\tau_b-\tau_c,\ 0\right)
+\tag{3.4}
+\]</span></p>
+<p>where <span class="math inline">\(n_s\)</span> is the number of particle size classes, <span class="math inline">\(f_{s,i}\)</span> is the fraction of each particle size class in the  sediment material zone, <span class="math inline">\(\varepsilon\)</span> is the resuspension rate coefficient, <span class="math inline">\(\tau_b\)</span> is the bed shear stress (computed based on the current and wave orbital velocities in each cell), and <span class="math inline">\(\tau_c\)</span> is the critical shear stress for resuspension, which depends on the sediment size (Julien 2010), and optionally, the presence of vegetation. </p>
+</div>
 </div>
 <div id="validation-and-assessment-1" class="section level3" number="3.3.3">
 <h3>
@@ -182,24 +211,40 @@
 <span class="header-section-number">3.5.2</span> Model approach<a class="anchor" aria-label="anchor" href="#model-approach-2"><i class="fas fa-link"></i></a>
 </h3>
 </div>
-<div id="data-availability-1" class="section level3" number="3.5.3">
+<div id="nutrients-and-filamentous-algae" class="section level3" number="3.5.3">
 <h3>
-<span class="header-section-number">3.5.3</span> Data availability<a class="anchor" aria-label="anchor" href="#data-availability-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.5.3</span> Nutrients and filamentous algae<a class="anchor" aria-label="anchor" href="#nutrients-and-filamentous-algae"><i class="fas fa-link"></i></a>
+</h3>
+<p>Within the Coorong, the AED model has previously been set up to predict inorganic and organic nutrients, and chlorophyll-a (Mosley et al., 2017). Whilst nutrients are not directly required for the <em>Ruppia</em> model assessment, the presence of filamentous algal blooms can compete for light and these are linked to bioavailable nutrients within the water column (in addition to other attributes).</p>
+<p>We therefore include a filamentous algae variable in the model that is customized to reflect the Ulva community that was described in earlier chapters. In this case is it is assumed to be attached to benthic substrate, and is therefore is not subject to advection and mixing, but can slough off under high stress conditions and become a floating variable subject to transport. The balance equation describes how the biomass changes over time, according to: </p>
+<p><span class="math display" id="eq:lagoonhabitat5">\[
+\frac{d\left(FA\right)}{dt}=+f_{\text{uptake}}^{FA}-f_{\text{excr}}^{FA}-f_{\text{mort}}^{FA}-f_{\text{resp}}^{FA}\ -f_{\text{slough}}^{FA}
+\tag{3.5}
+\]</span></p>
+<p><span class="math display" id="eq:lagoonhabitat6">\[
+\scriptsize{f^{FA}_{\text{uptake}} = \underbrace{R^{FA}_{\text{growth}}}_{\text{max growth} \\ \text{rate at 20$^\circ$C}} \ \ \underbrace{(1-k^{FA}_{\text{pr}})}_{\text{photorespiratory} \\ \text{loss}} \ \ \underbrace{\Phi^{FA}_{\text{tem}}(T)}_{\text{temperature} \\ \text{scaling}} \text{min} \left \{\underbrace{\Phi^{FA}_{\text{light}}(I)}_{\text{light limitation}}, \underbrace{\Phi^{FA}_{\text{N}}(NO_{3},NH_{4})}_{\text{light limitation}}, \underbrace{\Phi^{FA}_{\text{P}}(PO_{4})}_{\text{P limitation}} \right \} [FA]}
+\tag{3.6}
+\]</span></p>
+<p>Note that the ‘sloughed’ biomass is considered to be exposed to surface light irradiances and can also decompose should environmental conditions be inadequate for growth.</p>
+</div>
+<div id="data-availability-1" class="section level3" number="3.5.4">
+<h3>
+<span class="header-section-number">3.5.4</span> Data availability<a class="anchor" aria-label="anchor" href="#data-availability-1"><i class="fas fa-link"></i></a>
 </h3>
 </div>
-<div id="model-setup-1" class="section level3" number="3.5.4">
+<div id="model-setup-1" class="section level3" number="3.5.5">
 <h3>
-<span class="header-section-number">3.5.4</span> Model setup<a class="anchor" aria-label="anchor" href="#model-setup-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.5.5</span> Model setup<a class="anchor" aria-label="anchor" href="#model-setup-1"><i class="fas fa-link"></i></a>
 </h3>
 </div>
-<div id="validation-and-assessment-3" class="section level3" number="3.5.5">
+<div id="validation-and-assessment-3" class="section level3" number="3.5.6">
 <h3>
-<span class="header-section-number">3.5.5</span> Validation and assessment<a class="anchor" aria-label="anchor" href="#validation-and-assessment-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.5.6</span> Validation and assessment<a class="anchor" aria-label="anchor" href="#validation-and-assessment-3"><i class="fas fa-link"></i></a>
 </h3>
 </div>
-<div id="summary-3" class="section level3" number="3.5.6">
+<div id="summary-3" class="section level3" number="3.5.7">
 <h3>
-<span class="header-section-number">3.5.6</span> Summary<a class="anchor" aria-label="anchor" href="#summary-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.5.7</span> Summary<a class="anchor" aria-label="anchor" href="#summary-3"><i class="fas fa-link"></i></a>
 </h3>
 
 </div>
@@ -251,10 +296,11 @@
 <a class="nav-link" href="#macroalgal-dynamics"><span class="header-section-number">3.5</span> Macroalgal dynamics</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#overview-4"><span class="header-section-number">3.5.1</span> Overview</a></li>
 <li><a class="nav-link" href="#model-approach-2"><span class="header-section-number">3.5.2</span> Model approach</a></li>
-<li><a class="nav-link" href="#data-availability-1"><span class="header-section-number">3.5.3</span> Data availability</a></li>
-<li><a class="nav-link" href="#model-setup-1"><span class="header-section-number">3.5.4</span> Model setup</a></li>
-<li><a class="nav-link" href="#validation-and-assessment-3"><span class="header-section-number">3.5.5</span> Validation and assessment</a></li>
-<li><a class="nav-link" href="#summary-3"><span class="header-section-number">3.5.6</span> Summary</a></li>
+<li><a class="nav-link" href="#nutrients-and-filamentous-algae"><span class="header-section-number">3.5.3</span> Nutrients and filamentous algae</a></li>
+<li><a class="nav-link" href="#data-availability-1"><span class="header-section-number">3.5.4</span> Data availability</a></li>
+<li><a class="nav-link" href="#model-setup-1"><span class="header-section-number">3.5.5</span> Model setup</a></li>
+<li><a class="nav-link" href="#validation-and-assessment-3"><span class="header-section-number">3.5.6</span> Validation and assessment</a></li>
+<li><a class="nav-link" href="#summary-3"><span class="header-section-number">3.5.7</span> Summary</a></li>
 </ul>
 </li>
 </ul>
