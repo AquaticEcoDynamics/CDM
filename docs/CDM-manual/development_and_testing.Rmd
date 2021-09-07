@@ -1,4 +1,4 @@
-# CDM Development & Testing 
+# CDM Development & Testing
 
 ## Modelling development rationale
 
@@ -16,7 +16,7 @@
 
 ### Validation and assessment
 
-### Lagoon scale predictions 
+### Lagoon scale predictions
 
 ### Summary
 
@@ -26,9 +26,45 @@
 
 ### Model approach
 
+#### Suspended solids and light 
+
+The AED component of the simulation is configured to include light ($I$), and two suspended solids ($SS$) groups.  The TUFLOW-FV -- AED models are dynamically coupled to capture the feedbacks between $SS$, light, surface heating and (optionally) vegetation presence. 
+
+The model accounts for incident shortwave radiation to be attenuated as it penetrates the water column. The attenuation of light is dependent on the specific bandwidth. For primary production, the shortwave (280-2800 nm) intensity at the surface ($I_0$) is partitioned to the photosynthetically active component (PAR) based on the assumption that \~45% of the incident spectrum lies between 400-700nm. PAR and other light bandwidths such as ultra-violet (UV, \~3.5%) and near-infrared (NIR, \~51%), penetrate into the water column according to the Beer-Lambert Law:
+
+$$
+I_{i} = f_{i} I_{0} \text{exp} (-K_{d_{i}} z)
+(\#eq:lagoonhabitat1)
+$$
+
+where $i$ refers to the specific bandwidth range (e.g., PAR, UV, etc), $f_i$ is the fraction of light intensity within that range at the water surface and $z$ is the water depth. The light extinction coefficient $K_d$ is a variable parameter governing light attenuation, as influenced by the suspended solids ($SS$) in the water column, filamentous algae density, and vegetation leaf area index. In these simulations it is computed by assuming a background light extinction coefficient $K_w$ and the specific attenuation coefficient, $K_e$, for $SS$ and algae: 
+
+$$
+K_{d} = K_{w} + K_{e_{s}} SS + K_{e_{F}} FA
+(\#eq:lagoonhabitat2)
+$$
+
+Computing turbidity from the concentration of particulates is also possible and able to be compared to routinely measured turbidity data. The relation for simulation of turbidity is able to be expressed as:
+
+$$
+\text{Turbidity} = f_{t_{s}} SS
+(\#eq:lagoonhabitat3)
+$$
+
+where $f_{t_{s}}$ is an empirical coefficient, determined through site specific correlations or literature.
+
+The concentration of suspended solids at any location depends on inputs from tributaries, advection of material through the lagoon, and vertical fluxes due to particle resuspension and deposition. Deposition is computed based on a prescribed settling velocity for each particle group. The rate of resuspension ($R$) varies across the system due to heterogeneity in sediment properties. It is calculated by assuming linearity with the excess shear stress at the bed (Lee et al. 2005), such that:
+
+$$
+R_i=\sum_{s=1}^{n_s}{{\ \ f}_{s,i}\ {\ \ \varepsilon}_s}\ \ \text{max}\left(\tau_b-\tau_c,\ 0\right)
+(\#eq:lagoonhabitat4)
+$$
+
+where $n_s$ is the number of particle size classes, $f_{s,i}$ is the fraction of each particle size class in the  sediment material zone, $\varepsilon$ is the resuspension rate coefficient, $\tau_b$ is the bed shear stress (computed based on the current and wave orbital velocities in each cell), and $\tau_c$ is the critical shear stress for resuspension, which depends on the sediment size (Julien 2010), and optionally, the presence of vegetation. 
+
 ### Validation and assessment
 
-### Lagoon scale predictions 
+### Lagoon scale predictions
 
 ### Summary
 
@@ -52,11 +88,28 @@
 
 ### Model approach
 
-### Data availability 
+### Nutrients and filamentous algae
+
+Within the Coorong, the AED model has previously been set up to predict inorganic and organic nutrients, and chlorophyll-a (Mosley et al., 2017). Whilst nutrients are not directly required for the *Ruppia* model assessment, the presence of filamentous algal blooms can compete for light and these are linked to bioavailable nutrients within the water column (in addition to other attributes).
+
+We therefore include a filamentous algae variable in the model that is customized to reflect the Ulva community that was described in earlier chapters. In this case is it is assumed to be attached to benthic substrate, and is therefore is not subject to advection and mixing, but can slough off under high stress conditions and become a floating variable subject to transport. The balance equation describes how the biomass changes over time, according to: 
+
+$$
+\frac{d\left(FA\right)}{dt}=+f_{\text{uptake}}^{FA}-f_{\text{excr}}^{FA}-f_{\text{mort}}^{FA}-f_{\text{resp}}^{FA}\ -f_{\text{slough}}^{FA}
+(\#eq:lagoonhabitat5)
+$$
+
+$$
+\scriptsize{f^{FA}_{\text{uptake}} = \underbrace{R^{FA}_{\text{growth}}}_{\text{max growth} \\ \text{rate at 20$^\circ$C}} \ \ \underbrace{(1-k^{FA}_{\text{pr}})}_{\text{photorespiratory} \\ \text{loss}} \ \ \underbrace{\Phi^{FA}_{\text{tem}}(T)}_{\text{temperature} \\ \text{scaling}} \text{min} \left \{\underbrace{\Phi^{FA}_{\text{light}}(I)}_{\text{light limitation}}, \underbrace{\Phi^{FA}_{\text{N}}(NO_{3},NH_{4})}_{\text{light limitation}}, \underbrace{\Phi^{FA}_{\text{P}}(PO_{4})}_{\text{P limitation}} \right \} [FA]}
+(\#eq:lagoonhabitat6)
+$$
+
+Note that the 'sloughed' biomass is considered to be exposed to surface light irradiances and can also decompose should environmental conditions be inadequate for growth.
+
+### Data availability
 
 ### Model setup
 
 ### Validation and assessment
 
 ### Summary
-
