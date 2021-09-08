@@ -6,11 +6,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>3 CDM Development &amp; Testing | The Coorong Dynamics Model</title>
 <meta name="author" content="MR Hipsey, P Huang, D Paraska, S Zhai, B Busch, C Sims, M Gibbs">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.7/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="3.1 Modelling development rationale  3.1.1 Known gaps and model limitations   3.1.2 Development focus and integration with HCHB research and monitoring   Figure 3.1: Data and model integration...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="3 CDM Development &amp; Testing | The Coorong Dynamics Model">
+<meta property="og:type" content="book">
+<meta property="og:description" content="3.1 Modelling development rationale  3.1.1 Known gaps and model limitations   3.1.2 Development focus and integration with HCHB research and monitoring   Figure 3.1: Data and model integration...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3 CDM Development &amp; Testing | The Coorong Dynamics Model">
+<meta name="twitter:description" content="3.1 Modelling development rationale  3.1.1 Known gaps and model limitations   3.1.2 Development focus and integration with HCHB research and monitoring   Figure 3.1: Data and model integration...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="css/style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -69,7 +77,7 @@
 </h3>
 <div class="text-image">
 <div class="figure">
-<span id="fig:dev-pic0"></span>
+<span style="display:block;" id="fig:dev-pic0"></span>
 <img src="images/dev/Project%20integration%20diagram.png" alt="Data and model integration strategy, showing links between the HCHB Goyder T&amp;I research program and the model development priorities." width="100%"><p class="caption">
 Figure 3.1: Data and model integration strategy, showing links between the HCHB Goyder T&amp;I research program and the model development priorities.
 </p>
@@ -138,6 +146,14 @@ Figure 3.1: Data and model integration strategy, showing links between the HCHB 
 <li>The wave model domain coverage and validation sites (map)</li>
 <li>Rotation.</li>
 </ul>
+<div class="text-image">
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:dev-sites"></span>
+<img src="images/dev/HCHB%20SWAN%20Extents.png" alt="Model Extents for Swan Wave Model and the TFV model, with validation sites" width="100%"><p class="caption">
+Figure 3.2: Model Extents for Swan Wave Model and the TFV model, with validation sites
+</p>
+</div>
+</div>
 </div>
 <div id="suspended-solids-and-light" class="section level4" number="3.3.2.2">
 <h4>
@@ -193,18 +209,18 @@ e Mehta, 1991</code></pre>
 <p>The SWAN wave model was calibrated during the periods between the UA sediment resuspension studies undertaken in December 2020 and March 2021. The comparison between the SWAN wave model outputs and the field survey data of significant wave height is shown in Figure xx, which indicates the wave model produced reasonable outcomes in the time variation and magnitude of the response of significant wave height.</p>
 <div class="text-image">
 <div class="figure">
-<span id="fig:dev-pic1"></span>
+<span style="display:block;" id="fig:dev-pic1"></span>
 <img src="images/dev/3_picture1.png" alt="Comparison of the Coorong SWAN wave model output and the UA field survey data at two sites. Period spanning Mar 2021." width="60%"><p class="caption">
-Figure 3.2: Comparison of the Coorong SWAN wave model output and the UA field survey data at two sites. Period spanning Mar 2021.
+Figure 3.3: Comparison of the Coorong SWAN wave model output and the UA field survey data at two sites. Period spanning Mar 2021.
 </p>
 </div>
 </div>
 <p>The wave model output is then coupled to the TUFLOW-AED model to calibrate the sediment resuspension. The preliminary result is shown in Figure xx, which indicates the model captured the general variations in the turbidity, though more calibrations to the resuspension events under high wind conditions will be examined in next stages of model development.</p>
 <div class="text-image">
 <div class="figure">
-<span id="fig:dev-pic2"></span>
+<span style="display:block;" id="fig:dev-pic2"></span>
 <img src="images/dev/3_A4261209.png" alt="Comparison of the AED turbidity model output and the DEW in situ sensor data within the South Lagoon station A4261209." width="80%"><p class="caption">
-Figure 3.3: Comparison of the AED turbidity model output and the DEW in situ sensor data within the South Lagoon station A4261209.
+Figure 3.4: Comparison of the AED turbidity model output and the DEW in situ sensor data within the South Lagoon station A4261209.
 </p>
 </div>
 </div>
@@ -216,17 +232,17 @@ Figure 3.3: Comparison of the AED turbidity model output and the DEW in situ sen
 <p>Examples of spatial distribution of significant wave height, bottom shear stress (TAUB), resuspension rate, and TSS concentration in the water during a low wind event (Figure xx) and high wind event (Figure xx) are shown below. In general, the wind condition was shown to be the dominant factor of the sediment resuspension rate. During the calm wind condition such as in 01/11/2021 when the wind speed was &lt; 3 m/s, the sediment resuspension rate was negligible. The resuspension rate exceeded 20 g/m<sup>2</sup>/day in 19/11/2020 when the wind speed reached 9 m/s, which subsequently led to increase in the water TSS concentrations. The shallow water in the littoral zones are more vulnerable to the wind-induced resuspension.</p>
 <div class="text-image">
 <div class="figure">
-<span id="fig:dev-pic3"></span>
+<span style="display:block;" id="fig:dev-pic3"></span>
 <img src="images/dev/3_picture2.png" alt="An example output of modelled (a) weight height, (b) bottom shear stress, (c) resuspension rates, and (d) total suspended solid concentration in Coorong during low wind condition (&lt; 3m/s)." width="100%"><p class="caption">
-Figure 3.4: An example output of modelled (a) weight height, (b) bottom shear stress, (c) resuspension rates, and (d) total suspended solid concentration in Coorong during low wind condition (&lt; 3m/s).
+Figure 3.5: An example output of modelled (a) weight height, (b) bottom shear stress, (c) resuspension rates, and (d) total suspended solid concentration in Coorong during low wind condition (&lt; 3m/s).
 </p>
 </div>
 </div>
 <div class="text-image">
 <div class="figure">
-<span id="fig:dev-pic4"></span>
+<span style="display:block;" id="fig:dev-pic4"></span>
 <img src="images/dev/3_picture3.png" alt="Same as Figure xx except for a relatively higher wind condition (&gt;9m/s)." width="100%"><p class="caption">
-Figure 3.5: Same as Figure xx except for a relatively higher wind condition (&gt;9m/s).
+Figure 3.6: Same as Figure xx except for a relatively higher wind condition (&gt;9m/s).
 </p>
 </div>
 </div>
@@ -334,9 +350,9 @@ where the main growth term is resolved as:</p>
 <p>A new ‘colony’ based model for simulating clump emergence, biomass accumulation and sloughing has been conceptualised (Figure 13). The model adopts the same underlying physiology as described in the above section, but allows for age/size specific application of these rates to better align with recent observations and monitoring.</p>
 <div class="text-image">
 <div class="figure">
-<span id="fig:dev-pic5"></span>
+<span style="display:block;" id="fig:dev-pic5"></span>
 <img src="images/dev/macroalgae_conceptual.png" alt="Schematic depicting a new life-stage based macroalgal “clump” model being developed to track seasonal macroalgal biomass development and late-stage decay." width="100%"><p class="caption">
-Figure 3.6: Schematic depicting a new life-stage based macroalgal “clump” model being developed to track seasonal macroalgal biomass development and late-stage decay.
+Figure 3.7: Schematic depicting a new life-stage based macroalgal “clump” model being developed to track seasonal macroalgal biomass development and late-stage decay.
 </p>
 </div>
 </div>
@@ -451,18 +467,18 @@ Pending
 <p><strong>Historical Monitoring</strong> A summary of historical (pre 2020) <em>Filamentous Algae</em> monitoring locations are shown in Figure 4.4.</p>
 <div class="text-image">
 <div class="figure" style="text-align: center">
-<span id="fig:dev-pic10"></span>
+<span style="display:block;" id="fig:dev-pic10"></span>
 <img src="images/dev/3_picture10a.png" alt="Filamentous Algae sampling sites for monitoring program prior to 2020. Agency/program code under each map corresponds to those listed in Table 4.3. Turquoise outline represents the model boundary." width="45%"><img src="images/dev/3_picture10b.png" alt="Filamentous Algae sampling sites for monitoring program prior to 2020. Agency/program code under each map corresponds to those listed in Table 4.3. Turquoise outline represents the model boundary." width="45%"><p class="caption">
-Figure 3.7: Filamentous Algae sampling sites for monitoring program prior to 2020. Agency/program code under each map corresponds to those listed in Table 4.3. Turquoise outline represents the model boundary.
+Figure 3.8: Filamentous Algae sampling sites for monitoring program prior to 2020. Agency/program code under each map corresponds to those listed in Table 4.3. Turquoise outline represents the model boundary.
 </p>
 </div>
 </div>
 <p><strong>HCHB Monitoring</strong> A summary of the HCHB monitoring locations are shown in Figure 4.5.</p>
 <div class="text-image">
 <div class="figure" style="text-align: center">
-<span id="fig:dev-pic11"></span>
+<span style="display:block;" id="fig:dev-pic11"></span>
 <img src="images/dev/3_picture11.png" alt="Filamentous algae sampling sites for the HCHB program (T and I 2). Agency/program code under each map corresponds to those listed in Table 4.4. Turquoise outline represents the model boundary." width="45%"><p class="caption">
-Figure 3.8: Filamentous algae sampling sites for the HCHB program (T and I 2). Agency/program code under each map corresponds to those listed in Table 4.4. Turquoise outline represents the model boundary.
+Figure 3.9: Filamentous algae sampling sites for the HCHB program (T and I 2). Agency/program code under each map corresponds to those listed in Table 4.4. Turquoise outline represents the model boundary.
 </p>
 </div>
 </div>
@@ -480,9 +496,9 @@ Figure 3.8: Filamentous algae sampling sites for the HCHB program (T and I 2). A
 <p>Using the original model, the following assessment against Ulva biomass prediction and presence absence was recorded.</p>
 <div class="text-image">
 <div class="figure" style="text-align: center">
-<span id="fig:dev-pic12"></span>
+<span style="display:block;" id="fig:dev-pic12"></span>
 <img src="images/dev/AlgaeDec2016vsULVAbiomass2016.png" alt="Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 (right)." width="45%"><img src="images/dev/AlgaeMay2017vsUlvaBiomass2016.png" alt="Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 (right)." width="45%"><p class="caption">
-Figure 3.9: Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 (right).
+Figure 3.10: Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 (right).
 </p>
 </div>
 </div>
@@ -583,6 +599,22 @@ Figure 3.9: Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 (
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
 </html>
