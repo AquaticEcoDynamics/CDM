@@ -4,8 +4,20 @@
 
 ### Known gaps and model limitations
 
+A significant component of the work tasks are allocated to customise and develop key modules of the AED platform to incorporate the specific science requirements of the model so it is compatible with the findings and details reported in the T&I research projects. These are identified in the specification as:
+
+- Need to improve and validate hydrodynamic-biogeochemical-habitat models, including updating the Ruppia Habitat Suitability Model, to provide increased certainty in the forecasted responses to various management interventions, this includes improving and updating model representation of the following:
+    - external and internal nutrient loads based on outputs from ‘Understanding Coorong nutrient dynamics' (T&I activity 1.2)
+    - sediment loads, nutrient fluxes and cycling based on environmental data collected and outputs from ‘Understanding Coorong nutrient dynamics’ (T&I activity 1.3)
+    - Ruppia habitat suitability model and filamentous algae preference model (within AED2) based on environmental data collected and outputs from ‘Investigating the drivers and controls of filamentous algae and restoration of aquatic plants’ in the Coorong (T&I activities 2.4 and 2.5)
+- Extended habitat models to incorporate the quantitative models developed through the food web and waterbird components, including:
+    - Linking the quantitative food web models developed as part of ‘Restoring a functioning Coorong food web’ (T&I activity 3.4) to the existing TUFLOW FV – AED model framework to enable additional outcomes to be evaluated
+    - Linking the habitat suitability models for priority waterbird species developed as part of ‘Maintaining viable waterbird populations’ (T&I activities 4.1 and 4.3) to the existing TUFLOW FV – AED2 model framework to enable additional outcomes to be evaluated
+
+
 ### Development focus and integration with HCHB research and monitoring
 
+The staged development and assessment approach to the above model components and how they are linked with related T&I components are summarised in Figure * (the data-model integration strategy diagram) and outlined in the below sections.
 
 ```{r dev-pic0, echo = FALSE, out.width='100%', class = "text-image", fig.cap = "Data and model integration strategy, showing links between the HCHB Goyder T&I research program and the model development priorities."}
 
@@ -18,15 +30,235 @@ knitr::include_graphics("images/dev/Project integration diagram.png")
 
 ### Overview
 
+Sediment issues in the Coorong
+
 ### Model approach: CANDI-AED
+
+The heart of this model is the reaction, diffusion, advection model of Berner (1980), which was implemented as the Carbon and Nutrient Diagenesis model of Boudreau (1996). CANDI-AED implementation however has evolved from the original code, and the main differences pertain to the treatment of organic matter, and the simulation of the geochemical conditions known to influence the diagenetic equations. However, the core organic matter breakdown equations (and their numerical solution) remains similar as the original descriptions presented in Boudreau (1996), and to other similar sediment models. An overview of the model is shown in Figure X.
+
+
+```{r dev-pic00, echo = FALSE, out.width='80%', class = "text-image", fig.align='center', fig.cap = "CANDI-AED includes chemical processes of organic matter transformation and oxidation, and reduction/oxidation, crystallisation, adsorption and precipitation reactions of inorganic by-products. Most of the processes are triggered by the input of POM at the sediment-water interface."}
+
+knitr::include_graphics("images/dev/sed_image2.png")
+
+```
+
+
+####	Sediment reactive transport model
+
+The model is based on a 1D approximation of the sediment and pore-water profiles. Each active sediment zone (or column) is discretized into a user defineable number of layers that start at thicknesses of around 1mm at the sediment-water interface and increase exponentially down to a pre-defined sediment depth. The model resolves in each layer both physical (e.g. pore-water diffusion or bioturbation) and chemical (e.g., redox transformations) processes; these are summarised next.
+
+**Chemical reactions**
+
+The dynamic model considers two types of reactions - the slow, kinetically controlled reactions, and the fast thermodynamically based equilibrium reactions. The latter are simulated in the sediment through appropriate configuration of the geochemistry reactions; the configuration of the equilibrium model will apply to both the water and each of the sediment layers. The kinetically controlled reactions are mostly microbially-mediated and include the reactions for organic matter breakdown and eventual oxidation, the re-oxidation of various by-products and the dynamics of the metal sulfides.
+
+The organic matter ($OM$) degradation pathway considers labile and refractory $DOM$ components ($DOM$ and $DOM_R$ respectively) and the breakdown pathway simulated is conceptually summarized in Figure \ref{fig:sed_dynamic}. Reactions included in the kinetic component include the hydrolysis of the complex (e.g., high molecular weight) $OM$ pools ($POM_{VR}$, $POM_R$, $DOM_R$, $POM_L$) and transformation of Low Molecular Weight (LMW) $DOM_L$ by oxidants ($O_2$, $MnO_2$, $Fe(III)$ and $SO_4^{2-}$ - the so-called 'terminal metabolism'), and the release of resulting nutrients ($NO_3^-$, $NH_4^+$, $PO_4^{3-}$) and reduced by-products ($Mn^{2+}$, $Fe^{2+}$, $N_2$, $H_2S$, $CH_4$) and $CO_2$. Oxidants, nutrients and by-products are all capable of interacting, say through complexation or re-oxidation of reduced species for example.
+
+The decay of the complex $OM$ types to the LMW $DOM$ required for the hetertrophic bacteria to utilise are all modelled with a simple first-order decay rate. The subsequent reactions that describe the breakdown of $DOM_L$ may be written as:
+\begin{eqnarray}
+\overbrace{(CH_2O)_{106}(NH_3)_{16}(H_3PO_4)}^{\textrm{organic matter}} &+& 138O_2 \rightarrow \nonumber
+\\
+&& 106CO_2 + 16HNO_3 + H_3PO_4 + 122H_2O
+\\
+\textrm{Free energy, } \Delta G_0 &=& -3190\:kJmol^{-1} \nonumber
+\end{eqnarray}
+
+\begin{eqnarray}
+(CH_2O)_{106}(NH_3)_{16}(H_3PO_4) &+& 236MnO_2 +472H^+ \rightarrow  \nonumber
+\\
+&& 106CO_2 + 236Mn^{2+} + 8N_2 + H_3PO_4 + 366H_2O
+\\
+\textrm{Free energy, } \Delta G_0 &=& -3050\:kJmol^{-1} \nonumber
+\\
+\\
+(CH_2O)_{106}(NH_3)_{16}(H_3PO_4) &+& 94.4HNO_3 \rightarrow  \nonumber
+\\
+&& 106CO_2 + 55.5N_2 + H_3PO_4 + 177H_2O
+\\
+\textrm{Free energy, } \Delta G_0 &=& -3030\:kJmol^{-1} \nonumber
+\\
+\\
+(CH_2O)_{106}(NH_3)_{16}(H_3PO_4) &+& 212Fe_2O_3 +848H^+ \rightarrow  \nonumber
+\\
+&& 106CO_2 + 16NH_3 + H_3PO_4 + 742H_2O + 424Fe^{2+}
+\\
+\textrm{Free energy, } \Delta G_0 &=& -1410\:kJmol^{-1} \nonumber
+\\
+\\
+(CH_2O)_{106}(NH_3)_{16}(H_3PO_4) &+& 53SO_4^{2-}  \rightarrow  \nonumber
+\\
+&& 106CO_2 + 16NH_3 + H_3PO_4 + 106H_2O + 53S^{2-}
+\\
+\textrm{Free energy, } \Delta G_0 &=& -380\:kJmol^{-1} \nonumber
+\\
+\\
+(CH_2O)_{106}(NH_3)_{16}(H_3PO_4) &&  \rightarrow  \nonumber
+\\
+&& 53CO_2 + 53CH_4 + 16NH_3 + H_3PO_4
+\\
+\textrm{Free energy, } \Delta G_0 &=& -350\:kJmol^{-1} \nonumber
+\end{eqnarray}
+
+and the reaction rates for each of these are calculated dynamically based on Monod expressions which mediate the reaction rate according to the concentration of potential oxidants higher in the redox sequence, and the concentration of the available oxidant.
+
+In addition to the primary redox reactions associated with $OM$ breakdown, the model also includes numerous secondary reactions, such as oxidation of reduced by-products (e.g., Fe or S oxidation).
+
+**Physical processes**
+
+Accounting for advection and diffusion reactions is fairly consistent across diagenesis models, and here we use the same methods. Porosity ($\phi$) is defined according to equation 5 - 104, which allows it to decrease with depth, and the solid fraction is defined from $\phi_s=(1-\phi)$. For bioturbation the model uses a diffusion coefficient that varies with depth ($D_{B(z)}$) as a two layer function or a Gaussian decrease (Boudreau 1996). For the porewater components, diffusion coefficients are used that are based on free-solution molecular diffusion constants corrected for sediment tortuosity, $θ$, according to equation 5 - 105.
+
+
+####	Model extensions and development
+
+The above model approach is broadly used in lakes, ocean and estuarine environments, but there remain few cases in shallow lagoons (Paraska et al. 2014). Three main developments have been undertaken to adapt the code-base to the Coorong application (Figure xx):
+
+i.	Improved parameterisation of diffusion at the sediment-water interface
+ii.	Inclusion of functionality to resolve resuspension effects
+iii.	Addition of MPB
+
+```{r dev-pics5, echo = FALSE, out.width='100%', class = "text-image", fig.cap = "Visual summary of model updates undertaken."}
+
+knitr::include_graphics("images/dev/sed_picture7.png")
+
+```
+
+**SWI diffusion**
+
+Fluxes of dissolved species occur between the sediment and water column depending on the sediment type, solute and interfacial turbulence being experienced at the sediment-water interface. Dissolved fluxes are calculated from the concentration gradient at the sediment-water interface according to Fick’s Law:
+
+<center>
+\begin{equation}
+F = D_{0}\frac{\Delta C}{\Delta x} = \frac{D_{0}}{\delta} (C_{bw} - C_{1})
+(\#eq:biogeochem1)
+\end{equation}
+</center>
+
+where $D_{0}$ is the diffusivity, $\delta$ is the thickness of the diffusive boundary layer at the sediment-water interface,  defined as the length scale of the first sediment layer, $C_{bw}$ is the bottom water concentration and $C_{1}$ is the concentration in the top sediment layer. The diffusivity in these models typically assumes molecular diffusivity rates, which is likely to underestimate the real diffsuivity experienced in a shallow algoon such as the Coorong. We therefore add a new parameterisation to resolve diffusivity based on sediment type an water turbulence proerties, based on the metric $u_*^3$.
+
+**Resuspension effects**
+
+To Be Completed
+
+**SWI Productivity**
+
+To Be Completed
+
+
+
+<br>
+
+
+####	Resolving sediment zonation
+
+Facility also exists within the model to use sediment zones'\ which are identical to the above description but are not necessarily coincident with the grid-structure of the water. This way sed-zones may be defined for the domain, and depending on the nature of the grid, the water cells above the sediment will be averaged for the purposes of the interfacial fluxes, allowing more efficient simulations (see for example Figure \ref{fig:sed_integration}). Using zones is a practical compromise between computational efficiency and capturing spatial heterogeneity in sediment properties and their fluxes.
+
+
+```{r dev-pics3, echo = FALSE, out.width='100%', class = "text-image", fig.cap = "Schematic depicting sediment zone numerical approach."}
+
+knitr::include_graphics("images/dev/sed_picture5.png")
+
+```
+
+**3-zone experiment**
+
+To demonstrate the zones can function independently, a model test was performed with three zones. In this simulation each model zone received a sustained 1-year surface loading of organic material, which either was maintained for throughout the simulation duration (Zone 1), or was reduced to a new lower value (Zone 2 and 3); this can conceptually be considered as a test of the sediment model to respond to 'remediation' scenarios. The results highlight the individual zones responding accordingly, as shown for NO~3~ (Figure X).
+
+```{r dev-pics4, echo = FALSE, out.width='100%', class = "text-image", fig.cap = "Example of sediment concentration-depth-time plot for ammonia, given different organic matter influx rates in three different zones. To demonstrate capability for spatial differences, the organic matter input stayed the same in Zone 1 but decreased after 1 year in Zones 2 and 3 to different levels."}
+
+knitr::include_graphics("images/dev/sed_picture6.png")
+
+```
+
+####	Sediment-water coupling
+
+The sediment and hydrodynamic models are coupled at the sediment-water interface. The AED model setup has separate functions for coupling the bottom-most cell of the TUFLOW-FV hydrodynamic model to the top-most layer of the sediment model:
+
+-	flux of solid material onto the sediment surface
+-	concentration of dissolved substances in the bottom water
+-	flux of dissolved substances from the top sediment layer
+
+
+```{r dev-pics2, echo = FALSE, out.width='45%', class = "text-image",fig.show='hold',fig.align='center', fig.cap = "Schematic of sediment water coupling approach."}
+
+knitr::include_graphics(c("images/dev/sed_picture3.png","images/dev/sed_picture4.png"))
+
+```
+
+**Zone tracer experiment**
+
+*To Be Completed*
+
 
 ### Model setup and configuration
 
+The Coorong lagoon is divided into 10(20) sediment zones along its length. One sediment model is run for each of the ten(twenty) zones. The zone boundaries are largely based on locations of sandbars and where the lagoon channel narrows and broadens. There are measured data points in all zones except for zone 1, south of the Salt Creek inflow. Zones 1 to 4 correspond to the South Lagoon, as mentioned in the Goyder Institute nutrient budget. Zone 5 is the intermediate area and zones 6 to 10 are the North Lagoon.
+
+```{r dev-pics1, echo = FALSE, out.width='45%', class = "text-image",fig.show='hold',fig.align='center', fig.cap = "Example sediment zonation."}
+
+knitr::include_graphics(c("images/dev/sed_picture1.png","images/dev/sed_picture2.png"))
+
+```
+
+The sediment model is calibrated initially without any coupling. The sediment-water interface boundaries are based on measured bottom water data, where available, or literature values. Some parameters are tuned so that measured data matches simulated variables, for concentration depth profiles and fluxes.
+
+The sediment model is then coupled to the water column model. Many variables are set up to be linked between the two models; however, not all variables need to be linked. The fluxes and concentrations of linked variables in the bottom water are averaged across all cells in a zone, and this average value is passed to the sediment. Similarly, the value of a dissolved flux from the sediment is given to all bottom water cells within a sediment zone.
+
+
+####	Parameters and settings
+
+The assigned parameters for the model are described below in Table X.
+
+```{r 3dev-sedpars, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+sediment_parameters <- read.csv("tables/sediment_parameters.csv", check.names=FALSE)
+kable(sediment_parameters,"html", escape = F, align = "c", caption = "Sediment physical and transport parameters",
+      bootstrap_options = "hover") %>%
+  kable_styling(sediment_parameters, bootstrap_options = "hover",
+                full_width = F, position = "center",
+                font_size = 12) %>%
+  column_spec(1, width_min = "10em") %>%
+  column_spec(2, width_min = "7em") %>%
+  column_spec(3, width_min = "7em") %>%
+  column_spec(4, width_min = "15em") %>%
+  row_spec(1:19, background = 'white') %>%
+  scroll_box(width = "690px", height = "800px",
+             fixed_thead = FALSE)
+```
+
+<br>
+
+####	Validation sites and data
+
+A wide diversity of data has been collected and is documentaed in Appendix A (Data Catalogue). In summary, there are four broad categories of field data available from the University of Adelaide surveys for model setup and parameterisation.
+
+*Grab samples – C, N, P, Mn, Fe, S* : These are available for many sites but only one or two depths. They are useful for averaging a concentration at depth within a zone. These are key variables for sediment biogeochemistry.
+
+*Cores – Fe, S, NH4+, PO43- GHGs* : The cores are available for only around four sites, but they are used for calibrating depth profiles and sediment-water fluxes. These often have data measured in the day and the night, as well as in November and March, which all have different concentrations and fluxes. The challenge will be to capture both day and night conditions, while also capturing seasonal changes.
+The GHG models are new and require testing and development. It may be a challenge to tune these models to fit GHG flux measurements.
+
+*Sediment quality* : These measurements are used for setting the initial porosity parameters. Once these are set they are not tuned further.
+
+*Macroinvertebrates – bioturbation parameters* : These measurements are used for setting bioturbation and bioirrigation parameters. Broadly, the North Lagoon has high bioturbation and the South Lagoon has very little bioturbation. The depth to bioturbation is important, as it is expected that there is uninhabited black ooze below a certain depth.
+
+
+
 ### Validation and assessment
+
+*To Be Completed*
+
 
 ### Lagoon scale predictions
 
-### Summary
+*To Be Completed*
+
+
+### Summary (Sept 2021)
+
+
+
+
+
 
 <br>
 <br>
@@ -45,12 +277,10 @@ The model settings and validation results are described below. Wave and turbidit
 
 #### SWAN wave model simulation
 
-The SWAN wave model was adopted using a Cartesian grid with 200 m resolution, and the third generation simulation mode. The model was initially forced with the Narrung weather station data and the water depth was interpolated from the existing (2008) Coorong bathymetry data. Wind data at the measurement site was also used for a period when it was available. 
+The SWAN wave model was adopted using a Cartesian grid with 200 m resolution, and the third generation simulation mode. The model was initially forced with the Narrung weather station data and the water depth was interpolated from the existing (2008) Coorong bathymetry data. Wind data at the measurement site was also used for a period when it was available.
 
-- The wave model domain coverage and validation sites  (map)
-- Rotation.
 
-```{r dev-sites, echo = FALSE, out.width='100%', class = "text-image",fig.align='center', fig.cap = "Model Extents for Swan Wave Model and the TFV model, with validation sites"}
+```{r dev-sites, echo = FALSE, out.width='100%', class = "text-image",fig.align='center', fig.cap = "Model extents for SWAN Wave Model and the TFV domains, with validation sites."}
 
 knitr::include_graphics("images/dev/HCHB SWAN Extents.png")
 
@@ -81,7 +311,7 @@ $$
 (\#eq:lagoonhabitat3)
 $$
 
-where $f_{t_{s}}$ is an empirical coefficient, determined through site specific correlations or literature. The suspended solids-turbidity ratio is currently assumed to be 1, and this relationship is based on experimental data from the March 2020 UA field assessment. 
+where $f_{t_{s}}$ is an empirical coefficient, determined through site specific correlations or literature. The suspended solids-turbidity ratio is currently assumed to be 1, and this relationship is based on experimental data from the March 2020 UA field assessment.
 
 #### Resuspension
 
@@ -94,16 +324,16 @@ $$
 
 where $n_s$ is the number of particle size classes, $f_{s,i}$ is the fraction of each particle size class in the  sediment material zone, $\varepsilon$ is the resuspension rate coefficient, $\tau_b$ is the bed shear stress (computed based on the current and wave orbital velocities in each cell), and $\tau_c$ is the critical shear stress for resuspension, which depends on the sediment size (Julien 2010), and optionally, the presence of vegetation. 
 
-The resuspended particles are then subjected to settling assuming a constant settling velocity 
+The resuspended particles are then subjected to settling assuming a constant settling velocity
 $\omega$ of 0.2 m/day. A literature review and current CDM settings of resuspension is summarised in Table xx.
 
-Table xx. Summary of key parameters in the resuspension model. 
+Table xx. Summary of key parameters in the resuspension model.
 Parameter	Description	Unit	Literature range	Current CDM setting
 $\epsilon$	Bulk resuspension rate	g/m^2^/s	0-0.01 a	0.008
 $\tau_0$ Critical shear stress	N/m^2^	0.02-0.25 b, c	0.05
 $tau_r$	Resuspension coefficient	-	-	1
 $\omega$	Settling velocity	m/day	0.01-1 d, e 	0.2
-	
+
 	a Zhu et al., 2015
 	b Ghose-Hajra et al., 2014
 	c van Rijn, 2007
@@ -122,7 +352,7 @@ knitr::include_graphics("images/dev/3_picture1.png")
 
 ```
 
-The wave model output is then coupled to the TUFLOW-AED model to calibrate the sediment resuspension. The preliminary result is shown in Figure xx, which indicates the model captured the general variations in the turbidity, though more calibrations to the resuspension events under high wind conditions will be examined in next stages of model development. 
+The wave model output is then coupled to the TUFLOW-AED model to calibrate the sediment resuspension. The preliminary result is shown in Figure xx, which indicates the model captured the general variations in the turbidity, though more calibrations to the resuspension events under high wind conditions will be examined in next stages of model development.
 
 
 ```{r dev-pic2, echo = FALSE, out.width='80%', class = "text-image", fig.cap = "Comparison of the AED turbidity model output and the DEW in situ sensor data within the South Lagoon station A4261209."}
@@ -163,7 +393,7 @@ The existing wave model is shown to be well calibrated, and the resuspension mod
 
 1.	Considering more particle groups in the sediment and TSS composition, based on assessment of the UA LISST data.
 2.	Adding the Stokes Law method for the parcel setting velocity depending on the particle density and sizes;
-3.	Further calibration on the sediment resuspension rates and the critical shear stress for better model performance, also including organic vs inorganic resuspension rates. 
+3.	Further calibration on the sediment resuspension rates and the critical shear stress for better model performance, also including organic vs inorganic resuspension rates.
 
 <br>
 
@@ -191,7 +421,7 @@ The existing wave model is shown to be well calibrated, and the resuspension mod
 
 ### Model approach
 
-Within the Coorong, the AED model has previously been set up to predict inorganic and organic nutrients, and chlorophyll-a. Whilst nutrients are not directly required for the *Ruppia* model assessment, the presence of filamentous algal blooms can compete for light and these are linked to bioavailable nutrients within the water column (in addition to other attributes). 
+Within the Coorong, the AED model has previously been set up to predict inorganic and organic nutrients, and chlorophyll-a. Whilst nutrients are not directly required for the *Ruppia* model assessment, the presence of filamentous algal blooms can compete for light and these are linked to bioavailable nutrients within the water column (in addition to other attributes).
 
 #### Filamentous algae
 
@@ -229,7 +459,7 @@ The original AED macroalgal biomass model previously applied and exemplified in 
 
 #### Resolving seasonal life-stage dynamics
 
-Following review of the initial data and findings from the T&I project 2, the approach to modelling macroalgae has been revised to better resolve seasonal shifts in form and physiology over the seasonal cycle. 
+Following review of the initial data and findings from the T&I project 2, the approach to modelling macroalgae has been revised to better resolve seasonal shifts in form and physiology over the seasonal cycle.
 
 A new ‘colony’ based model for simulating clump emergence, biomass accumulation and sloughing has been conceptualised (Figure 13). The model adopts the same underlying physiology as described in the above section, but allows for age/size specific application of these rates to better align with recent observations and monitoring.
 

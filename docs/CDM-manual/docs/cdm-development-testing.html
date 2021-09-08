@@ -6,19 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>3 CDM Development &amp; Testing | The Coorong Dynamics Model</title>
 <meta name="author" content="MR Hipsey, P Huang, D Paraska, S Zhai, B Busch, C Sims, M Gibbs">
-<meta name="description" content="3.1 Modelling development rationale  3.1.1 Known gaps and model limitations   3.1.2 Development focus and integration with HCHB research and monitoring   Figure 3.1: Data and model integration...">
-<meta name="generator" content="bookdown 0.24 with bs4_book()">
-<meta property="og:title" content="3 CDM Development &amp; Testing | The Coorong Dynamics Model">
-<meta property="og:type" content="book">
-<meta property="og:description" content="3.1 Modelling development rationale  3.1.1 Known gaps and model limitations   3.1.2 Development focus and integration with HCHB research and monitoring   Figure 3.1: Data and model integration...">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="3 CDM Development &amp; Testing | The Coorong Dynamics Model">
-<meta name="twitter:description" content="3.1 Modelling development rationale  3.1.1 Known gaps and model limitations   3.1.2 Development focus and integration with HCHB research and monitoring   Figure 3.1: Data and model integration...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.7/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="css/style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -50,7 +42,7 @@
 <li><a class="" href="conclusion.html"><span class="header-section-number">7</span> Conclusion</a></li>
 <li><a class="" href="references.html">References</a></li>
 <li><a class="" href="appendix-a.html">Appendix A</a></li>
-<li><a class="" href="appendix-y.html">Appendix Y</a></li>
+<li><a class="" href="appendix-b.html">Appendix B</a></li>
 </ul>
 
         <div class="book-extra">
@@ -70,14 +62,31 @@
 <h3>
 <span class="header-section-number">3.1.1</span> Known gaps and model limitations<a class="anchor" aria-label="anchor" href="#known-gaps-and-model-limitations"><i class="fas fa-link"></i></a>
 </h3>
+<p>A significant component of the work tasks are allocated to customise and develop key modules of the AED platform to incorporate the specific science requirements of the model so it is compatible with the findings and details reported in the T&amp;I research projects. These are identified in the specification as:</p>
+<ul>
+<li>Need to improve and validate hydrodynamic-biogeochemical-habitat models, including updating the Ruppia Habitat Suitability Model, to provide increased certainty in the forecasted responses to various management interventions, this includes improving and updating model representation of the following:
+<ul>
+<li>external and internal nutrient loads based on outputs from ‘Understanding Coorong nutrient dynamics’ (T&amp;I activity 1.2)</li>
+<li>sediment loads, nutrient fluxes and cycling based on environmental data collected and outputs from ‘Understanding Coorong nutrient dynamics’ (T&amp;I activity 1.3)</li>
+<li>Ruppia habitat suitability model and filamentous algae preference model (within AED2) based on environmental data collected and outputs from ‘Investigating the drivers and controls of filamentous algae and restoration of aquatic plants’ in the Coorong (T&amp;I activities 2.4 and 2.5)</li>
+</ul>
+</li>
+<li>Extended habitat models to incorporate the quantitative models developed through the food web and waterbird components, including:
+<ul>
+<li>Linking the quantitative food web models developed as part of ‘Restoring a functioning Coorong food web’ (T&amp;I activity 3.4) to the existing TUFLOW FV – AED model framework to enable additional outcomes to be evaluated</li>
+<li>Linking the habitat suitability models for priority waterbird species developed as part of ‘Maintaining viable waterbird populations’ (T&amp;I activities 4.1 and 4.3) to the existing TUFLOW FV – AED2 model framework to enable additional outcomes to be evaluated</li>
+</ul>
+</li>
+</ul>
 </div>
 <div id="development-focus-and-integration-with-hchb-research-and-monitoring" class="section level3" number="3.1.2">
 <h3>
 <span class="header-section-number">3.1.2</span> Development focus and integration with HCHB research and monitoring<a class="anchor" aria-label="anchor" href="#development-focus-and-integration-with-hchb-research-and-monitoring"><i class="fas fa-link"></i></a>
 </h3>
+<p>The staged development and assessment approach to the above model components and how they are linked with related T&amp;I components are summarised in Figure * (the data-model integration strategy diagram) and outlined in the below sections.</p>
 <div class="text-image">
 <div class="figure">
-<span style="display:block;" id="fig:dev-pic0"></span>
+<span id="fig:dev-pic0"></span>
 <img src="images/dev/Project%20integration%20diagram.png" alt="Data and model integration strategy, showing links between the HCHB Goyder T&amp;I research program and the model development priorities." width="100%"><p class="caption">
 Figure 3.1: Data and model integration strategy, showing links between the HCHB Goyder T&amp;I research program and the model development priorities.
 </p>
@@ -93,30 +102,487 @@ Figure 3.1: Data and model integration strategy, showing links between the HCHB 
 <h3>
 <span class="header-section-number">3.2.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview-1"><i class="fas fa-link"></i></a>
 </h3>
+<p>Sediment issues in the Coorong</p>
 </div>
 <div id="model-approach-candi-aed" class="section level3" number="3.2.2">
 <h3>
 <span class="header-section-number">3.2.2</span> Model approach: CANDI-AED<a class="anchor" aria-label="anchor" href="#model-approach-candi-aed"><i class="fas fa-link"></i></a>
 </h3>
+<p>The heart of this model is the reaction, diffusion, advection model of Berner (1980), which was implemented as the Carbon and Nutrient Diagenesis model of Boudreau (1996). CANDI-AED implementation however has evolved from the original code, and the main differences pertain to the treatment of organic matter, and the simulation of the geochemical conditions known to influence the diagenetic equations. However, the core organic matter breakdown equations (and their numerical solution) remains similar as the original descriptions presented in Boudreau (1996), and to other similar sediment models. An overview of the model is shown in Figure X.</p>
+<div class="text-image">
+<div class="figure" style="text-align: center">
+<span id="fig:dev-pic00"></span>
+<img src="images/dev/sed_image2.png" alt="CANDI-AED includes chemical processes of organic matter transformation and oxidation, and reduction/oxidation, crystallisation, adsorption and precipitation reactions of inorganic by-products. Most of the processes are triggered by the input of POM at the sediment-water interface." width="80%"><p class="caption">
+Figure 3.2: CANDI-AED includes chemical processes of organic matter transformation and oxidation, and reduction/oxidation, crystallisation, adsorption and precipitation reactions of inorganic by-products. Most of the processes are triggered by the input of POM at the sediment-water interface.
+</p>
+</div>
+</div>
+<div id="sediment-reactive-transport-model" class="section level4" number="3.2.2.1">
+<h4>
+<span class="header-section-number">3.2.2.1</span> Sediment reactive transport model<a class="anchor" aria-label="anchor" href="#sediment-reactive-transport-model"><i class="fas fa-link"></i></a>
+</h4>
+<p>The model is based on a 1D approximation of the sediment and pore-water profiles. Each active sediment zone (or column) is discretized into a user defineable number of layers that start at thicknesses of around 1mm at the sediment-water interface and increase exponentially down to a pre-defined sediment depth. The model resolves in each layer both physical (e.g. pore-water diffusion or bioturbation) and chemical (e.g., redox transformations) processes; these are summarised next.</p>
+<p><strong>Chemical reactions</strong></p>
+<p>The dynamic model considers two types of reactions - the slow, kinetically controlled reactions, and the fast thermodynamically based equilibrium reactions. The latter are simulated in the sediment through appropriate configuration of the geochemistry reactions; the configuration of the equilibrium model will apply to both the water and each of the sediment layers. The kinetically controlled reactions are mostly microbially-mediated and include the reactions for organic matter breakdown and eventual oxidation, the re-oxidation of various by-products and the dynamics of the metal sulfides.</p>
+<p>The organic matter (<span class="math inline">\(OM\)</span>) degradation pathway considers labile and refractory <span class="math inline">\(DOM\)</span> components (<span class="math inline">\(DOM\)</span> and <span class="math inline">\(DOM_R\)</span> respectively) and the breakdown pathway simulated is conceptually summarized in Figure . Reactions included in the kinetic component include the hydrolysis of the complex (e.g., high molecular weight) <span class="math inline">\(OM\)</span> pools (<span class="math inline">\(POM_{VR}\)</span>, <span class="math inline">\(POM_R\)</span>, <span class="math inline">\(DOM_R\)</span>, <span class="math inline">\(POM_L\)</span>) and transformation of Low Molecular Weight (LMW) <span class="math inline">\(DOM_L\)</span> by oxidants (<span class="math inline">\(O_2\)</span>, <span class="math inline">\(MnO_2\)</span>, <span class="math inline">\(Fe(III)\)</span> and <span class="math inline">\(SO_4^{2-}\)</span> - the so-called ‘terminal metabolism’), and the release of resulting nutrients (<span class="math inline">\(NO_3^-\)</span>, <span class="math inline">\(NH_4^+\)</span>, <span class="math inline">\(PO_4^{3-}\)</span>) and reduced by-products (<span class="math inline">\(Mn^{2+}\)</span>, <span class="math inline">\(Fe^{2+}\)</span>, <span class="math inline">\(N_2\)</span>, <span class="math inline">\(H_2S\)</span>, <span class="math inline">\(CH_4\)</span>) and <span class="math inline">\(CO_2\)</span>. Oxidants, nutrients and by-products are all capable of interacting, say through complexation or re-oxidation of reduced species for example.</p>
+<p>The decay of the complex <span class="math inline">\(OM\)</span> types to the LMW <span class="math inline">\(DOM\)</span> required for the hetertrophic bacteria to utilise are all modelled with a simple first-order decay rate. The subsequent reactions that describe the breakdown of <span class="math inline">\(DOM_L\)</span> may be written as:
+<span class="math display">\[\begin{eqnarray}
+\overbrace{(CH_2O)_{106}(NH_3)_{16}(H_3PO_4)}^{\textrm{organic matter}} &amp;+&amp; 138O_2 \rightarrow \nonumber
+\\
+&amp;&amp; 106CO_2 + 16HNO_3 + H_3PO_4 + 122H_2O
+\\
+\textrm{Free energy, } \Delta G_0 &amp;=&amp; -3190\:kJmol^{-1} \nonumber
+\end{eqnarray}\]</span></p>
+<p><span class="math display">\[\begin{eqnarray}
+(CH_2O)_{106}(NH_3)_{16}(H_3PO_4) &amp;+&amp; 236MnO_2 +472H^+ \rightarrow  \nonumber
+\\
+&amp;&amp; 106CO_2 + 236Mn^{2+} + 8N_2 + H_3PO_4 + 366H_2O
+\\
+\textrm{Free energy, } \Delta G_0 &amp;=&amp; -3050\:kJmol^{-1} \nonumber
+\\
+\\
+(CH_2O)_{106}(NH_3)_{16}(H_3PO_4) &amp;+&amp; 94.4HNO_3 \rightarrow  \nonumber
+\\
+&amp;&amp; 106CO_2 + 55.5N_2 + H_3PO_4 + 177H_2O
+\\
+\textrm{Free energy, } \Delta G_0 &amp;=&amp; -3030\:kJmol^{-1} \nonumber
+\\
+\\
+(CH_2O)_{106}(NH_3)_{16}(H_3PO_4) &amp;+&amp; 212Fe_2O_3 +848H^+ \rightarrow  \nonumber
+\\
+&amp;&amp; 106CO_2 + 16NH_3 + H_3PO_4 + 742H_2O + 424Fe^{2+}
+\\
+\textrm{Free energy, } \Delta G_0 &amp;=&amp; -1410\:kJmol^{-1} \nonumber
+\\
+\\
+(CH_2O)_{106}(NH_3)_{16}(H_3PO_4) &amp;+&amp; 53SO_4^{2-}  \rightarrow  \nonumber
+\\
+&amp;&amp; 106CO_2 + 16NH_3 + H_3PO_4 + 106H_2O + 53S^{2-}
+\\
+\textrm{Free energy, } \Delta G_0 &amp;=&amp; -380\:kJmol^{-1} \nonumber
+\\
+\\
+(CH_2O)_{106}(NH_3)_{16}(H_3PO_4) &amp;&amp;  \rightarrow  \nonumber
+\\
+&amp;&amp; 53CO_2 + 53CH_4 + 16NH_3 + H_3PO_4
+\\
+\textrm{Free energy, } \Delta G_0 &amp;=&amp; -350\:kJmol^{-1} \nonumber
+\end{eqnarray}\]</span></p>
+<p>and the reaction rates for each of these are calculated dynamically based on Monod expressions which mediate the reaction rate according to the concentration of potential oxidants higher in the redox sequence, and the concentration of the available oxidant.</p>
+<p>In addition to the primary redox reactions associated with <span class="math inline">\(OM\)</span> breakdown, the model also includes numerous secondary reactions, such as oxidation of reduced by-products (e.g., Fe or S oxidation).</p>
+<p><strong>Physical processes</strong></p>
+<p>Accounting for advection and diffusion reactions is fairly consistent across diagenesis models, and here we use the same methods. Porosity (<span class="math inline">\(\phi\)</span>) is defined according to equation 5 - 104, which allows it to decrease with depth, and the solid fraction is defined from <span class="math inline">\(\phi_s=(1-\phi)\)</span>. For bioturbation the model uses a diffusion coefficient that varies with depth (<span class="math inline">\(D_{B(z)}\)</span>) as a two layer function or a Gaussian decrease (Boudreau 1996). For the porewater components, diffusion coefficients are used that are based on free-solution molecular diffusion constants corrected for sediment tortuosity, <span class="math inline">\(θ\)</span>, according to equation 5 - 105.</p>
+</div>
+<div id="model-extensions-and-development" class="section level4" number="3.2.2.2">
+<h4>
+<span class="header-section-number">3.2.2.2</span> Model extensions and development<a class="anchor" aria-label="anchor" href="#model-extensions-and-development"><i class="fas fa-link"></i></a>
+</h4>
+<p>The above model approach is broadly used in lakes, ocean and estuarine environments, but there remain few cases in shallow lagoons (Paraska et al. 2014). Three main developments have been undertaken to adapt the code-base to the Coorong application (Figure xx):</p>
+<ol style="list-style-type: lower-roman">
+<li>Improved parameterisation of diffusion at the sediment-water interface</li>
+<li>Inclusion of functionality to resolve resuspension effects</li>
+<li>Addition of MPB</li>
+</ol>
+<div class="text-image">
+<div class="figure">
+<span id="fig:dev-pics5"></span>
+<img src="images/dev/sed_picture7.png" alt="Visual summary of model updates undertaken." width="100%"><p class="caption">
+Figure 3.3: Visual summary of model updates undertaken.
+</p>
+</div>
+</div>
+<p><strong>SWI diffusion</strong></p>
+<p>Fluxes of dissolved species occur between the sediment and water column depending on the sediment type, solute and interfacial turbulence being experienced at the sediment-water interface. Dissolved fluxes are calculated from the concentration gradient at the sediment-water interface according to Fick’s Law:</p>
+<center>
+<span class="math display" id="eq:biogeochem1">\[\begin{equation}
+F = D_{0}\frac{\Delta C}{\Delta x} = \frac{D_{0}}{\delta} (C_{bw} - C_{1})
+\tag{3.1}
+\end{equation}\]</span>
+</center>
+<p>where <span class="math inline">\(D_{0}\)</span> is the diffusivity, <span class="math inline">\(\delta\)</span> is the thickness of the diffusive boundary layer at the sediment-water interface, defined as the length scale of the first sediment layer, <span class="math inline">\(C_{bw}\)</span> is the bottom water concentration and <span class="math inline">\(C_{1}\)</span> is the concentration in the top sediment layer. The diffusivity in these models typically assumes molecular diffusivity rates, which is likely to underestimate the real diffsuivity experienced in a shallow algoon such as the Coorong. We therefore add a new parameterisation to resolve diffusivity based on sediment type an water turbulence proerties, based on the metric <span class="math inline">\(u_*^3\)</span>.</p>
+<p><strong>Resuspension effects</strong></p>
+<p>To Be Completed</p>
+<p><strong>SWI Productivity</strong></p>
+<p>To Be Completed</p>
+<p><br></p>
+</div>
+<div id="resolving-sediment-zonation" class="section level4" number="3.2.2.3">
+<h4>
+<span class="header-section-number">3.2.2.3</span> Resolving sediment zonation<a class="anchor" aria-label="anchor" href="#resolving-sediment-zonation"><i class="fas fa-link"></i></a>
+</h4>
+<p>Facility also exists within the model to use sediment zones’ which are identical to the above description but are not necessarily coincident with the grid-structure of the water. This way sed-zones may be defined for the domain, and depending on the nature of the grid, the water cells above the sediment will be averaged for the purposes of the interfacial fluxes, allowing more efficient simulations (see for example Figure ). Using zones is a practical compromise between computational efficiency and capturing spatial heterogeneity in sediment properties and their fluxes.</p>
+<div class="text-image">
+<div class="figure">
+<span id="fig:dev-pics3"></span>
+<img src="images/dev/sed_picture5.png" alt="Schematic depicting sediment zone numerical approach." width="100%"><p class="caption">
+Figure 3.4: Schematic depicting sediment zone numerical approach.
+</p>
+</div>
+</div>
+<p><strong>3-zone experiment</strong></p>
+<p>To demonstrate the zones can function independently, a model test was performed with three zones. In this simulation each model zone received a sustained 1-year surface loading of organic material, which either was maintained for throughout the simulation duration (Zone 1), or was reduced to a new lower value (Zone 2 and 3); this can conceptually be considered as a test of the sediment model to respond to ‘remediation’ scenarios. The results highlight the individual zones responding accordingly, as shown for NO<sub>3</sub> (Figure X).</p>
+<div class="text-image">
+<div class="figure">
+<span id="fig:dev-pics4"></span>
+<img src="images/dev/sed_picture6.png" alt="Example of sediment concentration-depth-time plot for ammonia, given different organic matter influx rates in three different zones. To demonstrate capability for spatial differences, the organic matter input stayed the same in Zone 1 but decreased after 1 year in Zones 2 and 3 to different levels." width="100%"><p class="caption">
+Figure 3.5: Example of sediment concentration-depth-time plot for ammonia, given different organic matter influx rates in three different zones. To demonstrate capability for spatial differences, the organic matter input stayed the same in Zone 1 but decreased after 1 year in Zones 2 and 3 to different levels.
+</p>
+</div>
+</div>
+</div>
+<div id="sediment-water-coupling" class="section level4" number="3.2.2.4">
+<h4>
+<span class="header-section-number">3.2.2.4</span> Sediment-water coupling<a class="anchor" aria-label="anchor" href="#sediment-water-coupling"><i class="fas fa-link"></i></a>
+</h4>
+<p>The sediment and hydrodynamic models are coupled at the sediment-water interface. The AED model setup has separate functions for coupling the bottom-most cell of the TUFLOW-FV hydrodynamic model to the top-most layer of the sediment model:</p>
+<ul>
+<li>flux of solid material onto the sediment surface</li>
+<li>concentration of dissolved substances in the bottom water</li>
+<li>flux of dissolved substances from the top sediment layer</li>
+</ul>
+<div class="text-image">
+<div class="figure" style="text-align: center">
+<span id="fig:dev-pics2"></span>
+<img src="images/dev/sed_picture3.png" alt="Schematic of sediment water coupling approach." width="45%"><img src="images/dev/sed_picture4.png" alt="Schematic of sediment water coupling approach." width="45%"><p class="caption">
+Figure 3.6: Schematic of sediment water coupling approach.
+</p>
+</div>
+</div>
+<p><strong>Zone tracer experiment</strong></p>
+<p><em>To Be Completed</em></p>
+</div>
 </div>
 <div id="model-setup-and-configuration" class="section level3" number="3.2.3">
 <h3>
 <span class="header-section-number">3.2.3</span> Model setup and configuration<a class="anchor" aria-label="anchor" href="#model-setup-and-configuration"><i class="fas fa-link"></i></a>
 </h3>
+<p>The Coorong lagoon is divided into 10(20) sediment zones along its length. One sediment model is run for each of the ten(twenty) zones. The zone boundaries are largely based on locations of sandbars and where the lagoon channel narrows and broadens. There are measured data points in all zones except for zone 1, south of the Salt Creek inflow. Zones 1 to 4 correspond to the South Lagoon, as mentioned in the Goyder Institute nutrient budget. Zone 5 is the intermediate area and zones 6 to 10 are the North Lagoon.</p>
+<div class="text-image">
+<div class="figure" style="text-align: center">
+<span id="fig:dev-pics1"></span>
+<img src="images/dev/sed_picture1.png" alt="Example sediment zonation." width="45%"><img src="images/dev/sed_picture2.png" alt="Example sediment zonation." width="45%"><p class="caption">
+Figure 3.7: Example sediment zonation.
+</p>
+</div>
+</div>
+<p>The sediment model is calibrated initially without any coupling. The sediment-water interface boundaries are based on measured bottom water data, where available, or literature values. Some parameters are tuned so that measured data matches simulated variables, for concentration depth profiles and fluxes.</p>
+<p>The sediment model is then coupled to the water column model. Many variables are set up to be linked between the two models; however, not all variables need to be linked. The fluxes and concentrations of linked variables in the bottom water are averaged across all cells in a zone, and this average value is passed to the sediment. Similarly, the value of a dissolved flux from the sediment is given to all bottom water cells within a sediment zone.</p>
+<div id="parameters-and-settings" class="section level4" number="3.2.3.1">
+<h4>
+<span class="header-section-number">3.2.3.1</span> Parameters and settings<a class="anchor" aria-label="anchor" href="#parameters-and-settings"><i class="fas fa-link"></i></a>
+</h4>
+<p>The assigned parameters for the model are described below in Table X.</p>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:800px; overflow-x: scroll; width:690px; ">
+<div class="inline-table"><table class="table table-hover" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:3dev-sedpars">Table 3.1: </span>Sediment physical and transport parameters
+</caption>
+<thead><tr>
+<th style="text-align:center;">
+Parameter name
+</th>
+<th style="text-align:center;">
+Unit
+</th>
+<th style="text-align:center;">
+Value
+</th>
+<th style="text-align:center;">
+Description
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>db0</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+cm<sup>2</sup> y<sup>-1</sup>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+10.00
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Biodiffusion coefficient at sediment-water ineterface
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>imix</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+0/1
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+0.00
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Bioturbation function: 0-Gaussian; 1 – two-layer model
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>xs</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+cm
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+3.00
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Half depth for Gaussian mixing (<code>imix - 0</code>)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>x1</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+cm
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+1.00
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Depth at which db starts to decreacse (<code>imix -1</code>)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>x2</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+cm
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+5.00
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Depth at which db is zero (<code>imix - 1</code>)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>irrig</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+0/1
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+1.00
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Bioirrigation switch
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>alpha0</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+y<sup>-1</sup>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+15.00
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Irrigation coefficient
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>xirrig</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+cm
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+4.00
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Maximum irrigation depth
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>ventflow</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+cm y<sup>-1</sup>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+0.00
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Advective flux (positive value indicates from below)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>w00</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+cm y<sup>-1</sup>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+0.75
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Sediment accumulation velocity at maximum depth
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>p0</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+0.90
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Porosity at sediment-water interface (<span class="math inline">\(\phi_{0}\)</span> in equation 5 - 104)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>p00</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+0.80
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Porosity at maximum depth (<span class="math inline">\(\phi_{xl}\)</span> in equation 5 - 104)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>bp</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+2.50
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Porosity attenuation coefficient (<span class="math inline">\(\beta\)</span> in equation 5 - 104)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>torteq</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+1/2/03
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+3.00
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Tortuosity calculation method switch: 1-Archie; 2-Burger; 3-Weissberg
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>an</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+2.14
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Porosity exponent for tortuosity (if Archie)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>aa</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+3.79
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Porosity exponent for tortuosity (if Burger)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>ab</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+2.02
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Porosity exponent for tortuosity (if Weissberg)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>xl</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+cm
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+100.00
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Maximum simulation depth
+</td>
+</tr>
+<tr>
+<td style="text-align:center;min-width: 10em; background-color: white !important;">
+<code>maxnpts</code>
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+</td>
+<td style="text-align:center;min-width: 7em; background-color: white !important;">
+40.00
+</td>
+<td style="text-align:center;min-width: 15em; background-color: white !important;">
+Number of vertical layers
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><br></p>
+</div>
+<div id="validation-sites-and-data" class="section level4" number="3.2.3.2">
+<h4>
+<span class="header-section-number">3.2.3.2</span> Validation sites and data<a class="anchor" aria-label="anchor" href="#validation-sites-and-data"><i class="fas fa-link"></i></a>
+</h4>
+<p>A wide diversity of data has been collected and is documentaed in Appendix A (Data Catalogue). In summary, there are four broad categories of field data available from the University of Adelaide surveys for model setup and parameterisation.</p>
+<p><em>Grab samples – C, N, P, Mn, Fe, S</em> : These are available for many sites but only one or two depths. They are useful for averaging a concentration at depth within a zone. These are key variables for sediment biogeochemistry.</p>
+<p><em>Cores – Fe, S, NH4+, PO43- GHGs</em> : The cores are available for only around four sites, but they are used for calibrating depth profiles and sediment-water fluxes. These often have data measured in the day and the night, as well as in November and March, which all have different concentrations and fluxes. The challenge will be to capture both day and night conditions, while also capturing seasonal changes.
+The GHG models are new and require testing and development. It may be a challenge to tune these models to fit GHG flux measurements.</p>
+<p><em>Sediment quality</em> : These measurements are used for setting the initial porosity parameters. Once these are set they are not tuned further.</p>
+<p><em>Macroinvertebrates – bioturbation parameters</em> : These measurements are used for setting bioturbation and bioirrigation parameters. Broadly, the North Lagoon has high bioturbation and the South Lagoon has very little bioturbation. The depth to bioturbation is important, as it is expected that there is uninhabited black ooze below a certain depth.</p>
+</div>
 </div>
 <div id="validation-and-assessment" class="section level3" number="3.2.4">
 <h3>
 <span class="header-section-number">3.2.4</span> Validation and assessment<a class="anchor" aria-label="anchor" href="#validation-and-assessment"><i class="fas fa-link"></i></a>
 </h3>
+<p><em>To Be Completed</em></p>
 </div>
 <div id="lagoon-scale-predictions" class="section level3" number="3.2.5">
 <h3>
 <span class="header-section-number">3.2.5</span> Lagoon scale predictions<a class="anchor" aria-label="anchor" href="#lagoon-scale-predictions"><i class="fas fa-link"></i></a>
 </h3>
+<p><em>To Be Completed</em></p>
 </div>
-<div id="summary" class="section level3" number="3.2.6">
+<div id="summary-sept-2021" class="section level3" number="3.2.6">
 <h3>
-<span class="header-section-number">3.2.6</span> Summary<a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.6</span> Summary (Sept 2021)<a class="anchor" aria-label="anchor" href="#summary-sept-2021"><i class="fas fa-link"></i></a>
 </h3>
 <p><br><br></p>
 </div>
@@ -142,15 +608,11 @@ Figure 3.1: Data and model integration strategy, showing links between the HCHB 
 <span class="header-section-number">3.3.2.1</span> SWAN wave model simulation<a class="anchor" aria-label="anchor" href="#swan-wave-model-simulation"><i class="fas fa-link"></i></a>
 </h4>
 <p>The SWAN wave model was adopted using a Cartesian grid with 200 m resolution, and the third generation simulation mode. The model was initially forced with the Narrung weather station data and the water depth was interpolated from the existing (2008) Coorong bathymetry data. Wind data at the measurement site was also used for a period when it was available.</p>
-<ul>
-<li>The wave model domain coverage and validation sites (map)</li>
-<li>Rotation.</li>
-</ul>
 <div class="text-image">
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:dev-sites"></span>
-<img src="images/dev/HCHB%20SWAN%20Extents.png" alt="Model Extents for Swan Wave Model and the TFV model, with validation sites" width="100%"><p class="caption">
-Figure 3.2: Model Extents for Swan Wave Model and the TFV model, with validation sites
+<span id="fig:dev-sites"></span>
+<img src="images/dev/HCHB%20SWAN%20Extents.png" alt="Model extents for SWAN Wave Model and the TFV domains, with validation sites." width="100%"><p class="caption">
+Figure 3.8: Model extents for SWAN Wave Model and the TFV domains, with validation sites.
 </p>
 </div>
 </div>
@@ -163,17 +625,17 @@ Figure 3.2: Model Extents for Swan Wave Model and the TFV model, with validation
 <p>The model accounts for incident shortwave radiation to be attenuated as it penetrates the water column. The attenuation of light is dependent on the specific bandwidth. For primary production, the shortwave (280-2800 nm) intensity at the surface (<span class="math inline">\(I_0\)</span>) is partitioned to the photosynthetically active component (PAR) based on the assumption that ~45% of the incident spectrum lies between 400-700nm. PAR and other light bandwidths such as ultra-violet (UV, ~3.5%) and near-infrared (NIR, ~51%), penetrate into the water column according to the Beer-Lambert Law:</p>
 <p><span class="math display" id="eq:lagoonhabitat1">\[
 I_{i} = f_{i} I_{0} \text{exp} (-K_{d_{i}} z)
-\tag{3.1}
+\tag{3.2}
 \]</span></p>
 <p>where <span class="math inline">\(i\)</span> refers to the specific bandwidth range (e.g., PAR, UV, etc), <span class="math inline">\(f_i\)</span> is the fraction of light intensity within that range at the water surface and <span class="math inline">\(z\)</span> is the water depth. The light extinction coefficient <span class="math inline">\(K_d\)</span> is a variable parameter governing light attenuation, as influenced by the suspended solids (<span class="math inline">\(SS\)</span>) in the water column, filamentous algae density, and vegetation leaf area index. In these simulations it is computed by assuming a background light extinction coefficient <span class="math inline">\(K_w\)</span> and the specific attenuation coefficient, <span class="math inline">\(K_e\)</span>, for <span class="math inline">\(SS\)</span> and algae: </p>
 <p><span class="math display" id="eq:lagoonhabitat2">\[
 K_{d} = K_{w} + K_{e_{s}} SS + K_{e_{F}} FA
-\tag{3.2}
+\tag{3.3}
 \]</span></p>
 <p>Computing turbidity from the concentration of particulates is also possible and able to be compared to routinely measured turbidity data. The relation for simulation of turbidity is able to be expressed as:</p>
 <p><span class="math display" id="eq:lagoonhabitat3">\[
 \text{Turbidity} = f_{t_{ss}}\:SS + f_{t_{chl}}\: Chla
-\tag{3.3}
+\tag{3.4}
 \]</span></p>
 <p>where <span class="math inline">\(f_{t_{s}}\)</span> is an empirical coefficient, determined through site specific correlations or literature. The suspended solids-turbidity ratio is currently assumed to be 1, and this relationship is based on experimental data from the March 2020 UA field assessment.</p>
 </div>
@@ -184,7 +646,7 @@ K_{d} = K_{w} + K_{e_{s}} SS + K_{e_{F}} FA
 <p>The concentration of suspended solids at any location depends on inputs from tributaries, advection of material through the lagoon, and vertical fluxes due to particle resuspension and deposition. Deposition is computed based on a prescribed settling velocity for each particle group. The rate of resuspension (<span class="math inline">\(R\)</span>) varies across the system due to heterogeneity in sediment properties. It is calculated by assuming linearity with the excess shear stress at the bed (Lee et al. 2005), such that:</p>
 <p><span class="math display" id="eq:lagoonhabitat4">\[
 R_i=\sum_{s=1}^{n_s}{{\ \ f}_{s,i}\ {\ \ \varepsilon}_s}\ \ \text{max}\left(\tau_b-\tau_c,\ 0\right)
-\tag{3.4}
+\tag{3.5}
 \]</span></p>
 <p>where <span class="math inline">\(n_s\)</span> is the number of particle size classes, <span class="math inline">\(f_{s,i}\)</span> is the fraction of each particle size class in the  sediment material zone, <span class="math inline">\(\varepsilon\)</span> is the resuspension rate coefficient, <span class="math inline">\(\tau_b\)</span> is the bed shear stress (computed based on the current and wave orbital velocities in each cell), and <span class="math inline">\(\tau_c\)</span> is the critical shear stress for resuspension, which depends on the sediment size (Julien 2010), and optionally, the presence of vegetation. </p>
 <p>The resuspended particles are then subjected to settling assuming a constant settling velocity
@@ -209,18 +671,18 @@ e Mehta, 1991</code></pre>
 <p>The SWAN wave model was calibrated during the periods between the UA sediment resuspension studies undertaken in December 2020 and March 2021. The comparison between the SWAN wave model outputs and the field survey data of significant wave height is shown in Figure xx, which indicates the wave model produced reasonable outcomes in the time variation and magnitude of the response of significant wave height.</p>
 <div class="text-image">
 <div class="figure">
-<span style="display:block;" id="fig:dev-pic1"></span>
+<span id="fig:dev-pic1"></span>
 <img src="images/dev/3_picture1.png" alt="Comparison of the Coorong SWAN wave model output and the UA field survey data at two sites. Period spanning Mar 2021." width="60%"><p class="caption">
-Figure 3.3: Comparison of the Coorong SWAN wave model output and the UA field survey data at two sites. Period spanning Mar 2021.
+Figure 3.9: Comparison of the Coorong SWAN wave model output and the UA field survey data at two sites. Period spanning Mar 2021.
 </p>
 </div>
 </div>
 <p>The wave model output is then coupled to the TUFLOW-AED model to calibrate the sediment resuspension. The preliminary result is shown in Figure xx, which indicates the model captured the general variations in the turbidity, though more calibrations to the resuspension events under high wind conditions will be examined in next stages of model development.</p>
 <div class="text-image">
 <div class="figure">
-<span style="display:block;" id="fig:dev-pic2"></span>
+<span id="fig:dev-pic2"></span>
 <img src="images/dev/3_A4261209.png" alt="Comparison of the AED turbidity model output and the DEW in situ sensor data within the South Lagoon station A4261209." width="80%"><p class="caption">
-Figure 3.4: Comparison of the AED turbidity model output and the DEW in situ sensor data within the South Lagoon station A4261209.
+Figure 3.10: Comparison of the AED turbidity model output and the DEW in situ sensor data within the South Lagoon station A4261209.
 </p>
 </div>
 </div>
@@ -232,17 +694,17 @@ Figure 3.4: Comparison of the AED turbidity model output and the DEW in situ sen
 <p>Examples of spatial distribution of significant wave height, bottom shear stress (TAUB), resuspension rate, and TSS concentration in the water during a low wind event (Figure xx) and high wind event (Figure xx) are shown below. In general, the wind condition was shown to be the dominant factor of the sediment resuspension rate. During the calm wind condition such as in 01/11/2021 when the wind speed was &lt; 3 m/s, the sediment resuspension rate was negligible. The resuspension rate exceeded 20 g/m<sup>2</sup>/day in 19/11/2020 when the wind speed reached 9 m/s, which subsequently led to increase in the water TSS concentrations. The shallow water in the littoral zones are more vulnerable to the wind-induced resuspension.</p>
 <div class="text-image">
 <div class="figure">
-<span style="display:block;" id="fig:dev-pic3"></span>
+<span id="fig:dev-pic3"></span>
 <img src="images/dev/3_picture2.png" alt="An example output of modelled (a) weight height, (b) bottom shear stress, (c) resuspension rates, and (d) total suspended solid concentration in Coorong during low wind condition (&lt; 3m/s)." width="100%"><p class="caption">
-Figure 3.5: An example output of modelled (a) weight height, (b) bottom shear stress, (c) resuspension rates, and (d) total suspended solid concentration in Coorong during low wind condition (&lt; 3m/s).
+Figure 3.11: An example output of modelled (a) weight height, (b) bottom shear stress, (c) resuspension rates, and (d) total suspended solid concentration in Coorong during low wind condition (&lt; 3m/s).
 </p>
 </div>
 </div>
 <div class="text-image">
 <div class="figure">
-<span style="display:block;" id="fig:dev-pic4"></span>
+<span id="fig:dev-pic4"></span>
 <img src="images/dev/3_picture3.png" alt="Same as Figure xx except for a relatively higher wind condition (&gt;9m/s)." width="100%"><p class="caption">
-Figure 3.6: Same as Figure xx except for a relatively higher wind condition (&gt;9m/s).
+Figure 3.12: Same as Figure xx except for a relatively higher wind condition (&gt;9m/s).
 </p>
 </div>
 </div>
@@ -252,9 +714,9 @@ Figure 3.6: Same as Figure xx except for a relatively higher wind condition (&gt
 </center>
 <p><br></p>
 </div>
-<div id="summary-sept-2021" class="section level3" number="3.3.5">
+<div id="summary-sept-2021-1" class="section level3" number="3.3.5">
 <h3>
-<span class="header-section-number">3.3.5</span> Summary (Sept 2021)<a class="anchor" aria-label="anchor" href="#summary-sept-2021"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3.5</span> Summary (Sept 2021)<a class="anchor" aria-label="anchor" href="#summary-sept-2021-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>The existing wave model is shown to be well calibrated, and the resuspension model performance is reasonable in terms of resuspension magnitudes and changes in the TSS concentration. However, there are also remaining knowledge gaps/limitations which are to be refined:</p>
 <ol style="list-style-type: decimal">
@@ -294,9 +756,9 @@ Figure 3.6: Same as Figure xx except for a relatively higher wind condition (&gt
 <span class="header-section-number">3.4.5</span> Validation and assessment<a class="anchor" aria-label="anchor" href="#validation-and-assessment-2"><i class="fas fa-link"></i></a>
 </h3>
 </div>
-<div id="summary-1" class="section level3" number="3.4.6">
+<div id="summary" class="section level3" number="3.4.6">
 <h3>
-<span class="header-section-number">3.4.6</span> Summary<a class="anchor" aria-label="anchor" href="#summary-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.6</span> Summary<a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
 </h3>
 <p><br><br></p>
 </div>
@@ -323,12 +785,12 @@ Figure 3.6: Same as Figure xx except for a relatively higher wind condition (&gt
 <p>In general, the balance equation describes how the biomass changes over time, according to:</p>
 <p><span class="math display" id="eq:lagoonhabitat5">\[
 \frac{d\left(FA\right)}{dt}=+f_{\text{uptake}}^{FA}-f_{\text{excr}}^{FA}-f_{\text{mort}}^{FA}-f_{\text{resp}}^{FA}\ -f_{\text{slough}}^{FA}
-\tag{3.5}
+\tag{3.6}
 \]</span>
 where the main growth term is resolved as:</p>
 <p><span class="math display" id="eq:lagoonhabitat6">\[
 \scriptsize{f^{FA}_{\text{uptake}} = \underbrace{R^{FA}_{\text{growth}}}_{\text{max growth} \\ \text{rate at 20$^\circ$C}} \ \ \underbrace{(1-k^{FA}_{\text{pr}})}_{\text{photorespiratory} \\ \text{loss}} \ \ \underbrace{\Phi^{FA}_{\text{tem}}(T)}_{\text{temperature} \\ \text{scaling}} \text{min} \left \{\underbrace{\Phi^{FA}_{\text{light}}(I)}_{\text{light limitation}}, \underbrace{\Phi^{FA}_{\text{N}}(NO_{3},NH_{4})}_{\text{light limitation}}, \underbrace{\Phi^{FA}_{\text{P}}(PO_{4})}_{\text{P limitation}} \right \} [FA]}
-\tag{3.6}
+\tag{3.7}
 \]</span></p>
 <p>An example of the above approach in practice is shown in the below animation. The results highlight, for this time period of interest, the areas where salinity exceeds the threshold and initially limits the productivity, and the shallow areas where light is abundant; along with other environmental drivers (e.g., temperature) these shape the biomass accumulation pattern seen in the top left panel. Animations like this for different periods throughout the year, or between years, can look quite different.</p>
 <br><center>
@@ -350,9 +812,9 @@ where the main growth term is resolved as:</p>
 <p>A new ‘colony’ based model for simulating clump emergence, biomass accumulation and sloughing has been conceptualised (Figure 13). The model adopts the same underlying physiology as described in the above section, but allows for age/size specific application of these rates to better align with recent observations and monitoring.</p>
 <div class="text-image">
 <div class="figure">
-<span style="display:block;" id="fig:dev-pic5"></span>
+<span id="fig:dev-pic5"></span>
 <img src="images/dev/macroalgae_conceptual.png" alt="Schematic depicting a new life-stage based macroalgal “clump” model being developed to track seasonal macroalgal biomass development and late-stage decay." width="100%"><p class="caption">
-Figure 3.7: Schematic depicting a new life-stage based macroalgal “clump” model being developed to track seasonal macroalgal biomass development and late-stage decay.
+Figure 3.13: Schematic depicting a new life-stage based macroalgal “clump” model being developed to track seasonal macroalgal biomass development and late-stage decay.
 </p>
 </div>
 </div>
@@ -377,7 +839,7 @@ Figure 3.7: Schematic depicting a new life-stage based macroalgal “clump” mo
 <div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:360px; overflow-x: scroll; width:680px; ">
 <div class="inline-table"><table class="table" style="font-size: 11px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:3-malgtable">Table 3.1: </span>Macroalgae data availability summary
+<span id="tab:3-malgtable">Table 3.2: </span>Macroalgae data availability summary
 </caption>
 <thead><tr>
 <th style="text-align:left;font-weight: bold;color: white !important;background-color: #14759e !important;">
@@ -467,18 +929,18 @@ Pending
 <p><strong>Historical Monitoring</strong> A summary of historical (pre 2020) <em>Filamentous Algae</em> monitoring locations are shown in Figure 4.4.</p>
 <div class="text-image">
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:dev-pic10"></span>
+<span id="fig:dev-pic10"></span>
 <img src="images/dev/3_picture10a.png" alt="Filamentous Algae sampling sites for monitoring program prior to 2020. Agency/program code under each map corresponds to those listed in Table 4.3. Turquoise outline represents the model boundary." width="45%"><img src="images/dev/3_picture10b.png" alt="Filamentous Algae sampling sites for monitoring program prior to 2020. Agency/program code under each map corresponds to those listed in Table 4.3. Turquoise outline represents the model boundary." width="45%"><p class="caption">
-Figure 3.8: Filamentous Algae sampling sites for monitoring program prior to 2020. Agency/program code under each map corresponds to those listed in Table 4.3. Turquoise outline represents the model boundary.
+Figure 3.14: Filamentous Algae sampling sites for monitoring program prior to 2020. Agency/program code under each map corresponds to those listed in Table 4.3. Turquoise outline represents the model boundary.
 </p>
 </div>
 </div>
 <p><strong>HCHB Monitoring</strong> A summary of the HCHB monitoring locations are shown in Figure 4.5.</p>
 <div class="text-image">
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:dev-pic11"></span>
+<span id="fig:dev-pic11"></span>
 <img src="images/dev/3_picture11.png" alt="Filamentous algae sampling sites for the HCHB program (T and I 2). Agency/program code under each map corresponds to those listed in Table 4.4. Turquoise outline represents the model boundary." width="45%"><p class="caption">
-Figure 3.9: Filamentous algae sampling sites for the HCHB program (T and I 2). Agency/program code under each map corresponds to those listed in Table 4.4. Turquoise outline represents the model boundary.
+Figure 3.15: Filamentous algae sampling sites for the HCHB program (T and I 2). Agency/program code under each map corresponds to those listed in Table 4.4. Turquoise outline represents the model boundary.
 </p>
 </div>
 </div>
@@ -496,16 +958,16 @@ Figure 3.9: Filamentous algae sampling sites for the HCHB program (T and I 2). A
 <p>Using the original model, the following assessment against Ulva biomass prediction and presence absence was recorded.</p>
 <div class="text-image">
 <div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:dev-pic12"></span>
+<span id="fig:dev-pic12"></span>
 <img src="images/dev/AlgaeDec2016vsULVAbiomass2016.png" alt="Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 (right)." width="45%"><img src="images/dev/AlgaeMay2017vsUlvaBiomass2016.png" alt="Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 (right)." width="45%"><p class="caption">
-Figure 3.10: Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 (right).
+Figure 3.16: Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 (right).
 </p>
 </div>
 </div>
 </div>
-<div id="summary-sept-2021-1" class="section level3" number="3.5.6">
+<div id="summary-sept-2021-2" class="section level3" number="3.5.6">
 <h3>
-<span class="header-section-number">3.5.6</span> Summary (Sept 2021)<a class="anchor" aria-label="anchor" href="#summary-sept-2021-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.5.6</span> Summary (Sept 2021)<a class="anchor" aria-label="anchor" href="#summary-sept-2021-2"><i class="fas fa-link"></i></a>
 </h3>
 
 </div>
@@ -531,7 +993,7 @@ Figure 3.10: Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 
 <li><a class="nav-link" href="#model-setup-and-configuration"><span class="header-section-number">3.2.3</span> Model setup and configuration</a></li>
 <li><a class="nav-link" href="#validation-and-assessment"><span class="header-section-number">3.2.4</span> Validation and assessment</a></li>
 <li><a class="nav-link" href="#lagoon-scale-predictions"><span class="header-section-number">3.2.5</span> Lagoon scale predictions</a></li>
-<li><a class="nav-link" href="#summary"><span class="header-section-number">3.2.6</span> Summary</a></li>
+<li><a class="nav-link" href="#summary-sept-2021"><span class="header-section-number">3.2.6</span> Summary (Sept 2021)</a></li>
 </ul>
 </li>
 <li>
@@ -540,7 +1002,7 @@ Figure 3.10: Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 
 <li><a class="nav-link" href="#model-approach"><span class="header-section-number">3.3.2</span> Model approach</a></li>
 <li><a class="nav-link" href="#validation-and-assessment-1"><span class="header-section-number">3.3.3</span> Validation and assessment</a></li>
 <li><a class="nav-link" href="#lagoon-scale-predictions-1"><span class="header-section-number">3.3.4</span> Lagoon scale predictions</a></li>
-<li><a class="nav-link" href="#summary-sept-2021"><span class="header-section-number">3.3.5</span> Summary (Sept 2021)</a></li>
+<li><a class="nav-link" href="#summary-sept-2021-1"><span class="header-section-number">3.3.5</span> Summary (Sept 2021)</a></li>
 </ul>
 </li>
 <li>
@@ -550,7 +1012,7 @@ Figure 3.10: Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 
 <li><a class="nav-link" href="#data-availability"><span class="header-section-number">3.4.3</span> Data availability</a></li>
 <li><a class="nav-link" href="#model-setup"><span class="header-section-number">3.4.4</span> Model setup</a></li>
 <li><a class="nav-link" href="#validation-and-assessment-2"><span class="header-section-number">3.4.5</span> Validation and assessment</a></li>
-<li><a class="nav-link" href="#summary-1"><span class="header-section-number">3.4.6</span> Summary</a></li>
+<li><a class="nav-link" href="#summary"><span class="header-section-number">3.4.6</span> Summary</a></li>
 </ul>
 </li>
 <li>
@@ -560,7 +1022,7 @@ Figure 3.10: Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 
 <li><a class="nav-link" href="#data-availability-1"><span class="header-section-number">3.5.3</span> Data availability</a></li>
 <li><a class="nav-link" href="#model-setup-1"><span class="header-section-number">3.5.4</span> Model setup</a></li>
 <li><a class="nav-link" href="#validation-and-assessment-3"><span class="header-section-number">3.5.5</span> Validation and assessment</a></li>
-<li><a class="nav-link" href="#summary-sept-2021-1"><span class="header-section-number">3.5.6</span> Summary (Sept 2021)</a></li>
+<li><a class="nav-link" href="#summary-sept-2021-2"><span class="header-section-number">3.5.6</span> Summary (Sept 2021)</a></li>
 </ul>
 </li>
 </ul>
@@ -599,22 +1061,6 @@ Figure 3.10: Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
-</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
-for (let popover of popovers) {
-  const div = document.createElement('div');
-  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
-  div.innerHTML = popover.getAttribute('data-content');
-
-  var has_math = div.querySelector("span.math");
-  if (has_math) {
-    document.body.appendChild(div);
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
-    MathJax.Hub.Queue(function() {
-      popover.setAttribute('data-content', div.innerHTML);
-      document.body.removeChild(div);
-    })
-  }
-}
 </script>
 </body>
 </html>
