@@ -67,6 +67,14 @@
 <h3>
 <span class="header-section-number">3.1.2</span> Development focus and integration with HCHB research and monitoring<a class="anchor" aria-label="anchor" href="#development-focus-and-integration-with-hchb-research-and-monitoring"><i class="fas fa-link"></i></a>
 </h3>
+<div class="text-image">
+<div class="figure">
+<span id="fig:dev-pic0"></span>
+<img src="images/dev/Project%20integration%20diagram.png" alt="Data and model integration strategy, showing links between the HCHB Goyder T&amp;I research program and the model development priorities." width="100%"><p class="caption">
+Figure 3.1: Data and model integration strategy, showing links between the HCHB Goyder T&amp;I research program and the model development priorities.
+</p>
+</div>
+</div>
 </div>
 </div>
 <div id="sediment-biogeochemistry" class="section level2" number="3.2">
@@ -102,6 +110,7 @@
 <h3>
 <span class="header-section-number">3.2.6</span> Summary<a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
 </h3>
+<p><br><br></p>
 </div>
 </div>
 <div id="waves-and-resuspension" class="section level2" number="3.3">
@@ -112,14 +121,27 @@
 <h3>
 <span class="header-section-number">3.3.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview-2"><i class="fas fa-link"></i></a>
 </h3>
+<p>In shallow lagoons such as the Coorong, wind-induced waves at the water surface causes the bottom material to resuspend; this can dominate water quality during strong winds, due to large changes in nutrients, suspended solids, and turbidity within the water. Specifically, we seek to capture the role of wind-driven waves on water column suspended solids and organic matter concentration within Coorong.</p>
+<p>In order to capture this effect in the Coorong, the SWAN wave model was applied. The wave model predicts the spatial pattern of significant wave height and wave periods and the output is then coupled with the TUFLOW-FV model for modelling shear stress at the seabed and the rate of sediment resuspension.</p>
+<p>The model settings and validation results are described below. Wave and turbidity data are available from experimental work undertaken in 2020 at some sites which is used for calibration purposes, and the particle properties such resuspension rates and settling rates are also discussed.</p>
 </div>
 <div id="model-approach" class="section level3" number="3.3.2">
 <h3>
 <span class="header-section-number">3.3.2</span> Model approach<a class="anchor" aria-label="anchor" href="#model-approach"><i class="fas fa-link"></i></a>
 </h3>
-<div id="suspended-solids-and-light" class="section level4" number="3.3.2.1">
+<div id="swan-wave-model-simulation" class="section level4" number="3.3.2.1">
 <h4>
-<span class="header-section-number">3.3.2.1</span> Suspended solids and light <a class="anchor" aria-label="anchor" href="#suspended-solids-and-light"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3.2.1</span> SWAN wave model simulation<a class="anchor" aria-label="anchor" href="#swan-wave-model-simulation"><i class="fas fa-link"></i></a>
+</h4>
+<p>The SWAN wave model was adopted using a Cartesian grid with 200 m resolution, and the third generation simulation mode. The model was initially forced with the Narrung weather station data and the water depth was interpolated from the existing (2008) Coorong bathymetry data. Wind data at the measurement site was also used for a period when it was available.</p>
+<ul>
+<li>The wave model domain coverage and validation sites (map)</li>
+<li>Rotation.</li>
+</ul>
+</div>
+<div id="suspended-solids-and-light" class="section level4" number="3.3.2.2">
+<h4>
+<span class="header-section-number">3.3.2.2</span> Suspended solids and light<a class="anchor" aria-label="anchor" href="#suspended-solids-and-light"><i class="fas fa-link"></i></a>
 </h4>
 <p>The AED component of the simulation is configured to include light (<span class="math inline">\(I\)</span>), and two suspended solids (<span class="math inline">\(SS\)</span>) groups.  The TUFLOW-FV – AED models are dynamically coupled to capture the feedbacks between <span class="math inline">\(SS\)</span>, light, surface heating and (optionally) vegetation presence. </p>
 <p>The model accounts for incident shortwave radiation to be attenuated as it penetrates the water column. The attenuation of light is dependent on the specific bandwidth. For primary production, the shortwave (280-2800 nm) intensity at the surface (<span class="math inline">\(I_0\)</span>) is partitioned to the photosynthetically active component (PAR) based on the assumption that ~45% of the incident spectrum lies between 400-700nm. PAR and other light bandwidths such as ultra-violet (UV, ~3.5%) and near-infrared (NIR, ~51%), penetrate into the water column according to the Beer-Lambert Law:</p>
@@ -134,32 +156,97 @@ K_{d} = K_{w} + K_{e_{s}} SS + K_{e_{F}} FA
 \]</span></p>
 <p>Computing turbidity from the concentration of particulates is also possible and able to be compared to routinely measured turbidity data. The relation for simulation of turbidity is able to be expressed as:</p>
 <p><span class="math display" id="eq:lagoonhabitat3">\[
-\text{Turbidity} = f_{t_{s}} SS
+\text{Turbidity} = f_{t_{ss}}\:SS + f_{t_{chl}}\: Chla
 \tag{3.3}
 \]</span></p>
-<p>where <span class="math inline">\(f_{t_{s}}\)</span> is an empirical coefficient, determined through site specific correlations or literature.</p>
+<p>where <span class="math inline">\(f_{t_{s}}\)</span> is an empirical coefficient, determined through site specific correlations or literature. The suspended solids-turbidity ratio is currently assumed to be 1, and this relationship is based on experimental data from the March 2020 UA field assessment.</p>
+</div>
+<div id="resuspension" class="section level4" number="3.3.2.3">
+<h4>
+<span class="header-section-number">3.3.2.3</span> Resuspension<a class="anchor" aria-label="anchor" href="#resuspension"><i class="fas fa-link"></i></a>
+</h4>
 <p>The concentration of suspended solids at any location depends on inputs from tributaries, advection of material through the lagoon, and vertical fluxes due to particle resuspension and deposition. Deposition is computed based on a prescribed settling velocity for each particle group. The rate of resuspension (<span class="math inline">\(R\)</span>) varies across the system due to heterogeneity in sediment properties. It is calculated by assuming linearity with the excess shear stress at the bed (Lee et al. 2005), such that:</p>
 <p><span class="math display" id="eq:lagoonhabitat4">\[
 R_i=\sum_{s=1}^{n_s}{{\ \ f}_{s,i}\ {\ \ \varepsilon}_s}\ \ \text{max}\left(\tau_b-\tau_c,\ 0\right)
 \tag{3.4}
 \]</span></p>
 <p>where <span class="math inline">\(n_s\)</span> is the number of particle size classes, <span class="math inline">\(f_{s,i}\)</span> is the fraction of each particle size class in the  sediment material zone, <span class="math inline">\(\varepsilon\)</span> is the resuspension rate coefficient, <span class="math inline">\(\tau_b\)</span> is the bed shear stress (computed based on the current and wave orbital velocities in each cell), and <span class="math inline">\(\tau_c\)</span> is the critical shear stress for resuspension, which depends on the sediment size (Julien 2010), and optionally, the presence of vegetation. </p>
+<p>The resuspended particles are then subjected to settling assuming a constant settling velocity
+<span class="math inline">\(\omega\)</span> of 0.2 m/day. A literature review and current CDM settings of resuspension is summarised in Table xx.</p>
+<p>Table xx. Summary of key parameters in the resuspension model.
+Parameter Description Unit Literature range Current CDM setting
+<span class="math inline">\(\epsilon\)</span> Bulk resuspension rate g/m<sup>2</sup>/s 0-0.01 a 0.008
+<span class="math inline">\(\tau_0\)</span> Critical shear stress N/m<sup>2</sup> 0.02-0.25 b, c 0.05
+<span class="math inline">\(tau_r\)</span> Resuspension coefficient - - 1
+<span class="math inline">\(\omega\)</span> Settling velocity m/day 0.01-1 d, e 0.2</p>
+<pre><code>a Zhu et al., 2015
+b Ghose-Hajra et al., 2014
+c van Rijn, 2007
+d McAnally et al., 2007
+e Mehta, 1991</code></pre>
 </div>
 </div>
 <div id="validation-and-assessment-1" class="section level3" number="3.3.3">
 <h3>
 <span class="header-section-number">3.3.3</span> Validation and assessment<a class="anchor" aria-label="anchor" href="#validation-and-assessment-1"><i class="fas fa-link"></i></a>
 </h3>
+<p>The SWAN wave model was calibrated during the periods between the UA sediment resuspension studies undertaken in December 2020 and March 2021. The comparison between the SWAN wave model outputs and the field survey data of significant wave height is shown in Figure xx, which indicates the wave model produced reasonable outcomes in the time variation and magnitude of the response of significant wave height.</p>
+<div class="text-image">
+<div class="figure">
+<span id="fig:dev-pic1"></span>
+<img src="images/dev/3_picture1.png" alt="Comparison of the Coorong SWAN wave model output and the UA field survey data at two sites. Period spanning Mar 2021." width="60%"><p class="caption">
+Figure 3.2: Comparison of the Coorong SWAN wave model output and the UA field survey data at two sites. Period spanning Mar 2021.
+</p>
+</div>
+</div>
+<p>The wave model output is then coupled to the TUFLOW-AED model to calibrate the sediment resuspension. The preliminary result is shown in Figure xx, which indicates the model captured the general variations in the turbidity, though more calibrations to the resuspension events under high wind conditions will be examined in next stages of model development.</p>
+<div class="text-image">
+<div class="figure">
+<span id="fig:dev-pic2"></span>
+<img src="images/dev/3_A4261209.png" alt="Comparison of the AED turbidity model output and the DEW in situ sensor data within the South Lagoon station A4261209." width="80%"><p class="caption">
+Figure 3.3: Comparison of the AED turbidity model output and the DEW in situ sensor data within the South Lagoon station A4261209.
+</p>
+</div>
+</div>
 </div>
 <div id="lagoon-scale-predictions-1" class="section level3" number="3.3.4">
 <h3>
 <span class="header-section-number">3.3.4</span> Lagoon scale predictions<a class="anchor" aria-label="anchor" href="#lagoon-scale-predictions-1"><i class="fas fa-link"></i></a>
 </h3>
+<p>Examples of spatial distribution of significant wave height, bottom shear stress (TAUB), resuspension rate, and TSS concentration in the water during a low wind event (Figure xx) and high wind event (Figure xx) are shown below. In general, the wind condition was shown to be the dominant factor of the sediment resuspension rate. During the calm wind condition such as in 01/11/2021 when the wind speed was &lt; 3 m/s, the sediment resuspension rate was negligible. The resuspension rate exceeded 20 g/m<sup>2</sup>/day in 19/11/2020 when the wind speed reached 9 m/s, which subsequently led to increase in the water TSS concentrations. The shallow water in the littoral zones are more vulnerable to the wind-induced resuspension.</p>
+<div class="text-image">
+<div class="figure">
+<span id="fig:dev-pic3"></span>
+<img src="images/dev/3_picture2.png" alt="An example output of modelled (a) weight height, (b) bottom shear stress, (c) resuspension rates, and (d) total suspended solid concentration in Coorong during low wind condition (&lt; 3m/s)." width="100%"><p class="caption">
+Figure 3.4: An example output of modelled (a) weight height, (b) bottom shear stress, (c) resuspension rates, and (d) total suspended solid concentration in Coorong during low wind condition (&lt; 3m/s).
+</p>
 </div>
-<div id="summary-1" class="section level3" number="3.3.5">
+</div>
+<div class="text-image">
+<div class="figure">
+<span id="fig:dev-pic4"></span>
+<img src="images/dev/3_picture3.png" alt="Same as Figure xx except for a relatively higher wind condition (&gt;9m/s)." width="100%"><p class="caption">
+Figure 3.5: Same as Figure xx except for a relatively higher wind condition (&gt;9m/s).
+</p>
+</div>
+</div>
+<p>An animation of the wave, resuspension and turbidity conditions is shown below.</p>
+<br><center>
+<video width="100%" height="100%" controls><source src="images/dev/animation_resuspension.mp4" type="video/mp4"></source></video>
+</center>
+<p><br></p>
+</div>
+<div id="summary-sept-2021" class="section level3" number="3.3.5">
 <h3>
-<span class="header-section-number">3.3.5</span> Summary<a class="anchor" aria-label="anchor" href="#summary-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3.5</span> Summary (Sept 2021)<a class="anchor" aria-label="anchor" href="#summary-sept-2021"><i class="fas fa-link"></i></a>
 </h3>
+<p>The existing wave model is shown to be well calibrated, and the resuspension model performance is reasonable in terms of resuspension magnitudes and changes in the TSS concentration. However, there are also remaining knowledge gaps/limitations which are to be refined:</p>
+<ol style="list-style-type: decimal">
+<li>Considering more particle groups in the sediment and TSS composition, based on assessment of the UA LISST data.</li>
+<li>Adding the Stokes Law method for the parcel setting velocity depending on the particle density and sizes;</li>
+<li>Further calibration on the sediment resuspension rates and the critical shear stress for better model performance, also including organic vs inorganic resuspension rates.</li>
+</ol>
+<p><br></p>
 </div>
 </div>
 <div id="oxygen-metabolism-and-nutrient-cycling" class="section level2" number="3.4">
@@ -191,10 +278,11 @@ R_i=\sum_{s=1}^{n_s}{{\ \ f}_{s,i}\ {\ \ \varepsilon}_s}\ \ \text{max}\left(\tau
 <span class="header-section-number">3.4.5</span> Validation and assessment<a class="anchor" aria-label="anchor" href="#validation-and-assessment-2"><i class="fas fa-link"></i></a>
 </h3>
 </div>
-<div id="summary-2" class="section level3" number="3.4.6">
+<div id="summary-1" class="section level3" number="3.4.6">
 <h3>
-<span class="header-section-number">3.4.6</span> Summary<a class="anchor" aria-label="anchor" href="#summary-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.6</span> Summary<a class="anchor" aria-label="anchor" href="#summary-1"><i class="fas fa-link"></i></a>
 </h3>
+<p><br><br></p>
 </div>
 </div>
 <div id="macroalgal-dynamics" class="section level2" number="3.5">
@@ -210,41 +298,198 @@ R_i=\sum_{s=1}^{n_s}{{\ \ f}_{s,i}\ {\ \ \varepsilon}_s}\ \ \text{max}\left(\tau
 <h3>
 <span class="header-section-number">3.5.2</span> Model approach<a class="anchor" aria-label="anchor" href="#model-approach-2"><i class="fas fa-link"></i></a>
 </h3>
-</div>
-<div id="nutrients-and-filamentous-algae" class="section level3" number="3.5.3">
-<h3>
-<span class="header-section-number">3.5.3</span> Nutrients and filamentous algae<a class="anchor" aria-label="anchor" href="#nutrients-and-filamentous-algae"><i class="fas fa-link"></i></a>
-</h3>
-<p>Within the Coorong, the AED model has previously been set up to predict inorganic and organic nutrients, and chlorophyll-a (Mosley et al., 2017). Whilst nutrients are not directly required for the <em>Ruppia</em> model assessment, the presence of filamentous algal blooms can compete for light and these are linked to bioavailable nutrients within the water column (in addition to other attributes).</p>
-<p>We therefore include a filamentous algae variable in the model that is customized to reflect the Ulva community that was described in earlier chapters. In this case is it is assumed to be attached to benthic substrate, and is therefore is not subject to advection and mixing, but can slough off under high stress conditions and become a floating variable subject to transport. The balance equation describes how the biomass changes over time, according to: </p>
+<p>Within the Coorong, the AED model has previously been set up to predict inorganic and organic nutrients, and chlorophyll-a. Whilst nutrients are not directly required for the <em>Ruppia</em> model assessment, the presence of filamentous algal blooms can compete for light and these are linked to bioavailable nutrients within the water column (in addition to other attributes).</p>
+<div id="filamentous-algae" class="section level4" number="3.5.2.1">
+<h4>
+<span class="header-section-number">3.5.2.1</span> Filamentous algae<a class="anchor" aria-label="anchor" href="#filamentous-algae"><i class="fas fa-link"></i></a>
+</h4>
+<p>We include a filamentous algae variable in the model that is customized to reflect the Ulva community that was been extensively described. For this case we assumed it to be attached to benthic substrate, and is therefore is not subject to advection and mixing, but can slough off under high stress conditions and become a floating variable subject to transport. Evidence from the field suggest the abundance of filaments are tightly linked to the Ruppia shoots, which the algae use to anchor too.</p>
+<p>In general, the balance equation describes how the biomass changes over time, according to:</p>
 <p><span class="math display" id="eq:lagoonhabitat5">\[
 \frac{d\left(FA\right)}{dt}=+f_{\text{uptake}}^{FA}-f_{\text{excr}}^{FA}-f_{\text{mort}}^{FA}-f_{\text{resp}}^{FA}\ -f_{\text{slough}}^{FA}
 \tag{3.5}
-\]</span></p>
+\]</span>
+where the main growth term is resolved as:</p>
 <p><span class="math display" id="eq:lagoonhabitat6">\[
 \scriptsize{f^{FA}_{\text{uptake}} = \underbrace{R^{FA}_{\text{growth}}}_{\text{max growth} \\ \text{rate at 20$^\circ$C}} \ \ \underbrace{(1-k^{FA}_{\text{pr}})}_{\text{photorespiratory} \\ \text{loss}} \ \ \underbrace{\Phi^{FA}_{\text{tem}}(T)}_{\text{temperature} \\ \text{scaling}} \text{min} \left \{\underbrace{\Phi^{FA}_{\text{light}}(I)}_{\text{light limitation}}, \underbrace{\Phi^{FA}_{\text{N}}(NO_{3},NH_{4})}_{\text{light limitation}}, \underbrace{\Phi^{FA}_{\text{P}}(PO_{4})}_{\text{P limitation}} \right \} [FA]}
 \tag{3.6}
 \]</span></p>
-<p>Note that the ‘sloughed’ biomass is considered to be exposed to surface light irradiances and can also decompose should environmental conditions be inadequate for growth.</p>
+<p>An example of the above approach in practice is shown in the below animation. The results highlight, for this time period of interest, the areas where salinity exceeds the threshold and initially limits the productivity, and the shallow areas where light is abundant; along with other environmental drivers (e.g., temperature) these shape the biomass accumulation pattern seen in the top left panel. Animations like this for different periods throughout the year, or between years, can look quite different.</p>
+<br><center>
+<video width="100%" height="100%" controls><source src="images/dev/MA2_JAN.mp4" type="video/mp4"></source></video>
+</center>
+<p><br></p>
 </div>
-<div id="data-availability-1" class="section level3" number="3.5.4">
+<div id="macroalgae-growth-physiology" class="section level4" number="3.5.2.2">
+<h4>
+<span class="header-section-number">3.5.2.2</span> Macroalgae growth physiology<a class="anchor" aria-label="anchor" href="#macroalgae-growth-physiology"><i class="fas fa-link"></i></a>
+</h4>
+<p>The original AED macroalgal biomass model previously applied and exemplified in the above example has been replaced with an updated version that includes numerous advances to light extinction within the canopy, nutrient cycling and excretion processes, and updates to the parameterisations associated with photosynthesis and biomass accumulation. The latter, in particular, are updated to better align with the experimental work reported in Waycott et al. (2019) and …</p>
+</div>
+<div id="resolving-seasonal-life-stage-dynamics" class="section level4" number="3.5.2.3">
+<h4>
+<span class="header-section-number">3.5.2.3</span> Resolving seasonal life-stage dynamics<a class="anchor" aria-label="anchor" href="#resolving-seasonal-life-stage-dynamics"><i class="fas fa-link"></i></a>
+</h4>
+<p>Following review of the initial data and findings from the T&amp;I project 2, the approach to modelling macroalgae has been revised to better resolve seasonal shifts in form and physiology over the seasonal cycle.</p>
+<p>A new ‘colony’ based model for simulating clump emergence, biomass accumulation and sloughing has been conceptualised (Figure 13). The model adopts the same underlying physiology as described in the above section, but allows for age/size specific application of these rates to better align with recent observations and monitoring.</p>
+<div class="text-image">
+<div class="figure">
+<span id="fig:dev-pic5"></span>
+<img src="images/dev/macroalgae_conceptual.png" alt="Schematic depicting a new life-stage based macroalgal “clump” model being developed to track seasonal macroalgal biomass development and late-stage decay." width="100%"><p class="caption">
+Figure 3.6: Schematic depicting a new life-stage based macroalgal “clump” model being developed to track seasonal macroalgal biomass development and late-stage decay.
+</p>
+</div>
+</div>
+<p>This approach allows more direct links with a) the experimental data collected on biomass accumulation and photosynthesis rates in the lab, and b) the field data estimates of macroalgae density from photos and aerial imagery at different points through the growth season.</p>
+<p>The approach essentially follows a size-class based model for resolving the filamentous algae biomass pool. According to the above conceptual schematic, four discrete life-stage (aka size) categories are included. In general they are fixed in space, but note that ‘sloughed’ biomass that becomes mobilised after a sloughing event can continue to be exposed to surface light irradiances and also begin decomposition should environmental conditions be inadequate for growth (e.g., as the water becomes too salty).</p>
+</div>
+</div>
+<div id="data-availability-1" class="section level3" number="3.5.3">
 <h3>
-<span class="header-section-number">3.5.4</span> Data availability<a class="anchor" aria-label="anchor" href="#data-availability-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.5.3</span> Data availability<a class="anchor" aria-label="anchor" href="#data-availability-1"><i class="fas fa-link"></i></a>
+</h3>
+<div id="environmental-threshold-parameter-review" class="section level4" number="3.5.3.1">
+<h4>
+<span class="header-section-number">3.5.3.1</span> Environmental threshold parameter review<a class="anchor" aria-label="anchor" href="#environmental-threshold-parameter-review"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+<div id="algae-extent-within-the-lagoon" class="section level4" number="3.5.3.2">
+<h4>
+<span class="header-section-number">3.5.3.2</span> Algae extent within the lagoon<a class="anchor" aria-label="anchor" href="#algae-extent-within-the-lagoon"><i class="fas fa-link"></i></a>
+</h4>
+<p>A summary of the available algale extent data is summarised in Table X.</p>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:360px; overflow-x: scroll; width:680px; ">
+<div class="inline-table"><table class="table" style="font-size: 11px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:3-malgtable">Table 3.1: </span>Macroalgae data availability summary
+</caption>
+<thead><tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: #14759e !important;">
+Identifier
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: #14759e !important;">
+Description
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: #14759e !important;">
+Date range
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: #14759e !important;">
+# sites
+</th>
+</tr></thead>
+<tbody>
+<tr grouplength="2">
+<td colspan="4" style="border-bottom: 1px solid;background-color: #ebebeb !important;">
+<strong>Historical monitoring</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+<strong>UA MDBA_1</strong>
+</td>
+<td style="text-align:left;">
+Algae presence/absence; Water depth (categorical)
+</td>
+<td style="text-align:left;">
+2017 May
+</td>
+<td style="text-align:left;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+<strong>UA ORH</strong>
+</td>
+<td style="text-align:left;">
+Algae No/Rare/Present/Extreme; Water depth; Salinity
+</td>
+<td style="text-align:left;">
+2016 Dec
+</td>
+<td style="text-align:left;">
+24
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="4" style="border-bottom: 1px solid;background-color: #ebebeb !important;">
+<strong>HCHB surveys</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+<strong>UA HCHB_1</strong>
+</td>
+<td style="text-align:left;">
+Algae cover% (0/20/40/50/60/80/100); Water depth; Salinity
+</td>
+<td style="text-align:left;">
+2020 Sep/Oct
+</td>
+<td style="text-align:left;">
+83
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+<strong>UA HCHB_2</strong>
+</td>
+<td style="text-align:left;">
+Pending
+</td>
+<td style="text-align:left;">
+2021 Mar
+</td>
+<td style="text-align:left;">
+?
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><br></p>
+<p><strong>Historical Monitoring</strong> A summary of historical (pre 2020) <em>Filamentous Algae</em> monitoring locations are shown in Figure 4.4.</p>
+<div class="text-image">
+<div class="figure" style="text-align: center">
+<span id="fig:dev-pic10"></span>
+<img src="images/dev/3_picture10a.png" alt="Filamentous Algae sampling sites for monitoring program prior to 2020. Agency/program code under each map corresponds to those listed in Table 4.3. Turquoise outline represents the model boundary." width="45%"><img src="images/dev/3_picture10b.png" alt="Filamentous Algae sampling sites for monitoring program prior to 2020. Agency/program code under each map corresponds to those listed in Table 4.3. Turquoise outline represents the model boundary." width="45%"><p class="caption">
+Figure 3.7: Filamentous Algae sampling sites for monitoring program prior to 2020. Agency/program code under each map corresponds to those listed in Table 4.3. Turquoise outline represents the model boundary.
+</p>
+</div>
+</div>
+<p><strong>HCHB Monitoring</strong> A summary of the HCHB monitoring locations are shown in Figure 4.5.</p>
+<div class="text-image">
+<div class="figure" style="text-align: center">
+<span id="fig:dev-pic11"></span>
+<img src="images/dev/3_picture11.png" alt="Filamentous algae sampling sites for the HCHB program (T and I 2). Agency/program code under each map corresponds to those listed in Table 4.4. Turquoise outline represents the model boundary." width="45%"><p class="caption">
+Figure 3.8: Filamentous algae sampling sites for the HCHB program (T and I 2). Agency/program code under each map corresponds to those listed in Table 4.4. Turquoise outline represents the model boundary.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="model-setup-1" class="section level3" number="3.5.4">
+<h3>
+<span class="header-section-number">3.5.4</span> Model setup<a class="anchor" aria-label="anchor" href="#model-setup-1"><i class="fas fa-link"></i></a>
 </h3>
 </div>
-<div id="model-setup-1" class="section level3" number="3.5.5">
+<div id="validation-and-assessment-3" class="section level3" number="3.5.5">
 <h3>
-<span class="header-section-number">3.5.5</span> Model setup<a class="anchor" aria-label="anchor" href="#model-setup-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.5.5</span> Validation and assessment<a class="anchor" aria-label="anchor" href="#validation-and-assessment-3"><i class="fas fa-link"></i></a>
 </h3>
+<p>Using the original model, the following assessment against Ulva biomass prediction and presence absence was recorded.</p>
+<div class="text-image">
+<div class="figure" style="text-align: center">
+<span id="fig:dev-pic12"></span>
+<img src="images/dev/AlgaeDec2016vsULVAbiomass2016.png" alt="Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 (right)." width="45%"><img src="images/dev/AlgaeMay2017vsUlvaBiomass2016.png" alt="Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 (right)." width="45%"><p class="caption">
+Figure 3.9: Comparison of Observed and Simulated Ulva for 2016 (left) and 2017 (right).
+</p>
 </div>
-<div id="validation-and-assessment-3" class="section level3" number="3.5.6">
-<h3>
-<span class="header-section-number">3.5.6</span> Validation and assessment<a class="anchor" aria-label="anchor" href="#validation-and-assessment-3"><i class="fas fa-link"></i></a>
-</h3>
 </div>
-<div id="summary-3" class="section level3" number="3.5.7">
+</div>
+<div id="summary-sept-2021-1" class="section level3" number="3.5.6">
 <h3>
-<span class="header-section-number">3.5.7</span> Summary<a class="anchor" aria-label="anchor" href="#summary-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.5.6</span> Summary (Sept 2021)<a class="anchor" aria-label="anchor" href="#summary-sept-2021-1"><i class="fas fa-link"></i></a>
 </h3>
 
 </div>
@@ -279,7 +524,7 @@ R_i=\sum_{s=1}^{n_s}{{\ \ f}_{s,i}\ {\ \ \varepsilon}_s}\ \ \text{max}\left(\tau
 <li><a class="nav-link" href="#model-approach"><span class="header-section-number">3.3.2</span> Model approach</a></li>
 <li><a class="nav-link" href="#validation-and-assessment-1"><span class="header-section-number">3.3.3</span> Validation and assessment</a></li>
 <li><a class="nav-link" href="#lagoon-scale-predictions-1"><span class="header-section-number">3.3.4</span> Lagoon scale predictions</a></li>
-<li><a class="nav-link" href="#summary-1"><span class="header-section-number">3.3.5</span> Summary</a></li>
+<li><a class="nav-link" href="#summary-sept-2021"><span class="header-section-number">3.3.5</span> Summary (Sept 2021)</a></li>
 </ul>
 </li>
 <li>
@@ -289,18 +534,17 @@ R_i=\sum_{s=1}^{n_s}{{\ \ f}_{s,i}\ {\ \ \varepsilon}_s}\ \ \text{max}\left(\tau
 <li><a class="nav-link" href="#data-availability"><span class="header-section-number">3.4.3</span> Data availability</a></li>
 <li><a class="nav-link" href="#model-setup"><span class="header-section-number">3.4.4</span> Model setup</a></li>
 <li><a class="nav-link" href="#validation-and-assessment-2"><span class="header-section-number">3.4.5</span> Validation and assessment</a></li>
-<li><a class="nav-link" href="#summary-2"><span class="header-section-number">3.4.6</span> Summary</a></li>
+<li><a class="nav-link" href="#summary-1"><span class="header-section-number">3.4.6</span> Summary</a></li>
 </ul>
 </li>
 <li>
 <a class="nav-link" href="#macroalgal-dynamics"><span class="header-section-number">3.5</span> Macroalgal dynamics</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#overview-4"><span class="header-section-number">3.5.1</span> Overview</a></li>
 <li><a class="nav-link" href="#model-approach-2"><span class="header-section-number">3.5.2</span> Model approach</a></li>
-<li><a class="nav-link" href="#nutrients-and-filamentous-algae"><span class="header-section-number">3.5.3</span> Nutrients and filamentous algae</a></li>
-<li><a class="nav-link" href="#data-availability-1"><span class="header-section-number">3.5.4</span> Data availability</a></li>
-<li><a class="nav-link" href="#model-setup-1"><span class="header-section-number">3.5.5</span> Model setup</a></li>
-<li><a class="nav-link" href="#validation-and-assessment-3"><span class="header-section-number">3.5.6</span> Validation and assessment</a></li>
-<li><a class="nav-link" href="#summary-3"><span class="header-section-number">3.5.7</span> Summary</a></li>
+<li><a class="nav-link" href="#data-availability-1"><span class="header-section-number">3.5.3</span> Data availability</a></li>
+<li><a class="nav-link" href="#model-setup-1"><span class="header-section-number">3.5.4</span> Model setup</a></li>
+<li><a class="nav-link" href="#validation-and-assessment-3"><span class="header-section-number">3.5.5</span> Validation and assessment</a></li>
+<li><a class="nav-link" href="#summary-sept-2021-1"><span class="header-section-number">3.5.6</span> Summary (Sept 2021)</a></li>
 </ul>
 </li>
 </ul>
@@ -319,7 +563,7 @@ R_i=\sum_{s=1}^{n_s}{{\ \ f}_{s,i}\ {\ \ \varepsilon}_s}\ \ \text{max}\left(\tau
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Coorong Dynamics Model</strong>" was written by MR Hipsey, P Huang, D Paraska, S Zhai, B Busch, C Sims, M Gibbs. It was last built on 07-September-2021.</p>
+    <p>"<strong>The Coorong Dynamics Model</strong>" was written by MR Hipsey, P Huang, D Paraska, S Zhai, B Busch, C Sims, M Gibbs. It was last built on 08-September-2021.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
