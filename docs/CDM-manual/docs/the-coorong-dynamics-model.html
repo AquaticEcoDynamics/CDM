@@ -966,11 +966,13 @@ Figure 2.6: Conceptual approach to model-data integration, accomodating data div
 <h3>
 <span class="header-section-number">2.4.1</span> CDM structure and organisation<a class="anchor" aria-label="anchor" href="#cdm-structure-and-organisation"><i class="fas fa-link"></i></a>
 </h3>
-<p>The CDM has been designed is such a way to facilitate *********************</p>
+<p>The CDM has been designed is such a way to both facilitate the sharing of data and models across various agencies and researchers, as well as providing a formalised structure to store, catalogue and process complex and unique datasets. Comparmentalised data structures have been implemented to allow for tracking and version control of data and models as they are utilised and upgraded throughout the project.</p>
+<p>Data cataloguing via the “CDM Data Catalogue” (described below in section 2.4.2) has been designed with cross-agency usage in mind. Integration with the HCHB MEK Catalogue is essential to allow for the tracking of data changes and upgrades throughout the project. The “Point of Truth,” “MEK Catalogue Classification” and “Status Notes” catagories have been included in the CDM Data Catalogue to track a dataset’s evolution throughout the project.</p>
+<p>Github has been chosen to house the repository based on it’s mature version control systems and cross platform program support to aid all stakeholders accessing the data and models (<a href="https://github.com/" class="uri">https://github.com/</a>). In addition, there is a wide variety of documentation online to assist users new to github (<a href="https://guides.github.com/activities/hello-world/" class="uri">https://guides.github.com/activities/hello-world/</a>).</p>
 <ul>
 <li><strong>Repository folder structure (folder address and access)</strong></li>
 </ul>
-<p>The folders structure follows the logic of data types and resources as shown in Figure **.</p>
+<p>The folders structure follows the logic of data types and resources as shown in Figure 2.7.</p>
 <div class="text-image">
 <div class="figure" style="text-align: center">
 <span id="fig:cdm-pic7"></span>
@@ -979,14 +981,80 @@ Figure 2.7: CDM online data storage folder structure
 </p>
 </div>
 </div>
+<p>The root directories are listed and described below:</p>
+<div style="border: 1px solid #ddd; padding: 5px; ">
+<div class="inline-table"><table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:A-folders">Table 2.3: </span>CDM Root Folder Descriptions
+</caption>
+<thead><tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: #14759e !important;">
+Folder Name
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: #14759e !important;">
+Description
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+docs
+</td>
+<td style="text-align:left;">
+Documentation relevent to the CDM repository (including this manual)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+data
+</td>
+<td style="text-align:left;">
+All raw &amp; processed data, as well as summary images and tables
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gis
+</td>
+<td style="text-align:left;">
+All QGIS project files, GIS data files and summary maps and images
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+models
+</td>
+<td style="text-align:left;">
+All models created and utilised during the project
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+scripts
+</td>
+<td style="text-align:left;">
+All Matlab, R &amp; Python scripts used to import &amp; process data, as well as model creation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sandbox
+</td>
+<td style="text-align:left;">
+All free directory users can add scratch files and temporary datasets
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
 <ul>
 <li><strong>Folder address and access</strong></li>
 </ul>
-<p>The data and model files are stored in Github (<a href="https://aquaticecodynamics.github.io/CDM/" class="uri">https://aquaticecodynamics.github.io/CDM/</a>) and shared with HCHB research partners.</p>
+<p>The data and model files are stored in Github (<a href="https://github.com/AquaticEcoDynamics/CDM" class="uri">https://github.com/AquaticEcoDynamics/CDM</a>) and shared with HCHB research partners.</p>
 <ul>
 <li><strong>High level workflows</strong></li>
 </ul>
-<p>The raw data collected from previous works and current HCHB component outcomes are stored in the ‘data/incoming’ folder and classified by their sources. These raw data are then post-processed using standard scripts (stored in the ‘scripts’ folder) to convert the raw data into ‘standard’ data format (stored in the ‘data/store’ folder) for model configuration, calibration/validation, and reporting. The data-model workflow is shown in Figure *.</p>
+<p>The raw data collected from previous works and current HCHB component outcomes are stored in the ‘data/incoming’ folder and classified by their sources. These raw data are then post-processed using standard scripts (stored in the ‘scripts’ folder) to convert the raw data into ‘standard’ data format (stored in the ‘data/store’ folder) for model configuration, calibration/validation, and reporting (see 2.4.2 Data organisation for more details). The data-model workflow is shown in Figure *.</p>
 <div class="text-image">
 <div class="figure" style="text-align: center">
 <span id="fig:cdm-pic8"></span>
@@ -1007,7 +1075,7 @@ Figure 2.8: CDM conceptual diagram showing the flow of data through the system
 <div style="border: 1px solid #ddd; padding: 5px; ">
 <div class="inline-table"><table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:A-metadata">Table 2.3: </span>CDM Catalogue Metadata
+<span id="tab:A-metadata">Table 2.4: </span>CDM Catalogue Metadata
 </caption>
 <thead><tr>
 <th style="text-align:left;font-weight: bold;color: white !important;background-color: #14759e !important;">
@@ -1207,7 +1275,7 @@ If data is used as part of the model validation
 <div style="border: 1px solid #ddd; padding: 5px; ">
 <div class="inline-table"><table class="table" style="font-size: 11px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:CDM-datastore">Table 2.4: </span>CDM Stored Data
+<span id="tab:CDM-datastore">Table 2.5: </span>CDM Stored Data
 </caption>
 <thead><tr>
 <th style="text-align:left;font-weight: bold;color: white !important;background-color: #14759e !important;">
@@ -1308,6 +1376,13 @@ Figure 2.9: Example GIS Map showing the sampling locations for the Water Data SA
 <ul>
 <li><strong>Data processing workflows</strong></li>
 </ul>
+<p>The data processing scripts for the CDM are all contained within the <code>scripts/</code> directory, which has three subfodlers:</p>
+<ul>
+<li>dataimport: All scripts that import data into the CDM, or process data into a common format</li>
+<li>datatools: All scripts that use processed data to create additional datasets or model files</li>
+<li>modeltools: All scripts that use processed data and model output to create additional datasets, images or analysis</li>
+</ul>
+<p>Below is an example workflow outlining how a meteorological boundary condition file for the TFV model was created. Data is first downloaded and processed by two separate scripts in the <code>dataimport</code> directory. Then a series of matlab functions found in the <code>datatools</code> directory read in the processed data (found in the <code>data/store</code> directory) to create the require meteorological boundary condition file</p>
 <div class="text-image">
 <div class="figure" style="text-align: center">
 <span id="fig:cdm-pic9"></span>
