@@ -35,13 +35,51 @@ The Aquatic EcoDynamics ([AED](http://aed.see.uwa.edu.au/research/models/aed/) )
 
 The CDM modelling domain spans from the Murray Mouth region to the south end of the Coorong, with a length of ~116 km and a total area of ~237 km^2^.
 
-Two types of model mesh were developed to support different research purposes. The first is a fine-resolution mesh (26250 cells with mean cell size of ~1×104 m^2^, Figure 2.1, left); this mesh was used for resolving the spatial heterogeneity of the water quality response, especially for the habitat predictions; the second is a relatively coarse resolution mesh (xxxxx cells with mean cell size of ~**** m^2^, Figure 2.1, right) for faster simulations of investigating water balance and other modelling experiments. The fine- and coarse-mesh models share the same boundary conditions and have been bench-marked with each other, and can be used in different stages of model development.
+Two types of model mesh were developed to support different research purposes. The first is a fine-resolution mesh (26250 cells with mean cell size of ~1×10^4^ m^2^, Figure 2.1, left); this mesh was used for resolving the spatial heterogeneity of the water quality response, especially for the habitat predictions; the second is a relatively coarse resolution mesh (2202 cells with mean cell size of  ~1.3×10^5^ m^2^, Figure 2.1, right) for faster simulations of investigating water balance and other modelling experiments. The fine- and coarse-mesh models share the same boundary conditions and have been bench-marked with each other, and can be used in different stages of model development.
+
+
+
+
+
+
 
 ```{r cdm-pic1, echo = FALSE, out.width='100%', class = "text-image",fig.align='center', fig.cap = "Plan view of the Coorong Dynamics Model fine (left) and coarse (right) mesh."}
 
 knitr::include_graphics("images/cdm/2_picture1.png")
 
 ```
+
+```{r CDM-grid, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+library(readxl)
+library(rmarkdown)
+theSheet <- read_excel('tables/grids.xlsx', sheet = 1)
+theSheet <- theSheet[theSheet$Table == "Data",]
+theSheetGroups <- unique(theSheet$Group)
+
+
+kbl(theSheet[,3:8], caption = "Grid Specifications", align = "l",) %>%
+  pack_rows(theSheetGroups[1],
+            min(which(theSheet$Group == theSheetGroups[1])),
+            max(which(theSheet$Group == theSheetGroups[1])),
+            background = '#ebebeb') %>%
+  pack_rows(theSheetGroups[2],
+            min(which(theSheet$Group == theSheetGroups[2])),
+            max(which(theSheet$Group == theSheetGroups[2])),
+            background = '#ebebeb') %>%
+row_spec(0, background = "#14759e", bold = TRUE, color = "white") %>%
+  kable_styling(full_width = F,font_size = 11) %>%
+	column_spec(2, width_min = "7em") %>%
+	column_spec(3, width_max = "19em") %>%
+	column_spec(4, width_min = "10em") %>%
+	column_spec(5, width_min = "5em") %>%
+  column_spec(6, width_min = "10em") %>%
+  scroll_box(width = "700px",
+             fixed_thead = FALSE)
+```
+<br>
+
 
 A range of bathymetry data is available and specified within the model(s).
 
@@ -181,8 +219,126 @@ To enable the ongoing use and development of the CDM in this context, we have de
 
 ### CDM structure and organisation
 
+The CDM has been designed is such a way to facilitate *********************
+
+-	**Repository folder structure (folder address and access)**
+
+The folders structure follows the logic of data types and resources as shown in Figure **. 
+
+```{r cdm-pic7, echo = FALSE, out.width='100%', class = "text-image",fig.align='center', fig.cap = "CDM online data storage folder structure"}
+
+knitr::include_graphics("images/cdm/2.4.1_Folder_Structure.png")
+
+```
+-	**Folder address and access**
+
+The data and model files are stored in Github (https://aquaticecodynamics.github.io/CDM/) and shared with HCHB research partners.
+
+-	**High level workflows**
+
+
+The raw data collected from previous works and current HCHB component outcomes are stored in the ‘data/incoming’ folder and classified by their sources. These raw data are then post-processed using standard scripts (stored in the ‘scripts’ folder) to convert the raw data into ‘standard’ data format (stored in the ‘data/store’ folder) for model configuration, calibration/validation, and reporting. The data-model workflow is shown in Figure *. 
+
+```{r cdm-pic8, echo = FALSE, out.width='100%', class = "text-image",fig.align='center', fig.cap = "CDM conceptual diagram showing the flow of data through the system"}
+
+knitr::include_graphics("images/cdm/2.4.1_Workflow.png")
+
+```
+
+
+
+
+
+
 ### Data repository and management
+
+- **Data catalogue**
+
+All data that is uploaded to the CDM github repository is logged in the CDM data Catalogue. The Catalogue (found in the data directory) is comprised of a main data sheet ("CDM Data Catalogue") as well as summary sheets for all processed data. Every raw datafile is logged with the following information:
+
+```{r A-metadata, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+library(readxl)
+library(rmarkdown)
+theSheet <- read_excel('tables/CDM_Classes.xlsx', sheet = 1)
+theSheet <- theSheet[theSheet$Table == "Data",]
+theSheetGroups <- unique(theSheet$Group)
+
+
+kbl(theSheet[,3:4], caption = "CDM Catalogue Metadata", align = "l",) %>%
+
+row_spec(0, background = "#14759e", bold = TRUE, color = "white") %>%
+  kable_styling(full_width = T,font_size = 10) %>%
+    scroll_box(fixed_thead = FALSE)
+```
+<br>
+
+
+
 
 A catalogue of all data under management of the CDM is provided in Appendix A.
 
+- **Data organisation**
+
+All raw data in initially uploaded into the ```data/incoming``` directory is filed under either it's Trials and Investigations (T & I) component, or the agency responsible for supplying the data.
+
+Data is then imported into a common format via the scripts found in the ```scripts/dataimport``` directory and stored in the ```data/store``` directory. Although some imported data may contain extra fields, all imported data contains the following fields:
+
+```{r CDM-datastore, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+library(readxl)
+library(rmarkdown)
+theSheet <- read_excel('tables/data_store_info.xlsx', sheet = 1)
+theSheet <- theSheet[theSheet$Table == "Data",]
+theSheetGroups <- unique(theSheet$Group)
+
+
+kbl(theSheet[,3:4], caption = "CDM Stored Data", align = "l",) %>%
+  pack_rows(theSheetGroups[1],
+            min(which(theSheet$Group == theSheetGroups[1])),
+            max(which(theSheet$Group == theSheetGroups[1])),
+            background = '#ebebeb') %>%
+  pack_rows(theSheetGroups[2],
+            min(which(theSheet$Group == theSheetGroups[2])),
+            max(which(theSheet$Group == theSheetGroups[2])),
+            background = '#ebebeb') %>%
+row_spec(0, background = "#14759e", bold = TRUE, color = "white") %>%
+  kable_styling(full_width = T,font_size = 11) %>%
+  scroll_box(fixed_thead = FALSE)
+```
+<br>
+
+Once imported, the data is then summerised via a script in the ```scripts/dataimport/summary``` directory to create a standard set of plots and summary tables that can be found in the ```data/summary``` directory. ESRI shapefiles are also automatically produced and saved into the ```gis/summary``` directory to be used to create a stardarised site map of the data's sampling locations.
+
+```{r cdm-pic10, echo = FALSE, out.width='100%', class = "text-image",fig.align='center', fig.cap = "Example GIS Map showing the sampling locations for the Water Data SA online data "}
+
+knitr::include_graphics("images/cdm/DEW WaterDataSA Locations.png")
+
+```
+
+- **Data processing workflows**
+
+```{r cdm-pic9, echo = FALSE, out.width='100%', class = "text-image",fig.align='center', fig.cap = "CDM work flow diagram for met data"}
+
+knitr::include_graphics("images/cdm/2.4.1_Met_Workflow.png")
+
+```
+
+
 ### Model repository and management
+
+
+- **Model catalogue**
+
+The model files are stored in the ‘models’ folder. As the model is developed based on early applications, and being updated with the HCHB progress, the model files are classified with project names. The ‘MER’ folder contains the model files being used for the ‘eWater’ project; the ‘CIIP’ folder contains the model files developed for the CIIP project, and the ‘HCHB’ folder contains the new CDM files being updated in the HCHB project. 
+
+
+- **Model organisation**
+Each version of model files are organized in following folders:
+  	+ Bc_dbase (or BCs): boundary condition files, including tide and inflow boundary files; meteorological boundary files, and initial condition files;
+  	+ External: AED model files linked with the TUFLOW-FV, and optionally the ‘GOTM’ vertical mixing model if the CDM is in 3D mode;
+  	+ Model: TUFLOW-FV model structure files, including geometry and mesh files, and GIS files controlling the nodestrings and material zones;
+  	+ Run: model control/configuration files;
+

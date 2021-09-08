@@ -1,2 +1,0 @@
-set OMP_NUM_THREADS=12
-"D:\TUFLOW\2020.03.099_dev\TUFLOWFV.exe" CoorongFast.fvc

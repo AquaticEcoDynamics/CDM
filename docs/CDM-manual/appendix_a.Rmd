@@ -51,3 +51,28 @@ row_spec(0, background = "#14759e", bold = TRUE, color = "white") %>%
              fixed_thead = FALSE)
 ```
 <br>
+
+
+
+
+
+
+```{r A-dataclasses, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+library(readxl)
+library(rmarkdown)
+theSheet <- read_excel('tables/CDM_Classes.xlsx', sheet = 2)
+theSheet <- theSheet[theSheet$Table == "Data",]
+theSheetGroups <- unique(theSheet$Group)
+
+
+kbl(theSheet[,3:4], caption = "CDM Data Classification", align = "l",) %>%
+
+row_spec(0, background = "#14759e", bold = TRUE, color = "white") %>%
+  kable_styling(full_width = T,font_size = 10) %>%
+    scroll_box(fixed_thead = FALSE)
+```
+
+
+<br>
