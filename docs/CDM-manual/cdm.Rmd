@@ -219,25 +219,52 @@ To enable the ongoing use and development of the CDM in this context, we have de
 
 ### CDM structure and organisation
 
-The CDM has been designed is such a way to facilitate *********************
+The CDM has been designed is such a way to both facilitate the sharing of data and models across various agencies and researchers, as well as providing a formalised structure to store, catalogue and process complex and unique datasets. Comparmentalised data structures have been implemented to allow for tracking and version control of data and models as they are utilised and upgraded throughout the project.
+
+Data cataloguing via the "CDM Data Catalogue" (described below in section 2.4.2) has been designed with cross-agency usage in mind. Integration with the HCHB MEK Catalogue is essential to allow for the tracking of data changes and upgrades throughout the project. The "Point of Truth", "MEK Catalogue Classification" and "Status Notes" catagories have been included in the CDM Data Catalogue to track a dataset's evolution throughout the project.
+
+Github has been chosen to house the repository based on it's mature version control systems and cross platform program support to aid all stakeholders accessing the data and models (https://github.com/). In addition, there is a wide variety of documentation online to assist users new to github (https://guides.github.com/activities/hello-world/). 
+
+
+
 
 -	**Repository folder structure (folder address and access)**
 
-The folders structure follows the logic of data types and resources as shown in Figure **. 
+The folders structure follows the logic of data types and resources as shown in Figure 2.7. 
 
 ```{r cdm-pic7, echo = FALSE, out.width='100%', class = "text-image",fig.align='center', fig.cap = "CDM online data storage folder structure"}
 
 knitr::include_graphics("images/cdm/2.4.1_Folder_Structure.png")
 
 ```
+
+The root directories are listed and described below: 
+
+```{r A-folders, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+library(readxl)
+library(rmarkdown)
+theSheet <- read_excel('tables/folders.xlsx', sheet = 1)
+theSheet <- theSheet[theSheet$Table == "data",]
+theSheetGroups <- unique(theSheet$Group)
+
+
+kbl(theSheet[,2:3], caption = "CDM Root Folder Descriptions", align = "l",) %>%
+
+row_spec(0, background = "#14759e", bold = TRUE, color = "white") %>%
+  kable_styling(full_width = T,font_size = 10) %>%
+    scroll_box(fixed_thead = FALSE)
+```
+
 -	**Folder address and access**
 
-The data and model files are stored in Github (https://aquaticecodynamics.github.io/CDM/) and shared with HCHB research partners.
+The data and model files are stored in Github (https://github.com/AquaticEcoDynamics/CDM) and shared with HCHB research partners.
 
 -	**High level workflows**
 
 
-The raw data collected from previous works and current HCHB component outcomes are stored in the ‘data/incoming’ folder and classified by their sources. These raw data are then post-processed using standard scripts (stored in the ‘scripts’ folder) to convert the raw data into ‘standard’ data format (stored in the ‘data/store’ folder) for model configuration, calibration/validation, and reporting. The data-model workflow is shown in Figure *. 
+The raw data collected from previous works and current HCHB component outcomes are stored in the ‘data/incoming’ folder and classified by their sources. These raw data are then post-processed using standard scripts (stored in the ‘scripts’ folder) to convert the raw data into ‘standard’ data format (stored in the ‘data/store’ folder) for model configuration, calibration/validation, and reporting (see 2.4.2 Data organisation for more details). The data-model workflow is shown in Figure *. 
 
 ```{r cdm-pic8, echo = FALSE, out.width='100%', class = "text-image",fig.align='center', fig.cap = "CDM conceptual diagram showing the flow of data through the system"}
 
@@ -319,6 +346,18 @@ knitr::include_graphics("images/cdm/DEW WaterDataSA Locations.png")
 ```
 
 - **Data processing workflows**
+
+The data processing scripts for the CDM are all contained within the ```scripts/``` directory, which has three subfodlers:
+
+  + dataimport: All scripts that import data into the CDM, or process data into a common format
+  + datatools: All scripts that use processed data to create additional datasets or model files
+  + modeltools: All scripts that use processed data and model output to create additional datasets, images or analysis
+
+  
+Below is an example workflow outlining how a meteorological boundary condition file for the TFV model was created. Data is first downloaded and processed by two separate scripts in the ```dataimport``` directory. Then a series of matlab functions found in the ```datatools``` directory read in the processed data (found in the ```data/store``` directory) to create the require meteorological boundary condition file
+
+
+
 
 ```{r cdm-pic9, echo = FALSE, out.width='100%', class = "text-image",fig.align='center', fig.cap = "CDM work flow diagram for met data"}
 
