@@ -1,0 +1,13 @@
+grid definition file == /spare/projects/A10780/bcs/BARRA/BARRA_Coorong_atmos_200601_201903_5km.nc
+	grid definition variables == x,y
+	grid definition label == airtemp
+end grid
+
+bc == AIR_TEMP_GRID, airtemp, /spare/projects/A10780/bcs/BARRA/BARRA_Coorong_atmos_200601_201903_5km.nc
+	bc header == time,av_temp_scrn
+	bc update dt == 3600.
+	bc time units == hours
+	bc reference time == 01/01/2006 10:00	! +9.5 assuming UTC+9.5
+	bc offset == -273.15	! convert from kelvin to degrees
+	bc default == NaN
+end bc
