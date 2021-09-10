@@ -426,13 +426,26 @@ The script required to create and configure a new SWAN wave model can be found i
 
 - **Model Processing**
 
-The processing of any model output is predominately written and run in Matlab. Scripts that have been specifically developed for this project are contained within the ```scripts/modeltools``` directory. However, the AED group also maintains another publicly available github repository called aed_matlab_modeltools (https://github.com/AquaticEcoDynamics/aed_matlab_modeltools) which contains a wide variety of matlab scripts and functions that are frequently used to process and visualise model output. Plottfv_polygon and plottfv_transect are two such functions that will be frequently used. Tables 7.3 and 7.6 in Appendix B are examples of output generated via the plottfv_polygon function found in the aed_matlab_modeltools repository. This plotting function uses data and gis files stored in the CDM repository, in addition to model output to create timeseries plots of the model (averaged within a polygon region) compared against field data. The plotting function will also automatically calculate a range of error statistics based on model output and field measured data.
+The processing of any model output is predominately written and run in Matlab. Scripts that have been specifically developed for this project are contained within the ```scripts/modeltools``` directory. Scripts that have created figures 3.9, 3.11 and 5.2 (among others) can be found here.
+
+However, the AED group also maintains another publicly available github repository called aed_matlab_modeltools (https://github.com/AquaticEcoDynamics/aed_matlab_modeltools) which contains a wide variety of matlab scripts and functions that are frequently used to process and visualise model output. Plottfv_polygon and plottfv_transect are two such functions that will be frequently used. Tables 7.3 and 7.6 in Appendix B are examples of output generated via the plottfv_polygon function found in the aed_matlab_modeltools repository. This plotting function uses data and gis files stored in the CDM repository, in addition to model output to create timeseries plots of the model (averaged within a polygon region) compared against field data. The plotting function will also automatically calculate a range of error statistics based on model output and field measured data.
 
 ```{r cdm-plottfvpolygon, echo = FALSE, out.width='100%', class = "text-image",fig.align='center', fig.cap = "Example output from plottfv_polygon with error matrix"}
 
 knitr::include_graphics("images/cdm/0006_A4261209.png")
 
 ```
+
+Additionally, plottfv_transect can also be found in the aed_matlab_modeltools repository. Unlike plottfv_polygon, plottfv_transect plots model data extracted along a transect line during a specified plotting period, and compares against the range of field data found within that period.
+
+```{r cdm-plottfvtransect, echo = FALSE, out.width='100%', class = "text-image",fig.align='center', fig.cap = "Example output from plottfv_transect with distance from Goolwa Barrage (km) along the x-axis"}
+
+knitr::include_graphics("images/cdm/example_Transect.png")
+
+```
+
+
+
 
 Information on how to clone a publicly available github repository can be found here (https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository).
 
