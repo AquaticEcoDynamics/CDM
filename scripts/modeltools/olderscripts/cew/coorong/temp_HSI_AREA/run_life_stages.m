@@ -1,2 +1,0 @@
-run_scenario_plots_2019_A;
-run_scenario_plots_2019_B;

@@ -1,3 +1,0 @@
-export_budget_data_from_region_coorong_A;
-
-export_budget_data_from_region_coorong_B;
