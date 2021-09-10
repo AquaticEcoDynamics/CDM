@@ -361,8 +361,9 @@ The data processing scripts for the CDM are all contained within the ```scripts/
   + datatools: All scripts that use processed data to create additional datasets or model files
   + modeltools: All scripts that use processed data and model output to create additional datasets, images or analysis
 
+Scripting has been predominately carried out utilising the Matlab programming language (https://au.mathworks.com/?s_tid=gn_logo), however there are scripts within the ```scripts``` directory using both R (https://www.r-project.org/about.html) and Python (https://www.python.org/). The user is free to add scripts in their preferred language, however the repository does rely heavily on Matlab for data storage.
   
-Below is an example workflow outlining how a meteorological boundary condition file for the TFV model was created. Data is first downloaded and processed by two separate scripts in the ```dataimport``` directory. Then a series of matlab functions found in the ```datatools``` directory read in the processed data (found in the ```data/store``` directory) to create the require meteorological boundary condition file
+Below is an example workflow outlining how a meteorological boundary condition file for the TFV model was created. Data is first downloaded and processed by two separate scripts in the ```dataimport``` directory. Then a series of matlab functions found in the ```datatools``` directory read in the processed data (found in the ```data/store``` directory) to create the require meteorological boundary condition file. Both Matlab and R scripts were used in this example.
 
 
 
@@ -381,11 +382,59 @@ knitr::include_graphics("images/cdm/2.4.1_Met_Workflow.png")
 
 The model files are stored in the ‘models’ folder. As the model is developed based on early applications, and being updated with the HCHB progress, the model files are classified with project names. The ‘MER’ folder contains the model files being used for the ‘eWater’ project; the ‘CIIP’ folder contains the model files developed for the CIIP project, and the ‘HCHB’ folder contains the new CDM files being updated in the HCHB project. 
 
+Models within each project directory are separated via both generation and model type. Within the HCHB model folder there are currently 3 distinct models.
 
-- **Model organisation**
-Each version of model files are organized in following folders:
-  	+ Bc_dbase (or BCs): boundary condition files, including tide and inflow boundary files; meteorological boundary files, and initial condition files;
-  	+ External: AED model files linked with the TUFLOW-FV, and optionally the ‘GOTM’ vertical mixing model if the CDM is in 3D mode;
-  	+ Model: TUFLOW-FV model structure files, including geometry and mesh files, and GIS files controlling the nodestrings and material zones;
-  	+ Run: model control/configuration files;
++ coorong-rapid
++ hchb_swan_v1
++ hchb_tfvaed_v1
+
+The ```coorong-rapid``` simulation folder and the ```hchb_tfvaed_v1``` simulation folder both contain TUFLOW-FV simulations, but are kept separate as they constitute different generations, using different grids, simulation periods and BC files.
+
+The ```hchb_swan_v1``` is the first generation of the Coorong Swan Wave model being developed at UWA. 
+
+Each model folder may contain multiple simulation scenarios, but they will all rely on the same model base configuration, with minor tweaks. Major changes to a models configuration will constitute a change in generation and will be stored in a separate folder. Note, models uploaded to the CDM repository will have been created by different agencies and researchers and will not maintain a consistent naming convention.
+
+
+- **TUFLOW-FV Model organisation**
+Each version of TUFLOW-FV models in the CIPP and HCHB project folders are organised with the following structure:
+
+  + Bc_dbase (or BCs): boundary condition files, including tide and inflow boundary files; meteorological boundary files, and initial condition files;
+  + External: AED model files linked with the TUFLOW-FV, and optionally the ‘GOTM’ vertical mixing model if the CDM is in 3D mode;
+  + Model: TUFLOW-FV model structure files, including geometry and mesh files, and GIS files controlling the nodestrings and material zones;
+  + Run: model control/configuration files;
+
+The TUFLOW-FV model found in the MER project folder was created prior to the above structure being implemented and contains the following folder structure:
+
+  + BCs: boundary condition files, including tide and inflow boundary files; meteorological boundary files, and initial condition files;
+  + External: AED model files linked with the TUFLOW-FV, and optionally the ‘GOTM’ vertical mixing model if the CDM is in 3D mode;
+  + GEO: TUFLOW-FV model structure files, including geometry and mesh files, and GIS files controlling the nodestrings and material zones;
+  + INPUT: model control/configuration files;
+  + Plotting: Directory to store model output images;
+    
+- **SWAN Wave Model organisation**
+
+The Swan Wave models found in the HCHB model directory all have the folowing format:
+
+  + 01_geometry: Contains the bathymetry input files as well as a automatically generated image of the bathymetry and a matlab .mat file containing the bathymetry information;
+  + 02_bc_dbase: Contains the processed wind input files
+  + 03_simulation: Contains the INPUT control file required to run the simulation
+  + 04_results: Model output directory
+  
+The script required to create and configure a new Swan wave model can be found in the ```scripts/datatools/wave``` directory.
+
+
+
+- **Model Processing**
+
+The processing of any model output is predominately written and run in Matlab. Scripts that have been specifically developed for this project are contained within the ```scripts/modeltools``` directory. However, the AED group also maintains another publicly available github repository called aed_matlab_modeltools (https://github.com/AquaticEcoDynamics/aed_matlab_modeltools) which contains a wide variety of matlab scripts and functions that are frequently used to process and visualise model output. Plottfv_polygon and plottfv_transect are two such functions that will be frequently used. Tables 7.3 and 7.6 in Appendix B are examples of plots generated via the plottfv_polygon function found in the aed_matlab_modeltools repository. This plotting function uses data and gis files stored in the CDM repository, in addition to model output to create timeseries plots of the model (averaged within a polygon region) compared against field data. The plotting function will also automatically calculate a range of error statistics based on model output and field measured data.
+
+```{r cdm-plottfvpolygon, echo = FALSE, out.width='100%', class = "text-image",fig.align='center', fig.cap = "Example output from plottfv_polygon with error matrix"}
+
+knitr::include_graphics("images/cdm/0006_A4261209.png")
+
+```
+
+Information on how to clone a publicly available github repository can be found here (https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository).
+
+
 
