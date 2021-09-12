@@ -285,28 +285,49 @@ In general, model predictions aligned with the general distribution pattern of R
 
 ### Overview
 
-\*\* UNDER DEVELOPMENT \*\*
+The high salinity values experienced in times of low freshwater flows challenges the fish populations that inhabit the lagoon. As an indicator of suitable conditions, the fish model calculates probabilities of habitat suitability for juveniles of seven key species, mulloway (*Argyrosomus japonicus*), black bream (*Acanthopagrus butcheri*), greenback flounder (*Rhombosolea tapirina*), yelloweye mullet (*Aldrichetta forsteri*), congolli (*Pseudaphritis urvillii*), Tamar goby (*Afurcagobius tamarensis*) and smallmouth hardyhead (*Atherinosoma microstoma*), based on laboratory experiment-derived salinity thresholds (Table 2. Ye et al. 2016a).
 
 ### Model description: Fish HSI
 
-The fish model calculates probabilities of habitat suitability for juveniles of seven key species, mulloway (*Argyrosomus japonicus*), black bream (*Acanthopagrus butcheri*), greenback flounder (*Rhombosolea tapirina*), yelloweye mullet (*Aldrichetta forsteri*), congolli (*Pseudaphritis urvillii*), Tamar goby (*Afurcagobius tamarensis*) and smallmouth hardyhead (*Atherinosoma microstoma*), based on laboratory experiment-derived salinity thresholds (Table 2. Ye et al. 2016a).
 
-The model adopts a seasonal effect by account for temperature sensitivity to the salinity thresholds (higher salinity tolerance at lower temperatures), according to functions and parameters described in Table 1 and Table 2. Figure 5 shows an example three-dimensional plot of the HSI functions for mulloway. In addition, habitat is deemed unsuitable if water is less than 0.1m deep. The computed habitat suitability index (HSI) ranges between 0 and 1, where 0 represents least suitable and 1 represents most suitable.
+The model adopts a seasonal effect by account for temperature sensitivity to the salinity thresholds (higher salinity tolerance at lower temperatures), according to functions and parameters described in Table 1 and Table 2. It is computed as:
+
+\begin{equation}
+  Fish\: HSI =\left\{
+  \begin{array}{@{}ll@{}}
+    1, & 0 \le S \lt S_{c10} \\
+    \frac{S_{c50}-S}{S_{c50}-S_{c10}}, & S_{c10} \le S \lt S_{c50}\\
+    0 & S\ge S_{c50}\\
+  \end{array}\right.
+\end{equation} 
+
+where $S$ is salinity $S_{c50}$ is the temperature-corrected concentration of salinity that kills 50% of the test animals and $S_{c10}$ is the temperature-corrected concentration of salinity that kills 10% of the test animals. These are based on lethal concentration tests at specific temperatures, and calculated according to:
+
+\begin{equation}
+  S_{c10} =\left\{
+  \begin{array}{@{}ll@{}}
+    LC_{10}^{14}, & 0 \le \bar{T} \lt 14 \\
+    \frac{LC_{10}^{23}-LC_{10}^{14}}{23-14}(T-14) +LC_{10}^{14} , & 14 \le \bar{T} \lt 23 \\
+    LC_{10}^{23}, & \bar{T} \ge 23 \\
+  \end{array}\right.
+\end{equation} 
+\begin{equation}
+  S_{c50} =\left\{ 
+  \begin{array}{@{}ll@{}}
+    LC_{50}^{14}, & 0 \le \bar{T} \lt 14 \\
+    \frac{LC_{50}^{23}-LC_{50}^{14}}{23-14}(T-14) +LC_{50}^{14} , & 14 \le \bar{T} \lt 23 \\
+    LC_{50}^{23}, & \bar{T} \ge 23 \\
+  \end{array}\right.
+\end{equation} 
+
+where $\bar{T}$ is the monthly average water temperature and the $LC$ are the experimentally determined  salinity concentrations that removed 10 and 50% of the population for the denoted temperatured.
+
+Figure 5 shows an example three-dimensional plot of the HSI functions for mulloway. In addition, habitat is deemed unsuitable if water is less than 0.1m deep. The computed habitat suitability index (HSI) ranges between 0 and 1, where 0 represents least suitable and 1 represents most suitable.
 
 ```{r hab-pic20, echo = FALSE, out.width='100%', class = "text-image", fig.cap = "Fish Habitat Suitability Index (HSI) surface plot (3D) as a function of salinity tolerance for mulloway, where a HSI value of 1 represents the most suitable conditions and 0 the least suitable. The salinity thresholds are specified as a function of water temperature where fish is able to tolerate higher salinities at lower temperatures. The red lines (2D) show the effect of salinity on HSI at two fixed temperatures"}
 
 knitr::include_graphics("images/lagoon_habitat/4_picture1.png")
-
 ```
-
-$$
-Fish\: HSI =
-$$
-
-where
-
-
-
 
 
 ### Data availability
@@ -353,3 +374,5 @@ The estuarine fish species that inhabit the Coorong vary slightly in their toler
 To summarise the suitable habitat area for each species, the sum of HSI-weighted area (i.e. HSI \* area) in each grid cell for each scenario was computed.
 
 ### Summary (Sept 2021)
+
+The fish habitat model has been applied with the Generation 0 model and has demonstrated its usefulness in comparing how different hydrologic conditions can impact on biota. The approach will be further tested with T & I 3 project data using results from the next model simualtions.
