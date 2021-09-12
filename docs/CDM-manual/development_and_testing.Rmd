@@ -1,5 +1,7 @@
 # CDM Development & Testing
 
+<br>
+
 ## Modelling development rationale
 
 ### Known gaps and model limitations
@@ -9,7 +11,7 @@ A significant component of the work tasks are allocated to customise and develop
 - Need to improve and validate hydrodynamic-biogeochemical-habitat models, including updating the Ruppia Habitat Suitability Model, to provide increased certainty in the forecasted responses to various management interventions, this includes improving and updating model representation of the following:
     - external and internal nutrient loads based on outputs from ‘Understanding Coorong nutrient dynamics' (T&I activity 1.2)
     - sediment loads, nutrient fluxes and cycling based on environmental data collected and outputs from ‘Understanding Coorong nutrient dynamics’ (T&I activity 1.3)
-    - Ruppia habitat suitability model and filamentous algae preference model (within AED2) based on environmental data collected and outputs from ‘Investigating the drivers and controls of filamentous algae and restoration of aquatic plants’ in the Coorong (T&I activities 2.4 and 2.5)
+    - Ruppia habitat suitability model and filamentous algae preference model (within AED) based on environmental data collected and outputs from ‘Investigating the drivers and controls of filamentous algae and restoration of aquatic plants’ in the Coorong (T&I activities 2.4 and 2.5)
 - Extended habitat models to incorporate the quantitative models developed through the food web and waterbird components, including:
     - Linking the quantitative food web models developed as part of ‘Restoring a functioning Coorong food web’ (T&I activity 3.4) to the existing TUFLOW FV – AED model framework to enable additional outcomes to be evaluated
     - Linking the habitat suitability models for priority waterbird species developed as part of ‘Maintaining viable waterbird populations’ (T&I activities 4.1 and 4.3) to the existing TUFLOW FV – AED2 model framework to enable additional outcomes to be evaluated
@@ -226,7 +228,7 @@ knitr::include_graphics("images/dev/sed_image2.png")
 ```
 
 
-####	Sediment reactive transport model
+####	Sediment reactive transport model {-}
 
 The model is based on a 1D approximation of the sediment and pore-water profiles. Each active sediment zone (or column) is discretized into a user defineable number of layers that start at thicknesses of around 1mm at the sediment-water interface and increase exponentially down to a pre-defined sediment depth. The model resolves in each layer both physical (e.g. pore-water diffusion or bioturbation) and chemical (e.g., redox transformations) processes; these are summarised next.
 
@@ -290,7 +292,7 @@ In addition to the primary redox reactions associated with $OM$ breakdown, the m
 Accounting for advection and diffusion reactions is fairly consistent across diagenesis models, and here we use the same methods. Porosity ($\phi$) is defined according to equation 5 - 104, which allows it to decrease with depth, and the solid fraction is defined from $\phi_s=(1-\phi)$. For bioturbation the model uses a diffusion coefficient that varies with depth ($D_{B(z)}$) as a two layer function or a Gaussian decrease (Boudreau 1996). For the porewater components, diffusion coefficients are used that are based on free-solution molecular diffusion constants corrected for sediment tortuosity, $θ$, according to equation 5 - 105.
 
 
-####	Model extensions and development
+####	Model extensions and development {-}
 
 The above model approach is broadly used in lakes, ocean and estuarine environments, but there remain few cases in shallow lagoons (Paraska et al. 2014). Three main developments have been undertaken to adapt the code-base to the Coorong application (Figure \@ref(fig:dev-pics5)):
 
@@ -330,7 +332,7 @@ To Be Completed
 <br>
 
 
-####	Resolving sediment zonation
+####	Resolving sediment zonation {-}
 
 Facility also exists within the model to use sediment zones'\ which are identical to the above description but are not necessarily coincident with the grid-structure of the water. This way sed-zones may be defined for the domain, and depending on the nature of the grid, the water cells above the sediment will be averaged for the purposes of the interfacial fluxes, allowing more efficient simulations (see for example Figure \ref{fig:sed_integration}). Using zones is a practical compromise between computational efficiency and capturing spatial heterogeneity in sediment properties and their fluxes.
 
@@ -351,7 +353,7 @@ knitr::include_graphics("images/dev/sed_picture6.png")
 
 ```
 
-####	Sediment-water coupling
+####	Sediment-water coupling {-}
 
 The sediment and hydrodynamic models are coupled at the sediment-water interface. The AED model setup has separate functions for coupling the bottom-most cell of the TUFLOW-FV hydrodynamic model to the top-most layer of the sediment model:
 
@@ -386,7 +388,7 @@ The sediment model is calibrated initially without any coupling. The sediment-wa
 The sediment model is then coupled to the water column model. Many variables are set up to be linked between the two models; however, not all variables need to be linked. The fluxes and concentrations of linked variables in the bottom water are averaged across all cells in a zone, and this average value is passed to the sediment. Similarly, the value of a dissolved flux from the sediment is given to all bottom water cells within a sediment zone.
 
 
-####	Parameters and settings
+####	Parameters and settings {-}
 
 The assigned parameters for the model are described below in Table X.
 
@@ -410,7 +412,7 @@ kable(sediment_parameters,"html", escape = F, align = "c", caption = "Sediment p
 
 <br>
 
-####	Validation sites and data
+####	Validation sites and data {-}
 
 A wide diversity of data has been collected and is documentaed in Appendix A (Data Catalogue). In summary, there are four broad categories of field data available from the University of Adelaide surveys for model setup and parameterisation.
 

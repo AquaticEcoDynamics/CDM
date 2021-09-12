@@ -1,8 +1,8 @@
-# Appendix B : Assessment metrics {-}
+# Appendix B : Results Archive {-}
 
-## B.1 Long term assessment of model performance (2013 – 2019)  {-}
+## Long term assessment of model performance (2013 – 2019)  {-}
  
-### HCHB Generaton 0
+### HCHB *Generaton 0* {-}
 
 The aims of this section are to statistically compare the modelling results against historical data collected within the Coorong (where available) in the period of 2013-2019, with outputs of CDM. The model performance in predicting a range of relevant variables including salinity, temperature, nitrogen, phosphorus and total chlorophyll-a are assessed with a set of statistical matrix consist of: 
 
@@ -11,7 +11,7 @@ The aims of this section are to statistically compare the modelling results agai
   +	$RMS$ : root mean square; and 
   +	$NRMS$ : normalized root mean square calculated as $RMS$ normalized by the average of observed values.
 
-The calculations of statistical matrix was performed for each site where the number of field observations was >10 in the assessment period (6 year). The validation plots including the statistics values for each site are presented in the below Appendix table (Table 7.3), with links to each assessed water quality variable.
+The calculations of statistical matrix was performed for each site where the number of field observations was >10 in the assessment period (6 year). The validation plots including the statistics values for each site are presented in the below table (Table 7.3), with links to each assessed water quality variable.
            
           
            
@@ -29,7 +29,7 @@ theSheet <- paste("<",'a href="HTML/longterm_performance_2013_2019/',theSheet_Na
 
 #theSheet <- append(theSheets,'Validation 2013 2016',0)
 
-kbl(theSheet, caption = "Model Results for longterm_performance_2013_2019", align = "l",escape = F,col.names = 'Validation 2013 2019', ) %>%
+kbl(theSheet, caption = "Model results for longterm_performance_2013_2019", align = "l",escape = F,col.names = 'Validation 2013 2019', ) %>%
 
 row_spec(0, background = "#14759e", bold = TRUE, color = "white") %>%
   kable_styling(full_width = T,font_size = 10) %>%
@@ -38,7 +38,7 @@ row_spec(0, background = "#14759e", bold = TRUE, color = "white") %>%
 <br>
 
 
-## B.2 Sensitivity assessment
+## Sensitivity assessment {-}
 
 ### Sensitivity to internal nutrient loading  {-}
 
@@ -64,7 +64,7 @@ theSheet <- theSheet[theSheet$Table == "Data",]
 theSheetGroups <- unique(theSheet$Group)
 
 
-kbl(theSheet[,3:6], caption = "T & I 1.3 Sediemnt Flux Data", align = "l",) %>%
+kbl(theSheet[,3:6], caption = "T&I 1 Sediment flux data", align = "l",) %>%
   pack_rows(theSheetGroups[1],
             min(which(theSheet$Group == theSheetGroups[1])),
             max(which(theSheet$Group == theSheetGroups[1])),
@@ -98,7 +98,7 @@ theSheet <- theSheet[theSheet$Table == "Data",]
 theSheetGroups <- unique(theSheet$Group)
 
 
-kbl(theSheet[,3:8], caption = "Summary of Sediment Nutrient Flux scenario settings", align = "l",) %>%
+kbl(theSheet[,3:8], caption = "Summary of sediment nutrient flux sensitivity scenarios", align = "l",) %>%
   pack_rows(theSheetGroups[1],
             min(which(theSheet$Group == theSheetGroups[1])),
             max(which(theSheet$Group == theSheetGroups[1])),
@@ -143,7 +143,7 @@ theSheet <- paste("<",'a href="HTML/Sed_Nut_flux_sensitivity/',theSheet_Names,'"
 #theSheet <- append(theSheets,'Nutrient Sensitivity',0)
 
 
-kbl(theSheet, caption = "Model Results for Nutrient Sensitivity", align = "l",escape = F,col.names = 'Nutrient Sensitivity', ) %>%
+kbl(theSheet, caption = "Model results for nutrient flux sensitivity tests", align = "l",escape = F,col.names = 'Nutrient Sensitivity', ) %>%
 
 row_spec(0, background = "#14759e", bold = TRUE, color = "white") %>%
   kable_styling(full_width = T,font_size = 10) %>%
