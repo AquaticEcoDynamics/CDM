@@ -125,25 +125,7 @@ end
 %     
 % end
 
-% 
-% load ../../../../data/store/archive/saepa/epa_2016.mat;
-% 
-% sites = fieldnames(epa_2016);
-% 
-% for i = 1:length(sites)
-%     cllmm.(['EPA_',sites{i}]) = epa_2016.(sites{i});
-%     cllmm.(['EPA_',sites{i}]) = add_agency(cllmm.(['EPA_',sites{i}]),'SA EPA');
-% end
-% 
-% load ../../../../data/store/archive/saepa/epa_2014.mat;
-% 
-% sites = fieldnames(epa_2014);
-% 
-% for i = 1:length(sites)
-%     cllmm.(['EPA2014_',sites{i}]) = epa_2014.(sites{i});
-%     cllmm.(['EPA2014_',sites{i}]) = add_agency(cllmm.(['EPA2014_',sites{i}]),'SA EPA');
-% end
-% 
+
 
 
 
@@ -165,6 +147,35 @@ cllmm = cleanse_sites(cllmm);
 export_shapefile(cllmm,'../../../../gis/mapping/field/fieldsites.shp');
 
 save ../../../../data/store/archive/cllmm.mat cllmm -mat;
+
+% 
+load ../../../../data/store/archive/saepa/epa_2016.mat;
+
+sites = fieldnames(epa_2016);
+
+for i = 1:length(sites)
+    cllmm.(['EPA_',sites{i}]) = epa_2016.(sites{i});
+    cllmm.(['EPA_',sites{i}]) = add_agency(cllmm.(['EPA_',sites{i}]),'SA EPA');
+end
+
+load ../../../../data/store/archive/saepa/epa_2014.mat;
+
+sites = fieldnames(epa_2014);
+
+for i = 1:length(sites)
+    cllmm.(['EPA2014_',sites{i}]) = epa_2014.(sites{i});
+    cllmm.(['EPA2014_',sites{i}]) = add_agency(cllmm.(['EPA2014_',sites{i}]),'SA EPA');
+end
+
+cllmm = check_XY(cllmm);
+
+cllmm = add_offset(cllmm);
+
+datearray(:,1) = datenum(2008,01:132,01);
+
+cllmm = cleanse_sites(cllmm);
+
+
 
 
 cllmm_sec = add_secondary_data(cllmm,datearray);

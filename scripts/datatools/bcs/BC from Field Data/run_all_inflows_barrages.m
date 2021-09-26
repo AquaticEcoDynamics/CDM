@@ -2,24 +2,23 @@ clear all; close all;
 
 addpath(genpath('Functions'));
 
-outdir = 'BCs_BAR_2019_2021_Monthly_Ave_Hourly/';
+outdir = 'BCs_BAR_2012_2021_Monthly_Ave_New/';
 
 if ~exist(outdir,'dir')
     mkdir(outdir);
 end
 
-load '../../../../data/store/archive/lowerlakes_BC.mat';
+load '../../../../data/store/archive/cllmm_BC.mat';
 
 
-lowerlakes = limit_datasites(lowerlakes,1);
+lowerlakes = limit_datasites(cllmm,1);
 
-datearray(:,1) = datenum(2019,01,01,00,00,00):1/24:datenum(2021,07,01,00,00,00);
+datearray(:,1) = datenum(2012,01,01,00,00,00):1/24:datenum(2021,07,01,00,00,00);
 
 
 
 
 headers = {...
-    'FLOW',...
     'SAL',...
     'TEMP',...
     'TRACE_1',...
@@ -43,59 +42,8 @@ headers = {...
 % % 
 % % % 
 % % % % ____________________________________________________
-filename = [outdir,'Tauwitchere_20190101_20210701.csv'];
-subdir = [outdir,'Tauwitchere/'];
 
-X = 321940.0;
-Y = 6061790.0;
-
-create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Tauwitchere');
-
-
-filename = [outdir,'Ewe_20190101_20210701.csv'];
-subdir = [outdir,'Ewe/'];
-
-X = 317190.0;
-Y = 6063300.0;
-
-create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Ewe');
-
-
-filename = [outdir,'Boundary_20190101_20210701.csv'];
-subdir = [outdir,'Boundary/'];
-
-X = 315780.0;
-Y = 6067390.0;
-
-create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Boundary');
-
-
-filename = [outdir,'Mundoo_20190101_20210701.csv'];
-subdir = [outdir,'Mundoo/'];
-
-X = 314110.0;
-Y = 6068270.0;
-
-create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Mundoo');
-
-
-filename = [outdir,'Goolwa_20190101_20210701.csv'];
-subdir = [outdir,'Goolwa/'];
-
-X = 299425.0;
-Y = 6067810.0;
-
-create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Goolwa');
-
-
-filename = [outdir,'Albert_Opening_20190101_20210701.csv'];
-subdir = [outdir,'Albert_Opening/'];
-
-X = 344391.0;
-Y = 6063658.0;
-
-
-filename = [outdir,'Salt_Creek_20190101_20210701.csv'];
+filename = [outdir,'Salt_Creek_20120101_20210701.csv'];
 subdir = [outdir,'Salt_Creek/'];
 
 X = 378834.;
@@ -105,12 +53,68 @@ create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Salt_Cr
 
 
 
+filename = [outdir,'Tauwitchere_20120101_20210701.csv'];
+subdir = [outdir,'Tauwitchere/'];
+
+X = 321940.0;
+Y = 6061790.0;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Tauwitchere');
+
+
+filename = [outdir,'Ewe_20120101_20210701.csv'];
+subdir = [outdir,'Ewe/'];
+
+X = 317190.0;
+Y = 6063300.0;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Ewe');
+
+
+filename = [outdir,'Boundary_20120101_20210701.csv'];
+subdir = [outdir,'Boundary/'];
+
+X = 315780.0;
+Y = 6067390.0;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Boundary');
+
+
+filename = [outdir,'Mundoo_20120101_20210701.csv'];
+subdir = [outdir,'Mundoo/'];
+
+X = 314110.0;
+Y = 6068270.0;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Mundoo');
+
+
+filename = [outdir,'Goolwa_20120101_20210701.csv'];
+subdir = [outdir,'Goolwa/'];
+
+X = 299425.0;
+Y = 6067810.0;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Goolwa');
+
+
+filename = [outdir,'Albert_Opening_20120101_20210701.csv'];
+subdir = [outdir,'Albert_Opening/'];
+
+X = 344391.0;
+Y = 6063658.0;
+
+
+
+
+
+
 clear datearray;
-datearray(:,1) = datenum(2019,01,01,00,00,00):15/(60*24):datenum(2021,07,01,00,00,00);
+datearray(:,1) = datenum(2012,01,01,00,00,00):30/(60*24):datenum(2021,07,01,00,00,00);
 
-headers{1} = 'H';
+%headers{1} = 'H';
 
-filename = [outdir,'BK_20190101_20210701.csv'];
+filename = [outdir,'BK_20120101_20210701.csv'];
 subdir = [outdir,'BK/'];
 
 X = 309703.3;

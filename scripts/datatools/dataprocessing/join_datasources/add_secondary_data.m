@@ -14,7 +14,9 @@ for i = 1:length(sites)
     end
     
     
-    if isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TN') & isfield(lowerlakes.(sites{i}),'WQ_NIT_AMM') & isfield(lowerlakes.(sites{i}),'WQ_NIT_NIT')
+    if isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TN') & isfield(lowerlakes.(sites{i}),'WQ_NIT_AMM') ...
+            & isfield(lowerlakes.(sites{i}),'WQ_NIT_NIT') & ~isfield(lowerlakes.(sites{i}),'WQ_OGM_DON')
+        
         TN = create_interpolated_dataset(lowerlakes,'WQ_DIAG_TOT_TN',sites{i},'Surface',datearray);
         disp(sites{i});
         Amm = create_interpolated_dataset(lowerlakes,'WQ_NIT_AMM',sites{i},'Surface',datearray);
@@ -28,13 +30,21 @@ for i = 1:length(sites)
             lowerlakes.(sites{i}).WQ_OGM_DON.Date = datearray;
             lowerlakes.(sites{i}).WQ_OGM_DON.Depth(1:length(datearray),1) = 0;
             
+            
+            lowerlakes.(sites{i}).WQ_OGM_DON = clip_interped_data(lowerlakes.(sites{i}).WQ_OGM_DON,...
+                lowerlakes.(sites{i}).WQ_DIAG_TOT_TN);
+            
+            
+            
             clear TN Amm Nit;
         end
         
     end
     
     
-    if isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TN') & isfield(lowerlakes.(sites{i}),'WQ_NIT_AMM') & isfield(lowerlakes.(sites{i}),'WQ_NIT_NIT') & isfield(lowerlakes.(sites{i}),'WQ_OGM_DON')
+    if isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TN') & isfield(lowerlakes.(sites{i}),'WQ_NIT_AMM') ...
+            & isfield(lowerlakes.(sites{i}),'WQ_NIT_NIT') & isfield(lowerlakes.(sites{i}),'WQ_OGM_DON') ...
+            & isfield(lowerlakes.(sites{i}),'WQ_OGM_PON')
         disp([sites{i},':  WQ_OGM_PON']);
         
         
@@ -51,6 +61,11 @@ for i = 1:length(sites)
             
             lowerlakes.(sites{i}).WQ_OGM_PON.Date = datearray;
             lowerlakes.(sites{i}).WQ_OGM_PON.Depth(1:length(datearray),1) = 0;
+            
+            
+             lowerlakes.(sites{i}).WQ_OGM_PON = clip_interped_data(lowerlakes.(sites{i}).WQ_OGM_PON,...
+                lowerlakes.(sites{i}).WQ_DIAG_TOT_TN);
+            
             
             clear TN Amm Nit DON;
         end
@@ -83,6 +98,11 @@ for i = 1:length(sites)
             lowerlakes.(sites{i}).WQ_OGM_DON.Depth(1:length(datearray),1) = 0;
             
             clear TN Amm Nit DON;
+            
+
+            
+            
+            
         end
     end
     
@@ -102,6 +122,11 @@ for i = 1:length(sites)
             lowerlakes.(sites{i}).WQ_OGM_POC.Date = datearray;
             lowerlakes.(sites{i}).WQ_OGM_POC.Depth(1:length(datearray),1) = 0;
             
+                       lowerlakes.(sites{i}).WQ_OGM_POC = clip_interped_data(lowerlakes.(sites{i}).WQ_OGM_POC,...
+                lowerlakes.(sites{i}).WQ_OGM_DOC);  
+            
+            
+            
             clear DOC;
         end
     end
@@ -111,21 +136,31 @@ for i = 1:length(sites)
     if isfield(lowerlakes.(sites{i}),'WQ_PHS_FRP')
         
         disp([sites{i},':  WQ_PHS_FRP_ADS']);
-        
-        
-        WQ_PHS_FRP = create_interpolated_dataset(lowerlakes,'WQ_PHS_FRP',sites{i},'Surface',datearray);
-        
-        
-        if ~isempty(WQ_PHS_FRP)
+        lowerlakes.(sites{i}).WQ_PHS_FRP_ADS = lowerlakes.(sites{i}).WQ_PHS_FRP;
             
-            lowerlakes.(sites{i}).WQ_PHS_FRP_ADS = lowerlakes.(sites{i}).WQ_PHS_FRP;
-            
-            lowerlakes.(sites{i}).WQ_PHS_FRP_ADS.Data = WQ_PHS_FRP .* 0.1;
-            lowerlakes.(sites{i}).WQ_PHS_FRP_ADS.Date = datearray;
-            lowerlakes.(sites{i}).WQ_PHS_FRP_ADS.Depth(1:length(datearray),1) = 0;
-            
-            clear WQ_PHS_FRP;
-        end
+        lowerlakes.(sites{i}).WQ_PHS_FRP_ADS.Data = lowerlakes.(sites{i}).WQ_PHS_FRP.Data .* 0.1;
+        
+        
+%         
+%         
+%         WQ_PHS_FRP = create_interpolated_dataset(lowerlakes,'WQ_PHS_FRP',sites{i},'Surface',datearray);
+%         
+%         
+%         if ~isempty(WQ_PHS_FRP)
+%             
+%             lowerlakes.(sites{i}).WQ_PHS_FRP_ADS = lowerlakes.(sites{i}).WQ_PHS_FRP;
+%             
+%             lowerlakes.(sites{i}).WQ_PHS_FRP_ADS.Data = WQ_PHS_FRP .* 0.1;
+%             lowerlakes.(sites{i}).WQ_PHS_FRP_ADS.Date = datearray;
+%             lowerlakes.(sites{i}).WQ_PHS_FRP_ADS.Depth(1:length(datearray),1) = 0;
+%             
+%             lowerlakes.(sites{i}).WQ_PHS_FRP_ADS = clip_interped_data(lowerlakes.(sites{i}).WQ_PHS_FRP_ADS,...
+%                 lowerlakes.(sites{i}).WQ_PHS_FRP);
+%             
+%             
+%             
+%             clear WQ_PHS_FRP;
+%         end
     end
     
     if isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TP') & isfield(lowerlakes.(sites{i}),'WQ_PHS_FRP') & isfield(lowerlakes.(sites{i}),'WQ_PHS_FRP_ADS')
@@ -145,6 +180,10 @@ for i = 1:length(sites)
             lowerlakes.(sites{i}).WQ_OGM_DOP.Date = datearray;
             lowerlakes.(sites{i}).WQ_OGM_DOP.Depth(1:length(datearray),1) = 0;
             
+            
+                        lowerlakes.(sites{i}).WQ_OGM_DOP = clip_interped_data(lowerlakes.(sites{i}).WQ_OGM_DOP,...
+                lowerlakes.(sites{i}).WQ_DIAG_TOT_TP);
+            
             clear TP FRP FRP_ADS;
         end
         
@@ -166,27 +205,31 @@ for i = 1:length(sites)
             lowerlakes.(sites{i}).WQ_OGM_POP.Date = datearray;
             lowerlakes.(sites{i}).WQ_OGM_POP.Depth(1:length(datearray),1) = 0;
             
+                                    lowerlakes.(sites{i}).WQ_OGM_POP = clip_interped_data(lowerlakes.(sites{i}).WQ_OGM_POP,...
+                lowerlakes.(sites{i}).WQ_DIAG_TOT_TP);
+            
+            
             clear TP FRP FRP_ADS;
         end
     end
     
-    if isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TP') & isfield(lowerlakes.(sites{i}),'WQ_PHS_FRP') & isfield(lowerlakes.(sites{i}),'WQ_PHS_FRP_ADS')
-        
-        disp([sites{i},':  WQ_OGM_POP']);
-        
-        TP = create_interpolated_dataset(lowerlakes,'WQ_DIAG_TOT_TP',sites{i},'Surface',datearray);
-        FRP = create_interpolated_dataset(lowerlakes,'WQ_PHS_FRP',sites{i},'Surface',datearray);
-        FRP_ADS = create_interpolated_dataset(lowerlakes,'WQ_PHS_FRP_ADS',sites{i},'Surface',datearray);
-        if ~isempty(TP) & ~isempty(FRP)& ~isempty(FRP_ADS)
-            
-            lowerlakes.(sites{i}).WQ_OGM_POP = lowerlakes.(sites{i}).WQ_PHS_FRP;
-            lowerlakes.(sites{i}).WQ_OGM_POP.Data = (TP-FRP-FRP_ADS).* 0.5;
-            
-            lowerlakes.(sites{i}).WQ_OGM_POP.Date = datearray;
-            lowerlakes.(sites{i}).WQ_OGM_POP.Depth(1:length(datearray),1) = 0;
-            clear TP FRP FRP_ADS;
-        end
-    end
+%     if isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TP') & isfield(lowerlakes.(sites{i}),'WQ_PHS_FRP') & isfield(lowerlakes.(sites{i}),'WQ_PHS_FRP_ADS')
+%         
+%         disp([sites{i},':  WQ_OGM_POP']);
+%         
+%         TP = create_interpolated_dataset(lowerlakes,'WQ_DIAG_TOT_TP',sites{i},'Surface',datearray);
+%         FRP = create_interpolated_dataset(lowerlakes,'WQ_PHS_FRP',sites{i},'Surface',datearray);
+%         FRP_ADS = create_interpolated_dataset(lowerlakes,'WQ_PHS_FRP_ADS',sites{i},'Surface',datearray);
+%         if ~isempty(TP) & ~isempty(FRP)& ~isempty(FRP_ADS)
+%             
+%             lowerlakes.(sites{i}).WQ_OGM_POP = lowerlakes.(sites{i}).WQ_PHS_FRP;
+%             lowerlakes.(sites{i}).WQ_OGM_POP.Data = (TP-FRP-FRP_ADS).* 0.5;
+%             
+%             lowerlakes.(sites{i}).WQ_OGM_POP.Date = datearray;
+%             lowerlakes.(sites{i}).WQ_OGM_POP.Depth(1:length(datearray),1) = 0;
+%             clear TP FRP FRP_ADS;
+%         end
+%     end
     
     if isfield(lowerlakes.(sites{i}),'WQ_PHY_GRN') & ~isfield(lowerlakes.(sites{i}),'WQ_DIAG_PHY_TCHLA')
         
