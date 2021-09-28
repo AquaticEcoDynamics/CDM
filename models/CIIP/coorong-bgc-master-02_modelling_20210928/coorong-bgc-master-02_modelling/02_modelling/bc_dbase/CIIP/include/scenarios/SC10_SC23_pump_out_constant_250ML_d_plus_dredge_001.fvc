@@ -1,0 +1,33 @@
+! STRUCTURES
+!_________________________________________________________________
+structure logging == 1
+
+! Pump at Policeman Point
+structure == LinkedZones,1,2  							! zone 1 is extraction point, zone 2 is inflow point
+	NLSWE limit == 0
+	Name == policemanpt_pump_out
+	Flux function == timeseries                          
+	Flux file == ../../pump/pump_flow_250_ML_d_001.csv 	! Positive flow from first zone to second zone
+	Polygon File == ../../pump/pump_zones_001.csv
+	Scalar function == none								! Scalar Function Specification – No modification of scalars
+End structure
+
+
+! GEOMETRY
+!_________________________________________________________________
+! Parnka Point dredge footprint
+Read GIS Z Line == ../../../../model/high_res/gis/shp/2d_zln_CoorongBGC_dredge_Parnka_001_R.shp
+
+! Pelican Point dredge footprint
+Read GIS Z Line == ../../../../model/high_res/gis/shp/2d_zln_CoorongBGC_dredge_Pelican_001_R.shp
+
+
+! OUTPUT COMMANDS
+!_________________________________________________________________
+output == structflux
+	Output interval == 7200
+end output
+
+output == structcheck
+	Output interval == 7200
+end output

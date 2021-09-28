@@ -221,7 +221,7 @@ for i = 1:length(sites)
     sdate = min(thedates);
     edate = max(thedates);
     total_samples = length(thedates);
-    
+    sdate
     fprintf(fid,'%s,%s,%i\n',datestr(sdate,'dd-mm-yyyy'),datestr(edate,'dd-mm-yyyy'),total_samples);
     
     clear sdate edate total_samples thedates X Y;

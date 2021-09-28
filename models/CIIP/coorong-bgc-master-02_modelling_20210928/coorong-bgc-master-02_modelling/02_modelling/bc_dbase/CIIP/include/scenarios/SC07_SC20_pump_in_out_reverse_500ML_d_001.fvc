@@ -1,0 +1,52 @@
+! STRUCTURES
+!_________________________________________________________________
+structure logging == 1
+
+! Pump in at Policeman Point
+structure == LinkedZones,2,1  											! first zone is extraction point, second zone is inflow point
+	NLSWE limit == 0			
+	Name == policemanpt_pump_in
+	Flux function == timeseries                         			 
+	Flux file == ../../pump/pump_flow_500_ML_d_001.csv	 				! Positive flow from first zone to second zone
+	Polygon File == ../../pump/pump_zones_001.csv
+	Scalar function == none												! Scalar Function Specification – No modification of scalars
+	Control == sample_rule                              				! Control block. Open or close gate based on WL
+		Sample point == 370099, 6008966                 				! pump location
+		Sample parameter == WL                               			! Water Level
+		Sample dt == 900                          						! 15 min
+		Control parameter == fraction_open     							! Open or close
+		Control update dt == 900                 						! Update structure movement
+		Start control state == 0                        				! Start with pump off
+		Control file == ../../pump/pump_settings_WL_under_0p15m_001.csv	! % of pump capacity vs. WL
+	End control
+End structure
+
+! Pump out at Policeman Point
+structure == LinkedZones,1,2  											! first zone is extraction point, second zone is inflow point
+	NLSWE limit == 0			
+	Name == policemanpt_pump_out
+	Flux function == timeseries                         			 
+	Flux file == ../../pump/pump_flow_500_ML_d_001.csv 					! Positive flow from first zone to second zone
+	Polygon File == ../../pump/pump_zones_001.csv
+	Scalar function == none												! Scalar Function Specification – No modification of scalars
+	Control == sample_rule                              				! Control block. Open or close gate based on WL
+		Sample point == 370099, 6008966                 				! pump location
+		Sample parameter == WL                               			! Water Level
+		Sample dt == 900                          						! 15 min
+		Control parameter == fraction_open     							! Open or close
+		Control update dt == 900                 						! Update structure movement
+		Start control state == 0                        				! Start with pump off
+		Control file == ../../pump/pump_settings_WL_above_0p30m_001.csv	! % of pump capacity vs. WL
+	End control
+End structure
+
+
+! OUTPUT COMMANDS
+!_________________________________________________________________
+output == structflux
+	Output interval == 7200
+end output
+
+output == structcheck
+	Output interval == 7200
+end output
