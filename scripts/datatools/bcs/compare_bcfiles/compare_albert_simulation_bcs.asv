@@ -1,0 +1,32 @@
+addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
+
+
+
+albert_old = tfv_readBCfile(['C:\Users\00065525\Github\CDM\models\CIIP\coorong-bgc-master-02_modelling_20210928\coorong-bgc-master-02_modelling\02_modelling\bc_dbase\CIIP\inflow\LAC\',...
+    'LAC_BC_20140101_20200701_800GLy-1_realistic.csv']);
+
+albert_new = tfv_readBCfile(['C:\Users\00065525\Github\CDM\scripts\datatools\bcs\BC from Field Data\BCs_BAR_2012_2021_Monthly_Ave_New\',...
+    'Albert_Meningie_20120101_20210701.csv']);
+
+alex_new = tfv_readBCfile(['C:\Users\00065525\Github\CDM\scripts\datatools\bcs\BC from Field Data\BCs_BAR_2012_2021_Monthly_Ave_New\',...
+    'Milang_20120101_20210701.csv']);
+
+river_new = tfv_readBCfile(['C:\Users\00065525\Github\CDM\scripts\datatools\bcs\BC from Field Data\BCs_BAR_2012_2021_Monthly_Ave_New\',...
+    'Tailem_20120101_20210701.csv']);
+
+vars = fieldnames(river_new);
+
+for i = 1:length(vars)
+    
+    if strcmpi(vars{i}),'LAC_m3_s') == 0 | strcmpi(vars{i}),'H') == 0
+        
+        
+        plot(albert_old.Date,albert_old.(lower(vars{i})));hold on
+        
+        plot(albert_new.Date,albert_old.(lower(vars{i})));hold on
+        
+        
+        
+        
+        
+        
