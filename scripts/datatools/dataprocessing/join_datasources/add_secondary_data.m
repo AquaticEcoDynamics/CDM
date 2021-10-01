@@ -239,6 +239,25 @@ for i = 1:length(sites)
         lowerlakes.(sites{i}).WQ_DIAG_PHY_TCHLA.Data = lowerlakes.(sites{i}).WQ_PHY_GRN.Data ./ 4.166667;
         
     end
+    
+    if isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TOC') & ~isfield(lowerlakes.(sites{i}),'WQ_OGM_DOC')
+        
+        disp([sites{i},':  WQ_OGM_DOC']);
+        
+        lowerlakes.(sites{i}).WQ_OGM_DOC = lowerlakes.(sites{i}).WQ_DIAG_TOT_TOC;
+        lowerlakes.(sites{i}).WQ_OGM_DOC.Data = lowerlakes.(sites{i}).WQ_DIAG_TOT_TOC.Data ./ 2;
+        
+    end
+    if isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TOC') & ~isfield(lowerlakes.(sites{i}),'WQ_OGM_POC')
+        
+        disp([sites{i},':  WQ_OGM_POC']);
+        
+        lowerlakes.(sites{i}).WQ_OGM_POC = lowerlakes.(sites{i}).WQ_DIAG_TOT_TOC;
+        lowerlakes.(sites{i}).WQ_OGM_POC.Data = lowerlakes.(sites{i}).WQ_DIAG_TOT_TOC.Data ./ 2;
+        
+    end    
+    
+    
     if ~isfield(lowerlakes.(sites{i}),'WQ_PHY_GRN') & isfield(lowerlakes.(sites{i}),'WQ_DIAG_PHY_TCHLA')
         
         disp([sites{i},':  WQ_DIAG_PHY_TCHLA']);

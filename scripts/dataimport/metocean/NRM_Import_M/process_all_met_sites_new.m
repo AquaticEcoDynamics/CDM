@@ -8,7 +8,7 @@ for i = 1:length(sites)
     sitenames{i} = sites(i).name;
 end
 
-dirlist = dir('../../../..\data\incoming\NRMAWS/');
+dirlist = dir('../../../..\data\incoming\NRM/');
 
 
 cHeader = { ...
@@ -40,14 +40,14 @@ for i = 3:length(dirlist)
     
     disp(siteID)
     
-    filelist = dir(['../../../..\data\incoming\NRMAWS/',dirlist(i).name,'/','*.csv']);
+    filelist = dir(['../../../..\data\incoming\NRM/',dirlist(i).name,'/','*.csv']);
     
     metdata = [];
     
     for j = 1:length(filelist)
         disp(filelist(j).name)
         
-        fid = fopen(['../../../..\data\incoming\NRMAWS/',dirlist(i).name,'/',filelist(j).name],'rt');
+        fid = fopen(['../../../..\data\incoming\NRM/',dirlist(i).name,'/',filelist(j).name],'rt');
         x  = length(cHeader);
         textformat = [repmat('%s ',1,x)];
         datacell = textscan(fid,textformat,...

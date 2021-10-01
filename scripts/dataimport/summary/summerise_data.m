@@ -45,8 +45,8 @@ for i = 1:length(sites)
     
     vars = fieldnames(data.(sites{i}));
     
-    S(i).X = data.(sites{i}).(vars{1}).X;
-    S(i).Y = data.(sites{i}).(vars{1}).Y;
+    S(i).X = data.(sites{i}).(vars{1}).X(1);
+    S(i).Y = data.(sites{i}).(vars{1}).Y(1);
     
     S(i).Name = sites{i};
     S(i).Geometry = 'Point';
@@ -57,9 +57,7 @@ for i = 1:length(sites)
     
     
 end
-% S(1)
-% S(2)
-% S(3)
+%S.X
 shapewrite(S,[gis_folder,shpname]);
 end
     

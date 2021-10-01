@@ -48,12 +48,21 @@ for i = 1:length(sites);
     cllmm.(['SAW2019_',sites{i}]) = add_agency(cllmm.(['SAW2019_',sites{i}]),'SA Water');
 end
 
-load ../../../../data/store/archive/sawater/saw_2020.mat;
+% load ../../../../data/store/archive/sawater/saw_2020.mat;
+% 
+% sites = fieldnames(saw_2020);
+% 
+% for i = 1:length(sites)
+%     cllmm.(['SAW2020_',sites{i}]) = saw_2020.(sites{i});
+%     cllmm.(['SAW2020_',sites{i}]) = add_agency(cllmm.(['SAW2020_',sites{i}]),'SA Water');
+% end
 
-sites = fieldnames(saw_2020);
+load ../../../../data/store/ecology/SAW_WQ.mat;
+
+sites = fieldnames(SAW_WQ);
 
 for i = 1:length(sites)
-    cllmm.(['SAW2020_',sites{i}]) = saw_2020.(sites{i});
+    cllmm.(['SAW2020_',sites{i}]) = SAW_WQ.(sites{i});
     cllmm.(['SAW2020_',sites{i}]) = add_agency(cllmm.(['SAW2020_',sites{i}]),'SA Water');
 end
 
