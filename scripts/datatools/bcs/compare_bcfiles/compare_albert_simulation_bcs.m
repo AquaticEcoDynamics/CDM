@@ -14,7 +14,7 @@ alex_new = tfv_readBCfile(['Phase2\',...
     'Alex_Phase_II_20140101_20200701.csv']);
 
 river_new = tfv_readBCfile(['Phase2\',...
-    'River_Phase_II_20120101_20210701.csv']);
+    'River_Phase_II_20140101_20200701.csv']);
 
 vars = fieldnames(river_new);
 

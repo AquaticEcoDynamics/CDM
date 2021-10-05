@@ -20,7 +20,7 @@ CHG_BAL_Calc = 1;
 shpfile = '../../../../gis/supplementary\Coorong_IC_regions.shp';
 
 % Date
-sdate = datenum(2013,03,01);
+sdate = datenum(2019,11,01);
 
 
 
