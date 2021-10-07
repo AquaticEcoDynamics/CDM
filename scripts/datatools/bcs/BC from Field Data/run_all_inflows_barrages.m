@@ -2,7 +2,7 @@ clear all; close all;
 
 addpath(genpath('Functions'));
 
-outdir = 'BCs_Albert_Pumping_Phase_2_2013/';
+outdir = 'BCs_Albert_Pumping_Phase_2_2013_2021/';
 
 if ~exist(outdir,'dir')
     mkdir(outdir);
@@ -13,7 +13,7 @@ load '../../../../data/store/archive/cllmm_BC.mat';
 
 lowerlakes = limit_datasites(cllmm,1);
 
-datearray(:,1) = datenum(2013,01,01,00,00,00):1:datenum(2014,01,01,00,00,00);
+datearray(:,1) = datenum(2013,01,01,00,00,00):1:datenum(2021,07,01,00,00,00);
 
 
 
@@ -106,13 +106,13 @@ headers = {...
 % % create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Goolwa');
 
 
-filename = [outdir,'Albert_Opening_Phase_II_20130101_20200701.csv'];
-subdir = [outdir,'Albert_Opening/'];
-
-X = 344391.0;
-Y = 6063658.0;
-
-create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Albert');
+% filename = [outdir,'Albert_Opening_Phase_II_20130101_20200701.csv'];
+% subdir = [outdir,'Albert_Opening/'];
+% 
+% X = 344391.0;
+% Y = 6063658.0;
+% 
+% create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Albert');
 
 filename = [outdir,'Albert_Phase_II_20130101_20200701.csv'];
 subdir = [outdir,'Albert_Meningie/'];
@@ -131,24 +131,24 @@ create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Meningi
 % 
 % create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Alex');
 
-% filename = [outdir,'Alex_Phase_II_20140101_20200701.csv'];
-% subdir = [outdir,'Milang/'];
-% 
-% X = 321246.0;
-% Y = 6076714.0;
-% 
-% create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Milang');
-% 
-% 
+filename = [outdir,'Alex_Phase_II_20130101_20200701.csv'];
+subdir = [outdir,'Milang/'];
+
+X = 321246.0;
+Y = 6076714.0;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Milang');
 % 
 % 
-% filename = [outdir,'River_Phase_II_20140101_20200701.csv'];
-% subdir = [outdir,'Tailem/'];
 % 
-% X = 359744.537;
-% Y = 6095955.698;
 % 
-% create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Tailem');
+filename = [outdir,'River_Phase_II_20130101_20200701.csv'];
+subdir = [outdir,'Tailem/'];
+
+X = 359744.537;
+Y = 6095955.698;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Tailem');
 
 
 
