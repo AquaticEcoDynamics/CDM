@@ -34,6 +34,7 @@ for i = 1:length(shp)
    frp = mdata.WQ_PHS_FRP(pt_id,:); 
    poc = mdata.WQ_DIAG_OGM_PSED_POC(pt_id,:);
 
+   poc = abs(poc);
    
    tdate = tdate - tdate(1);
    
@@ -41,14 +42,14 @@ for i = 1:length(shp)
    fid = fopen(['aed2_sediment_swibc_',sites,'.dat'],'wt');
    
    
-   fprintf(fid,'!				1				2			3			4			5			6			7\n');
+   fprintf(fid,'!				1				2			3			4			5			6			7,\n');
    fprintf(fid,'&bc\n');
-   fprintf(fid,'headings1 = 	timestep, 	time, 	      oxy,		  nit,		  amm,		 frp, 	      pocl\n');
-   fprintf(fid,'forzone   =  	0,			   0,			1,			1,			1,			1,			1\n');
-   fprintf(fid,'swibc 	  =     1,             0,       %4.4f,      %4.4f,      %4.4f,      %4.4f,      %4.4f\n',...
+   fprintf(fid,'headings1 = 	timestep, 	time, 	      oxy,		  nit,		  amm,		 frp, 	      pocl,\n');
+   fprintf(fid,'forzone   =  	0,			   0,			1,			1,			1,			1,			1,\n');
+   fprintf(fid,'swibc 	  =     1,             0,       %4.4f,      %4.4f,      %4.4f,      %4.4f,      %4.4f,\n',...
        oxy(1),nit(1),amm(1),frp(1),poc(1));
    for j = 2:length(oxy)
-       fprintf(fid,'                %d,         %4.2f       %4.4f,      %4.4f,      %4.4f,      %4.4f,      %4.4f\n',...
+       fprintf(fid,'                %d,         %4.2f       %4.4f,      %4.4f,      %4.4f,      %4.4f,      %4.4f,\n',...
            j,tdate(j),oxy(j),nit(j),amm(j),frp(j),poc(j));
    end
    fclose(fid);
