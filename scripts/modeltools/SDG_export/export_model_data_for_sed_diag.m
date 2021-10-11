@@ -36,6 +36,8 @@ for i = 1:length(shp)
 
    poc = abs(poc);
    
+   poc = poc * (86400*365);
+   
    tdate = tdate - tdate(1);
    
    
