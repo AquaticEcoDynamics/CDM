@@ -1,14 +1,14 @@
 % 
 % 
-% datafile = '..\..\..\data\store\ecology\UA_Coorong_Compiled_WQ.mat';
-% 
-% summary_folder = '..\..\..\data\summary\UA_Coorong_WQ\';
-% 
-% gis_folder = '..\..\..\gis\summary\';
-% 
-% shpname = 'UA_Coorong_WQ.shp';
-% 
-% summerise_data(datafile,summary_folder,gis_folder,shpname)
+datafile = '..\..\..\data\store\ecology\UA_Coorong_Compiled_WQ.mat';
+
+summary_folder = '..\..\..\data\summary\UA_Coorong_WQ\';
+
+gis_folder = '..\..\..\gis\summary\';
+
+shpname = 'UA_Coorong_WQ.shp';
+
+summerise_data(datafile,summary_folder,gis_folder,shpname)
 % %_________________________________________________________________________
 
 % datafile = '..\..\..\data\store\ecology\SAW_WQ.mat';
@@ -34,15 +34,15 @@
 
 % %_________________________________________________________________________
 
-datafile = '..\..\..\data\store\archive\saepa\epa_2014.mat';
-
-summary_folder = '..\..\..\data\summary\epa_2014\';
-
-gis_folder = '..\..\..\gis\summary\';
-
-shpname = 'epa_2014.shp';
-
-summerise_data(datafile,summary_folder,gis_folder,shpname)
+% datafile = '..\..\..\data\store\archive\saepa\epa_2014.mat';
+% 
+% summary_folder = '..\..\..\data\summary\epa_2014\';
+% 
+% gis_folder = '..\..\..\gis\summary\';
+% 
+% shpname = 'epa_2014.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname)
 
 % 
 % %_________________________________________________________________________
@@ -71,15 +71,15 @@ summerise_data(datafile,summary_folder,gis_folder,shpname)
 % 
 % %_________________________________________________________________________
 % 
-datafile = '..\..\..\data\store\metocean\NRM_metdata.mat';
-
-summary_folder = '..\..\..\data\summary\NRM_metdata\';
-
-gis_folder = '..\..\..\gis\summary\';
-
-shpname = 'NRM_metdata.shp';
-
-summerise_data(datafile,summary_folder,gis_folder,shpname)
+% datafile = '..\..\..\data\store\metocean\NRM_metdata.mat';
+% 
+% summary_folder = '..\..\..\data\summary\NRM_metdata\';
+% 
+% gis_folder = '..\..\..\gis\summary\';
+% 
+% shpname = 'NRM_metdata.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname)
 % 
 % %_________________________________________________________________________
 % %
@@ -97,15 +97,15 @@ summerise_data(datafile,summary_folder,gis_folder,shpname)
 % %_________________________________________________________________________
 % 
 % 
-datafile = '..\..\..\data\store\hydro\dew_WaterDataSA_hourly.mat';
-
-summary_folder = '..\..\..\data\summary\dew_WaterDataSA_hourly\';
-
-gis_folder = '..\..\..\gis\summary\';
-
-shpname = 'dew_WaterDataSA.shp';
-
-summerise_data(datafile,summary_folder,gis_folder,shpname)
+% datafile = '..\..\..\data\store\hydro\dew_WaterDataSA_hourly.mat';
+% 
+% summary_folder = '..\..\..\data\summary\dew_WaterDataSA_hourly\';
+% 
+% gis_folder = '..\..\..\gis\summary\';
+% 
+% shpname = 'dew_WaterDataSA.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname)
 % 
 % %_________________________________________________________________________
 % 
@@ -124,25 +124,25 @@ summerise_data(datafile,summary_folder,gis_folder,shpname)
 %_________________________________________________________________________
 
 % 
-% datafile = '..\..\..\data\store\ecology\ALS.mat';
-% 
-% summary_folder = '..\..\..\data\summary\ALS\';
-% 
-% gis_folder = '..\..\..\gis\summary\';
-% 
-% shpname = 'ALS.shp';
-% 
-% summerise_data(datafile,summary_folder,gis_folder,shpname)
+datafile = '..\..\..\data\store\ecology\ALS.mat';
+
+summary_folder = '..\..\..\data\summary\ALS\';
+
+gis_folder = '..\..\..\gis\summary\';
+
+shpname = 'ALS.shp';
+
+summerise_data(datafile,summary_folder,gis_folder,shpname)
 % 
 % %_________________________________________________________________________
 % 
 % 
-% datafile = '..\..\..\data\store\ecology\AWQC.mat';
-% 
-% summary_folder = '..\..\..\data\summary\AWQC\';
-% 
-% gis_folder = '..\..\..\gis\summary\';
-% 
-% shpname = 'AWQC.shp';
-% 
-% summerise_data(datafile,summary_folder,gis_folder,shpname)
+datafile = '..\..\..\data\store\ecology\AWQC.mat';
+
+summary_folder = '..\..\..\data\summary\AWQC\';
+
+gis_folder = '..\..\..\gis\summary\';
+
+shpname = 'AWQC.shp';
+
+summerise_data(datafile,summary_folder,gis_folder,shpname)

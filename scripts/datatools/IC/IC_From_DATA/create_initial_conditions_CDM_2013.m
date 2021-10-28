@@ -5,9 +5,9 @@ addpath(genpath('Functions'));
 % The files required.
 fieldfile = '..\..\..\..\data\store\archive\cllmm_sec.mat';
 
-defaults = xlsread('Defaults_20130301.xlsx','B2:M22');
+defaults = xlsread('Defaults_20191101.xlsx','B2:M22');
 
-outfile = 'init_conditions_2013_03_CDM.csv';
+outfile = 'init_conditions_2019_09_CDM.csv';
 
 grid = '..\..\..\..\models\HCHB\hchb_tfvaed_v1\model\geo\mesh\CoorongBGC_mesh_000.2dm';
 
@@ -18,7 +18,7 @@ CHG_BAL_Calc = 1;
 shpfile = '../../../../gis/supplementary\Coorong_IC_regions.shp';
 
 % Date
-sdate = datenum(2013,03,01);
+sdate = datenum(2019,09,01);
 
 
 vars = {...

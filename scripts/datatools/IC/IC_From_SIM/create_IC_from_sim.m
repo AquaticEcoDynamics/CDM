@@ -2,17 +2,17 @@ clear all; close all;
 
 addpath(genpath('../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
-ncfile = 'W:\CIIP\Scenarios\Calibration\2017_2019\CoorongBGC_006_validation_201707_201903_wq_all.nc';
+ncfile = 'W:\CIIP\CIIP_Phase2_sensitivity_assessment_v1\output_SC01_S2\CoorongBGC_SC01_base_dry_001_S2_all.nc';
 
-[XX,YY,nodeID,faces,X,Y,ID] = tfv_get_node_from_2dm('../../../models/HCHB/hchb_tfvaed_2019_2021_v1/model/geo/mesh/CoorongBGC_mesh_000.2dm');
+[XX,YY,nodeID,faces,X,Y,ID] = tfv_get_node_from_2dm('../../../../models/HCHB/hchb_tfvaed_v1/model/geo/mesh/CoorongBGC_mesh_000.2dm');
 
 
-fid = fopen('initial_conditions_20181101.csv','wt');
+fid = fopen('initial_conditions_20191101.csv','wt');
 
 dat = tfv_readnetcdf(ncfile,'time',1);
 timesteps = dat.Time;
 
-[~,t_ind] = min(abs(timesteps - datenum(2018,11,01,00,00,00)));
+[~,t_ind] = min(abs(timesteps - datenum(2019,11,01,00,00,00)));
 
 
 rawGeo = tfv_readnetcdf(ncfile,'timestep',t_ind);
@@ -108,6 +108,11 @@ for i = 1:length(ID)
           else
               pdata =  rawGeo.(vars{j})(pnt_id);
           end
+          
+          if strcmpi(vars{j},'WQ_TRC_AGE') == 1
+              pdata = 0;
+          end
+          
         else
            pdata = 0;
         end
