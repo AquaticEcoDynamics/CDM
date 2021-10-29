@@ -5,10 +5,11 @@ addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
 filename = '../BC from Field Data/BCs_BAR_2019_2021_Monthly_Ave_Hourly/BK_20190101_20210701.csv';
 
-load ../../../../data/store/hydro/dew_tide_VH.mat;
+%load ../../../../data/store/hydro/dew_tide_VH.mat;
+load ../../../../data/store/hydro/dew_tide_VH_uncorrected.mat;
 
 
-outdir = 'Images/Tide_2/';
+outdir = 'Images/Tide_3/';
 
 if ~exist(outdir,'dir')
     mkdir(outdir)
@@ -21,12 +22,12 @@ vars = fieldnames(data);
 
 [tt.Date,ind] = unique(tide.VH.H.Date);
 tt.Data = tide.VH.H.Data(ind);
-data.VH_Tide_mAHD = [];
-data.VH_Tide_mAHD = interp1(tt.Date,tt.Data,data.Date);
+data.WL = [];
+data.WL = interp1(tt.Date,tt.Data,data.Date);
 
 
-fid = fopen('../BC from Field Data/BCs_BAR_2019_2021_Monthly_Ave_Hourly/VH_20190101_20210701_v2.csv','wt');
-
+%fid = fopen('../BC from Field Data/BCs_BAR_2019_2021_Monthly_Ave_Hourly/VH_20190101_20210701_v2.csv','wt');
+fid = fopen('../compare_tidal_files/Tide/VH_20190101_20210701_v3.csv','wt');
 for i = 1:length(vars)
     if i == length(vars)
         fprintf(fid,'%s\n',vars{i});
