@@ -10,6 +10,17 @@ datacell = textscan(fid,textformat,'Headerlines',1,'Delimiter',',');
 fclose(fid);
 
 sites = datacell{3};
+
+sites = regexprep(sites,'Villa du Yumpa','Villa de Yumpa');
+sites = regexprep(sites,'Morella Creek @ Guage','Morella Creek @ gauge');
+sites = regexprep(sites,'Tilley Swamp D/S Nth Outlet','Tilley Swamp Drain D/S Northern Outlet');
+sites = regexprep(sites,'Tilley Swamp Watercourse Outlet','Tilley Swamp Watercourse Outlet Channel');
+sites = regexprep(sites,'Tilley Swamp Outlet Drain','Tilley Swamp Drain U/S Morella' );
+sites = regexprep(sites,'Tilley Swamp Drain D/S Nth Outlet','Tilley Swamp Drain D/S Northern Outlet');
+sites = regexprep(sites,'Tilley Swamp Drain W/C Outlet','Tilley Swamp Watercourse Outlet Channel');
+sites = regexprep(sites,'Tilley Swamp Drain Watercourse Outlet','Tilley Swamp Watercourse Outlet Channel');
+
+
 vars = datacell{4};
 units = datacell{5};
 dates = datacell{6};

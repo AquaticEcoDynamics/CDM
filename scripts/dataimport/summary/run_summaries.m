@@ -11,15 +11,15 @@
 % summerise_data(datafile,summary_folder,gis_folder,shpname)
 % %_________________________________________________________________________
 
-datafile = '..\..\..\data\store\archive\cllmm_BC.mat';
-
-summary_folder = '..\..\..\data\summary\cllmm_BC\';
-
-gis_folder = '..\..\..\gis\summary\';
-
-shpname = 'cllmm_BC.shp';
-
-summerise_data(datafile,summary_folder,gis_folder,shpname)
+% datafile = '..\..\..\data\store\archive\cllmm_BC.mat';
+% 
+% summary_folder = '..\..\..\data\summary\cllmm_BC\';
+% 
+% gis_folder = '..\..\..\gis\summary\';
+% 
+% shpname = 'cllmm_BC.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname)
 %_________________________________________________________________________
 
 % datafile = '..\..\..\data\store\ecology\SAW_WQ.mat';
@@ -135,15 +135,15 @@ summerise_data(datafile,summary_folder,gis_folder,shpname)
 %_________________________________________________________________________
 
 % 
-% datafile = '..\..\..\data\store\ecology\ALS.mat';
-% 
-% summary_folder = '..\..\..\data\summary\ALS\';
-% 
-% gis_folder = '..\..\..\gis\summary\';
-% 
-% shpname = 'ALS.shp';
-% 
-% summerise_data(datafile,summary_folder,gis_folder,shpname)
+datafile = '..\..\..\data\store\ecology\ALS.mat';
+
+summary_folder = '..\..\..\data\summary\ALS\';
+
+gis_folder = '..\..\..\gis\summary\';
+
+shpname = 'ALS.shp';
+
+summerise_data(datafile,summary_folder,gis_folder,shpname)
 % % 
 % % %_________________________________________________________________________
 % % 
