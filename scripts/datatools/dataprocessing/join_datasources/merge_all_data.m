@@ -145,7 +145,8 @@ cllmm = check_XY(cllmm);
 
 cllmm = add_offset(cllmm);
 
-datearray(:,1) = datenum(2008,01:132,01);
+%datearray(:,1) = datenum(2008,01:180,01);
+datearray(:,1) = [datenum(2008,01,01):01:datenum(2022,0,01)];
 
 cllmm = cleanse_sites(cllmm);
 
@@ -180,8 +181,8 @@ cllmm = check_XY(cllmm);
 
 cllmm = add_offset(cllmm);
 
-datearray(:,1) = datenum(2008,01:132,01);
-
+%datearray(:,1) = datenum(2008,01:180,01);
+datearray(:,1) = [datenum(2008,01,01):01:datenum(2022,0,01)];
 cllmm = cleanse_sites(cllmm);
 
 

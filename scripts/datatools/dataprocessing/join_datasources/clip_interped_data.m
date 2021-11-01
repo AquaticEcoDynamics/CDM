@@ -8,12 +8,23 @@ outdata.Date = [];
 outdata.Data = [];
 outdata.Depth = [];
 
+int = 1;
+
 for i = 1:length(clipdate)
     
-    [~,ind]  = min(abs(alldate - clipdate(i)));
+    [val_raw,ind]  = min(abs(alldate - clipdate(i)));
     
-    outdata.Date(i,1) = alldate(ind);
-    outdata.Data(i,1) = indata.Data(ind);
-    outdata.Depth(i,1) = indata.Depth(ind);
+%     val = clipdate(i) - val_raw;
+%     val_raw
+%     val
+%    stop
+    if val_raw < 2
     
+        outdata.Date(int,1) = alldate(ind);
+        outdata.Data(int,1) = indata.Data(ind);
+        outdata.Depth(int,1) = indata.Depth(ind);
+        
+        int = int + 1;
+    
+    end
 end

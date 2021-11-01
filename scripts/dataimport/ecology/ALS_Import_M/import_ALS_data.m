@@ -41,6 +41,7 @@ for i = 1:length(data)
         
         sss = find(strcmpi(oldsite,sites{i}) == 1);
         ttt = find(strcmpi(oldvar,vars{i}) == 1);
+        sites{i}
         if isempty(sss)
             stop;
         end

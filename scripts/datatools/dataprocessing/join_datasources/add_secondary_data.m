@@ -44,7 +44,7 @@ for i = 1:length(sites)
     
     if isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TN') & isfield(lowerlakes.(sites{i}),'WQ_NIT_AMM') ...
             & isfield(lowerlakes.(sites{i}),'WQ_NIT_NIT') & isfield(lowerlakes.(sites{i}),'WQ_OGM_DON') ...
-            & isfield(lowerlakes.(sites{i}),'WQ_OGM_PON')
+            & ~isfield(lowerlakes.(sites{i}),'WQ_OGM_PON')
         disp([sites{i},':  WQ_OGM_PON']);
         
         
@@ -106,7 +106,7 @@ for i = 1:length(sites)
         end
     end
     
-    if isfield(lowerlakes.(sites{i}),'WQ_OGM_DOC') & ~isfield(lowerlakes.(sites{i}),'WQ_OGM_POC')
+    if isfield(lowerlakes.(sites{i}),'WQ_OGM_DOC') & ~isfield(lowerlakes.(sites{i}),'WQ_OGM_POC') & ~isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TOC')
         
         disp([sites{i},':  WQ_OGM_POC']);
         
@@ -118,16 +118,47 @@ for i = 1:length(sites)
             
             lowerlakes.(sites{i}).WQ_OGM_POC = lowerlakes.(sites{i}).WQ_OGM_DOC;
             
-            lowerlakes.(sites{i}).WQ_OGM_POC.Data = DOC;
-            lowerlakes.(sites{i}).WQ_OGM_POC.Date = datearray;
-            lowerlakes.(sites{i}).WQ_OGM_POC.Depth(1:length(datearray),1) = 0;
-            
-                       lowerlakes.(sites{i}).WQ_OGM_POC = clip_interped_data(lowerlakes.(sites{i}).WQ_OGM_POC,...
-                lowerlakes.(sites{i}).WQ_OGM_DOC);  
+%             lowerlakes.(sites{i}).WQ_OGM_POC.Data = DOC;
+%             lowerlakes.(sites{i}).WQ_OGM_POC.Date = datearray;
+%             lowerlakes.(sites{i}).WQ_OGM_POC.Depth(1:length(datearray),1) = 0;
+%             
+%                        lowerlakes.(sites{i}).WQ_OGM_POC = clip_interped_data(lowerlakes.(sites{i}).WQ_OGM_POC,...
+%                 lowerlakes.(sites{i}).WQ_OGM_DOC);  
             
             
             
             clear DOC;
+        end
+    end
+ 
+    if isfield(lowerlakes.(sites{i}),'WQ_OGM_DOC') & ~isfield(lowerlakes.(sites{i}),'WQ_OGM_POC') & isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TOC')
+        
+        disp([sites{i},':  WQ_OGM_POC']);
+        
+        
+        DOC = create_interpolated_dataset(lowerlakes,'WQ_OGM_DOC',sites{i},'Surface',datearray);
+        TOC = create_interpolated_dataset(lowerlakes,'WQ_DIAG_TOT_TOC',sites{i},'Surface',datearray);
+        
+        
+        
+        
+        
+        if ~isempty(DOC)
+            
+            lowerlakes.(sites{i}).WQ_OGM_POC = lowerlakes.(sites{i}).WQ_OGM_DOC;
+            
+            lowerlakes.(sites{i}).WQ_OGM_POC.Data = TOC - DOC;
+            lowerlakes.(sites{i}).WQ_OGM_POC.Date = datearray;
+            lowerlakes.(sites{i}).WQ_OGM_POC.Depth(1:length(datearray),1) = 0;
+            
+            lowerlakes.(sites{i}).WQ_OGM_POC = clip_interped_data(lowerlakes.(sites{i}).WQ_OGM_POC,...
+                lowerlakes.(sites{i}).WQ_OGM_DOC);  
+            
+            lowerlakes.(sites{i}).WQ_OGM_DOC
+            lowerlakes.(sites{i}).WQ_OGM_POC
+            
+            
+            clear DOC TOC;
         end
     end
     
@@ -240,7 +271,8 @@ for i = 1:length(sites)
         
     end
     
-    if isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TOC') & ~isfield(lowerlakes.(sites{i}),'WQ_OGM_DOC')
+    if isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TOC') & ~isfield(lowerlakes.(sites{i}),'WQ_OGM_DOC') ...
+            & ~isfield(lowerlakes.(sites{i}),'WQ_OGM_POC')
         
         disp([sites{i},':  WQ_OGM_DOC']);
         
@@ -248,7 +280,8 @@ for i = 1:length(sites)
         lowerlakes.(sites{i}).WQ_OGM_DOC.Data = lowerlakes.(sites{i}).WQ_DIAG_TOT_TOC.Data ./ 2;
         
     end
-    if isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TOC') & ~isfield(lowerlakes.(sites{i}),'WQ_OGM_POC')
+    if isfield(lowerlakes.(sites{i}),'WQ_DIAG_TOT_TOC') & ~isfield(lowerlakes.(sites{i}),'WQ_OGM_POC') ...
+            & ~isfield(lowerlakes.(sites{i}),'WQ_OGM_DOC')
         
         disp([sites{i},':  WQ_OGM_POC']);
         

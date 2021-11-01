@@ -26,9 +26,9 @@ for bb = 1:length(sites)
 
         
         
-        filename = [thesite,'.csv'];
+        filename = [thesite,'_20120101_20210701_v4.csv'];
         
-        filename_new = [thesite,'_v2.csv'];
+        filename_new = [thesite,'_20120101_20210701_v5.csv'];
         
         outdir = ['Images/',thesite,'/'];
         

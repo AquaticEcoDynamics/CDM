@@ -7,7 +7,7 @@ fieldfile = '..\..\..\..\data\store\archive\cllmm_sec.mat';
 
 defaults = xlsread('Defaults_20191101.xlsx','B2:M22');
 
-outfile = 'init_conditions_2019_09_CDM.csv';
+outfile = 'init_conditions_2019_09_CDM_v2.csv';
 
 grid = '..\..\..\..\models\HCHB\hchb_tfvaed_v1\model\geo\mesh\CoorongBGC_mesh_000.2dm';
 

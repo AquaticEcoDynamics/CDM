@@ -5,11 +5,11 @@ addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
 filename = '../BC from Field Data/BCs_BAR_2019_2021_Monthly_Ave_Hourly/BK_20190101_20210701.csv';
 
-%load ../../../../data/store/hydro/dew_tide_VH.mat;
-load ../../../../data/store/hydro/dew_tide_VH_uncorrected.mat;
+load ../../../../data/store/hydro/dew_tide_VH.mat;
+%load ../../../../data/store/hydro/dew_tide_VH_uncorrected.mat;
 
 
-outdir = 'Images/Tide_3/';
+outdir = 'Images/Tide_4/';
 
 if ~exist(outdir,'dir')
     mkdir(outdir)
@@ -26,8 +26,12 @@ data.WL = [];
 data.WL = interp1(tt.Date,tt.Data,data.Date);
 
 
+data.POC(1:length(data.POC),1) = 10;
+data.DOC(1:length(data.DOC),1) = 50;
+
+
 %fid = fopen('../BC from Field Data/BCs_BAR_2019_2021_Monthly_Ave_Hourly/VH_20190101_20210701_v2.csv','wt');
-fid = fopen('../compare_tidal_files/Tide/VH_20190101_20210701_v3.csv','wt');
+fid = fopen('../compare_tidal_files/Tide/VH_20190101_20210701_v4.csv','wt');
 for i = 1:length(vars)
     if i == length(vars)
         fprintf(fid,'%s\n',vars{i});
@@ -68,7 +72,11 @@ for i = 1:length(vars)
         
         
         figure('position',[555 635 1018 343]);
-        plot(xdata,ydata,'k');
+        plot(xdata,ydata,'k');hold on;
+        
+        if strcmpi(vars{i},'WL') == 1
+            plot(tt.Date,tt.Data,'r');
+        end
         
         title(regexprep(vars{i},'_',' '));
         
