@@ -1,8 +1,19 @@
 clear all; close all;
 
-filename = '../../../../data/incoming/DEW/hydrology/compiled/FINAL_compiledTideData_1990-2021.xlsx';
+addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
-[snum,sstr] = xlsread(filename,'A2:B762626');
+filename = '../../../../data/incoming/DEW/hydrology/compiled/FINAL_compiledTideData_1990-2021_DatumCorrection.csv';
+
+%[snum,sstr] = xlsread(filename,'A2:B762626');
+fid = fopen(filename,'rt');
+
+textformat = [repmat('%s ',1,2)];
+
+datacell = textscan(fid,textformat,'Headerlines',1,'Delimiter',',');
+
+sstr = datacell{1};
+snum = str2double(datacell{2});
+
 
 
 for i = 1:length(sstr)
@@ -48,4 +59,20 @@ ylabel('Height (mAHD)');
 title('VH Tidal Height: 1990 - 2021 (DATUM Uncorrected');
 
 
-save('../../../../data/store/hydro/dew_tide_VH_uncorrected.mat','tide','-mat');
+save('../../../../data/store/hydro/dew_tide_VH.mat','tide','-mat');
+
+stop
+
+data = load('../../../../data/store/hydro/dew_tide_VH_uncorrected.mat');
+plot(data.tide.VH.H.Date,data.tide.VH.H.Data,'b');hold on
+
+data2 = load('../../../../data/store/hydro/dew_tide_VH.mat');
+plot(data2.tide.VH.H.Date,data2.tide.VH.H.Data,'r');hold on
+
+legend({'VH Uncorrected Tide';'VH Corrected Tide'});
+
+datetick('x');
+
+xlabel('Date');
+ylabel('Height (mAHD)');
+title('VH Tidal Height Comparison: 1990 - 2021');

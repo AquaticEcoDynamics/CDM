@@ -32,7 +32,7 @@ data.FLOW = interp1(tt.Date,tt.Data,data.Date);
 data.SAL = interp1(ss.Date,ss.Data,data.Date);
 
 
-fid = fopen('Salt_Creek_20190101_20210701_v5.csv','wt');
+fid = fopen('Salt_Creek_20120101_20210701_v5.csv','wt');
 
 for i = 1:length(vars)
     if i == length(vars)

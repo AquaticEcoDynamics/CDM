@@ -19,7 +19,7 @@ datearray(:,1) = datenum(2012,01,01,00,00,00):1:datenum(2021,07,01,00,00,00);
 
 
 headers = {...
-    'H',...
+    'FLOW',...
     'SAL',...
     'TEMP',...
     'TRACE_1',...
@@ -158,18 +158,18 @@ create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Goolwa'
 
 
 clear datearray;
-datearray(:,1) = datenum(2012,01,01,00,00,00):30/(60*24):datenum(2021,07,01,00,00,00);
-
-
-headers{1} = 'H';
-
-filename = [outdir,'BK_20120101_20210701.csv'];
-subdir = [outdir,'BK/'];
-
-X = 309703.3;
-Y = 6062973;
-
- create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'BK');
+% datearray(:,1) = datenum(2012,01,01,00,00,00):30/(60*24):datenum(2021,07,01,00,00,00);
+% 
+% 
+% headers{1} = 'H';
+% 
+% filename = [outdir,'BK_20120101_20210701.csv'];
+% subdir = [outdir,'BK/'];
+% 
+% X = 309703.3;
+% Y = 6062973;
+% 
+%  create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'BK');
 
 
 %
