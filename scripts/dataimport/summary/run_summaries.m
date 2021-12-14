@@ -1,4 +1,13 @@
-% 
+ datafile = '..\..\..\data\store\ecology\DO_Logger.mat';
+
+summary_folder = '..\..\..\data\summary\DO_Logger\';
+
+gis_folder = '..\..\..\gis\summary\';
+
+shpname = 'DO_Logger.shp';
+
+summerise_data(datafile,summary_folder,gis_folder,shpname)
+%_________________________________________________________________________
 % 
 % datafile = '..\..\..\data\store\ecology\UA_Coorong_Compiled_WQ.mat';
 % 
@@ -135,15 +144,15 @@
 %_________________________________________________________________________
 
 % 
-datafile = '..\..\..\data\store\ecology\ALS.mat';
-
-summary_folder = '..\..\..\data\summary\ALS\';
-
-gis_folder = '..\..\..\gis\summary\';
-
-shpname = 'ALS.shp';
-
-summerise_data(datafile,summary_folder,gis_folder,shpname)
+% datafile = '..\..\..\data\store\ecology\ALS.mat';
+% 
+% summary_folder = '..\..\..\data\summary\ALS\';
+% 
+% gis_folder = '..\..\..\gis\summary\';
+% 
+% shpname = 'ALS.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname)
 % % 
 % % %_________________________________________________________________________
 % % 
