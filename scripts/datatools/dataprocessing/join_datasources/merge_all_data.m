@@ -89,6 +89,17 @@ for i = 1:length(sites)
     %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
 end
 
+load ../../../../data/store/ecology/DO_Logger.mat;
+
+sites = fieldnames(DO);
+
+for i = 1:length(sites)
+    cllmm.(['UA_DO_',sites{i}]) = DO.(sites{i});
+    %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
+end
+
+
+
 load ../../../../data/store/ecology/AWQC.mat;
 
 sites = fieldnames(AWQC);
