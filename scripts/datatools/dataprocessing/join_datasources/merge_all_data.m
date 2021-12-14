@@ -72,6 +72,10 @@ load ../../../../data/store/ecology/UA_Coorong_Compiled_WQ.mat;
 sites = fieldnames(UA);
 
 for i = 1:length(sites)
+    
+    if isfield(UA.(sites{i}),'TEMP')
+        UA.(sites{i}) = rmfield(UA.(sites{i}),'TEMP');
+    end
     cllmm.(sites{i}) = UA.(sites{i});
     %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
 end
@@ -90,6 +94,9 @@ load ../../../../data/store/ecology/AWQC.mat;
 sites = fieldnames(AWQC);
 
 for i = 1:length(sites)
+   if isfield(AWQC.(sites{i}),'TEMP')
+        AWQC.(sites{i}) = rmfield(AWQC.(sites{i}),'TEMP');
+    end
     cllmm.(sites{i}) = AWQC.(sites{i});
     %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
 end
@@ -148,7 +155,7 @@ cllmm = add_offset(cllmm);
 %datearray(:,1) = datenum(2008,01:180,01);
 datearray(:,1) = [datenum(2008,01,01):01:datenum(2022,0,01)];
 
-cllmm = cleanse_sites(cllmm);
+%cllmm = cleanse_sites(cllmm);
 
 
 

@@ -1,15 +1,19 @@
 function overwrite_material_zones
 
-input_file = '../../../../models/HCHB/hchb_tfvaed_v1/model/geo/mesh/CoorongBGC_mesh_001.2dm';
-output_file ='../../../../models/HCHB/hchb_tfvaed_v1/model/geo/mesh/CoorongBGC_mesh_001_zones.2dm';
-
+input_file = '../../../../models/HCHB/hchb_tfvaed_v1/model/geo/mesh/CoorongBGC_mesh_000.2dm';
+%output_file ='../../../../models/HCHB/hchb_tfvaed_v1/model/geo/mesh/CoorongBGC_mesh_000_zones_30_05.2dm';
+output_file ='CoorongBGC_mesh_000_zones_30_100_v3.2dm';
 shpfile = '10Zones_UTM.shp';
+shpfile2 = 'dividing_boundary.shp';
+ocean = 'Ocean.shp';
 
 outside_zone = 100;
 
-depth = -0.2;
+depth = -1.00;
 
 shp = shaperead(shpfile);
+shp2 = shaperead(shpfile2);
+shp3 = shaperead(ocean);
 
 [XX,YY,ZZ,nodeID,faces,X,Y,Z,ID,MAT,A] = tfv_get_node_from_2dm(input_file);
 
@@ -37,18 +41,33 @@ for i = 1:length(X)
 
     for jj = 1:length(shp)
         inpol = inpolygon(X(i),Y(i),shp(jj).X,shp(jj).Y);
+        
+        inpol2 = inpolygon(X(i),Y(i),shp2.X,shp2.Y);
+        
+        inpol3 = inpolygon(X(i),Y(i),shp3.X,shp3.Y);
+        
         % If it's inside a polygon
         if inpol == 1
             
-            if Z(i) > depth
+            if Z(i) < depth
             
-                original_val = shp(jj).id;
+                original_val = (shp(jj).id * 10) + 2;
                 
             else
-                
-                original_val = shp(jj).id + 10;
+                if inpol2
+                    %original_val = shp(jj).id + 10;
+                    original_val = (shp(jj).id * 10) + 3;
+                else
+                    %original_val = shp(jj).id + 20;
+                    original_val = (shp(jj).id * 10) + 1;
+                end
                 
             end
+            
+            if inpol3
+                original_val = 104;
+            end
+            
             %
         end
         [ geom, ~, ~ ] = polygeom( shp(jj).X(~isnan(shp(jj).X)),shp(jj).Y(~isnan(shp(jj).X)));
