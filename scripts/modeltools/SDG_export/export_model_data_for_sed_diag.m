@@ -1,12 +1,12 @@
 addpath(genpath('../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
-ncfile = 'W:\CIIP\CIIP_Phase2_sensitivity_assessment_v1\output_SC01_S2\CoorongBGC_SC01_base_dry_001_S2_all.nc';
-
+%ncfile = 'W:\CIIP\CIIP_Phase2_sensitivity_assessment_v1\output_SC01_S2\CoorongBGC_SC01_base_dry_001_S2_all.nc';
+ncfile = 'W:\CDM\hchb_tfvaed_v2_resuspension_z31_newSHP\output\hchb_wave_21901101_20210701_wq_v5_resuspension_all.nc';
 shp = shaperead('Export_Locations.shp');
 
 %sites = {'LM3G';'WP1G'}; % mat zones 18 & 9
 
-
+outDIR='C:\Users\00064235\AED Dropbox\AED_Coorong_db\3_data\SedimentData\model_export\';
 
 data = tfv_readnetcdf(ncfile,'timestep',1);
 mdata = tfv_readnetcdf(ncfile,'names',{'WQ_OXY_OXY';'WQ_NIT_NIT';'WQ_NIT_AMM';'WQ_PHS_FRP';'WQ_DIAG_OGM_PSED_POC'});
@@ -38,7 +38,7 @@ for i = 1:length(shp)
    tdate = tdate - tdate(1);
    
    
-   fid = fopen(['aed2_sediment_swibc_',sites,'.dat'],'wt');
+   fid = fopen([outDIR,'aed2_sediment_swibc_',sites,'.dat'],'wt');
    
    
    fprintf(fid,'!				1				2			3			4			5			6			7\n');
