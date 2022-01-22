@@ -2,7 +2,6 @@ clear; close all;
 
 addpath(genpath('../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
-%ncfile = 'W:\CIIP\CIIP_Phase2_sensitivity_assessment_v1\output_SC01_S2\CoorongBGC_SC01_base_dry_001_S2_all.nc';
 ncfile = 'W:\CDM\hchb_tfvaed_v2_resuspension_z31_newSHP\output\hchb_wave_21901101_20210701_wq_v5_resuspension_all.nc';
 shp = shaperead('Export_Locations.shp');
 
@@ -68,17 +67,17 @@ end
    
 %% write to output
 
-header_str1='!				1				2';
+for i = 1:length(shp)
+    
+    header_str1='!				1				2';
 header_str2='headings1 = 	timestep, 	time,';
 header_str3='forzone   =  	0,			   0,';
 
 for vv=1:length(SedVars)
     header_str1=[header_str1,'          ',num2str(vv+2)];
-    header_str2=[header_str2,'          ',SedVars(vv)];
-    header_str3=[header_str3,'           1'];
+    header_str2=[header_str2,'          ',SedVars{vv}];
+    header_str3=[header_str3,'          ',num2str(i)];
 end
-
-for i = 1:length(shp)
        
     sites = shp(i).Code;
     tdate = tdate - tdate(1);
@@ -86,10 +85,10 @@ for i = 1:length(shp)
    fid = fopen([outDIR,'aed2_sediment_swibc_',sites,'.dat'],'wt');
    
    
-   fprintf(fid,header_str1); %fprintf(fid,header_str1,'\n');
+   fprintf(fid,'%s\n',header_str1); 
    fprintf(fid,'&bc\n');
-   fprintf(fid,[header_str2,'\n']);
-   fprintf(fid,[header_str3,'\n']);
+   fprintf(fid,'%s\n',header_str2);
+   fprintf(fid,'%s\n',header_str3);
 
    for j = 1:length(tdate)
        if j==1
@@ -99,7 +98,11 @@ for i = 1:length(shp)
        end
        
        for vv=1:length(SedVars)
-           fprintf(fid,',       %4.4f',export.(SedVars{vv})(i,j));
+           if vv>=9
+           fprintf(fid,',       %4.4f',abs(export.(SedVars{vv})(i,j))*86400);
+           else
+               fprintf(fid,',       %4.4f',abs(export.(SedVars{vv})(i,j)));
+           end
        end
        fprintf(fid,'\n');
 

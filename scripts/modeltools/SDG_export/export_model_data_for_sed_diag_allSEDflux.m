@@ -2,14 +2,13 @@ clear; close all;
 
 addpath(genpath('../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
-%ncfile = 'W:\CIIP\CIIP_Phase2_sensitivity_assessment_v1\output_SC01_S2\CoorongBGC_SC01_base_dry_001_S2_all.nc';
+% define import file and output directory
 ncfile = 'W:\CDM\hchb_tfvaed_v2_resuspension_z31_newSHP\output\hchb_wave_21901101_20210701_wq_v5_resuspension_all.nc';
 shp = shaperead('Export_Locations.shp');
 
-%sites = {'LM3G';'WP1G'}; % mat zones 18 & 9
-
 outDIR='C:\Users\00064235\AED Dropbox\AED_Coorong_db\3_data\SedimentData\model_export\';
 
+% sediment flux variables
 SedVars={'WQ_OXY_OXY',...
     'WQ_NIT_NIT',...
     'WQ_NIT_AMM',...
@@ -24,6 +23,7 @@ SedVars={'WQ_OXY_OXY',...
 'WQ_DIAG_PHY_PSED_PHY',...
 };
 
+% export the flux data and save it in a .mat file for future use
 data = tfv_readnetcdf(ncfile,'timestep',1);
 dat = tfv_readnetcdf(ncfile,'time',1);
 tdate = dat.Time;
@@ -32,7 +32,7 @@ cX = double(data.cell_X);
 cY = double(data.cell_Y);
 dtri = DelaunayTri(cX,cY);
 
-readdata=0;
+readdata=0; % 1: import the data from NC file, 0: read in the data from saved .mat file
 
 if readdata
 
@@ -100,7 +100,7 @@ end
        
        for vv=1:length(SedVars)
            if vv>=9
-           fprintf(fid,',       %4.4f',abs(export.(SedVars{vv})(i,j))*86400);
+           fprintf(fid,',       %4.4f',abs(export.(SedVars{vv})(i,j))*86400); % convert from /s to /day for seleted vars
            else
                fprintf(fid,',       %4.4f',abs(export.(SedVars{vv})(i,j)));
            end
