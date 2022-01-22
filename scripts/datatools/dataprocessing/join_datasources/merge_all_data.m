@@ -98,6 +98,14 @@ for i = 1:length(sites)
     %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
 end
 
+load ../../../../data/store/ecology/ua_sonde.mat;
+
+sites = fieldnames(ua_sonde);
+
+for i = 1:length(sites)
+    cllmm.(['UA_Sonde_',sites{i}]) = ua_sonde.(sites{i});
+    %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
+end
 
 
 load ../../../../data/store/ecology/AWQC.mat;
