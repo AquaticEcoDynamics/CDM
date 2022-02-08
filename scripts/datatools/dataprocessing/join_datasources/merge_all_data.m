@@ -189,18 +189,28 @@ load ../../../../data/store/archive/saepa/epa_2016.mat;
 
 sites = fieldnames(epa_2016);
 
+% for i = 1:length(sites)
+%     cllmm.(['EPA_',sites{i}]) = epa_2016.(sites{i});
+%     cllmm.(['EPA_',sites{i}]) = add_agency(cllmm.(['EPA_',sites{i}]),'SA EPA');
+% end
+% 
+% load ../../../../data/store/archive/saepa/epa_2014.mat;
+% 
+% sites = fieldnames(epa_2014);
+% 
+% for i = 1:length(sites)
+%     cllmm.(['EPA2014_',sites{i}]) = epa_2014.(sites{i});
+%     cllmm.(['EPA2014_',sites{i}]) = add_agency(cllmm.(['EPA2014_',sites{i}]),'SA EPA');
+% end
+
+load ../../../../data/store/archive/saepa/epa.mat;
+
+
+sites = fieldnames(epa);
+
 for i = 1:length(sites)
-    cllmm.(['EPA_',sites{i}]) = epa_2016.(sites{i});
-    cllmm.(['EPA_',sites{i}]) = add_agency(cllmm.(['EPA_',sites{i}]),'SA EPA');
-end
-
-load ../../../../data/store/archive/saepa/epa_2014.mat;
-
-sites = fieldnames(epa_2014);
-
-for i = 1:length(sites)
-    cllmm.(['EPA2014_',sites{i}]) = epa_2014.(sites{i});
-    cllmm.(['EPA2014_',sites{i}]) = add_agency(cllmm.(['EPA2014_',sites{i}]),'SA EPA');
+    cllmm.(['EPA2014_',sites{i}]) = epa.(sites{i});
+    %cllmm.(['EPA2014_',sites{i}]) = add_agency(cllmm.(['EPA2014_',sites{i}]),'SA EPA');
 end
 
 cllmm = check_XY(cllmm);

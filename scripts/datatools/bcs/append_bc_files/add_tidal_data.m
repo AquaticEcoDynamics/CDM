@@ -3,7 +3,7 @@ clear all; close all;
 addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
 
-filename = '../BC from Field Data/BCs_BAR_2019_2021_V4/BK_20120101_20210701.csv';
+filename = '../BC from Field Data/BCs_BAR_2019_2022_V6/BK_20120101_20220101.csv';
 
 load ../../../../data/store/hydro/dew_tide_VH.mat;
 %load ../../../../data/store/hydro/dew_tide_VH_uncorrected.mat;
@@ -39,7 +39,7 @@ data.POP = TP * 0.15;
 
 
 %fid = fopen('../BC from Field Data/BCs_BAR_2019_2021_Monthly_Ave_Hourly/VH_20190101_20210701_v2.csv','wt');
-fid = fopen('BK_20120101_20210701_v6.csv','wt');
+fid = fopen('VH_20120101_20220101_v6.csv','wt');
 for i = 1:length(vars)
     if i == length(vars)
         fprintf(fid,'%s\n',vars{i});

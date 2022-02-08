@@ -3,7 +3,7 @@ clear all; close all;
 addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
 
-filename = '../BC from Field Data/BCs_BAR_2019_2021_V4/Salt_Creek_20120101_20210701.csv';
+filename = '../BC from Field Data/BCs_BAR_2019_2022_V6/Salt_Creek_20120101_20210701.csv';
 
 load ../../../../data/store/hydro/dew_saltcreek.mat;
 

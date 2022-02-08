@@ -2,9 +2,9 @@ clear all; close all;
 
 addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
-load ../../../../data/store/hydro/dew_barrage_temperature.mat;
+load ../../../../data/store/hydro/dew_barrage_temperature_salinity.mat;
 
-barrages = bar
+barrages = bar;
 
 
 sites = fieldnames(barrages);
@@ -26,9 +26,9 @@ for bb = 1:length(sites)
 
         
         
-        filename = [thesite,'_20120101_20210701_v4.csv'];
+        filename = [thesite,'_20120101_20220101_v4.csv'];
         
-        filename_new = [thesite,'_20120101_20210701_v6.csv'];
+        filename_new = [thesite,'_20120101_20220101_v6.csv'];
         
         outdir = ['Images/',thesite,'/'];
         
@@ -41,12 +41,18 @@ for bb = 1:length(sites)
         vars = fieldnames(data);
         
         
-        [tt.Date,ind] = unique(barrages.(sites{bb}).TEMP.uDates);
-        tt.Data = barrages.(sites{bb}).TEMP.Ave(ind);
+        tt.Date = barrages.(sites{bb}).TEMP.Adate;
+        tt.Data = barrages.(sites{bb}).TEMP.Adata;
         data.TEMP = [];
         data.TEMP = interp1(tt.Date,tt.Data,data.Date);
         
+        tt.Date = barrages.(sites{bb}).SAL.Adate;
+        tt.Data = barrages.(sites{bb}).SAL.Adata;
         
+        sss = find(~isnan(tt.Data));
+        
+        data.SAL = [];
+        data.SAL = interp1(tt.Date(sss),tt.Data(sss),data.Date);        
         
         fid = fopen(filename_new,'wt');
         
