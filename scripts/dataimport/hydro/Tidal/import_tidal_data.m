@@ -1,6 +1,6 @@
 clear all; close all;
 
-filename = '../../../../data/incoming/DEW/hydrology/compiled/FINAL_compiledTideData_1990-2021_DatumCorrection.xlsx';
+filename = '../../../../data/incoming/DEW/hydrology/compiled/FINAL_compiledTideData_1990-2021_DatumCorrection.csv';
 
 [snum,sstr] = xlsread(filename,'A2:B762626');
 
