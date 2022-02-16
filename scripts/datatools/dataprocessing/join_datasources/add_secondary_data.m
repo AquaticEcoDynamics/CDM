@@ -407,11 +407,16 @@ for i = 1:length(sites)
         
         
         % First variable
-        Fdate = lowerlakes.(sites{i}).WQ_DIAG_TOT_TP.Date;
-        Fdata = lowerlakes.(sites{i}).WQ_DIAG_TOT_TP.Data;
+%         Fdate = lowerlakes.(sites{i}).WQ_DIAG_TOT_TP.Date;
+%         Fdata = lowerlakes.(sites{i}).WQ_DIAG_TOT_TP.Data;
+        
+        
+        Sdate = lowerlakes.(sites{i}).WQ_DIAG_TOT_TP.Date;
+        Sdata = lowerlakes.(sites{i}).WQ_DIAG_TOT_TP.Data;
+        
         % Second Variable
-        Sdate = lowerlakes.(sites{i}).WQ_PHS_FRP.Date;
-        Sdata = lowerlakes.(sites{i}).WQ_PHS_FRP.Data;
+        Fdate = lowerlakes.(sites{i}).WQ_PHS_FRP.Date;
+        Fdata = lowerlakes.(sites{i}).WQ_PHS_FRP.Data;
         % Third Variable
         
         

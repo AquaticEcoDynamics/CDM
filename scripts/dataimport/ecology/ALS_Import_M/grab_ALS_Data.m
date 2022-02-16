@@ -18,6 +18,7 @@ while ~feof(fid)
         
         if int == 3
             % Sites;
+            str(6:end)
             out.dates = datenum(str(6:end),'dd/mm/yyyy');
         end
         if int == 4
