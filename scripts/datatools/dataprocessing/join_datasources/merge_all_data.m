@@ -66,6 +66,16 @@ for i = 1:length(sites)
     cllmm.(['SAW2020_',sites{i}]) = add_agency(cllmm.(['SAW2020_',sites{i}]),'SA Water');
 end
 
+load ../../../../data/store/ecology/ruppia.mat;
+
+sites = fieldnames(ruppia);
+
+for i = 1:length(sites)
+    cllmm.([sites{i}]) = ruppia.(sites{i});
+    %cllmm.(['SAW2020_',sites{i}]) = add_agency(cllmm.(['SAW2020_',sites{i}]),'SA Water');
+end
+
+
 
 load ../../../../data/store/ecology/UA_Coorong_Compiled_WQ.mat;
 

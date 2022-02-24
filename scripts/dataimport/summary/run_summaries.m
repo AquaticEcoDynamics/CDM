@@ -8,16 +8,27 @@
 % 
 % summerise_data(datafile,summary_folder,gis_folder,shpname)
 % _________________________________________________________________________
- datafile = '..\..\..\data\store\ecology\ua_sonde.mat';
+%  datafile = '..\..\..\data\store\ecology\ua_sonde.mat';
+% 
+% summary_folder = '..\..\..\data\summary\ua_sonde\';
+% 
+% gis_folder = '..\..\..\gis\summary\';
+% 
+% shpname = 'UA_Sonde.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname)
+%_________________________________________________________________________
+ datafile = '..\..\..\data\store\ecology\ruppia.mat';
 
-summary_folder = '..\..\..\data\summary\ua_sonde\';
+summary_folder = '..\..\..\data\summary\ruppia\';
 
 gis_folder = '..\..\..\gis\summary\';
 
-shpname = 'UA_Sonde.shp';
+shpname = 'ruppia.shp';
 
 summerise_data(datafile,summary_folder,gis_folder,shpname)
 %_________________________________________________________________________
+
 
 
 

@@ -10,13 +10,13 @@ load('C:\Users\00065525\GITHUB\CDM\data\store\hydro\dew_WaterDataSA_hourly.mat')
 
 data_file = metdata.RMPW18;
 
-metfile = 'C:\Users\00065525\GITHUB\CDM\data\store\metocean\Narrung_met_20160201_20210801.csv';
-rainfile = 'C:\Users\00065525\GITHUB\CDM\data\store\metocean\Narrung_rain_20160201_20210801.csv';
-imagefile = 'C:\Users\00065525\GITHUB\CDM\data\store\metocean\Narrung_20160201_20210801.png';
+metfile = 'C:\Users\00065525\GITHUB\CDM\data\store\metocean\Narrung_met_20160201_20220101.csv';
+rainfile = 'C:\Users\00065525\GITHUB\CDM\data\store\metocean\Narrung_rain_20160201_20220101.csv';
+imagefile = 'C:\Users\00065525\GITHUB\CDM\data\store\metocean\Narrung_20160201_20220101.png';
 
 
 startdate = datenum(2016,02,01);
-enddate = datenum(2021,08,01);
+enddate = datenum(2022,01,01);
 
 TZ = 9.5;
 
