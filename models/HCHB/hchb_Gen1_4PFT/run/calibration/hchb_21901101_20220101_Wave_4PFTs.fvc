@@ -1,0 +1,239 @@
+! Coorong BGC Model
+!_________________________________________________________________
+
+ Hardware == GPU
+
+! GIS 
+!_________________________________________________________________
+GIS format == shp
+shp projection == ../../model/gis/shp/projection.prj
+GIS Projection Check == WARNING
+
+! TIME COMANDS
+!_________________________________________________________________
+time format == ISODATE
+start time == 01/11/2019 00:00:00
+end time ==  01/01/2022 00:00:00
+
+timestep limits == 0.1, 15
+display dt == 3600.
+cfl external == 0.9
+cfl internal == 0.9
+
+
+! SIMULATION CONFIGURATION
+!_________________________________________________________________
+include salinity == 1,1
+include temperature == 1,1
+include sediment == 0,0
+spatial order == 1,2
+horizontal gradient limiter == LCD
+vertical gradient limiter == MC
+bottom drag model == ks
+equation of state == UNESCO
+
+water quality model == EXTERNAL
+external water quality model dir == ../../external/AED/
+
+
+! MODEL PARAMETERS
+!_________________________________________________________________
+stability limits == 100.,500.
+cell wet/dry depths == 4.0e-2, 4.0e-2
+g == 9.81
+reference density == 1025.
+latitude == -35.8
+Wind Stress Params == 0., 0.8E-03, 50., 4.05E-03
+
+
+! HEAT PARAMETERS
+!_________________________________________________________________
+include heat == 1,0
+LONGWAVERADIATIONMODEL == 3
+Shortwave radiation albedo == 0.05
+Shortwave radiation fractions == 0.500, 0.463, 0.036, 0.001
+Shortwave radiation extinction coefficients == 2.0, 1.2, 2.0, 2.5
+Bulk Latent Heat Coefficient == 1.55e-3 ! Default 1.3e-3
+
+
+! TURBULENCE PARAMETERS
+!_________________________________________________________________
+momentum mixing model == SMAGORINSKY
+scalar mixing model == ELDER
+vertical mixing model == external
+external turbulence model dir == ../../external/GOTM/
+global horizontal eddy viscosity == 0.2
+global horizontal scalar diffusivity == 250.0,25.0
+
+
+! TRACER PARAMETERS
+!_________________________________________________________________
+Ntracer == 5
+tracer == 1 ! Initial CSL passive tracer - initial concentration 100 in CSL
+end tracer
+tracer == 2 ! Ocean water passive tracer - concentration 100 at ocean boundaries including pump connections
+end tracer
+tracer == 3 ! Barrage flow passive tracer - concentration 100 in barrage flow
+end tracer
+tracer == 4 ! Salt Creek passive tracer - concentration 100 in salt creek flow
+end tracer
+tracer == 5 ! Water age passive tracer - initial concentration 0 and all inflow concentrations 0
+  water age == 1
+end tracer
+
+
+! GEOMETRY
+!_________________________________________________________________
+geometry 2d == ../../model/geo/mesh/CoorongBGC_mesh_000.2dm
+echo geometry == 1
+
+Read GIS Nodestring == ../../model/gis/shp/2d_ns_CoorongBGC_000_L.shp
+
+Read GIS Mat == ../../model/gis/shp/new_31_material_zones.shp
+include == ../../model/material/new_Material_Roughness_z31.fvc
+
+
+! STRUCTURES
+!_________________________________________________________________
+structure logging == 0
+
+
+! BOUNDARY CONDITIONS
+!_________________________________________________________________
+
+
+bc == WL, 1, ../../bc_dbase/calibration/inflow/BK_20120101_20220101.csv
+  bc header ==  ISOTIME,WL,sal,temp,trace_1,trace_2,trace_3,trace_4,trace_5,ss1,ss1,ss1,ret,oxy,rsi,amm,nit,frp,frp_ads,doc,poc,don,pon,dop,pop,grn,grn,grn,grn,mag_ulva,mag_ulva_in,mag_ulva_ip
+  bc scale ==                      1,  1,   1,      1,      1,      1,      1,      1,0.05,0.03,0.02,  1,  1,  1,  1,  1,  1,      1,  1,  1,  1,  1,  1,  1,  0.5,0.3,0.1,0.1,       1,          1,          1
+end bc
+
+bc == Q, 4, ../../bc_dbase/calibration/inflow/Boundary_20120101_20220101_v6.csv
+  sub-type == 2
+  bc header ==  ISOTIME,FLOW,SAL,TEMP,trace_1,trace_2,trace_3,trace_4,trace_5,ss1,ss1,ss1,ret,oxy,rsi,amm,nit,frp,frp_ads,doc,poc,don,pon,dop,pop,grn,grn,grn,grn,mag_ulva,mag_ulva_in,mag_ulva_ip
+  bc scale ==              1,  1,   1,      1,      1,      1,      1,      1,0.05,0.03,0.02,  1,  1,  1,  1,  1,  1,      1,  1,  1,  1,  1,  1,  1,  0.5,0.3,0.1,0.1,      1,          1,          1
+end bc
+
+bc == Q, 5, ../../bc_dbase/calibration/inflow/Ewe_20120101_20220101_v6.csv
+  sub-type == 2
+  bc header ==  ISOTIME,FLOW,SAL,TEMP,trace_1,trace_2,trace_3,trace_4,trace_5,ss1,ss1,ss1,ret,oxy,rsi,amm,nit,frp,frp_ads,doc,poc,don,pon,dop,pop,grn,grn,grn,grn,mag_ulva,mag_ulva_in,mag_ulva_ip
+  bc scale ==              1,  1,   1,      1,      1,      1,      1,      1,0.05,0.03,0.02,  1,  1,  1,  1,  1,  1,      1,  1,  1,  1,  1,  1,  1,  0.5,0.3,0.1,0.1,       1,          1,          1
+end bc
+
+bc == Q, 2, ../../bc_dbase/calibration/inflow/Goolwa_20120101_20220101_v6.csv
+  sub-type == 2
+  bc header ==  ISOTIME,FLOW,SAL,TEMP,trace_1,trace_2,trace_3,trace_4,trace_5,ss1,ss1,ss1,ret,oxy,rsi,amm,nit,frp,frp_ads,doc,poc,don,pon,dop,pop,grn,grn,grn,grn,mag_ulva,mag_ulva_in,mag_ulva_ip
+  bc scale ==              1,  1,   1,      1,      1,      1,      1,      1,0.05,0.03,0.02,  1,  1,  1,  1,  1,  1,      1,  1,  1,  1,  1,  1,  1,  0.5,0.3,0.1,0.1,       1,          1,          1
+end bc
+
+bc == Q, 3, ../../bc_dbase/calibration/inflow/Mundoo_20120101_20220101_v6.csv
+  sub-type == 2
+  bc header ==  ISOTIME,FLOW,SAL,TEMP,trace_1,trace_2,trace_3,trace_4,trace_5,ss1,ss1,ss1,ret,oxy,rsi,amm,nit,frp,frp_ads,doc,poc,don,pon,dop,pop,grn,grn,grn,grn,mag_ulva,mag_ulva_in,mag_ulva_ip
+  bc scale ==              1,  1,   1,      1,      1,      1,      1,      1,0.05,0.03,0.02,  1,  1,  1,  1,  1,  1,      1,  1,  1,  1,  1,  1,  1,  0.5,0.3,0.1,0.1,       1,          1,          1
+end bc
+
+bc == Q, 6, ../../bc_dbase/calibration/inflow/Tauwitchere_20120101_20220101_v6.csv
+  sub-type == 2
+  bc header ==  ISOTIME,FLOW,SAL,TEMP,trace_1,trace_2,trace_3,trace_4,trace_5,ss1,ss1,ss1,ret,oxy,rsi,amm,nit,frp,frp_ads,doc,poc,don,pon,dop,pop,grn,grn,grn,grn,mag_ulva,mag_ulva_in,mag_ulva_ip
+  bc scale ==              1,  1,   1,      1,      1,      1,      1,      1,0.05,0.03,0.02,  1,  1,  1,  1,  1,  1,      1,  1,  1,  1,  1,  1,  1,  0.5,0.3,0.1,0.1,       1,          1,          1
+end bc
+
+
+bc == QC, 378767.6,6001315.3, ../../bc_dbase/calibration/inflow/Salt_Creek_20120101_20220101.csv
+  bc header ==  ISOTIME,FLOW,SAL,TEMP,trace_1,trace_2,trace_3,trace_4,trace_5,ss1,ss1,ss1,ret,oxy,rsi,amm,nit,frp,frp_ads,doc,poc,don,pon,dop,pop,grn,grn,grn,grn,mag_ulva,mag_ulva_in,mag_ulva_ip
+  bc scale ==              1,  1,   1,      1,      1,      1,      1,      1,0.5,0.3,0.2,  1,  1,  1,  1,  1,  1,      1,  1,  1,  1,  1,  1,  1,  0.5,0.3,0.1,0.1,       1,          1,          1
+end bc
+
+
+
+bc == W10, ../../bc_dbase/met/Narrung_met_20160201_20220101.csv
+  bc header == ISOTime,Wx,Wy
+  bc scale == 1.1,1.1
+end bc
+
+bc == AIR_TEMP, ../../bc_dbase/met/Narrung_met_20160201_20220101.csv
+  bc header == ISOTime,ATemp
+end bc
+
+bc == REL_HUM, ../../bc_dbase/met/Narrung_met_20160201_20220101.csv
+  bc header == ISOTime,Rel_Hum
+end bc
+
+bc == SW_RAD, ../../bc_dbase/met/Narrung_met_20160201_20220101.csv
+  bc header == ISOTime,Sol_Rad
+  bc scale == 0.8
+end bc
+
+bc == CLOUD, ../../bc_dbase/met/Narrung_met_20160201_20220101.csv
+  bc header == ISOTime,Clouds
+!  bc scale == 1.1
+end bc
+bc == PRECIP, ../../bc_dbase/met/Narrung_rain_20160201_20220101.csv
+  bc header == ISOTime,Precip
+end bc
+
+!! Wave model
+!!
+grid definition file == /Projects2/CDM/Coorong_swn_20191101_20220101_UA_Wind_200g_2000w/04_results/WAVE.nc
+grid definition variables == x,y
+grid definition label == SWAN_waves_regional
+ENDGRID
+bc == Wave, SWAN_waves_regional, /Projects2/CDM/Coorong_swn_20191101_20220101_UA_Wind_200g_2000w/04_results/WAVE.nc
+  bc header == time,hs,tps,thetap
+  bc reference time == 01/01/1970 00:00
+  bc time units == seconds
+end bc
+
+
+
+! INITIAL CONDITIONS
+!_________________________________________________________________
+Initial Condition 2D == ../../bc_dbase/calibration/initial/init_conditions_2019_09_CDM_v10_resus_4PFTs.csv
+
+
+! OUTPUT COMMANDS
+!_________________________________________________________________
+
+Write Check Files  == ../../check/
+
+output dir == ../../output/
+
+!output == structflux
+!	Output interval == 7200
+!end output
+
+!output == structcheck
+!	Output interval == 7200
+!end output
+
+output == flux
+  output interval == 7200
+end output
+
+output == netcdf
+  output parameters == h,v,d,Sal,Temp,trace_1,trace_2,trace_3,trace_4,trace_5,wvht,W10
+  output interval == 10800
+  output compression == 1
+  suffix == hd
+end output
+
+output == netcdf
+  output parameters == W10,h,v,d,Sal,Temp,WQ_DIAG_TOT_TN,WQ_DIAG_TOT_TP,WQ_DIAG_PHY_TCHLA,WQ_NIT_AMM,WQ_NIT_NIT,WQ_PHS_FRP,WQ_OXY_OXY,WQ_DIAG_TOT_TSS,WQ_DIAG_TOT_TURBIDITY,WQ_OGM_DOP,WQ_OGM_DON,WQ_DIAG_MA2_TMALG,wvht
+  output interval == 10800
+  output compression == 1
+  suffix == wq
+end output
+
+output == netcdf
+  output parameters == W10,h,v,d,Sal,Temp,wq_all,wq_diag_all,wvht
+  output interval == 7200
+  output compression == 1
+  suffix == all
+end output
+
+Output == points
+	Output points file == ../../model/geo/points/output_points_001.csv
+	Output parameters == h,sal,temp,air_temp,evap,precip,trace_1,trace_2,trace_3,trace_4,trace_5
+	Output interval == 10800
+end output
+
+write restart dt == 240.
