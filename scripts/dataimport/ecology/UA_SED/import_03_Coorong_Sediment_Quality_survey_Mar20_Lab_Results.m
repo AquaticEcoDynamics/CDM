@@ -13,7 +13,7 @@ agency = 'UA Sediment';
 thedate = datenum(2020,03,12);
 
 
-[snum,sstr] = xlsread('04_sed_quality_conversion.xlsx','A2:D100');
+[snum,sstr] = xlsread('03_sed_conversion.xlsx','A2:D100');
 
 thevars = sstr(:,3);
 theconv = snum(:,1);

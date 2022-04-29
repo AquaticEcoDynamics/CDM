@@ -18,18 +18,57 @@
 % 
 % summerise_data(datafile,summary_folder,gis_folder,shpname)
 %_________________________________________________________________________
- datafile = '..\..\..\data\store\ecology\ruppia.mat';
+%  datafile = '..\..\..\data\store\ecology\ruppia.mat';
+% 
+% summary_folder = '..\..\..\data\summary\ruppia\';
+% 
+% gis_folder = '..\..\..\gis\summary\';
+% 
+% shpname = 'ruppia.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname)
+%_________________________________________________________________________
+%  datafile = '..\..\..\data\store\ecology\phenology.mat';
+% 
+% summary_folder = '..\..\..\data\summary\phenology\';
+% 
+% gis_folder = '..\..\..\gis\summary\';
+% 
+% shpname = 'phenology.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname)
+%_________________________________________________________________________
+%  datafile = '..\..\..\data\store\ecology\baseline_ruppia.mat';
+% 
+% summary_folder = '..\..\..\data\summary\baseline_ruppia\';
+% 
+% gis_folder = '..\..\..\gis\summary\';
+% 
+% shpname = 'baseline_ruppia.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname)
 
-summary_folder = '..\..\..\data\summary\ruppia\';
+%_________________________________________________________________________
+%  datafile = '..\..\..\data\store\ecology\TLM.mat';
+% 
+% summary_folder = '..\..\..\data\summary\TLM\';
+% 
+% gis_folder = '..\..\..\gis\summary\';
+% 
+% shpname = 'TLM.shp';
+% 
+% summerise_data(datafile,summary_folder,gis_folder,shpname)
+%_________________________________________________________________________
+ datafile = '..\..\..\data\store\ecology\porewater.mat';
+
+summary_folder = '..\..\..\data\summary\porewater\';
 
 gis_folder = '..\..\..\gis\summary\';
 
-shpname = 'ruppia.shp';
+shpname = 'porewater.shp';
 
 summerise_data(datafile,summary_folder,gis_folder,shpname)
 %_________________________________________________________________________
-
-
 
 
 % 
