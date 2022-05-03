@@ -1,0 +1,437 @@
+clear all; close all;
+
+load('../../../../data/store/ecology/porewater.mat');
+
+
+addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
+
+filepath = '../../../../data/incoming/TandI_1/Sediment/';
+
+filename = 'S data (November 2020)';
+
+thedate = datenum(2020,11,01);
+
+[snum,sstr] = xlsread('05_Sites.csv','A2:D100');
+
+sites = sstr(:,1);
+sites = regexprep(sites,'\s','_');
+lat = snum(:,1);
+lon = snum(:,2);
+
+[XX,YY] = ll2utm(lat,lon);
+
+agency = 'UA Sediment';
+
+
+
+
+%_______________________________________
+
+%Parnka point
+
+sheetname = ' Parnka Point';
+conv = 1/1000;
+varname1 = 'WQ_DIAG_SDG_H2S05';
+varname2 = 'WQ_DIAG_SDG_H2S10';
+
+thedate_m = thedate + 0.5;
+
+sites_id = 2;
+
+%Day
+[snum,~] = xlsread([filepath,filename],sheetname,'A3:G276');
+sss = find(snum(:,1) >= 0 & snum(:,1) <= 5);
+
+if ~isfield(porewater,sites{sites_id})
+
+    porewater.(sites{sites_id}).(varname1).Date = thedate_m;
+    porewater.(sites{sites_id}).(varname1).Data = mean(snum(sss,end));
+    porewater.(sites{sites_id}).(varname1).Depth = 0 ;
+    porewater.(sites{sites_id}).(varname1).Agency = agency;
+    porewater.(sites{sites_id}).(varname1).X = XX(sites_id);
+    porewater.(sites{sites_id}).(varname1).Y = YY(sites_id);
+    
+else
+    if ~isfield(porewater.(sites{sites_id}),(varname1))
+        
+            porewater.(sites{sites_id}).(varname1).Date = thedate_m;
+            porewater.(sites{sites_id}).(varname1).Data = mean(snum(sss,end));
+            porewater.(sites{sites_id}).(varname1).Depth = 0 ;
+            porewater.(sites{sites_id}).(varname1).Agency = agency;
+            porewater.(sites{sites_id}).(varname1).X = XX(sites_id);
+            porewater.(sites{sites_id}).(varname1).Y = YY(sites_id);
+            
+    else
+            porewater.(sites{sites_id}).(varname1).Date = [porewater.(sites{sites_id}).(varname1).Date;thedate_m];
+            porewater.(sites{sites_id}).(varname1).Data = [porewater.(sites{sites_id}).(varname1).Data;mean(snum(sss,end))];
+            porewater.(sites{sites_id}).(varname1).Depth = [porewater.(sites{sites_id}).(varname1).Depth;0] ;
+            
+    end
+end  
+
+sss = find(snum(:,1) >= 5 & snum(:,1) <= 10);
+
+if ~isfield(porewater,sites{sites_id})
+
+    porewater.(sites{sites_id}).(varname2).Date = thedate_m;
+    porewater.(sites{sites_id}).(varname2).Data = mean(snum(sss,end));
+    porewater.(sites{sites_id}).(varname2).Depth = 0 ;
+    porewater.(sites{sites_id}).(varname2).Agency = agency;
+    porewater.(sites{sites_id}).(varname2).X = XX(sites_id);
+    porewater.(sites{sites_id}).(varname2).Y = YY(sites_id);
+    
+else
+    if ~isfield(porewater.(sites{sites_id}),(varname2))
+        
+            porewater.(sites{sites_id}).(varname2).Date = thedate_m;
+            porewater.(sites{sites_id}).(varname2).Data = mean(snum(sss,end));
+            porewater.(sites{sites_id}).(varname2).Depth = 0 ;
+            porewater.(sites{sites_id}).(varname2).Agency = agency;
+            porewater.(sites{sites_id}).(varname2).X = XX(sites_id);
+            porewater.(sites{sites_id}).(varname2).Y = YY(sites_id);
+            
+    else
+            porewater.(sites{sites_id}).(varname2).Date = [porewater.(sites{sites_id}).(varname2).Date;thedate_m];
+            porewater.(sites{sites_id}).(varname2).Data = [porewater.(sites{sites_id}).(varname2).Data;mean(snum(sss,end))];
+            porewater.(sites{sites_id}).(varname2).Depth = [porewater.(sites{sites_id}).(varname2).Depth;0] ;
+            
+    end
+end
+
+thedate_m = thedate;
+
+sites_id = 2;
+
+%Night
+[snum,~] = xlsread([filepath,filename],sheetname,'A3:O276');
+sss = find(snum(:,1) >= 0 & snum(:,1) <= 5);
+
+if ~isfield(porewater,sites{sites_id})
+
+    porewater.(sites{sites_id}).(varname1).Date = thedate_m;
+    porewater.(sites{sites_id}).(varname1).Data = mean(snum(sss,end));
+    porewater.(sites{sites_id}).(varname1).Depth = 0 ;
+    porewater.(sites{sites_id}).(varname1).Agency = agency;
+    porewater.(sites{sites_id}).(varname1).X = XX(sites_id);
+    porewater.(sites{sites_id}).(varname1).Y = YY(sites_id);
+    
+else
+    if ~isfield(porewater.(sites{sites_id}),(varname1))
+        
+            porewater.(sites{sites_id}).(varname1).Date = thedate_m;
+            porewater.(sites{sites_id}).(varname1).Data = mean(snum(sss,end));
+            porewater.(sites{sites_id}).(varname1).Depth = 0 ;
+            porewater.(sites{sites_id}).(varname1).Agency = agency;
+            porewater.(sites{sites_id}).(varname1).X = XX(sites_id);
+            porewater.(sites{sites_id}).(varname1).Y = YY(sites_id);
+            
+    else
+            porewater.(sites{sites_id}).(varname1).Date = [porewater.(sites{sites_id}).(varname1).Date;thedate_m];
+            porewater.(sites{sites_id}).(varname1).Data = [porewater.(sites{sites_id}).(varname1).Data;mean(snum(sss,end))];
+            porewater.(sites{sites_id}).(varname1).Depth = [porewater.(sites{sites_id}).(varname1).Depth;0] ;
+            
+    end
+end  
+
+sss = find(snum(:,1) >= 5 & snum(:,1) <= 10);
+
+if ~isfield(porewater,sites{sites_id})
+
+    porewater.(sites{sites_id}).(varname2).Date = thedate_m;
+    porewater.(sites{sites_id}).(varname2).Data = mean(snum(sss,end));
+    porewater.(sites{sites_id}).(varname2).Depth = 0 ;
+    porewater.(sites{sites_id}).(varname2).Agency = agency;
+    porewater.(sites{sites_id}).(varname2).X = XX(sites_id);
+    porewater.(sites{sites_id}).(varname2).Y = YY(sites_id);
+    
+else
+    if ~isfield(porewater.(sites{sites_id}),(varname2))
+        
+            porewater.(sites{sites_id}).(varname2).Date = thedate_m;
+            porewater.(sites{sites_id}).(varname2).Data = mean(snum(sss,end));
+            porewater.(sites{sites_id}).(varname2).Depth = 0 ;
+            porewater.(sites{sites_id}).(varname2).Agency = agency;
+            porewater.(sites{sites_id}).(varname2).X = XX(sites_id);
+            porewater.(sites{sites_id}).(varname2).Y = YY(sites_id);
+            
+    else
+            porewater.(sites{sites_id}).(varname2).Date = [porewater.(sites{sites_id}).(varname2).Date;thedate_m];
+            porewater.(sites{sites_id}).(varname2).Data = [porewater.(sites{sites_id}).(varname2).Data;mean(snum(sss,end))];
+            porewater.(sites{sites_id}).(varname2).Depth = [porewater.(sites{sites_id}).(varname2).Depth;0] ;
+            
+    end
+end
+
+%_______________________________________
+
+%Policeman point
+
+sheetname = 'Policeman point';
+conv = 1/1000;
+varname1 = 'WQ_DIAG_SDG_FEII05';
+varname2 = 'WQ_DIAG_SDG_FEII10';
+
+thedate_m = thedate + 0.5;
+
+sites_id = 3;
+
+%Day
+[snum,~] = xlsread([filepath,filename],sheetname,'A3:G276');
+sss = find(snum(:,1) >= 0 & snum(:,1) <= 5);
+
+if ~isfield(porewater,sites{sites_id})
+
+    porewater.(sites{sites_id}).(varname1).Date = thedate_m;
+    porewater.(sites{sites_id}).(varname1).Data = mean(snum(sss,end));
+    porewater.(sites{sites_id}).(varname1).Depth = 0 ;
+    porewater.(sites{sites_id}).(varname1).Agency = agency;
+    porewater.(sites{sites_id}).(varname1).X = XX(sites_id);
+    porewater.(sites{sites_id}).(varname1).Y = YY(sites_id);
+    
+else
+    if ~isfield(porewater.(sites{sites_id}),(varname1))
+        
+            porewater.(sites{sites_id}).(varname1).Date = thedate_m;
+            porewater.(sites{sites_id}).(varname1).Data = mean(snum(sss,end));
+            porewater.(sites{sites_id}).(varname1).Depth = 0 ;
+            porewater.(sites{sites_id}).(varname1).Agency = agency;
+            porewater.(sites{sites_id}).(varname1).X = XX(sites_id);
+            porewater.(sites{sites_id}).(varname1).Y = YY(sites_id);
+            
+    else
+            porewater.(sites{sites_id}).(varname1).Date = [porewater.(sites{sites_id}).(varname1).Date;thedate_m];
+            porewater.(sites{sites_id}).(varname1).Data = [porewater.(sites{sites_id}).(varname1).Data;mean(snum(sss,end))];
+            porewater.(sites{sites_id}).(varname1).Depth = [porewater.(sites{sites_id}).(varname1).Depth;0] ;
+            
+    end
+end  
+
+sss = find(snum(:,1) >= 5 & snum(:,1) <= 10);
+
+if ~isfield(porewater,sites{sites_id})
+
+    porewater.(sites{sites_id}).(varname2).Date = thedate_m;
+    porewater.(sites{sites_id}).(varname2).Data = mean(snum(sss,end));
+    porewater.(sites{sites_id}).(varname2).Depth = 0 ;
+    porewater.(sites{sites_id}).(varname2).Agency = agency;
+    porewater.(sites{sites_id}).(varname2).X = XX(sites_id);
+    porewater.(sites{sites_id}).(varname2).Y = YY(sites_id);
+    
+else
+    if ~isfield(porewater.(sites{sites_id}),(varname2))
+        
+            porewater.(sites{sites_id}).(varname2).Date = thedate_m;
+            porewater.(sites{sites_id}).(varname2).Data = mean(snum(sss,end));
+            porewater.(sites{sites_id}).(varname2).Depth = 0 ;
+            porewater.(sites{sites_id}).(varname2).Agency = agency;
+            porewater.(sites{sites_id}).(varname2).X = XX(sites_id);
+            porewater.(sites{sites_id}).(varname2).Y = YY(sites_id);
+            
+    else
+            porewater.(sites{sites_id}).(varname2).Date = [porewater.(sites{sites_id}).(varname2).Date;thedate_m];
+            porewater.(sites{sites_id}).(varname2).Data = [porewater.(sites{sites_id}).(varname2).Data;mean(snum(sss,end))];
+            porewater.(sites{sites_id}).(varname2).Depth = [porewater.(sites{sites_id}).(varname2).Depth;0] ;
+            
+    end
+end
+
+thedate_m = thedate;
+
+
+%Night
+[snum,~] = xlsread([filepath,filename],sheetname,'A3:N276');
+sss = find(snum(:,1) >= 0 & snum(:,1) <= 5);
+
+if ~isfield(porewater,sites{sites_id})
+
+    porewater.(sites{sites_id}).(varname1).Date = thedate_m;
+    porewater.(sites{sites_id}).(varname1).Data = mean(snum(sss,end));
+    porewater.(sites{sites_id}).(varname1).Depth = 0 ;
+    porewater.(sites{sites_id}).(varname1).Agency = agency;
+    porewater.(sites{sites_id}).(varname1).X = XX(sites_id);
+    porewater.(sites{sites_id}).(varname1).Y = YY(sites_id);
+    
+else
+    if ~isfield(porewater.(sites{sites_id}),(varname1))
+        
+            porewater.(sites{sites_id}).(varname1).Date = thedate_m;
+            porewater.(sites{sites_id}).(varname1).Data = mean(snum(sss,end));
+            porewater.(sites{sites_id}).(varname1).Depth = 0 ;
+            porewater.(sites{sites_id}).(varname1).Agency = agency;
+            porewater.(sites{sites_id}).(varname1).X = XX(sites_id);
+            porewater.(sites{sites_id}).(varname1).Y = YY(sites_id);
+            
+    else
+            porewater.(sites{sites_id}).(varname1).Date = [porewater.(sites{sites_id}).(varname1).Date;thedate_m];
+            porewater.(sites{sites_id}).(varname1).Data = [porewater.(sites{sites_id}).(varname1).Data;mean(snum(sss,end))];
+            porewater.(sites{sites_id}).(varname1).Depth = [porewater.(sites{sites_id}).(varname1).Depth;0] ;
+            
+    end
+end  
+
+sss = find(snum(:,1) >= 5 & snum(:,1) <= 10);
+
+if ~isfield(porewater,sites{sites_id})
+
+    porewater.(sites{sites_id}).(varname2).Date = thedate_m;
+    porewater.(sites{sites_id}).(varname2).Data = mean(snum(sss,end));
+    porewater.(sites{sites_id}).(varname2).Depth = 0 ;
+    porewater.(sites{sites_id}).(varname2).Agency = agency;
+    porewater.(sites{sites_id}).(varname2).X = XX(sites_id);
+    porewater.(sites{sites_id}).(varname2).Y = YY(sites_id);
+    
+else
+    if ~isfield(porewater.(sites{sites_id}),(varname2))
+        
+            porewater.(sites{sites_id}).(varname2).Date = thedate_m;
+            porewater.(sites{sites_id}).(varname2).Data = mean(snum(sss,end));
+            porewater.(sites{sites_id}).(varname2).Depth = 0 ;
+            porewater.(sites{sites_id}).(varname2).Agency = agency;
+            porewater.(sites{sites_id}).(varname2).X = XX(sites_id);
+            porewater.(sites{sites_id}).(varname2).Y = YY(sites_id);
+            
+    else
+            porewater.(sites{sites_id}).(varname2).Date = [porewater.(sites{sites_id}).(varname2).Date;thedate_m];
+            porewater.(sites{sites_id}).(varname2).Data = [porewater.(sites{sites_id}).(varname2).Data;mean(snum(sss,end))];
+            porewater.(sites{sites_id}).(varname2).Depth = [porewater.(sites{sites_id}).(varname2).Depth;0] ;
+            
+    end
+end
+
+%_______________________________________
+
+%Noonameena
+
+sheetname = ' Noonameena';
+conv = 1/1000;
+varname1 = 'WQ_DIAG_SDG_FEII05';
+varname2 = 'WQ_DIAG_SDG_FEII10';
+
+thedate_m = thedate + 0.5;
+
+sites_id = 1;
+
+%Day
+[snum,~] = xlsread([filepath,filename],sheetname,'A3:G276');
+sss = find(snum(:,1) >= 0 & snum(:,1) <= 5);
+
+if ~isfield(porewater,sites{sites_id})
+
+    porewater.(sites{sites_id}).(varname1).Date = thedate_m;
+    porewater.(sites{sites_id}).(varname1).Data = mean(snum(sss,end));
+    porewater.(sites{sites_id}).(varname1).Depth = 0 ;
+    porewater.(sites{sites_id}).(varname1).Agency = agency;
+    porewater.(sites{sites_id}).(varname1).X = XX(sites_id);
+    porewater.(sites{sites_id}).(varname1).Y = YY(sites_id);
+    
+else
+    if ~isfield(porewater.(sites{sites_id}),(varname1))
+        
+            porewater.(sites{sites_id}).(varname1).Date = thedate_m;
+            porewater.(sites{sites_id}).(varname1).Data = mean(snum(sss,end));
+            porewater.(sites{sites_id}).(varname1).Depth = 0 ;
+            porewater.(sites{sites_id}).(varname1).Agency = agency;
+            porewater.(sites{sites_id}).(varname1).X = XX(sites_id);
+            porewater.(sites{sites_id}).(varname1).Y = YY(sites_id);
+            
+    else
+            porewater.(sites{sites_id}).(varname1).Date = [porewater.(sites{sites_id}).(varname1).Date;thedate_m];
+            porewater.(sites{sites_id}).(varname1).Data = [porewater.(sites{sites_id}).(varname1).Data;mean(snum(sss,end))];
+            porewater.(sites{sites_id}).(varname1).Depth = [porewater.(sites{sites_id}).(varname1).Depth;0] ;
+            
+    end
+end  
+
+sss = find(snum(:,1) >= 5 & snum(:,1) <= 10);
+
+if ~isfield(porewater,sites{sites_id})
+
+    porewater.(sites{sites_id}).(varname2).Date = thedate_m;
+    porewater.(sites{sites_id}).(varname2).Data = mean(snum(sss,end));
+    porewater.(sites{sites_id}).(varname2).Depth = 0 ;
+    porewater.(sites{sites_id}).(varname2).Agency = agency;
+    porewater.(sites{sites_id}).(varname2).X = XX(sites_id);
+    porewater.(sites{sites_id}).(varname2).Y = YY(sites_id);
+    
+else
+    if ~isfield(porewater.(sites{sites_id}),(varname2))
+        
+            porewater.(sites{sites_id}).(varname2).Date = thedate_m;
+            porewater.(sites{sites_id}).(varname2).Data = mean(snum(sss,end));
+            porewater.(sites{sites_id}).(varname2).Depth = 0 ;
+            porewater.(sites{sites_id}).(varname2).Agency = agency;
+            porewater.(sites{sites_id}).(varname2).X = XX(sites_id);
+            porewater.(sites{sites_id}).(varname2).Y = YY(sites_id);
+            
+    else
+            porewater.(sites{sites_id}).(varname2).Date = [porewater.(sites{sites_id}).(varname2).Date;thedate_m];
+            porewater.(sites{sites_id}).(varname2).Data = [porewater.(sites{sites_id}).(varname2).Data;mean(snum(sss,end))];
+            porewater.(sites{sites_id}).(varname2).Depth = [porewater.(sites{sites_id}).(varname2).Depth;0] ;
+            
+    end
+end
+
+thedate_m = thedate;
+
+
+%Night
+[snum,~] = xlsread([filepath,filename],sheetname,'A3:L276');
+sss = find(snum(:,1) >= 0 & snum(:,1) <= 5);
+
+if ~isfield(porewater,sites{sites_id})
+
+    porewater.(sites{sites_id}).(varname1).Date = thedate_m;
+    porewater.(sites{sites_id}).(varname1).Data = mean(snum(sss,end));
+    porewater.(sites{sites_id}).(varname1).Depth = 0 ;
+    porewater.(sites{sites_id}).(varname1).Agency = agency;
+    porewater.(sites{sites_id}).(varname1).X = XX(sites_id);
+    porewater.(sites{sites_id}).(varname1).Y = YY(sites_id);
+    
+else
+    if ~isfield(porewater.(sites{sites_id}),(varname1))
+        
+            porewater.(sites{sites_id}).(varname1).Date = thedate_m;
+            porewater.(sites{sites_id}).(varname1).Data = mean(snum(sss,end));
+            porewater.(sites{sites_id}).(varname1).Depth = 0 ;
+            porewater.(sites{sites_id}).(varname1).Agency = agency;
+            porewater.(sites{sites_id}).(varname1).X = XX(sites_id);
+            porewater.(sites{sites_id}).(varname1).Y = YY(sites_id);
+            
+    else
+            porewater.(sites{sites_id}).(varname1).Date = [porewater.(sites{sites_id}).(varname1).Date;thedate_m];
+            porewater.(sites{sites_id}).(varname1).Data = [porewater.(sites{sites_id}).(varname1).Data;mean(snum(sss,end))];
+            porewater.(sites{sites_id}).(varname1).Depth = [porewater.(sites{sites_id}).(varname1).Depth;0] ;
+            
+    end
+end  
+
+sss = find(snum(:,1) >= 5 & snum(:,1) <= 10);
+
+if ~isfield(porewater,sites{sites_id})
+
+    porewater.(sites{sites_id}).(varname2).Date = thedate_m;
+    porewater.(sites{sites_id}).(varname2).Data = mean(snum(sss,end));
+    porewater.(sites{sites_id}).(varname2).Depth = 0 ;
+    porewater.(sites{sites_id}).(varname2).Agency = agency;
+    porewater.(sites{sites_id}).(varname2).X = XX(sites_id);
+    porewater.(sites{sites_id}).(varname2).Y = YY(sites_id);
+    
+else
+    if ~isfield(porewater.(sites{sites_id}),(varname2))
+        
+            porewater.(sites{sites_id}).(varname2).Date = thedate_m;
+            porewater.(sites{sites_id}).(varname2).Data = mean(snum(sss,end));
+            porewater.(sites{sites_id}).(varname2).Depth = 0 ;
+            porewater.(sites{sites_id}).(varname2).Agency = agency;
+            porewater.(sites{sites_id}).(varname2).X = XX(sites_id);
+            porewater.(sites{sites_id}).(varname2).Y = YY(sites_id);
+            
+    else
+            porewater.(sites{sites_id}).(varname2).Date = [porewater.(sites{sites_id}).(varname2).Date;thedate_m];
+            porewater.(sites{sites_id}).(varname2).Data = [porewater.(sites{sites_id}).(varname2).Data;mean(snum(sss,end))];
+            porewater.(sites{sites_id}).(varname2).Depth = [porewater.(sites{sites_id}).(varname2).Depth;0] ;
+            
+    end
+end
+
+save('../../../../data/store/ecology/porewater.mat','porewater','-mat');

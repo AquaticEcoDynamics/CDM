@@ -1,22 +1,30 @@
-function create_aed_ic
-
+%function create_aed_ic
+ clear; close all;
 infile = '../GIS/CoorongBGC_mesh_000.2dm';
 
 [XX,YY,nodeID,faces,X,Y,ID] = tfv_get_node_from_2dm(infile);
 
+vert(:,1) = XX;
+vert(:,2) = YY;
+
+outdir = 'Images/'; 
+if ~exist(outdir,'dir')
+    mkdir(outdir);
+end
+
 shp = shaperead('../GIS/31_material_zones.shp');
 
-[~,headers] = xlsread('AED_Values.xlsx','C1:Z1');
+[~,headers] = xlsread('AED_Values_mpb.xlsx','C1:Z1');
 
-[~,zones] = xlsread('AED_Values.xlsx','B2:B100');
+[~,zones] = xlsread('AED_Values_mpb.xlsx','B2:B100');
 
 for i = 1:length(zones)
 zoneID(i) = str2num(regexprep(zones{i},'Zone ',''));
 end
 
-[vals,~] = xlsread('AED_Values.xlsx','C2:Z100');
+[vals,~] = xlsread('AED_Values_mpb.xlsx','C2:Z100');
 
-outfile = 'AED_IC.csv';
+outfile = 'AED_IC_OMfrac_MPB_MAG_MAC.csv';
 
 fid = fopen(outfile,'wt');
 
@@ -33,6 +41,9 @@ end
 for i = 1:length(ID)
     fprintf(fid,'%d,',ID(i));
     
+    
+    
+    
     for j = 1:length(shp)
         
         if inpolygon(X(i),Y(i),shp(j).X,shp(j).Y)
@@ -47,17 +58,61 @@ for i = 1:length(ID)
                 else
                     fprintf(fid,'%4.4f,',vals(sss,k));
                 end
+                
+                outdata.(headers{k})(i) = vals(sss,k);
+                
+                
             end
         end
     end
 end
 fclose(fid);
                 
-            
+ 
+for k = 1:length(headers)
+
+fig.ax = patch('faces',faces','vertices',vert,'FaceVertexCData',outdata.(headers{k})');shading flat
+    axis equal
     
-
-
+    set(gca,'Color','None',...
+        'box','on');
+    
+    set(findobj(gca,'type','surface'),...
+        'FaceLighting','phong',...
+        'AmbientStrength',.3,'DiffuseStrength',.8,...
+        'SpecularStrength',.9,'SpecularExponent',25,...
+        'BackFaceLighting','unlit');
+    
+    axis off
+    set(gca,'box','off');
+    
+    %     xlim([331084.169394841          400699.760664682]);
+    %     ylim([6091384.91517857          6195808.30208333]);
+    
+    cb = colorbar;
+    
+    set(cb,'position',[0.45 0.25 0.01 0.4],...
+        'units','normalized');
+    
+    text(0.1,0.1,regexprep(headers{k},'_',' '),...
+        'Units','Normalized',...
+        'Fontname','Candara',...
+        'Fontsize',12);
+        
+    set(gcf, 'PaperPositionMode', 'manual');
+    set(gcf, 'PaperUnits', 'centimeters');
+    xSize = 18;
+    ySize = 10;
+    xLeft = (21-xSize)/2;
+    yTop = (30-ySize)/2;
+    set(gcf,'paperposition',[0 0 xSize ySize])
+    
+    print(gcf,'-dpng',[outdir,headers{k},'.png'],'-opengl');
+    
+    close all;
 end
+
+%end
 
 
 function [XX,YY,nodeID,faces,X,Y,ID] = tfv_get_node_from_2dm(filename)

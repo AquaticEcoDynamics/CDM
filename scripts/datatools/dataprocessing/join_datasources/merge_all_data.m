@@ -145,33 +145,7 @@ for i = 1:length(sites)
 end
 
 
-
-% sites = fieldnames(turb);
-% 
-% 
-% for i = 1:length(sites)
-%     
-%     
-%     
-%     if isfield(lowerlakes,sites{i})
-%         
-%         lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'DEW');
-%         
-%         lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY = turb.(sites{i}).WQ_DIAG_TOT_TURBIDITY;
-%         
-%         vars = fieldnames(lowerlakes.(sites{i}));
-%         lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY.X = lowerlakes.(sites{i}).(vars{1}).X;
-%         lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY.Y = lowerlakes.(sites{i}).(vars{1}).Y;
-%         lowerlakes.(sites{i}).WQ_DIAG_TOT_TURBIDITY.Agency = 'DEW Sonde';
-%     else
-%         stop;
-%     end
-%     
-%     
-% end
-
-
-
+merge_sed_ruppia;
 
 
 
@@ -182,7 +156,7 @@ cllmm = check_XY(cllmm);
 cllmm = add_offset(cllmm);
 
 %datearray(:,1) = datenum(2008,01:180,01);
-datearray(:,1) = [datenum(2008,01,01):01:datenum(2022,0,01)];
+datearray(:,1) = [datenum(2008,01,01):01:datenum(2022,01,01)];
 
 %cllmm = cleanse_sites(cllmm);
 
