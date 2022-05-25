@@ -16,7 +16,7 @@ cell_size = 200;
 wind_cell_size = 2000;% Currently does nothing
 
 % Start & End date of SWAN model - dd/mm/yyyy
-model_start_date = '01/11/2019';
+model_start_date = '01/01/2017';
 model_end_date = '01/01/2022';
 
 model_wind_increment = 3; %in hours
@@ -25,7 +25,7 @@ model_wind_factor = 1;
 
 model_output_increment = 1; %in hours
 
-model_project_name = 'Coorong_swn_20191101_20220101_UA_Wind_200g_2000w';
+model_project_name = 'Coorong_swn_20170101_20220101_UA_Wind_200g_2000w';
 model_project_version = 'v1';
 
 run_model_in_matlab = 0; %1 to run in matlab, 0 to not run 

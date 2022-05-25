@@ -64,7 +64,7 @@ for i = 1:length(newname)
             phenology.(usites{j}).(newname{i}).Date = mdates(sss);
             phenology.(usites{j}).(newname{i}).Data = thedata * conv(i);
             phenology.(usites{j}).(newname{i}).Depth(1:length(sss),1) = 0;
-            phenology.(usites{j}).(newname{i}).Agency = 'UA HCHB';
+            phenology.(usites{j}).(newname{i}).Agency = 'UA HCHB Phenology';
             phenology.(usites{j}).(newname{i}).X = uX(j);
             phenology.(usites{j}).(newname{i}).Y = uY(j);
             
@@ -104,6 +104,14 @@ snum(sss,2) = snum1(sss,2);
 
 usites = unique(sites);
 
+%D_3188
+
+sss = find(strcmpi(sites,'D_3188') ==1);
+
+X(sss)
+Y(sss)
+
+
 clear uX uY;
 
 for i = 1:length(usites)
@@ -113,7 +121,10 @@ for i = 1:length(usites)
     uX(i) = X(sss(1));
     uY(i) = Y(sss(1));
 end
+sss = find(strcmpi(usites,'D_3188') ==1);
 
+uX(sss)
+uY(sss)
 
 
 [snum,sstr] = xlsread([filepath,filename],sheetname,'Z2:Z10000');
@@ -158,9 +169,9 @@ for i = 1:length(newname)
                 phenology.(usites{j}).(newname{i}).Date = tdate(ttt);
                 phenology.(usites{j}).(newname{i}).Data = tdata(ttt);
                 phenology.(usites{j}).(newname{i}).Depth = tdepth(ttt);
-                phenology.(usites{j}).(newname{i}).Agency = 'UA HCHB';
-                phenology.(usites{j}).(newname{i}).X = X(j);
-                phenology.(usites{j}).(newname{i}).Y = Y(j);
+                phenology.(usites{j}).(newname{i}).Agency = 'UA HCHB Phenology';
+                phenology.(usites{j}).(newname{i}).X = uX(j);
+                phenology.(usites{j}).(newname{i}).Y = uY(j);
                 phenology.(usites{j}).(newname{i}).Site_Name = usites{j};
                 
             if isnan(phenology.(usites{j}).(newname{i}).X)
@@ -173,6 +184,8 @@ for i = 1:length(newname)
     end
 end
 
+phenology.D_3188.WQ_DIAG_MAC_MAC_NSHOOT.X
+phenology.D_3188.WQ_DIAG_MAC_MAC_NSHOOT.Y
 
 
 asites = fieldnames(phenology);

@@ -8,7 +8,7 @@ filename = 'Component 4 sediment results with GPS.xlsx';
 
 thedate = datenum(2019,05,19);
 
-agency = 'UA Sediment';
+agency = '02a UA Sediment';
 
 % >2mm gravel
 % 1-2mm very coarse
