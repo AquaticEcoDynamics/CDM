@@ -145,7 +145,7 @@ for i = 1:length(sites)
 end
 
 
-merge_sed_ruppia;
+%merge_sed_ruppia;
 
 
 

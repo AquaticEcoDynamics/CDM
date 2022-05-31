@@ -58,7 +58,7 @@ for i = 3:length(dirlist)
         datacell = textscan(fid,textformat,'Headerlines',5,'Delimiter',',');
         fclose(fid);
         
-        thedate = datenum(datacell{1},'yyyy-mm-dd HH:MM:SS') + 0.5;
+        thedate = datenum(datacell{1},'yyyy-mm-dd HH:MM:SS');% +0.5
         thedata = str2doubleq(datacell{3});
         thedata = thedata * conv(tt);
         
