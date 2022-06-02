@@ -14,17 +14,17 @@ end
 
 shp = shaperead('../GIS/31_material_zones.shp');
 
-[~,headers] = xlsread('AED_Values_mpb.xlsx','C1:Z1');
+[~,headers] = xlsread('AED_Values_mpb_new.xlsx','C1:Z1');
 
-[~,zones] = xlsread('AED_Values_mpb.xlsx','B2:B100');
+[~,zones] = xlsread('AED_Values_mpb_new.xlsx','B2:B100');
 
 for i = 1:length(zones)
 zoneID(i) = str2num(regexprep(zones{i},'Zone ',''));
 end
 
-[vals,~] = xlsread('AED_Values_mpb.xlsx','C2:Z100');
+[vals,~] = xlsread('AED_Values_mpb_new.xlsx','C2:Z100');
 
-outfile = 'AED_IC_OMfrac_MPB_MAG_MAC.csv';
+outfile = 'AED_IC_OMfrac_MPB_MAG_MAC_v2.csv';
 
 fid = fopen(outfile,'wt');
 
