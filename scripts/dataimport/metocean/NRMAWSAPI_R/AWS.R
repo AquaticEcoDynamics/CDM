@@ -85,10 +85,10 @@ siteName<-"Narrung" #can use NRMStationNames() to see what sites are available w
 
 
 
-theyear<-"2021"
+theyear<-"2022"
 startDate<-paste0(theyear,"-01-01")
-#endDate<-Sys.Date()
-endDate<-paste0(theyear,"-12-31")
+endDate<-Sys.Date()
+#endDate<-paste0(theyear,"-12-31")
 
 data<-NRMAWSData(siteName,startDate,endDate)
 write.csv(data,paste0(siteName,"_",theyear,".csv"),row.names = FALSE)

@@ -1,0 +1,1041 @@
+
+***************************** TUFLOWFV *****************************
+
+Build version: 2020.03.085_uwa
+Build date: 16/04/2021 13:30
+Build platform: Linux
+Build architecture:  x86-64
+Compiler version: Ifort 19.0.3
+Build precision: single
+NVidia GPU NOT enabled.
+GIS Module Version: 2020-07-PD
+
+********************************************************************
+
+Computer name: mickey
+User name: hydro
+Execution timestamp: 04/08/2021 07:49:46
+
+Attempting to process input control file:
+Trying to open file: hchb_wave_201901_202103_wq.fvc ... OK. File unit: 101
+TIME FORMAT == ISO DATE & TIME
+Trying to open file: ../../model/material/Coorong_BGC_materials_001.fvm ... OK. File unit: 102
+Closing file unit: 102
+Start echoing input file:
+GIS FORMAT == SHP
+SHP PROJECTION == ../../model/gis/shp/projection.prj
+START TIME == 01/01/2019 00:00:00
+END TIME == 01/03/2021 00:00:00
+TIMESTEP LIMITS ==   0.1000000    ,    15.00000
+DISPLAY DT ==    3600.000
+CFL EXTERNAL ==   0.9000000
+CFL INTERNAL ==   0.9000000
+INCLUDE SALINITY == .TRUE.
+COUPLE SALINITY DENSITY == .TRUE.
+INCLUDE TEMPERATURE == .TRUE.
+COUPLE TEMPERATURE DENSITY == .TRUE.
+INCLUDE SEDIMENT == .FALSE.
+SPATIAL ORDER == 1, 2
+HORIZONTALGRADIENTLIMITER == LCD
+VERTICALGRADIENTLIMITER == MC
+BOTTOM DRAG MODEL == KS
+EQUATION OF STATE == UNESCO
+WATER QUALITY MODEL == EXTERNAL
+WATER QUALITY MODEL DIR == ../../external/AED/
+STABILITY LIMITS ==    100.0000    ,    500.0000
+WARNING: Wet depth is less than dry depth. Momentum will never be switched off
+CELL DRY/WET DEPTHS ==   0.4000000E-01,   0.4000000E-01
+G ==    9.810000
+REFERENCE DENSITY ==    1025.000
+LATITUDE ==   -35.80000
+WIND STRESS PARAMETERS ==     0.000000   0.8000000E-03    50.00000   0.4050000E-02
+INCLUDE HEAT == .TRUE.
+LONG WAVE RADIATION MODEL == 3
+SW RADIATION ALBEDO (MEAN AT EQUATOR) ==   0.5000000E-01
+SHORTWAVE RADIATION FRACTIONS ==    0.5000000   0.4630000   0.3600000E-01   0.1000000E-02
+SHORTWAVE RADIATION EXTINCTION COEFFICIENTS ==     2.000000    1.200000    2.000000    2.500000
+BULK LATENT HEAT COEFFICIENT (CLN) ==   0.1550000E-02
+MOMENTUM MIXING MODEL == SMAGORINSKY
+SCALAR MIXING MODEL == ELDER
+VERTICAL MIXING MODEL == EXTERNAL
+EXTERNAL TURBULENCE MODEL DIR == ../../external/GOTM/
+GLOBAL HORIZONTAL EDDY VISCOSITY (SMAG COEFF) ==   0.2000000
+GLOBAL HORIZONTAL SCALAR DIFFUSIVITY (ELDER COEFFS) ==    250.0000    ,    25.00000
+NTRACER == 5
+TRACER == 1
+END TRACER
+TRACER == 2
+END TRACER
+TRACER == 3
+END TRACER
+TRACER == 4
+END TRACER
+TRACER == 5
+  WATER AGE == .TRUE.
+END TRACER
+GEOMETRY2D == ../../model/geo/mesh/CoorongBGC_mesh_000.2dm
+ECHO GEOMETRY == .TRUE.
+READ GIS NODESTRING == ../../model/gis/shp/2d_ns_CoorongBGC_000_L.shp
+READ GIS MAT == ../../model/gis/shp/2d_mat_CoorongBGC_001_R.shp
+Trying to open file: ../../model/material/Coorong_BGC_materials_001.fvm ... OK. File unit: 102
+MATERIAL == 1
+  BOTTOM ROUGHNESS ==   0.1800000E-01
+END MATERIAL
+MATERIAL == 2
+  BOTTOM ROUGHNESS ==   0.1800000E-01
+END MATERIAL
+MATERIAL == 3
+  BOTTOM ROUGHNESS ==   0.1800000E-01
+END MATERIAL
+MATERIAL == 4
+  BOTTOM ROUGHNESS ==   0.1800000E-01
+END MATERIAL
+MATERIAL == 5
+  BOTTOM ROUGHNESS ==   0.1800000E-01
+END MATERIAL
+MATERIAL == 6
+  BOTTOM ROUGHNESS ==   0.1800000E-01
+END MATERIAL
+MATERIAL == 7
+BED ELEVATION LIMITS ==   -10.00000    ,   -10.00000
+END MATERIAL
+Closing file unit: 102
+STRUCTURE LOGGING == .FALSE.
+BC == WL, 1, ../../bc_dbase/calibration/inflow/VH_Tide_2012_2021.csv
+  BC HEADER ==  ISOTIME, VH_Tide_mAHD, sal, temp, trace_1, trace_2, trace_3, trace_4, trace_5, ss1, ret, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn, mag_ulva, mag_ulva_in, mag_ulva_ip
+END BC
+BC == Q, 4, ../../bc_dbase/calibration/inflow/Boundary.csv
+  SUB-TYPE == 2
+  BC HEADER ==  ISOTIME, Boundary_m3_s, sal, temp, trace_1, trace_2, trace_3, trace_4, trace_5, ss1, ret, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn, mag_ulva, mag_ulva_in, mag_ulva_ip
+END BC
+BC == Q, 5, ../../bc_dbase/calibration/inflow/Ewe.csv
+  SUB-TYPE == 2
+  BC HEADER ==  ISOTIME, Ewe_Island_m3_s, sal, temp, trace_1, trace_2, trace_3, trace_4, trace_5, ss1, ret, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn, mag_ulva, mag_ulva_in, mag_ulva_ip
+END BC
+BC == Q, 2, ../../bc_dbase/calibration/inflow/Goolwa.csv
+  SUB-TYPE == 2
+  BC HEADER ==  ISOTIME, Goolwa_m3_s, sal, temp, trace_1, trace_2, trace_3, trace_4, trace_5, ss1, ret, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn, mag_ulva, mag_ulva_in, mag_ulva_ip
+END BC
+BC == Q, 3, ../../bc_dbase/calibration/inflow/Mundoo.csv
+  SUB-TYPE == 2
+  BC HEADER ==  ISOTIME, Mundoo_m3_s, sal, temp, trace_1, trace_2, trace_3, trace_4, trace_5, ss1, ret, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn, mag_ulva, mag_ulva_in, mag_ulva_ip
+END BC
+BC == Q, 6, ../../bc_dbase/calibration/inflow/Tauwitchere.csv
+  SUB-TYPE == 2
+  BC HEADER ==  ISOTIME, Tauwitchere_m3_s, sal, temp, trace_1, trace_2, trace_3, trace_4, trace_5, ss1, ret, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn, mag_ulva, mag_ulva_in, mag_ulva_ip
+END BC
+BC == QC,    378767.6    ,    6001315.    , ../../bc_dbase/calibration/inflow/Salt_Creek_1990_2021.csv
+  BC HEADER ==  ISOTIME, SaltCk_Q_m3_s, Sal_PSU, temp, trace_1, trace_2, trace_3, trace_4, trace_5, ss1, ret, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn, mag_ulva, mag_ulva_in, mag_ulva_ip
+  BC SCALE ==    1.000000,   1.000000,   1.000000,   1.000000,   1.000000,   1.000000,   1.000000,   1.000000,   1.000000,   1.000000,   1.000000,   1.000000,   1.000000,   1.000000,   1.000000,   1.000000,   1.000
+END BC
+BC == W10, ../../bc_dbase/met/Narrung_met.csv
+  BC HEADER ==  ISOTime, Wx, Wy
+  BC SCALE ==    1.100000,   1.100000
+END BC
+BC == AIR_TEMP, ../../bc_dbase/met/Narrung_met.csv
+  BC HEADER ==  ISOTime, ATemp
+END BC
+BC == REL_HUM, ../../bc_dbase/met/Narrung_met.csv
+  BC HEADER ==  ISOTime, Rel_Hum
+END BC
+BC == SW_RAD, ../../bc_dbase/met/Narrung_met.csv
+  BC HEADER ==  ISOTime, Sol_Rad
+  BC SCALE ==   0.8000000
+END BC
+BC == CLOUD, ../../bc_dbase/met/Narrung_met.csv
+  BC HEADER ==  ISOTime, Clouds
+END BC
+BC == PRECIP, ../../bc_dbase/met/Narrung_rain.csv
+  BC HEADER ==  ISOTime, Precip
+END BC
+GRID DEFINITION FILE == /Projects2/CDM/Wave/hchb_swan_2017_2021_v1/WAVE.nc
+GRID DEFINITION VARIABLES ==  X, Y
+GRID DEFINITION LABEL == SWAN_WAVES_REGIONAL
+END GRID
+BC == WAVE, SWAN_WAVES_REGIONAL, /Projects2/CDM/Wave/hchb_swan_2017_2021_v1/WAVE.nc
+  BC HEADER ==  time, hs, tps, thetap
+BC REFERENCE TIME == 01/01/1970 00:00:00
+  BC TIME UNITS == SECONDS
+END BC
+INITIAL CONDITION 2D == ../../bc_dbase/calibration/initial/initial_conditions_20190101.csv
+OUTPUT DIR == ../../output/
+OUTPUT == FLUX
+  OUTPUT INTERVAL ==    7200.000
+END OUTPUT
+OUTPUT == NETCDF
+  OUTPUT PARAMETERS ==  H, V, D, SAL, TEMP, TRACE_1, TRACE_2, TRACE_3, TRACE_4, TRACE_5,
+  OUTPUT INTERVAL ==    10800.00
+  COMPRESSION == .TRUE.
+  SUFFIX == hd
+END OUTPUT
+OUTPUT == NETCDF
+  OUTPUT PARAMETERS ==  H, V, D, SAL, TEMP, WQ_DIAG_HAB_RUPPIA_HSI, WQ_DIAG_TOT_TN, WQ_DIAG_TOT_TP, WQ_DIAG_PHY_TCHLA, WQ_NIT_AMM, WQ_NIT_NIT, WQ_PHS_FRP, WQ_OXY_OXY, WQ_DIAG_TOT_TSS, WQ_DIAG_TOT_TURBIDITY, WQ_OGM_DOP, WQ_O
+  OUTPUT INTERVAL ==    10800.00
+  COMPRESSION == .TRUE.
+  SUFFIX == wq
+END OUTPUT
+OUTPUT == NETCDF
+  OUTPUT PARAMETERS ==  H, V, D, SAL, TEMP, WQ_ALL, WQ_DIAG_ALL,
+  OUTPUT INTERVAL ==    43200.00
+  COMPRESSION == .TRUE.
+  SUFFIX == all
+END OUTPUT
+OUTPUT == POINTS
+  OUTPUT POINTS FILE == ../../model/geo/points/output_points_001.csv
+  OUTPUT PARAMETERS ==  H, SAL, TEMP, AIR_TEMP, EVAP, PRECIP, TRACE_1, TRACE_2, TRACE_3, TRACE_4, TRACE_5,
+  OUTPUT INTERVAL ==    10800.00
+END OUTPUT
+WRITE RESTART DT ==    24.00000
+Closing file unit: 101
+Finished echoing input file.
+
+Configuring "AED" external module... Successful.
+
+
+Successfully processed input control files.
+
+GIS Projection being extracted from ../../model/gis/shp/projection.prj
+Trying to open file: ../../model/gis/shp/projection.prj ... OK. File unit: 101
+Closing file unit: 101
+Attempting to build model domain object/s:
+
+Processing mesh geometry file/s:
+Opening GIS Layer: ../../model/gis/shp/2d_ns_CoorongBGC_000_L.shp
+GIS Layer assigned ID of 1
+3 DBF Fields (Name [#/Type/Length]): ID [1/N/8]  Flags [2/C/3]  Desc [3/C/100]  
+
+Closing GIS Layer 1 [../../model/gis/shp/2d_ns_CoorongBGC_000_L.shp]...
+Reading 2dm mesh file...
+Trying to open file: ../../model/geo/mesh/CoorongBGC_mesh_000.2dm ... OK. File unit: 101
+Closing file unit: 101
+Finished reading 2dm mesh file.
+
+Processing mesh face connections...
+Finished processing mesh face connections.
+
+Processing external nodestrings...
+External Nodestring GIS File = ../../model/gis/shp/2d_ns_CoorongBGC_000_L.shp.Opening GIS Layer: ../../model/gis/shp/2d_ns_CoorongBGC_000_L.shp
+GIS Layer assigned ID of 1
+3 DBF Fields (Name [#/Type/Length]): ID [1/N/8]  Flags [2/C/3]  Desc [3/C/100]  
+
+Closing GIS Layer 1 [../../model/gis/shp/2d_ns_CoorongBGC_000_L.shp]...
+Vertices in nodestring, 77.
+External nodestring 1 (ID = 1) is OK.
+
+Vertices in nodestring, 7.
+External nodestring 2 (ID = 2) is OK.
+
+Vertices in nodestring, 8.
+External nodestring 3 (ID = 3) is OK.
+
+Vertices in nodestring, 2.
+External nodestring 4 (ID = 4) is OK.
+
+Vertices in nodestring, 9.
+External nodestring 5 (ID = 5) is OK.
+
+Vertices in nodestring, 14.
+External nodestring 6 (ID = 6) is OK.
+
+Vertices in nodestring, 4.
+External nodestring 7 (ID = 7) is OK.
+
+Vertices in nodestring, 12.
+External nodestring 8 (ID = 108) is OK.
+
+Vertices in nodestring, 6.
+External nodestring 9 (ID = 109) is OK.
+
+Vertices in nodestring, 7.
+External nodestring 10 (ID = 110) is OK.
+
+Vertices in nodestring, 12.
+External nodestring 11 (ID = 111) is OK.
+
+Vertices in nodestring, 6.
+External nodestring 12 (ID = 112) is OK.
+
+Vertices in nodestring, 6.
+External nodestring 13 (ID = 113) is OK.
+
+Vertices in nodestring, 17.
+External nodestring 14 (ID = 114) is OK.
+
+Vertices in nodestring, 17.
+External nodestring 15 (ID = 115) is OK.
+
+Vertices in nodestring, 10.
+External nodestring 16 (ID = 116) is OK.
+
+Vertices in nodestring, 10.
+External nodestring 17 (ID = 117) is OK.
+
+Vertices in nodestring, 22.
+External nodestring 18 (ID = 118) is OK.
+
+Vertices in nodestring, 31.
+External nodestring 19 (ID = 119) is OK.
+
+Vertices in nodestring, 41.
+External nodestring 20 (ID = 120) is OK.
+
+Vertices in nodestring, 29.
+External nodestring 21 (ID = 121) is OK.
+
+Finished processing external nodestrings.
+
+2dm and externally specified nodestring numbering is OK.
+
+Opening GIS Layer: ../../model/gis/shp/2d_mat_CoorongBGC_001_R.shp
+GIS Layer assigned ID of 1
+1 DBF Fields (Name [#/Type/Length]): Material [1/N/8]  
+
+Closing GIS Layer 1 [../../model/gis/shp/2d_mat_CoorongBGC_001_R.shp]...
+Trying to open file: log/hchb_wave_201901_202103_wq_geo.csv ... OK. File unit: 101
+Trying to open file: log/hchb_wave_201901_202103_wq_geo_cellupdates.csv ... OK. File unit: 102
+Trying to open file: log/hchb_wave_201901_202103_wq_geo_nodestring.csv ... OK. File unit: 103
+
+Closing file unit: 101
+Closing file unit: 102
+Closing file unit: 103
+
+Found 23781 nodes.
+Found 26250 2D cells.
+Found 21 nodestrings.
+Mesh geometry file/s succesfully processed.
+
+Constructing domain, comprising:
+ 26250 2D cells.
+ 26250 3D cells.
+ 50053 3D faces.
+Constructing node object...OK
+Constructing cell object...OK
+Constructing face object...OK
+Constructing gridmap object/s...
+  Extracting grid definition from /Projects2/CDM/Wave/hchb_swan_2017_2021_v1/WAVE.nc
+Trying to open file: /Projects2/CDM/Wave/hchb_swan_2017_2021_v1/WAVE.nc ...OK
+Closing file: /Projects2/CDM/Wave/hchb_swan_2017_2021_v1/WAVE.nc
+    Constructing grid to mesh-cells map
+OK
+Constructing external mode objects...OK
+Echoing geometry data:
+Trying to open file: log/hchb_wave_201901_202103_wq_geo.nc ...OK.
+Closing file: log/hchb_wave_201901_202103_wq_geo.nc
+
+Successfully built model domain object/s.
+
+Attempting to initialise atmospheric module:
+Successfully initialised atmospheric module.
+
+Attempting to initialise external turbulence model:
+Initialising "GOTM" external turbulence module:
+Succesfully initialised external turbulence model.
+
+Attempting to initialise model structural configurations:
+Constructing struct object...
+Finished constructing struct object
+Successfully initialised model structural configurations.
+
+Attempting to initialise model boundary conditions:
+Constructing fvbc object...
+
+BC 1, Type=WL
+Subtype=1
+BC Nodestring id = 1
+BC variable name/s = TIME, WL, SAL, TEMP, TRACE_1, TRACE_2, TRACE_3, TRACE_4, TRACE_5, WQ_1, WQ_2, WQ_3, WQ_4, WQ_5, WQ_6, WQ_7, WQ_8, WQ_9, WQ_10, WQ_11, WQ_12, WQ_13, WQ_14, WQ_15, WQ_16, WQ_17, WQ_18
+BC file header/s = ISOTIME, VH_Tide_mAHD, sal, temp, trace_1, trace_2, trace_3, trace_4, trace_5, ss1, ret, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn, mag_ulva, mag_ulva_in, mag_ulva_ip
+BC reference time = 01/01/1990 00:00:00
+BC time units = ISOTIME
+BC variable offset/s =   0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00
+BC variable scale/s =   1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00
+BC variable default/s =   NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN
+Trying to open file: ../../bc_dbase/calibration/inflow/VH_Tide_2012_2021.csv ... OK. File unit: 101
+WARNING: TRACE_2 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_3 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_4 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_5 column not found in csv file. Assigning a value of             NaN
+WARNING: RET column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA_IN column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA_IP column not found in csv file. Assigning a value of             NaN
+ISOTIME, VH_Tide_mAHD, sal, temp, trace_1, ss1, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn columns read from csvfile. 333025 lines successfully read.
+Closing file unit: 101
+BC 1 is OK
+
+BC 2, Type=Q
+Subtype=2
+BC Nodestring id = 4
+BC variable name/s = TIME, Q, SAL, TEMP, TRACE_1, TRACE_2, TRACE_3, TRACE_4, TRACE_5, WQ_1, WQ_2, WQ_3, WQ_4, WQ_5, WQ_6, WQ_7, WQ_8, WQ_9, WQ_10, WQ_11, WQ_12, WQ_13, WQ_14, WQ_15, WQ_16, WQ_17, WQ_18
+BC file header/s = ISOTIME, Boundary_m3_s, sal, temp, trace_1, trace_2, trace_3, trace_4, trace_5, ss1, ret, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn, mag_ulva, mag_ulva_in, mag_ulva_ip
+BC reference time = 01/01/1990 00:00:00
+BC time units = ISOTIME
+BC variable offset/s =   0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00
+BC variable scale/s =   1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00
+BC variable default/s =   NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN
+Trying to open file: ../../bc_dbase/calibration/inflow/Boundary.csv ... OK. File unit: 101
+WARNING: TRACE_2 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_3 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_4 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_5 column not found in csv file. Assigning a value of             NaN
+WARNING: RET column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA_IN column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA_IP column not found in csv file. Assigning a value of             NaN
+ISOTIME, Boundary_m3_s, sal, temp, trace_1, ss1, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn columns read from csvfile. 11505 lines successfully read.
+Closing file unit: 101
+BC 2 is OK
+
+BC 3, Type=Q
+Subtype=2
+BC Nodestring id = 5
+BC variable name/s = TIME, Q, SAL, TEMP, TRACE_1, TRACE_2, TRACE_3, TRACE_4, TRACE_5, WQ_1, WQ_2, WQ_3, WQ_4, WQ_5, WQ_6, WQ_7, WQ_8, WQ_9, WQ_10, WQ_11, WQ_12, WQ_13, WQ_14, WQ_15, WQ_16, WQ_17, WQ_18
+BC file header/s = ISOTIME, Ewe_Island_m3_s, sal, temp, trace_1, trace_2, trace_3, trace_4, trace_5, ss1, ret, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn, mag_ulva, mag_ulva_in, mag_ulva_ip
+BC reference time = 01/01/1990 00:00:00
+BC time units = ISOTIME
+BC variable offset/s =   0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00
+BC variable scale/s =   1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00
+BC variable default/s =   NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN
+Trying to open file: ../../bc_dbase/calibration/inflow/Ewe.csv ... OK. File unit: 101
+WARNING: TRACE_2 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_3 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_4 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_5 column not found in csv file. Assigning a value of             NaN
+WARNING: RET column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA_IN column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA_IP column not found in csv file. Assigning a value of             NaN
+ISOTIME, Ewe_Island_m3_s, sal, temp, trace_1, ss1, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn columns read from csvfile. 11505 lines successfully read.
+Closing file unit: 101
+BC 3 is OK
+
+BC 4, Type=Q
+Subtype=2
+BC Nodestring id = 2
+BC variable name/s = TIME, Q, SAL, TEMP, TRACE_1, TRACE_2, TRACE_3, TRACE_4, TRACE_5, WQ_1, WQ_2, WQ_3, WQ_4, WQ_5, WQ_6, WQ_7, WQ_8, WQ_9, WQ_10, WQ_11, WQ_12, WQ_13, WQ_14, WQ_15, WQ_16, WQ_17, WQ_18
+BC file header/s = ISOTIME, Goolwa_m3_s, sal, temp, trace_1, trace_2, trace_3, trace_4, trace_5, ss1, ret, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn, mag_ulva, mag_ulva_in, mag_ulva_ip
+BC reference time = 01/01/1990 00:00:00
+BC time units = ISOTIME
+BC variable offset/s =   0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00
+BC variable scale/s =   1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00
+BC variable default/s =   NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN
+Trying to open file: ../../bc_dbase/calibration/inflow/Goolwa.csv ... OK. File unit: 101
+WARNING: TRACE_2 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_3 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_4 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_5 column not found in csv file. Assigning a value of             NaN
+WARNING: RET column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA_IN column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA_IP column not found in csv file. Assigning a value of             NaN
+ISOTIME, Goolwa_m3_s, sal, temp, trace_1, ss1, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn columns read from csvfile. 11505 lines successfully read.
+Closing file unit: 101
+BC 4 is OK
+
+BC 5, Type=Q
+Subtype=2
+BC Nodestring id = 3
+BC variable name/s = TIME, Q, SAL, TEMP, TRACE_1, TRACE_2, TRACE_3, TRACE_4, TRACE_5, WQ_1, WQ_2, WQ_3, WQ_4, WQ_5, WQ_6, WQ_7, WQ_8, WQ_9, WQ_10, WQ_11, WQ_12, WQ_13, WQ_14, WQ_15, WQ_16, WQ_17, WQ_18
+BC file header/s = ISOTIME, Mundoo_m3_s, sal, temp, trace_1, trace_2, trace_3, trace_4, trace_5, ss1, ret, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn, mag_ulva, mag_ulva_in, mag_ulva_ip
+BC reference time = 01/01/1990 00:00:00
+BC time units = ISOTIME
+BC variable offset/s =   0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00
+BC variable scale/s =   1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00
+BC variable default/s =   NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN
+Trying to open file: ../../bc_dbase/calibration/inflow/Mundoo.csv ... OK. File unit: 101
+WARNING: TRACE_2 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_3 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_4 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_5 column not found in csv file. Assigning a value of             NaN
+WARNING: RET column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA_IN column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA_IP column not found in csv file. Assigning a value of             NaN
+ISOTIME, Mundoo_m3_s, sal, temp, trace_1, ss1, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn columns read from csvfile. 11505 lines successfully read.
+Closing file unit: 101
+BC 5 is OK
+
+BC 6, Type=Q
+Subtype=2
+BC Nodestring id = 6
+BC variable name/s = TIME, Q, SAL, TEMP, TRACE_1, TRACE_2, TRACE_3, TRACE_4, TRACE_5, WQ_1, WQ_2, WQ_3, WQ_4, WQ_5, WQ_6, WQ_7, WQ_8, WQ_9, WQ_10, WQ_11, WQ_12, WQ_13, WQ_14, WQ_15, WQ_16, WQ_17, WQ_18
+BC file header/s = ISOTIME, Tauwitchere_m3_s, sal, temp, trace_1, trace_2, trace_3, trace_4, trace_5, ss1, ret, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn, mag_ulva, mag_ulva_in, mag_ulva_ip
+BC reference time = 01/01/1990 00:00:00
+BC time units = ISOTIME
+BC variable offset/s =   0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00
+BC variable scale/s =   1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00
+BC variable default/s =   NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN
+Trying to open file: ../../bc_dbase/calibration/inflow/Tauwitchere.csv ... OK. File unit: 101
+WARNING: TRACE_2 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_3 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_4 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_5 column not found in csv file. Assigning a value of             NaN
+WARNING: RET column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA_IN column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA_IP column not found in csv file. Assigning a value of             NaN
+ISOTIME, Tauwitchere_m3_s, sal, temp, trace_1, ss1, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn columns read from csvfile. 11505 lines successfully read.
+Closing file unit: 101
+BC 6 is OK
+
+BC 7, Type=QC
+Subtype=1
+Cell id=26249
+BC variable name/s = TIME, Q, SAL, TEMP, TRACE_1, TRACE_2, TRACE_3, TRACE_4, TRACE_5, WQ_1, WQ_2, WQ_3, WQ_4, WQ_5, WQ_6, WQ_7, WQ_8, WQ_9, WQ_10, WQ_11, WQ_12, WQ_13, WQ_14, WQ_15, WQ_16, WQ_17, WQ_18
+BC file header/s = ISOTIME, SaltCk_Q_m3_s, Sal_PSU, temp, trace_1, trace_2, trace_3, trace_4, trace_5, ss1, ret, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn, mag_ulva, mag_ulva_in, mag_ulva_ip
+BC reference time = 01/01/1990 00:00:00
+BC time units = ISOTIME
+BC variable offset/s =   0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00
+BC variable scale/s =   1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00, 1.00E+00
+BC variable default/s =   NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN
+Trying to open file: ../../bc_dbase/calibration/inflow/Salt_Creek_1990_2021.csv ... OK. File unit: 101
+WARNING: TRACE_2 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_3 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_4 column not found in csv file. Assigning a value of             NaN
+WARNING: TRACE_5 column not found in csv file. Assigning a value of             NaN
+WARNING: RET column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA_IN column not found in csv file. Assigning a value of             NaN
+WARNING: MAG_ULVA_IP column not found in csv file. Assigning a value of             NaN
+ISOTIME, SaltCk_Q_m3_s, Sal_PSU, temp, trace_1, ss1, oxy, rsi, amm, nit, frp, frp_ads, doc, poc, don, pon, dop, pop, grn columns read from csvfile. 11505 lines successfully read.
+Closing file unit: 101
+BC 7 is OK
+
+BC 8, Type=W10
+BC variable name/s = TIME, W10_X, W10_Y
+BC file header/s = ISOTime, Wx, Wy
+BC reference time = 01/01/1990 00:00:00
+BC time units = ISOTIME
+BC variable offset/s =   0.00E+00, 0.00E+00
+BC variable scale/s =   1.10E+00, 1.10E+00
+BC variable default/s =   NaN, NaN
+Trying to open file: ../../bc_dbase/met/Narrung_met.csv ... OK. File unit: 101
+ISOTime, Wx, Wy columns read from csvfile. 44521 lines successfully read.
+Closing file unit: 101
+BC 8 is OK
+
+BC 9, Type=AIR_TEMP
+BC variable name/s = TIME, AIR_TEMP
+BC file header/s = ISOTime, ATemp
+BC reference time = 01/01/1990 00:00:00
+BC time units = ISOTIME
+BC variable offset/s =   0.00E+00
+BC variable scale/s =   1.00E+00
+BC variable default/s =   NaN
+Trying to open file: ../../bc_dbase/met/Narrung_met.csv ... OK. File unit: 101
+ISOTime, ATemp columns read from csvfile. 44521 lines successfully read.
+Closing file unit: 101
+BC 9 is OK
+
+BC 10, Type=REL_HUM
+BC variable name/s = TIME, REL_HUM
+BC file header/s = ISOTime, Rel_Hum
+BC reference time = 01/01/1990 00:00:00
+BC time units = ISOTIME
+BC variable offset/s =   0.00E+00
+BC variable scale/s =   1.00E+00
+BC variable default/s =   NaN
+Trying to open file: ../../bc_dbase/met/Narrung_met.csv ... OK. File unit: 101
+ISOTime, Rel_Hum columns read from csvfile. 44521 lines successfully read.
+Closing file unit: 101
+BC 10 is OK
+
+BC 11, Type=SW_RAD
+BC variable name/s = TIME, SW_RAD
+BC file header/s = ISOTime, Sol_Rad
+BC reference time = 01/01/1990 00:00:00
+BC time units = ISOTIME
+BC variable offset/s =   0.00E+00
+BC variable scale/s =   8.00E-01
+BC variable default/s =   NaN
+Trying to open file: ../../bc_dbase/met/Narrung_met.csv ... OK. File unit: 101
+ISOTime, Sol_Rad columns read from csvfile. 44521 lines successfully read.
+Closing file unit: 101
+BC 11 is OK
+
+BC 12, Type=CLOUD
+BC variable name/s = TIME, CLOUD
+BC file header/s = ISOTime, Clouds
+BC reference time = 01/01/1990 00:00:00
+BC time units = ISOTIME
+BC variable offset/s =   0.00E+00
+BC variable scale/s =   1.00E+00
+BC variable default/s =   NaN
+Trying to open file: ../../bc_dbase/met/Narrung_met.csv ... OK. File unit: 101
+ISOTime, Clouds columns read from csvfile. 44521 lines successfully read.
+Closing file unit: 101
+BC 12 is OK
+
+BC 13, Type=PRECIP
+Subtype=1
+BC variable name/s = TIME, PRECIP, PRECIP_TEMP
+BC file header/s = ISOTime, Precip, PRECIP_TEMP
+BC reference time = 01/01/1990 00:00:00
+BC time units = ISOTIME
+BC variable offset/s =   0.00E+00, 0.00E+00
+BC variable scale/s =   1.00E+00, 1.00E+00
+BC variable default/s =   NaN, NaN
+Trying to open file: ../../bc_dbase/met/Narrung_rain.csv ... OK. File unit: 101
+WARNING: PRECIP_TEMP column not found in csv file. Assigning a value of             NaN
+ISOTime, Precip columns read from csvfile. 1856 lines successfully read.
+Closing file unit: 101
+BC 13 is OK
+
+BC 14, Type=WAVE
+Update dt=   0.000000    s
+BC grid label = SWAN_WAVES_REGIONAL
+BC grid id = 1
+BC reference time = 01/01/1970 00:00:00
+BC time units = SECONDS
+BC variable offset/s =   0.00E+00  0.00E+00  0.00E+00  0.00E+00  0.00E+00  0.00E+00  0.00E+00  0.00E+00
+BC variable scale/s =   1.00E+00  1.00E+00  1.00E+00  1.00E+00  1.00E+00  1.00E+00  1.00E+00  1.00E+00
+BC default value/s =   NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+BC variable name/s =  TIME, HSIGN, TPS, DIR, UBOT, TMBOT, FORCE_X, FORCE_Y, DEPTH,
+BC file header/s =  TIME, HS, TPS, THETAP, , , , , ,
+Trying to open file: /Projects2/CDM/Wave/hchb_swan_2017_2021_v1/WAVE.nc ...OK
+WARNING: TMBOT variable not found in netcdf file. Assigning a             NaN value.
+WARNING: FORCE_X variable not found in netcdf file. Assigning a             NaN value.
+WARNING: FORCE_Y variable not found in netcdf file. Assigning a             NaN value.
+TIME,HS,TPS,THETAP,UBOT,DEPTH, variables found in netcdf file. 30721 timesteps successfully read.
+BC 14 is OK
+
+Finished constructing fvbc object.
+
+Initialising ghost cell boundary conditions...
+Finished initialising ghost cell boundary conditions.
+
+Initialising face object boundary conditions...
+Finished initialising face object boundary conditions.
+
+Successfully initialised model boundary conditions.
+
+Attempting to intitialise external water quality model:
+
+**************************************************************************
+WATER QUALITY MODEL INITIALISATION
+**************************************************************************
+
+Initialising "AED" external module:
+Successful.
+18 water quality variables to be simulated:
+  1 NCS_ss1
+  2 TRC_age
+  3 OXY_oxy
+  4 SIL_rsi
+  5 NIT_amm
+  6 NIT_nit
+  7 PHS_frp
+  8 PHS_frp_ads
+  9 OGM_doc
+  10 OGM_poc
+  11 OGM_don
+  12 OGM_pon
+  13 OGM_dop
+  14 OGM_pop
+  15 PHY_grn
+  16 MA2_ulva
+  17 MA2_ulva_IN
+  18 MA2_ulva_IP
+6 benthic variables to be simulated:
+  1 MAC_ruppia
+  2 NCS_ss1_sed
+  3 PHY_mpb
+  4 MA2_ulva_ben
+  5 MA2_ulva_IP_ben
+  6 MA2_ulva_IN_ben
+146 diagnostic variables to be reported:
+  1 SDF_Fsed_oxy
+  2 SDF_Fsed_amm
+  3 SDF_Fsed_nit
+  4 SDF_Fsed_frp
+  5 MAC_par
+  6 MAC_gpp
+  7 MAC_p_r
+  8 MAC_mac
+  9 MAC_lai
+  10 MAC_mac_ag
+  11 MAC_mac_bg
+  12 NCS_ss1_vvel
+  13 NCS_ss_sed
+  14 NCS_tau_0
+  15 NCS_epsilon
+  16 NCS_fs1
+  17 NCS_swi_dz
+  18 NCS_resus
+  19 NCS_d_taub
+  20 OXY_sat
+  21 OXY_sed_oxy
+  22 OXY_atm_oxy_flux
+  23 SIL_sed_rsi
+  24 NIT_sed_amm
+  25 NIT_sed_nit
+  26 NIT_nitrif
+  27 NIT_denit
+  28 NIT_anammox
+  29 NIT_dnra
+  30 NIT_atm_din_flux
+  31 PHS_sed_frp
+  32 PHS_atm_dip_flux
+  33 OGM_Psed_poc
+  34 OGM_Psed_pon
+  35 OGM_Psed_pop
+  36 OGM_CDOM
+  37 OGM_sed_toc
+  38 OGM_sed_ton
+  39 OGM_sed_top
+  40 OGM_swi_poc
+  41 OGM_swi_doc
+  42 OGM_swi_pon
+  43 OGM_swi_don
+  44 OGM_swi_pop
+  45 OGM_swi_dop
+  46 OGM_poc_hydrol
+  47 OGM_doc_miner
+  48 OGM_pon_hydrol
+  49 OGM_don_miner
+  50 OGM_pop_hydrol
+  51 OGM_dop_miner
+  52 OGM_anaerobic
+  53 OGM_denit
+  54 OGM_BOD5
+  55 OGM_pom_vvel
+  56 OGM_cpom_vvel
+  57 PHY_grn_NtoP
+  58 PHY_grn_fI
+  59 PHY_grn_fNit
+  60 PHY_grn_fPho
+  61 PHY_grn_fSil
+  62 PHY_grn_fT
+  63 PHY_grn_fSal
+  64 PHY_Psed_phy
+  65 PHY_GPP
+  66 PHY_NCP
+  67 PHY_PPR
+  68 PHY_NPR
+  69 PHY_NUP_no3
+  70 PHY_NUP_nh4
+  71 PHY_PUP
+  72 PHY_CUP
+  73 PHY_PAR
+  74 PHY_TCHLA
+  75 PHY_TPHYS
+  76 PHY_IN
+  77 PHY_IP
+  78 PHY_MPB
+  79 PHY_BPP
+  80 PHY_BCP
+  81 PHY_MPBV
+  82 MA2_ulva_NtoP
+  83 MA2_ulva_fI
+  84 MA2_ulva_fNit
+  85 MA2_ulva_fPho
+  86 MA2_ulva_fSil
+  87 MA2_ulva_fT
+  88 MA2_ulva_fSal
+  89 MA2_ulva_fI_ben
+  90 MA2_ulva_fNit_ben
+  91 MA2_ulva_fPho_ben
+  92 MA2_ulva_fT_ben
+  93 MA2_ulva_fSal_ben
+  94 MA2_tmalg
+  95 MA2_in
+  96 MA2_ip
+  97 MA2_mag_ben
+  98 MA2_ip_ben
+  99 MA2_in_ben
+  100 MA2_gpp
+  101 MA2_pup
+  102 MA2_nup
+  103 MA2_nmp
+  104 MA2_gpp_ben
+  105 MA2_nmp_ben
+  106 MA2_HSI
+  107 MA2_par
+  108 MA2_extc
+  109 HAB_ruppia_hsi
+  110 HAB_ruppia_hsi_plant
+  111 HAB_ruppia_hsi_flower
+  112 HAB_ruppia_hsi_seed
+  113 HAB_ruppia_hsi_turion
+  114 HAB_ruppia_hsi_sprout
+  115 HAB_ruppia_hsi_fsal_1
+  116 HAB_ruppia_hsi_ftem_1
+  117 HAB_ruppia_hsi_flgt_1
+  118 HAB_ruppia_hsi_falg_1
+  119 HAB_ruppia_hsi_fdep_1
+  120 HAB_ruppia_hsi_fsal_2
+  121 HAB_ruppia_hsi_ftem_2
+  122 HAB_ruppia_hsi_flgt_2
+  123 HAB_ruppia_hsi_falg_2
+  124 HAB_ruppia_hsi_fdep_2
+  125 HAB_ruppia_hsi_fsal_3
+  126 HAB_ruppia_hsi_ftem_3
+  127 HAB_ruppia_hsi_flgt_3
+  128 HAB_ruppia_hsi_falg_3
+  129 HAB_ruppia_hsi_fdep_3
+  130 HAB_ruppia_hsi_fsal_4
+  131 HAB_ruppia_hsi_ftem_4
+  132 HAB_ruppia_hsi_flgt_4
+  133 HAB_ruppia_hsi_falg_4
+  134 HAB_ruppia_hsi_fdep_4
+  135 HAB_ruppia_hsi_fsal_5
+  136 HAB_ruppia_hsi_ftem_5
+  137 HAB_ruppia_hsi_flgt_5
+  138 HAB_ruppia_hsi_falg_5
+  139 HAB_ruppia_hsi_fdep_5
+  140 HAB_wettime
+  141 HAB_drytime
+  142 TOT_tn
+  143 TOT_tp
+  144 TOT_toc
+  145 TOT_tss
+  146 TOT_turbidity
+
+**************************************************************************
+END OF WATER QUALITY MODEL INITIALISATION
+**************************************************************************
+
+Attempting to generate model initial conditions:
+Trying to open file: ../../bc_dbase/calibration/initial/initial_conditions_20190101.csv ... OK. File unit: 101
+WARNING: TRACE_2 column not found in csv file. Assigning a value of    0.000000
+WARNING: TRACE_3 column not found in csv file. Assigning a value of    0.000000
+WARNING: TRACE_4 column not found in csv file. Assigning a value of    0.000000
+WARNING: TRACE_5 column not found in csv file. Assigning a value of    0.000000
+ ID, WL, U, V, SAL, TEMP, TRACE_1, WQ_1, WQ_2, WQ_3, WQ_4, WQ_5, WQ_6, WQ_7, WQ_8, WQ_9, WQ_10, WQ_11, WQ_12, WQ_13, WQ_14, WQ_15, WQ_16, WQ_17, WQ_18 columns read from csvfile. 26250 lines successfully read.
+Closing file unit: 101
+Successfully generated model initial conditions.
+
+Attempting to initialise model output:
+
+Allocating output object memory:
+Trying to open file: ../../model/geo/points/output_points_001.csv ... OK. File unit: 101
+WARNING: ID column not found in csv file. Assigning a value of             NaN
+WARNING: VERT_MIN column not found in csv file. Assigning a value of             NaN
+WARNING: VERT_MAX column not found in csv file. Assigning a value of             NaN
+ X, Y columns read from csvfile. 7 lines successfully read.
+Closing file unit: 101
+Trying to open file: ../../model/geo/points/output_points_001.csv ... OK. File unit: 101
+Closing file unit: 101
+LABEL column found, attempting to read point labels
+Trying to open file: ../../model/geo/points/output_points_001.csv ... OK. File unit: 101
+ LABEL columns read from csvfile. 7 lines successfully read.
+Closing file unit: 101
+Depth-Averaging for A4261134                       :    0.000000     to    99999.00
+Depth-Averaging for A4260572                       :    0.000000     to    99999.00
+Depth-Averaging for A4260633                       :    0.000000     to    99999.00
+Depth-Averaging for A4261043                       :    0.000000     to    99999.00
+Depth-Averaging for A4261135                       :    0.000000     to    99999.00
+Depth-Averaging for A4261209                       :    0.000000     to    99999.00
+Depth-Averaging for A4261165                       :    0.000000     to    99999.00
+Memory allocation OK.
+
+Trying to open file: log/hchb_wave_201901_202103_wq_geo_out.csv ... OK. File unit: 101
+Processing output requests:
+Processing request 1 is...
+OK.
+Processing request 2 is...
+OK.
+Processing request 3 is...
+OK.
+Processing request 4 is...
+OK.
+Processing request 5 is...
+Output point 1 is inside cell 5190.
+Output point 2 is inside cell 9581.
+Output point 3 is inside cell 13618.
+Output point 4 is inside cell 3511.
+Output point 5 is inside cell 7308.
+Output point 6 is inside cell 19525.
+Output point 7 is inside cell 23690.
+OK.
+
+Closing file unit: 101
+Opening output files...
+Trying to open file: ../../output/hchb_wave_201901_202103_wq_FLUX.csv ... OK. File unit: 101
+Trying to open file: ../../output/hchb_wave_201901_202103_wq_hd.nc ...OK
+Trying to open file: ../../output/hchb_wave_201901_202103_wq_wq.nc ...OK
+Trying to open file: ../../output/hchb_wave_201901_202103_wq_all.nc ...OK
+Trying to open file: ../../output/hchb_wave_201901_202103_wq_POINTS.csv ... OK. File unit: 102
+
+Successfully initialised model output.
+
+Running simulation
+Number of OpenMP threads=16
+Thread stacksize=4194304
+
+Entering timestep loop
+t = 01/01/2019 00:00:00.  dt =   0.000 /  0.000 s.  elapsed time =       0.0 s.
+    Writing nodestring flux output. t = 01/01/2019 00:00:00.
+    Writing NETCDF output. t = 01/01/2019 00:00:00.
+    Writing NETCDF output. t = 01/01/2019 00:00:00.
+    Writing NETCDF output. t = 01/01/2019 00:00:00.
+    Writing point timeseries output. t = 01/01/2019 00:00:00.
+    Calling AED. t = 01/01/2019 00:15:00.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 00:30:02.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 00:45:06.
+    Returning from AED.
+t = 01/01/2019 01:00:07.  dt =  11.016 /  1.002 s.  elapsed time =      10.4 s.
+    Calling AED. t = 01/01/2019 01:00:07.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 01:15:13.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 01:30:08.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 01:45:10.
+    Returning from AED.
+t = 01/01/2019 02:00:07.  dt =  14.252 /  1.018 s.  elapsed time =      18.5 s.
+    Calling AED. t = 01/01/2019 02:00:07.
+    Returning from AED.
+    Writing nodestring flux output. t = 01/01/2019 02:00:07.
+    Calling AED. t = 01/01/2019 02:15:06.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 02:30:08.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 02:45:12.
+    Returning from AED.
+t = 01/01/2019 03:00:04.  dt =  14.400 /  1.029 s.  elapsed time =      25.7 s.
+    Calling AED. t = 01/01/2019 03:00:04.
+    Returning from AED.
+    Writing NETCDF output. t = 01/01/2019 03:00:04.
+    Writing NETCDF output. t = 01/01/2019 03:00:04.
+    Writing point timeseries output. t = 01/01/2019 03:00:04.
+    Calling AED. t = 01/01/2019 03:15:12.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 03:30:07.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 03:45:05.
+    Returning from AED.
+t = 01/01/2019 04:00:05.  dt =  14.503 /  1.036 s.  elapsed time =      32.8 s.
+    Calling AED. t = 01/01/2019 04:00:05.
+    Returning from AED.
+    Writing nodestring flux output. t = 01/01/2019 04:00:05.
+    Calling AED. t = 01/01/2019 04:15:05.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 04:30:06.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 04:45:08.
+    Returning from AED.
+t = 01/01/2019 05:00:12.  dt =  14.578 /  1.041 s.  elapsed time =      39.8 s.
+    Calling AED. t = 01/01/2019 05:00:12.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 05:15:00.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 05:30:01.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 05:45:04.
+    Returning from AED.
+t = 01/01/2019 06:00:01.  dt =  14.637 /  1.046 s.  elapsed time =      47.1 s.
+    Calling AED. t = 01/01/2019 06:00:01.
+    Returning from AED.
+    Writing nodestring flux output. t = 01/01/2019 06:00:01.
+    Writing NETCDF output. t = 01/01/2019 06:00:01.
+    Writing NETCDF output. t = 01/01/2019 06:00:01.
+    Writing point timeseries output. t = 01/01/2019 06:00:01.
+    Calling AED. t = 01/01/2019 06:15:09.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 06:30:03.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 06:45:12.
+    Returning from AED.
+t = 01/01/2019 07:00:07.  dt =  14.684 /  1.049 s.  elapsed time =      54.2 s.
+    Calling AED. t = 01/01/2019 07:00:07.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 07:15:03.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 07:30:00.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 07:45:12.
+    Returning from AED.
+t = 01/01/2019 08:00:12.  dt =  13.669 /  1.052 s.  elapsed time =      61.1 s.
+    Calling AED. t = 01/01/2019 08:00:12.
+    Returning from AED.
+    Writing nodestring flux output. t = 01/01/2019 08:00:12.
+    Calling AED. t = 01/01/2019 08:15:07.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 08:30:03.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 08:45:06.
+    Returning from AED.
+t = 01/01/2019 09:00:05.  dt =  10.531 /  1.053 s.  elapsed time =      69.2 s.
+    Calling AED. t = 01/01/2019 09:00:05.
+    Returning from AED.
+    Writing NETCDF output. t = 01/01/2019 09:00:05.
+    Writing NETCDF output. t = 01/01/2019 09:00:05.
+    Writing point timeseries output. t = 01/01/2019 09:00:05.
+    Calling AED. t = 01/01/2019 09:15:11.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 09:30:04.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 09:45:04.
+    Returning from AED.
+t = 01/01/2019 10:00:04.  dt =  14.757 /  1.054 s.  elapsed time =      76.3 s.
+    Calling AED. t = 01/01/2019 10:00:04.
+    Returning from AED.
+    Writing nodestring flux output. t = 01/01/2019 10:00:04.
+    Calling AED. t = 01/01/2019 10:15:04.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 10:30:04.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 10:45:05.
+    Returning from AED.
+t = 01/01/2019 11:00:05.  dt =  14.766 /  1.055 s.  elapsed time =      83.3 s.
+    Calling AED. t = 01/01/2019 11:00:05.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 11:15:06.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 11:30:07.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 11:45:09.
+    Returning from AED.
+t = 01/01/2019 12:00:10.  dt =  14.783 /  1.056 s.  elapsed time =      90.2 s.
+    Calling AED. t = 01/01/2019 12:00:10.
+    Returning from AED.
+    Writing nodestring flux output. t = 01/01/2019 12:00:10.
+    Writing NETCDF output. t = 01/01/2019 12:00:10.
+    Writing NETCDF output. t = 01/01/2019 12:00:10.
+    Writing NETCDF output. t = 01/01/2019 12:00:10.
+    Writing point timeseries output. t = 01/01/2019 12:00:10.
+    Calling AED. t = 01/01/2019 12:15:04.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 12:30:04.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 12:45:08.
+    Returning from AED.
+t = 01/01/2019 13:00:08.  dt =   8.451 /  1.056 s.  elapsed time =      99.5 s.
+    Calling AED. t = 01/01/2019 13:00:08.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 13:15:03.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 13:30:07.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 13:45:04.
+    Returning from AED.
+t = 01/01/2019 14:00:00.  dt =  13.726 /  1.056 s.  elapsed time =     107.7 s.
+    Calling AED. t = 01/01/2019 14:00:00.
+    Returning from AED.
+    Writing nodestring flux output. t = 01/01/2019 14:00:00.
+    Calling AED. t = 01/01/2019 14:15:03.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 14:30:04.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 14:45:05.
+    Returning from AED.
+t = 01/01/2019 15:00:06.  dt =  14.765 /  1.055 s.  elapsed time =     114.7 s.
+    Calling AED. t = 01/01/2019 15:00:06.
+    Returning from AED.
+    Writing NETCDF output. t = 01/01/2019 15:00:06.
+    Writing NETCDF output. t = 01/01/2019 15:00:06.
+    Writing point timeseries output. t = 01/01/2019 15:00:06.
+    Calling AED. t = 01/01/2019 15:15:06.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 15:30:06.
+    Returning from AED.
+    Calling AED. t = 01/01/2019 15:45:05.
+    Returning from AED.
+t = 01/01/2019 16:00:05.  dt =  14.741 /  1.053 s.  elapsed time =     121.9 s.
+    Calling AED. t = 01/01/2019 16:00:05.
+    Returning from AED.
+    Writing nodestring flux output. t = 01/01/2019 16:00:05.
+    Calling AED. t = 01/01/2019 16:15:04.
+    Returning from AED.
