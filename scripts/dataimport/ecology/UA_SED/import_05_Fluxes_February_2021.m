@@ -14,7 +14,7 @@ lon = snum(:,2);
 [XX,YY] = ll2utm(lat,lon);
 
 
-agency = '05 UA Sediment';
+agency = 'UA Sediment';
 
 
 thedate = datenum(2020,02,12);

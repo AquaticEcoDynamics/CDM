@@ -19,7 +19,7 @@ lon = snum(:,2);
 
 [XX,YY] = ll2utm(lat,lon);
 
-agency = '09d UA Sediment';
+agency = 'UA Sediment';
 
 
 %_______________________________________

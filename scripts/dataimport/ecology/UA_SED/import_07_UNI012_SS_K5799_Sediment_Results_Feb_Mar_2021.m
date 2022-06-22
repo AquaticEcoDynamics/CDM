@@ -24,7 +24,7 @@ conv = snum(:,1);
 
 mdate = datenum(2021,02,01);
 
-agency = '07 UA Sediment';
+agency = 'UA Sediment';
 
 
 [~,fsites] = xlsread([filepath,filename],'Data','A9:A28');

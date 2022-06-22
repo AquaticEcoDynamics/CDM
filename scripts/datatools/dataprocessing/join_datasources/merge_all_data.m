@@ -166,7 +166,26 @@ datearray(:,1) = [datenum(2008,01,01):01:datenum(2022,01,01)];
 
 export_shapefile(cllmm,'../../../../gis/mapping/field/fieldsites.shp');
 
+
+cllmm = remove_nans(cllmm);
+
+
 save ../../../../data/store/archive/cllmm.mat cllmm -mat;
+
+agency_all = [];
+sites = fieldnames(cllmm);
+for i = 1:length(sites)
+    vars = fieldnames(cllmm.(sites{i}));
+    for j = 1:length(vars)
+        agency_all = [agency_all;{cllmm.(sites{i}).(vars{j}).Agency}];
+    end
+end
+agency = unique(agency_all);
+
+stop
+
+
+
 
 % 
 load ../../../../data/store/archive/saepa/epa_2016.mat;
@@ -217,6 +236,18 @@ coorong = remove_Lake_Sites(cllmm,'GIS/Coorong_Boundary1.shp');
 save('../../../../data/store/archive/coorong.mat','coorong','-mat');
 
 run('../../../../data/store/archive/merge_sites_within_matfile');
+
+agency_all = [];
+sites = fieldnames(cllmm);
+for i = 1:length(sites)
+    vars = fieldnames(cllmm.(sites{i}));
+    for j = 1:length(vars)
+        agency_all = [agency_all;{cllmm.(sites{i}).(vars{j}).Agency}];
+    end
+end
+agency = unique(agency_all);
+
+
 
 % summerise_data('lowerlakes.mat','lowerlakes/');
 % 

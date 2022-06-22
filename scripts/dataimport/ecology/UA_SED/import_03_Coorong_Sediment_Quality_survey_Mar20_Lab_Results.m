@@ -7,7 +7,7 @@ filename = 'Coorong Sediment Quality survey Mar20 Lab Results.xlsx';
 
 sheetname = 'All_Data';
 
-agency = '03 UA Sediment';
+agency = 'UA Sediment';
 
 
 thedate = datenum(2020,03,12);

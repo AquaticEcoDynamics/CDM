@@ -64,7 +64,7 @@ for i = 1:length(newname)
             phenology.(usites{j}).(newname{i}).Date = mdates(sss);
             phenology.(usites{j}).(newname{i}).Data = thedata * conv(i);
             phenology.(usites{j}).(newname{i}).Depth(1:length(sss),1) = 0;
-            phenology.(usites{j}).(newname{i}).Agency = 'UA HCHB Phenology';
+            phenology.(usites{j}).(newname{i}).Agency = 'UA HCHB';
             phenology.(usites{j}).(newname{i}).X = uX(j);
             phenology.(usites{j}).(newname{i}).Y = uY(j);
             
@@ -169,7 +169,7 @@ for i = 1:length(newname)
                 phenology.(usites{j}).(newname{i}).Date = tdate(ttt);
                 phenology.(usites{j}).(newname{i}).Data = tdata(ttt);
                 phenology.(usites{j}).(newname{i}).Depth = tdepth(ttt);
-                phenology.(usites{j}).(newname{i}).Agency = 'UA HCHB Phenology';
+                phenology.(usites{j}).(newname{i}).Agency = 'UA HCHB';
                 phenology.(usites{j}).(newname{i}).X = uX(j);
                 phenology.(usites{j}).(newname{i}).Y = uY(j);
                 phenology.(usites{j}).(newname{i}).Site_Name = usites{j};

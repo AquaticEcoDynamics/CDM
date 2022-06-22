@@ -7,7 +7,7 @@ filename = 'Coorong_March_2020_final FIeld Results and Photos.xlsx';
 
 sheetname = 'Database';
 
-agency = '04 UA Sediment';
+agency = 'UA Sediment';
 
 
 thedate = datenum(2020,03,12);

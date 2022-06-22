@@ -17,7 +17,7 @@ lon = snum(:,2);
 
 sites = regexprep(sstr(:,1),'\s','_');
 
-agency = '09a UA Sediment';
+agency = 'UA Sediment';
 
 %_______________________________________
 

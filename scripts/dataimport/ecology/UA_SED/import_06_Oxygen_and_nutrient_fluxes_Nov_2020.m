@@ -6,7 +6,7 @@ filepath = '../../../../data/incoming/TandI_1/Sediment/';
 filename = 'Oxygen and nutrient fluxes Nov 2020 (Parnka Point).xlsx';
 
 
-agency = '06 UA Sediment';
+agency = 'UA Sediment';
 
 fullsite = 'Parnka_Point';
 

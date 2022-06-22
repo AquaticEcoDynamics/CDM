@@ -74,7 +74,7 @@ for i = 1:length(usites)
             ua_sonde.(thesite).(newname{ggg}).Date = thedate;
             ua_sonde.(thesite).(newname{ggg}).Data = thedata * conv(ggg);
             ua_sonde.(thesite).(newname{ggg}).Depth(1:length(sss),1) = 0;
-            ua_sonde.(thesite).(newname{ggg}).Agency = 'UA_Sonde';
+            ua_sonde.(thesite).(newname{ggg}).Agency = 'UA Sonde';
             ua_sonde.(thesite).(newname{ggg}).Units = units{ggg};
             switch usites{i}
                 

@@ -8,7 +8,7 @@ filename = 'Macrobenthic_and_sediment_data_Orlando_Sabine.xlsx';
 
 thedate = datenum(2020,11,01);
 
-agency = '01 UA Sediment';
+agency = 'UA Sediment';
 
 thevars =  {...
     'WQ_DIAG_SDG_OPD',...

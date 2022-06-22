@@ -76,7 +76,7 @@ for i = 1:length(newname)
                 baseline_ruppia_all.(usites{j}).(newname{i}).Depth = tdepth(ttt);
                 
                 
-                baseline_ruppia_all.(usites{j}).(newname{i}).Agency = 'UA HCHB 100';
+                baseline_ruppia_all.(usites{j}).(newname{i}).Agency = 'UA HCHB';
                 baseline_ruppia_all.(usites{j}).(newname{i}).X = uX(j);
                 baseline_ruppia_all.(usites{j}).(newname{i}).Y = uY(j);
                 baseline_ruppia_all.(usites{j}).(newname{i}).Site_Name = usites{j};
