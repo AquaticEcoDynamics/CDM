@@ -1,10 +1,10 @@
-function draft_export_4
+function draft_export_4(filename,output)
 
 addpath(genpath('../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
-output_dir = 'Output/Export4/';
+output_dir = [output,'Export4/'];
 
-export(1).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(1).filename = filename;
 export(1).shpfile = '../../../gis/supplementary/Coorong_Transect_Pnt.shp';
 export(1).CPS = 'Fish diversity (species richness/biodisparity';
 export(1).Indicator = 'Salinity';
@@ -18,7 +18,7 @@ export(1).trigger_val_2 = 0.00;
 export(1).type = 'lt';
 export(1).System = 'Transect';
 
-export(2).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(2).filename = filename;
 export(2).shpfile = '../../../gis/supplementary/Coorong_Transect_Pnt.shp';
 export(2).CPS = 'Fish diversity (species richness/biodisparity';
 export(2).Indicator = 'Salinity';
@@ -32,7 +32,7 @@ export(2).trigger_val_2 = 0.00;
 export(2).type = 'lt';
 export(2).System = 'Transect';
 
-export(3).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(3).filename = filename;
 export(3).shpfile = '../../../gis/supplementary/Coorong_Transect_Pnt.shp';
 export(3).CPS = 'Fish diversity (species richness/biodisparity';
 export(3).Indicator = 'Salinity';
@@ -46,7 +46,7 @@ export(3).trigger_val_2 = 0.00;
 export(3).type = 'lt';
 export(3).System = 'Transect';
 
-export(4).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(4).filename = filename;
 export(4).shpfile = '../../../gis/supplementary/Coorong_Transect_Pnt.shp';
 export(4).CPS = 'Fish diversity (species richness/biodisparity';
 export(4).Indicator = 'Salinity';
@@ -60,7 +60,7 @@ export(4).trigger_val_2 = 0.00;
 export(4).type = 'lt';
 export(4).System = 'Transect';
 
-export(5).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(5).filename = filename;
 export(5).shpfile = '../../../gis/supplementary/Coorong_Transect_Pnt.shp';
 export(5).CPS = 'Fish diversity (species richness/biodisparity';
 export(5).Indicator = 'Salinity';
@@ -74,7 +74,7 @@ export(5).trigger_val_2 = 0.00;
 export(5).type = 'lt';
 export(5).System = 'Transect';
 
-export(6).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(6).filename = filename;
 export(6).shpfile = '../../../gis/supplementary/Coorong_Transect_Pnt.shp';
 export(6).CPS = 'Fish diversity (species richness/biodisparity';
 export(6).Indicator = 'Salinity';
@@ -88,7 +88,7 @@ export(6).trigger_val_2 = 0.00;
 export(6).type = 'lt';
 export(6).System = 'Transect';
 
-export(7).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(7).filename = filename;
 export(7).shpfile = '../../../gis/supplementary/Coorong_Transect_Pnt.shp';
 export(7).CPS = 'Waterbirds (Shorebirds)';
 export(7).Indicator = 'Salinity';
@@ -102,7 +102,7 @@ export(7).trigger_val_2 = 0.00;
 export(7).type = 'lt';
 export(7).System = 'Transect';
 
-export(8).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(8).filename = filename;
 export(8).shpfile = '../../../gis/supplementary/Coorong_Transect_Pnt.shp';
 export(8).CPS = 'Waterbirds (Piscivores)';
 export(8).Indicator = 'Salinity';
@@ -116,7 +116,7 @@ export(8).trigger_val_2 = 0.00;
 export(8).type = 'lt';
 export(8).System = 'Transect';
 
-export(9).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(9).filename = filename;
 export(9).shpfile = '../../../gis/supplementary/Coorong_Transect_Pnt.shp';
 export(9).CPS = 'Waterbirds (Piscivores)';
 export(9).Indicator = 'Salinity';
@@ -130,7 +130,7 @@ export(9).trigger_val_2 = 0.00;
 export(9).type = 'lt';
 export(9).System = 'Transect';
 
-export(10).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(10).filename = filename;
 export(10).shpfile = '../../../gis/supplementary/Coorong_Transect_Pnt.shp';
 export(10).CPS = 'Waterbirds (Piscivores)';
 export(10).Indicator = 'Salinity';

@@ -1,10 +1,10 @@
-function draft_export_10
+function draft_export_10(filename,output)
 
 addpath(genpath('../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
-output_dir = 'Output/Export10/';
+output_dir = [output,'Export10/'];
 
-export(1).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(1).filename = filename;
 export(1).shpfile = 'CoorongPolygons_DEW/7-CoorongSystem/CoorongSystem.shp';
 export(1).CPS = 'Waterbirds (Shorebirds)';
 export(1).Indicator = 'Macroalgae';

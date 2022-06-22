@@ -1,10 +1,10 @@
-function draft_export_10
+function draft_export_10(filename,output)
 
 addpath(genpath('../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
-output_dir = 'Output/Export14/';
+output_dir = [output,'Export14/'];
 
-export(1).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(1).filename = filename;
 export(1).shpfile = 'CoorongPolygons_DEW/2-NorthLagoon/ExtendedNorth3_Merge.shp';
 export(1).CPS = 'Trophic status (threat: eutrophication)';
 export(1).Indicator = 'Total Chlorophyll-a';
@@ -17,7 +17,7 @@ export(1).trigger_val = 5;
 export(1).trigger_val_2 = 0.00;
 export(1).System = 'CNL';
 
-export(2).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(2).filename = filename;
 export(2).shpfile = 'CoorongPolygons_DEW/2-NorthLagoon/ExtendedNorth3_Merge.shp';
 export(2).CPS = 'Trophic status (threat: eutrophication)';
 export(2).Indicator = 'Total Chlorophyll-a';
@@ -30,7 +30,7 @@ export(2).trigger_val = 5;
 export(2).trigger_val_2 = 0.00;
 export(2).System = 'CNL';
 
-export(3).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(3).filename = filename;
 export(3).shpfile = 'CoorongPolygons_DEW/3-SouthLagoon/ExtendedSouth_Merge.shp';
 export(3).CPS = 'Trophic status (threat: eutrophication)';
 export(3).Indicator = 'Total Chlorophyll-a';
@@ -43,7 +43,7 @@ export(3).trigger_val = 10;
 export(3).trigger_val_2 = 0.00;
 export(3).System = 'CSL';
 
-export(4).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(4).filename = filename;
 export(4).shpfile = 'CoorongPolygons_DEW/3-SouthLagoon/ExtendedSouth_Merge.shp';
 export(4).CPS = 'Trophic status (threat: eutrophication)';
 export(4).Indicator = 'Total Chlorophyll-a';

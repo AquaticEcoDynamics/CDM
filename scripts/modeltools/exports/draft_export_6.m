@@ -1,10 +1,10 @@
-function draft_export_6
+function draft_export_6(filename,output)
 
 addpath(genpath('../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
-output_dir = 'Output/Export6/';
+output_dir = [output,'Export6/'];
 
-export(1).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(1).filename = filename;
 export(1).shpfile = 'CoorongPolygons_DEW/1-Estuary/Estuary.shp';
 export(1).CPS = 'Fish diversity (species richness/biodisparity';
 export(1).Indicator = 'Murray Mouth morphology';
@@ -19,7 +19,7 @@ export(1).type = 'gt';
 export(1).System = 'Estuary';
 
 
-export(2).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(2).filename = filename;
 export(2).shpfile = 'CoorongPolygons_DEW/1-Estuary/Estuary.shp';
 export(2).CPS = 'Fish movement and recruitment (congolli and common galaxias)';
 export(2).Indicator = 'Murray Mouth morphology';
@@ -34,7 +34,7 @@ export(2).type = 'gt';
 export(2).System = 'Estuary';
 
 
-export(3).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(3).filename = filename;
 export(3).shpfile = 'CoorongPolygons_DEW/3-SouthLagoon/ExtendedSouth_Merge.shp';
 export(3).CPS = 'Waterbirds (Shorebirds)';
 export(3).Indicator = 'Water level';
@@ -49,7 +49,7 @@ export(3).type = 'gt';
 export(3).System = 'CSL';
 
 
-export(4).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(4).filename = filename;
 export(4).shpfile = 'CoorongPolygons_DEW/3-SouthLagoon/ExtendedSouth_Merge.shp';
 export(4).CPS = 'Waterbirds (Waterfowl)';
 export(4).Indicator = 'Water level';
@@ -63,7 +63,7 @@ export(4).trigger_val_2 = 0.00;
 export(4).type = 'gt';
 export(4).System = 'CSL';
 
-export(5).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(5).filename = filename;
 export(5).shpfile = 'CoorongPolygons_DEW/3-SouthLagoon/ExtendedSouth_Merge.shp';
 export(5).CPS = 'Waterbirds (Piscivores)';
 export(5).Indicator = 'Water level';
@@ -77,7 +77,7 @@ export(5).trigger_val_2 = 0.00;
 export(5).type = 'lt';
 export(5).System = 'CSL';
 
-export(6).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(6).filename = filename;
 export(6).shpfile = 'CoorongPolygons_DEW/1-Estuary/Estuary.shp';
 export(6).CPS = 'Fish movement and recruitment (congolli and common galaxias)';
 export(6).Indicator = 'Salinity';

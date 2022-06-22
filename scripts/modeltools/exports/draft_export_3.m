@@ -1,10 +1,10 @@
-function draft_export_3
+function draft_export_3(filename,output)
 
 addpath(genpath('../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
-output_dir = 'Output/Export3/';
+output_dir = [output,'Export3/'];
 
-export(1).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(1).filename = filename;
 export(1).shpfile = 'CoorongPolygons_DEW/7-CoorongSystem/CoorongSystem.shp';
 export(1).CPS = 'Macroinvertebrates';
 export(1).Indicator = 'Macroalgae';
@@ -17,7 +17,7 @@ export(1).trigger_val = 0.25;
 export(1).trigger_val_2 = 0.00;
 
 
-export(2).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(2).filename = filename;
 export(2).shpfile = 'CoorongPolygons_DEW/7-CoorongSystem/CoorongSystem.shp';
 export(2).CPS = 'Macroinvertebrates';
 export(2).Indicator = 'Macroalgae';

@@ -1,10 +1,10 @@
-function draft_export_2
+function draft_export_2(filename,output)
 
 addpath(genpath('../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
-output_dir = 'Output/Export2/';
+output_dir = [output,'Export2/'];
 
-export(1).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(1).filename =filename;
 export(1).shpfile = 'CoorongPolygons_DEW/7-CoorongSystem/CoorongSystem.shp';
 export(1).CPS = 'Macroinvertebrates';
 export(1).Indicator = 'Water depth and salinity';
@@ -17,7 +17,7 @@ export(1).trigger_val = 25;
 export(1).trigger_val_2 = 0.02;
 
 
-export(2).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(2).filename = filename;
 export(2).shpfile = 'CoorongPolygons_DEW/7-CoorongSystem/CoorongSystem.shp';
 export(2).CPS = 'Macroinvertebrates';
 export(2).Indicator = 'Water depth and salinity';
@@ -29,7 +29,7 @@ export(2).conv2 = 1;
 export(2).trigger_val = 25;
 export(2).trigger_val_2 = 0.02;
 
-export(3).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(3).filename = filename;
 export(3).shpfile = 'CoorongPolygons_DEW/7-CoorongSystem/CoorongSystem.shp';
 export(3).CPS = 'Macroinvertebrates';
 export(3).Indicator = 'Water depth and salinity';
@@ -41,7 +41,7 @@ export(3).conv2 = 1;
 export(3).trigger_val = 50;
 export(3).trigger_val_2 = 0.02;
 
-export(4).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(4).filename = filename;
 export(4).shpfile = 'CoorongPolygons_DEW/7-CoorongSystem/CoorongSystem.shp';
 export(4).CPS = 'Macroinvertebrates';
 export(4).Indicator = 'Water depth and salinity';
@@ -53,7 +53,7 @@ export(4).conv2 = 1;
 export(4).trigger_val = 50;
 export(4).trigger_val_2 = 0.02;
 
-export(5).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(5).filename = filename;
 export(5).shpfile = 'CoorongPolygons_DEW/7-CoorongSystem/CoorongSystem.shp';
 export(5).CPS = 'Macroinvertebrates';
 export(5).Indicator = 'Water depth and salinity';
@@ -65,7 +65,7 @@ export(5).conv2 = 1;
 export(5).trigger_val = 105;
 export(5).trigger_val_2 = 0.02;
 
-export(6).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(6).filename = filename;
 export(6).shpfile = 'CoorongPolygons_DEW/7-CoorongSystem/CoorongSystem.shp';
 export(6).CPS = 'Macroinvertebrates';
 export(6).Indicator = 'Water depth and salinity';

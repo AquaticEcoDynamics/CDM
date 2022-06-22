@@ -1,11 +1,11 @@
-function draft_export_5
+function draft_export_5(filename,output)
 
 addpath(genpath('../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
-output_dir = 'Output/Export5/';
+output_dir = [output,'Export5/'];
 
 
-export(1).filename = '../../../../../Scratch/CDM/eWater2021_basecase_t3_all.nc';
+export(1).filename = filename;
 export(1).shpfile = 'CoorongPolygons_DEW/3-SouthLagoon/ExtendedSouth_Merge.shp';
 export(1).CPS = 'Fish diversity (species richness/biodisparity';
 export(1).Indicator = 'Salinity';
