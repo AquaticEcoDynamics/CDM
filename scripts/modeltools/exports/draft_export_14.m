@@ -101,6 +101,8 @@ thetime = find(mtime >= time(1) & mtime < time(2));
 mtime_clip = mtime(thetime);
 
 
+
+
 utime = unique(floor(mtime_clip));
 
 inpol = inpolygon(X,Y,shp.X,shp.Y);
@@ -131,9 +133,13 @@ final_val = mean(total_tchla) - trigger_val;
 
 fprintf(fid,'%s,%s,%s,%s,%s,%s,%4.4f,%4.4f,%5.5f\n',CPS,Indicator,System,datestr(time(1),'dd-mm-yyyy'),...
     datestr(time(2),'dd-mm-yyyy'),var1,trigger_val,mean(total_tchla),final_val)
+ figure('visible','off');
     
-plot(utime,total_tchla);datetick('x');hold on
-plot([utime(1) utime(end)],[mean(total_tchla) mean(total_tchla)],'b');datetick('x');hold on
+plot(utime,total_tchla);hold on;%datetick('x');hold on
+plot([utime(1) utime(end)],[mean(total_tchla) mean(total_tchla)],'b');hold on;%datetick('x');hold on
+
+
+xlim([time(1) time(2)]);darray = [time(1):(time(2)-time(1))/5:time(2)];set(gca,'xtick',darray,'xticklabel',datestr(darray,'mm-yy'));
 
 ylabel('Daily Ave TCLHA (ug/L)');
 

@@ -24,7 +24,7 @@ if ~exist(output_dir,'dir')
     mkdir(output_dir);
 end
 
-fid = fopen([output_dir,'export_7.csv'],'wt');
+fid = fopen([output_dir,'export_5.csv'],'wt');
 
 perc = '%';
 fprintf(fid,'CPS,Indicator,Start Time,End Time,Var,Trigger,Events (#)\n',perc);
@@ -93,19 +93,36 @@ for i = 1:length(daily_time)
 end
 
 thecounter = 0;
+event_num = 0;
 daily_sal_ind = daily_sal;
 daily_sal_ind(daily_sal_ind<trigger_val) = 0;
 daily_sal_ind(daily_sal_ind>=trigger_val) = 1;
 
+for i = 1:length(daily_sal_ind)
+	if daily_sal_ind(i) == 1;
+		thecounter = thecounter + 1;
+	end
+	
+	if thecounter >= 60
+		event_num = event_num + 1;
+		thecounter = 0;
+	end
+	
+	if daily_sal_ind(i) == 0;
+		thecounter = 0;
+	end
+end
 
 
 fprintf(fid,'%s,%s,%s,%s,%s,%4.4f,%4.4f\n',CPS,Indicator,datestr(time(1),'dd-mm-yyyy'),...
-    datestr(time(2),'dd-mm-yyyy'),var1,trigger_val,sum(daily_sal_ind))
-    
-plot(daily_time,daily_sal);datetick('x');hold on
-plot([daily_time(1) daily_time(end)],[trigger_val trigger_val],'b');datetick('x');hold on
+    datestr(time(2),'dd-mm-yyyy'),var1,trigger_val,event_num)
+ figure('visible','off');
+   
+plot(daily_time,daily_sal);hold on;%datetick('x');hold on
+plot([daily_time(1) daily_time(end)],[trigger_val trigger_val],'b');hold on;%datetick('x');hold on
 
 ylabel('Salinity (psu)');
+xlim([time(1) time(2)]);darray = [time(1):(time(2)-time(1))/5:time(2)];set(gca,'xtick',darray,'xticklabel',datestr(darray,'mm-yy'));
 
 title(['Trigger Value: ',num2str(trigger_val)]);
 

@@ -148,12 +148,19 @@ end
     
 %fprintf(fid,'CPS,Indicator,Start Time,End Time,Var,Trigger,Value\n');
 
+
+figure('visible','off');
+
 fprintf(fid,'%s,%s,%s,%s,%s,%d,%4.4f,%5.5f\n',CPS,Indicator,datestr(time(1),'dd-mm-yyyy'),datestr(time(2),'dd-mm-yyyy'),var1,trigger_val,mean(total_area),sum(area) * 1e-6)
+
+
+
     
-plot(utime,total_area);datetick('x');hold on
-plot([utime(1) utime(end)],[mean(total_area) mean(total_area)],'b');datetick('x');hold on
+plot(utime,total_area);hold on;%datetick('x');hold on
+plot([utime(1) utime(end)],[mean(total_area) mean(total_area)],'b');hold on;%datetick('x');hold on
 
 ylabel('Area (km^2)');
+xlim([time(1) time(2)]);darray = [time(1):(time(2)-time(1))/5:time(2)];set(gca,'xtick',darray,'xticklabel',datestr(darray,'mm-yy'));
 
 title(['Trigger Value: ',num2str(trigger_val)]);
 

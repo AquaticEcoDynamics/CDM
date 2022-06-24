@@ -9,7 +9,7 @@ export(1).shpfile = 'CoorongPolygons_DEW/7-CoorongSystem/CoorongSystem.shp';
 export(1).CPS = 'Waterbirds (Shorebirds)';
 export(1).Indicator = 'Macroalgae';
 export(1).time = [datenum(2020,10,01) datenum(2021,04,01)];
-export(1).var1 = 'WQ_DIAG_MA2_HSI';
+export(1).var1 = 'WQ_DIAG_MAG_HSI';
 export(1).var2 = 'D';
 export(1).conv1 = 1;
 export(1).conv2 = 1;
@@ -103,9 +103,11 @@ end
 
 fprintf(fid,'%s,%s,%s,%s,%s,%4.4f,%4.4f,%5.5f\n',CPS,Indicator,datestr(time(1),'dd-mm-yyyy'),...
     datestr(time(2),'dd-mm-yyyy'),var1,trigger_val,mean(total_area),sum(area) * 0.0001)
-    
-plot(utime,total_area);datetick('x');hold on
-plot([utime(1) utime(end)],[mean(total_area) mean(total_area)],'b');datetick('x');hold on
+     figure('visible','off');
+
+plot(utime,total_area);hold on
+plot([utime(1) utime(end)],[mean(total_area) mean(total_area)],'b');hold on;%datetick('x');hold on
+xlim([time(1) time(2)]);darray = [time(1):(time(2)-time(1))/5:time(2)];set(gca,'xtick',darray,'xticklabel',datestr(darray,'mm-yy'));
 
 ylabel('Area (Ha)');
 

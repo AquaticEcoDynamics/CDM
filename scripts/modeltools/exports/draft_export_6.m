@@ -179,11 +179,13 @@ perc_days = (length(sss) / length(utime)) * 100;
 
 fprintf(fid,'%s,%s,%s,%s,%s,%s,%4.4f,%4.4f\n',CPS,Indicator,System,datestr(time(1),'dd-mm-yyyy'),...
     datestr(time(2),'dd-mm-yyyy'),var1,trigger_val,perc_days)
-    
-plot(utime,daily_wl);datetick('x');hold on
-plot([utime(1) utime(end)],[trigger_val trigger_val],'b');datetick('x');hold on
+   figure('visible','off');
+  
+plot(utime,daily_wl);hold on;%datetick('x');hold on
+plot([utime(1) utime(end)],[trigger_val trigger_val],'b');hold on;%datetick('x');hold on
 
 ylabel(var1);
+xlim([time(1) time(2)]);darray = [time(1):(time(2)-time(1))/5:time(2)];set(gca,'xtick',darray,'xticklabel',datestr(darray,'mm-yy'));
 
 title(['Trigger Value: ',num2str(trigger_val),', System: ',System]);
 
