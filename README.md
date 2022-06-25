@@ -4,6 +4,11 @@
 # CDM : Coorong Dynamics Model
 
 [![Project Status: Active – The project is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![CDM](https://img.shields.io/badge/CDM-2.0-brightgreen)](https://aquatic.science.uwa.edu.au/research/models/AED/quickstart.html)
+[![TUFLOW-FV](https://img.shields.io/badge/TUFLOW--FV-2020.008-yellow)](https://tuflow.com/products/tuflow-fv/)
+[![AED](https://img.shields.io/badge/AED-2.0.0-brightgreen)](https://aquatic.science.uwa.edu.au/research/models/AED/quickstart.html)
+[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
+
 
 <br>
 
@@ -16,7 +21,7 @@ For an overview of the CDM model, refer to the [CDM Documentation](https://aquat
 ## Repository organisation
 
 
-![image](https://user-images.githubusercontent.com/19967037/127596869-b62ce358-925f-45cc-82cd-0f55aea5b991.png =x500)
+![image](https://user-images.githubusercontent.com/19967037/127596869-b62ce358-925f-45cc-82cd-0f55aea5b991.png)
 **Figure 1. Design schematic for the CDM repository**
 
 <br>
