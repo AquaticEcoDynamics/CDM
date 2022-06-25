@@ -1,6 +1,51 @@
-# Coorong Dynamics Model
-This is the repository for relevant **data, models and documents** for the Healthy Coorong, Healthy Basin Project
+
+![image](sandbox/coorong_banner.jpeg)
+
+# CDM : Coorong Dynamics Model
+
+[![Project Status: Active – The project is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
+<br>
+
+This is the repository for relevant **data, models and scripts** for the [Coorong](https://en.wikipedia.org/wiki/Coorong,_South_Australia), developed as part of the [Healthy Coorong Healthy Basin](https://www.environment.sa.gov.au/topics/coorong/healthy-coorong-healthy-basin) program.
+
+For an overview of the CDM model, refer to the [CDM Documentation](https://aquaticecodynamics.github.io/cdm-science/).
+
+<br>
+
+## Repository organisation
 
 
 ![image](https://user-images.githubusercontent.com/19967037/127596869-b62ce358-925f-45cc-82cd-0f55aea5b991.png)
 **Figure 1. Design schematic for the CDM repository**
+
+<br>
+
+## Cloning the repo with all submodule code/files
+
+A basic clone will not include the code in the submodules so an extra argument is needed `--recurse-submodules`
+
+### Cloning the latest bundle
+```
+git clone --recurse-submodules https://github.com/AquaticEcoDynamics/CDM.git
+```
+
+### Cloning a particular tag
+```
+git clone --recurse-submodules -b v1.1.0 https://github.com/AquaticEcoDynamics/CDM.git
+```
+
+<br>
+
+## Archiving all code/files
+
+If you want to create an archive of all the code (including the submodules), first clone the repository as described above and zip entire repository.  The zip file can be uploaded to Zenodo to get a DOI.  An automated integration with Zenodo will not archive the code from the submodules.
+
+<br>
+
+## Additional information
+
+See repository Wiki for additional information on editing the repository and adding new content.
+
+<br>
+
