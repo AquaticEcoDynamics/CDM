@@ -12,7 +12,7 @@
 
 <br>
 
-This is the repository for relevant **data, models and scripts** for the [Coorong](https://en.wikipedia.org/wiki/Coorong,_South_Australia), developed as part of the [Healthy Coorong Healthy Basin](https://www.environment.sa.gov.au/topics/coorong/healthy-coorong-healthy-basin) program.
+This is the repository for relevant **data, models and scripts** for environmental modelling of the [Coorong](https://en.wikipedia.org/wiki/Coorong,_South_Australia). It is a simulation platform developed as part of the [Healthy Coorong Healthy Basin](https://www.environment.sa.gov.au/topics/coorong/healthy-coorong-healthy-basin) program for assisting in management of the iconic Australian ecosystem.
 
 For an overview of the CDM model, refer to the [CDM Documentation](https://aquaticecodynamics.github.io/cdm-science/).
 
