@@ -21,8 +21,8 @@ For an overview of the CDM model, refer to the [CDM Documentation](https://aquat
 ## Repository organisation
 
 
-![image](https://user-images.githubusercontent.com/19967037/127596869-b62ce358-925f-45cc-82cd-0f55aea5b991.png)
-**Figure 1. Design schematic for the CDM repository**
+<img src="https://user-images.githubusercontent.com/19967037/127596869-b62ce358-925f-45cc-82cd-0f55aea5b991.png" alt="Fodler structure" width="500"/>
+Figure 1. Design schematic for the CDM repository
 
 <br>
 
