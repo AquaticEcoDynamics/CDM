@@ -62,7 +62,7 @@ export(4).type = 'gt';
 export(4).System = 'CNL';
 
 export(5).filename = filename;
-export(5).shpfile = 'CoorongPolygons_DEW/3-SouthLagoon/ExtendedSouth_Merge.shp';
+export(5).shpfile = 'CoorongPolygons_DEW/1-Estuary/Estuary.shp';
 export(5).CPS = 'Trophic status (threat: eutrophication)';
 export(5).Indicator = 'Dissolved oxygen';
 export(5).time = [datenum(2020,04,01) datenum(2020,10,01)];
@@ -70,13 +70,13 @@ export(5).var1 = 'WQ_OXY_OXY';
 export(5).var2 = 'D';
 export(5).conv1 = 32/1000;
 export(5).conv2 = 1;
-export(5).trigger_val = 4;
+export(5).trigger_val = 6.5;
 export(5).trigger_val_2 = 0.00;
 export(5).type = 'gt';
-export(5).System = 'CSL';
+export(5).System = 'ME';
 
 export(6).filename = filename;
-export(6).shpfile = 'CoorongPolygons_DEW/3-SouthLagoon/ExtendedSouth_Merge.shp';
+export(6).shpfile = 'CoorongPolygons_DEW/1-Estuary/Estuary.shp';
 export(6).CPS = 'Trophic status (threat: eutrophication)';
 export(6).Indicator = 'Dissolved oxygen';
 export(6).time = [datenum(2020,10,01) datenum(2021,04,01)];
@@ -84,10 +84,44 @@ export(6).var1 = 'WQ_OXY_OXY';
 export(6).var2 = 'D';
 export(6).conv1 = 32/1000;
 export(6).conv2 = 1;
-export(6).trigger_val = 4;
+export(6).trigger_val = 6.5;
 export(6).trigger_val_2 = 0.00;
 export(6).type = 'gt';
-export(6).System = 'CSL';
+export(6).System = 'ME';
+
+
+
+
+
+
+
+export(7).filename = filename;
+export(7).shpfile = 'CoorongPolygons_DEW/3-SouthLagoon/ExtendedSouth_Merge.shp';
+export(7).CPS = 'Trophic status (threat: eutrophication)';
+export(7).Indicator = 'Dissolved oxygen';
+export(7).time = [datenum(2020,04,01) datenum(2020,10,01)];
+export(7).var1 = 'WQ_OXY_OXY';
+export(7).var2 = 'D';
+export(7).conv1 = 32/1000;
+export(7).conv2 = 1;
+export(7).trigger_val = 4;
+export(7).trigger_val_2 = 0.00;
+export(7).type = 'gt';
+export(7).System = 'CSL';
+
+export(8).filename = filename;
+export(8).shpfile = 'CoorongPolygons_DEW/3-SouthLagoon/ExtendedSouth_Merge.shp';
+export(8).CPS = 'Trophic status (threat: eutrophication)';
+export(8).Indicator = 'Dissolved oxygen';
+export(8).time = [datenum(2020,10,01) datenum(2021,04,01)];
+export(8).var1 = 'WQ_OXY_OXY';
+export(8).var2 = 'D';
+export(8).conv1 = 32/1000;
+export(8).conv2 = 1;
+export(8).trigger_val = 4;
+export(8).trigger_val_2 = 0.00;
+export(8).type = 'gt';
+export(8).System = 'CSL';
 
 
 
