@@ -16,7 +16,8 @@ yr = year;
 loopy_doop =1;
 
 %__________________________________________________________________________
-windowLength  = 120.0;
+% windowLength  = 120.0;
+windowLength  = 90.0;
 averageLength = 90.0;
 
 var(1).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FSAL_5';
@@ -134,12 +135,12 @@ end
 min_cdata = min(max_data,[],2);
 
 
-sss = find(min_cdata < 0.3);   % critical overall HSI we clip at
-min_cdata(sss) = 0.;
+% sss = find(min_cdata < 0.3);   % critical overall HSI we clip at
+% min_cdata(sss) = 0.;
 
 
 chsi=1
-chsl=0.3
+chsl=0
 
 %%%%%%%%%%%%%%%%%%''
 hfig = figure('visible','on','position',[2.7497e+03 406.3333 1.2813e+03 1207.3333]);

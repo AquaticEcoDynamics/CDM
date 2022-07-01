@@ -1,72 +1,50 @@
 clear; close all;
 
 
-scen_a = 'CoorongBGC_SC14_base_typ_001_all'; %base case
-% scen_b = 'SC07';
 
-scen_b = {...
-%     'CoorongBGC_SC04_LAC_dry_001_all',...
-%       'CoorongBGC_SC08_pump_in_out_constant_250_ML_d_dry_001_all',...
-%       'CoorongBGC_SC09_pump_out_500_ML_d_dry_001_all',...
-%       'CoorongBGC_SC10_pump_out_250_ML_d_plus_dredge_dry_001_all',...
-%       'CoorongBGC_SC11_LAC_plus_dredge_dry_001_all',...
-%       'CoorongBGC_SC12_pump_out_125_ML_d_dry_001_all',...
-%       'CoorongBGC_SC13_pump_in_constant_250_ML_d_dry_001_all',...
-%       'CoorongBGC_SC14_base_typ_001_all',...
-      'CoorongBGC_SC15_culverts_10x1500_typ_001_all',...
-      'CoorongBGC_SC16_pump_out_250_ML_d_typ_001_all',...
-      'CoorongBGC_SC17_LAC_typ_001_all',...
-      'CoorongBGC_SC18_SEFA_typ_001_all',...
-      'CoorongBGC_SC19_dredge_typ_001_all',...
-      'CoorongBGC_SC20_pump_in_out_reverse_500_ML_d_typ_001_all',...
-      'CoorongBGC_SC21_pump_in_out_constant_250_ML_d_typ_001_all',...
-      'CoorongBGC_SC22_pump_out_500_ML_d_typ_001_all',...
-      'CoorongBGC_SC23_pump_out_250_ML_d_plus_dredge_typ_001_all',...
-      'CoorongBGC_SC24_LAC_plus_dredge_typ_001_all',...
-      'CoorongBGC_SC25_pump_out_125_ML_d_typ_001_all',...
-      'CoorongBGC_SC26_pump_in_constant_250_ML_d_typ_001_all',...
-      'CoorongBGC_SC27_ABG_typ_001_all',...
-    };
-	
-	scentext = {...
-%         'SC04',...
-%       'SC08',...
-%       'SC09',...
-%       'SC10',...
-%       'SC11',...
-%       'SC12',...
-%       'SC13',...
-%       'SC14',...
-      'SC15',...
-      'SC16',...
-      'SC17',...
-      'SC18',...
-      'SC19',...
-      'SC20',...
-      'SC21',...
-      'SC22',...
-      'SC23',...
-      'SC24',...
-      'SC25',...
-      'SC26',...
-      'SC27',...
+scen_a = 'eWater2021_basecase_all';
+% scen_a = 'CoorongBGC_PH2_SC01_dry_base_001_20170701_20230702_all';
+
+
+ scen_b = {...
+    'eWater2021_Scen1_all',...
+    'eWater2021_Scen2_all',...
+    'eWater2021_Scen3_all',...
+    'eWater2021_Scen4_all',...
+     };
+
+
+
+scentext = {...
+    'no CEW 1 yr',...
+    'no eWater 1 yr',...
+    'no CEW 4 yrs',...
+    'no eWater 4 yrs',...
     };
 
-year_array = 2018:2019;
+ year_array = 2018:2020;
 
 for i=1:length(scen_b)
     
+%      if scen_b{i}(end-20:end-17) == num2str(2013)
+%                 year_array = 2013:2015;
+%             else
+%                 year_array = 2016:2018;
+%             end
+    
     for j=1:length(year_array)
         
-        hsi1a= load(['Y:\CIIP\Scenarios\Plotting\',scen_a,'\Sheets\',num2str(year_array(j)),'\1_adult_new\HSI_adult.mat']);
-        hsi2a= load(['Y:\CIIP\Scenarios\Plotting\',scen_a,'\Sheets\',num2str(year_array(j)),'\2_flower_new\HSI_flower.mat']);
-        hsi3a= load(['Y:\CIIP\Scenarios\Plotting\',scen_a,'\Sheets\',num2str(year_array(j)),'\3_seed_new\HSI_seed.mat']);
-        hsi_sexual_a = load(['Y:\CIIP\Scenarios\Plotting\',scen_a,'\Sheets\',num2str(year_array(j)),'\HSI_sexual.mat']);
+        infile= ['D:\eWater2021\Plotting_Ruppia\'];
         
-        hsi1b= load(['Y:\CIIP\Scenarios\Plotting\',scen_b{i},'\Sheets\',num2str(year_array(j)),'\1_adult_new\HSI_adult.mat']);
-        hsi2b= load(['Y:\CIIP\Scenarios\Plotting\',scen_b{i},'\Sheets\',num2str(year_array(j)),'\2_flower_new\HSI_flower.mat']);
-        hsi3b= load(['Y:\CIIP\Scenarios\Plotting\',scen_b{i},'\Sheets\',num2str(year_array(j)),'\3_seed_new\HSI_seed.mat']);
-        hsi_sexual_b = load(['Y:\CIIP\Scenarios\Plotting\',scen_b{i},'\Sheets\',num2str(year_array(j)),'\HSI_sexual.mat']);
+        hsi1a= load([infile, scen_a,'\Sheets\',num2str(year_array(j)),'\1_adult_new\HSI_adult.mat']);
+        hsi2a= load([infile, scen_a,'\Sheets\',num2str(year_array(j)),'\2_flower_new\HSI_flower.mat']);
+        hsi3a= load([infile, scen_a,'\Sheets\',num2str(year_array(j)),'\3_seed_new\HSI_seed.mat']);
+        hsi_sexual_a = load([infile, scen_a,'\Sheets\',num2str(year_array(j)),'\HSI_sexual.mat']);
+        
+        hsi1b= load([infile,scen_b{i},'\Sheets\',num2str(year_array(j)),'\1_adult_new\HSI_adult.mat']);
+        hsi2b= load([infile,scen_b{i},'\Sheets\',num2str(year_array(j)),'\2_flower_new\HSI_flower.mat']);
+        hsi3b= load([infile,scen_b{i},'\Sheets\',num2str(year_array(j)),'\3_seed_new\HSI_seed.mat']);
+        hsi_sexual_b = load([infile,scen_b{i},'\Sheets\',num2str(year_array(j)),'\HSI_sexual.mat']);
         
         
         hsi1_del = hsi1b.min_cdata-hsi1a.min_cdata;
@@ -74,17 +52,13 @@ for i=1:length(scen_b)
         hsi3_del = hsi3b.min_cdata-hsi3a.min_cdata;
         hsi_sexual_del = hsi_sexual_b.min_cdata - hsi_sexual_a.min_cdata;
         
+        outdir = ['W:\CDM\MER_Coorong_eWater_2021\Plotting_Ruppia\',scen_b{i},'\Sheets\',num2str(year_array(j)),'\'];
         
         
-        outdir = ['Y:\CIIP\Scenarios\Plotting\',scen_b{i},'\Sheets\',num2str(year_array(j)),'\'];
-        %%
-        %plotting
+        %%  plotting
+        %%%%%%%%%%%%%%%%%%
         
-        del_axis= [-1 1];
-        del_clip= [-0.1 0.1];
-        newmap = blank_col(del_axis, del_clip);
-        
-        filename = ['Y:\CIIP\Scenarios\BMT_scenarios\CoorongBGC_SC08_pump_in_out_constant_250_ML_d_dry_001_all.nc'];
+        filename = ['D:\eWater2021\Scenarios\eWater2021_basecase_all.nc'];
         
         dat = tfv_readnetcdf(filename,'time',1);
         timesteps = dat.Time;
@@ -102,9 +76,16 @@ for i=1:length(scen_b)
         faces = dat.cell_node';
         faces(faces(:,4)== 0,4) = faces(faces(:,4)== 0,1);
         
-        %%
-        %%%%%%%%%%%%%%%%%%
         
+        %%%%%%%%%%%%%%%%%%
+        del_axis= [-1 1];
+        del_clip= [-0.1 0.1];
+        newmap = blank_col(del_axis, del_clip);
+        
+%         scentext = scen_b{i}(12:end-4);
+        
+        %% North without ocean
+        %_______________________
         hfig = figure('visible','on','position',[2.7497e+03 406.3333 1.2813e+03 707.3333]);
         set(gcf, 'PaperPositionMode', 'manual');
         set(gcf, 'PaperUnits', 'centimeters');
@@ -133,7 +114,7 @@ for i=1:length(scen_b)
         set(cb,'position',[0.05 0.15 0.25 0.01]);
         
         text(0.1,0.6,'Adult','fontsize',12,'units','normalized');
-        text(0.1,0.1,['\Delta HSI: ',scentext{i},' yr',num2str(year_array(j))],'Units','Normalized','fontsize',12);
+        text(0.1,0.1,['\Delta HSI: ',scentext{i},' yr',num2str(year_array(j))],'Units','Normalized','fontsize',10);
         
         %axes('position',[0.5 0.66 0.5 .33]);
         axes('position',[ 0.1 0.1  0.5 1]);
@@ -201,7 +182,7 @@ for i=1:length(scen_b)
         
         saveas(gcf,[outdir,'HSI_sexual_north_del_noocean.png']);
         
-        %%
+        %% South
         %______________________________
         
         
@@ -232,7 +213,7 @@ for i=1:length(scen_b)
         set(cb,'position',[0.05 0.15 0.25 0.01]);
         
         text(0.25,0.95,'Adult','fontsize',12,'units','normalized');
-        text(0.10,0.05,['\Delta HSI: ',scentext{i},' yr',num2str(year_array(j))],'Units','Normalized','fontsize',12);
+        text(0.10,0.05,['\Delta HSI: ',scentext{i},' yr',num2str(year_array(j))],'Units','Normalized','fontsize',10);
         
         %axes('position',[0.5 0.66 0.5 .33]);
         axes('position',[ 0.1 0.1  0.5 0.9]);
@@ -299,16 +280,8 @@ for i=1:length(scen_b)
         
         
         
-        %%
-        
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        % WHOLE COORONG PLOTS
-        %
-        del_axis= [-1 1];
-        del_clip= [-0.1 0.1];
-        newmap = blank_col(del_axis, del_clip);
+        %% WHOLE COORONG PLOTS
+        %______________________________
         
         %%%%%%%%%%%%%%%%%%''
         hfig = figure('visible','on','position',[2.7497e+03 406.3333 1.2813e+03 1207.3333]);
@@ -336,7 +309,7 @@ for i=1:length(scen_b)
         set(cb,'position',[0.05 0.15 0.25 0.01]);
         
         text(0.40,0.75,'Adult','fontsize',12,'units','normalized');
-        text(0.35,0.17,['\Delta HSI: ',scentext{i},' yr',num2str(year_array(j))],'Units','Normalized','fontsize',12);
+        text(0.35,0.17,['\Delta HSI: ',scentext{i},' yr',num2str(year_array(j))],'Units','Normalized','fontsize',10);
         
         axes('position',[ -0.18 0.0  1.0 1.0]);
         patFig1 = patch('faces',faces,'vertices',vert,'FaceVertexCData',hsi2_del);shading flat

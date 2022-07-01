@@ -13,38 +13,39 @@ yr = year;
 loopy_doop =1;
 
 %__________________________________________________________________________
-windowLength  = 150.0;
+%windowLength  = 150.0;
+windowLength  = 120.0;
 averageLength = 90.0;
 
 var(1).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FSAL_2';
 var(1).cax = [0 1];
 var(1).title = ' f(S)';
 var(1).SaveName = '2_fsal';
-var(1).daterange = [datenum(yr,08,01) (datenum(yr,08,01)+windowLength) ]; %>= 1 < 2
+var(1).daterange = [datenum(yr,09,01) (datenum(yr,09,01)+windowLength) ]; %>= 1 < 2
 
 var(2).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FTEM_2';
 var(2).cax = [0 1];
 var(2).title = ' f(T)';
 var(2).SaveName = '2_ftem';
-var(2).daterange = [datenum(yr,08,01) (datenum(yr,08,01)+windowLength) ]; %>= 1 < 2
+var(2).daterange = [datenum(yr,09,01) (datenum(yr,09,01)+windowLength) ]; %>= 1 < 2
 
 var(3).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FLGT_2';
 var(3).cax = [0 1];
 var(3).title = ' f(I)';
 var(3).SaveName = '2_flgt';
-var(3).daterange = [datenum(yr,08,01) (datenum(yr,08,01)+windowLength) ]; %>= 1 < 2
+var(3).daterange = [datenum(yr,09,01) (datenum(yr,09,01)+windowLength) ]; %>= 1 < 2
 
 var(4).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FALG_2';
 var(4).cax = [0 1];
 var(4).title = ' f(FA)';
 var(4).SaveName = '2_falg';
-var(4).daterange = [datenum(yr,08,01) (datenum(yr,08,01)+windowLength) ]; %>= 1 < 2
+var(4).daterange = [datenum(yr,09,01) (datenum(yr,09,01)+windowLength) ]; %>= 1 < 2
 
 var(5).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FDEP_2';
 var(5).cax = [0 1];
 var(5).title = ' f(WL)';
 var(5).SaveName = '2_fdep';
-var(5).daterange = [datenum(yr,08,01) (datenum(yr,08,01)+windowLength) ]; %>= 1 < 2
+var(5).daterange = [datenum(yr,09,01) (datenum(yr,09,01)+windowLength) ]; %>= 1 < 2
 
 %range = [datenum(2015,01,01) datenum(2015,04,01)];
 %movie_name = '001_Ruppia_HSI_Averaged.png';
@@ -136,12 +137,12 @@ min_cdata = min(max_data,[],2);
 %___________________________________________________________
 %___________________________________________________________
 %___________________________________________________________
-sss = find(min_cdata < 0.3);   % critical overall HSI we clip at
-min_cdata(sss) = 0.;
+% sss = find(min_cdata < 0.3);   % critical overall HSI we clip at
+% min_cdata(sss) = 0.;
 
 
 chsi=1
-chsl=0.3
+chsl=0
 
 %%%%%%%%%%%%%%%%%%''
 hfig = figure('visible','on','position',[2.7497e+03 406.3333 1.2813e+03 1207.3333]);
@@ -218,6 +219,24 @@ axes('position',[ 0.05 0.0  1.0 1.0]);
     camroll(-25)
 
     text(0.45,0.75,'f(FA)','Units','Normalized','fontsize',12);
+    
+    
+% axes('position',[ 0.16 0.0  1.0 1.0]);
+%     patFig1 = patch('faces',faces,'vertices',vert,'FaceVertexCData',max_data(:,2));shading flat
+%     set(gca,'box','on');
+%     set(findobj(gca,'type','surface'),...
+%         'FaceLighting','phong',...
+%         'AmbientStrength',.3,'DiffuseStrength',.8,...
+%         'SpecularStrength',.9,'SpecularExponent',25,...
+%         'BackFaceLighting','unlit');
+% 
+%     caxis([ chsl chsi]);
+%     axis equal
+%     axis off;%set(gca,'xticklabel',[],'yticklabel',[]);
+%     camroll(-25)
+% 
+%     text(0.45,0.75,'f(T)','Units','Normalized','fontsize',12);
+    
 
 axes('position',[ 0.29 0.0  1.0 1.0]);
     patFig1 = patch('faces',faces,'vertices',vert,'FaceVertexCData',min_cdata);shading flat

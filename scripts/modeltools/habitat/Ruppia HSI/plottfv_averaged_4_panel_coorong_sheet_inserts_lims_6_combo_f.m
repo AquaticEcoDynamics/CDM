@@ -1,62 +1,52 @@
-function plottfv_averaged_4_panel_coorong_sheet_inserts_lims_3_combo_f(ncfile,outdir,scenario,year)
+function plottfv_averaged_4_panel_coorong_sheet_inserts_lims_6_combo_f(ncfile,outdir,scenario,year,windowLength,averageLength);
 % clear all; close all;
 % 
 % addpath(genpath('tuflowfv'));
 % 
 % ncfile = 'I:\Lowerlakes\Coorong Only Simulations\009_Ruppia_2015_2016_Matt_0SC_0B\Output\coorong.nc';
 % 
-% outdir = 'D:\Cloud\Dropbox\Data_Lowerlakes\Illustrator Processing\009_2015_rolling_0SC_0B\Sheets\3_seed_new\';
+% outdir = 'D:\Cloud\Dropbox\Data_Lowerlakes\Illustrator Processing\009_2015_rolling_0SC_0B\Sheets\4_turion_new\';
 
 yr = year;
 
 loopy_doop =1;
 
 %__________________________________________________________________________
-% windowLength  = 120.0;
-windowLength  = 90.0;
-averageLength = 42.0;
+% windowLength  = 150.0;
+% averageLength = 90.0;
 
-var(1).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FSAL_3';
+windowLength  = 90.0;   
+averageLength = 60.0;
+
+var(1).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FSAL_6';
 var(1).cax = [0 1];
 var(1).title = ' f(S)';
-var(1).SaveName = '3_fsal';
-var(1).daterange = [datenum(yr,04,01) (datenum(yr,04,01)+windowLength) ]; %>= 1 < 2
+var(1).SaveName = '6_fsal';
+var(1).daterange = [datenum(yr,01,01) (datenum(yr,01,01)+windowLength) ]; %>= 1 < 2
 
-var(2).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FTEM_3';
+var(2).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FTEM_6';
 var(2).cax = [0 1];
 var(2).title = ' f(T)';
-var(2).SaveName = '3_ftem';
-var(2).daterange = [datenum(yr,04,01) (datenum(yr,04,01)+windowLength) ]; %>= 1 < 2
+var(2).SaveName = '6_ftem';
+var(2).daterange = [datenum(yr,01,01) (datenum(yr,01,01)+windowLength) ]; %>= 1 < 2
 
-var(3).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FLGT_3';
+var(3).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FLGT_6';
 var(3).cax = [0 1];
 var(3).title = ' f(I)';
-var(3).SaveName = '3_flgt';
-var(3).daterange = [datenum(yr,04,01) (datenum(yr,04,01)+windowLength) ]; %>= 1 < 2
+var(3).SaveName = '6_flgt';
+var(3).daterange = [datenum(yr,01,01) (datenum(yr,01,01)+windowLength) ]; %>= 1 < 2
 
-var(4).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FALG_3';
+var(4).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FALG_6';
 var(4).cax = [0 1];
 var(4).title = ' f(FA)';
-var(4).SaveName = '3_falg';
-var(4).daterange = [datenum(yr,04,01) (datenum(yr,04,01)+windowLength) ]; %>= 1 < 2
+var(4).SaveName = '6_falg';
+var(4).daterange = [datenum(yr,01,01) (datenum(yr,01,01)+windowLength) ]; %>= 1 < 2
 
-var(5).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FDEP_3';
+var(5).name = 'WQ_DIAG_HAB_RUPPIA_HSI_FDEP_6';
 var(5).cax = [0 1];
 var(5).title = ' f(WL)';
-var(5).SaveName = '3_fdep';
-var(5).daterange = [datenum(yr,04,01) (datenum(yr,04,01)+windowLength) ]; %>= 1 < 2
-
-var(6).name = 'WQ_DIAG_HAB_DRYTIME';
-var(6).cax = [0 30];
-var(6).title = ' Dry Time';
-var(6).SaveName = 'dry_time';
-var(6).daterange = [datenum(yr,04,01) (datenum(yr,04,01)+windowLength) ]; %>= 1 < 2
-
-var(7).name = 'WQ_DIAG_HAB_WETTIME';
-var(7).cax = [0 30];
-var(7).title = ' Wet Time';
-var(7).SaveName = 'wet_time';
-var(7).daterange = [datenum(yr,04,01) (datenum(yr,04,01)+windowLength) ]; %>= 1 < 2
+var(5).SaveName = '6_fdep';
+var(5).daterange = [datenum(yr,01,01) (datenum(yr,01,01)+windowLength) ]; %>= 1 < 2
 
 %range = [datenum(2015,01,01) datenum(2015,04,01)];
 %movie_name = '001_Ruppia_HSI_Averaged.png';
@@ -86,11 +76,9 @@ tt = tfv_readnetcdf(ncfile,'names',{'cell_A'});
 Area = tt.cell_A;
 
 
-
-
 %__________________________________________________________________________
-% Loop through wet time
-for i = 7:7
+% Loop through the limiting vars
+for i = 1:length(var)
 
 	data = tfv_readnetcdf(ncfile,'names',{var(i).name;'D'});
 
@@ -103,87 +91,47 @@ for i = 7:7
 
 	%__________________________________________________
 	if(loopy_doop==1)
-	    % check for maximum within the window
-		max_wettime = mean(data.(var(i).name)(:,:),2) * 0.;
-		max_wetdate = mean(data.(var(i).name)(:,:),2) * 0.;
-	  	% already inundated at start of window, and keep getting wetter
-        sss = find(timesteps >= (var(i).daterange(1)) & timesteps < (var(i).daterange(1)+1) );
-		ave_data(:) =mean(data.(var(i).name)(:,sss),2);
-        mmm = find(ave_data(:) > 43 );
-        max_wetdate(mmm) = 1.; 
+	    % check for maximum rolling average within the window
+	    max_ave_data = mean(data.(var(i).name)(:,:),2) * 0.;
+		for w = 0:(windowLength-averageLength)
+	  		sss = find(timesteps >= (var(i).daterange(1)+w) & timesteps < (var(i).daterange(1)+averageLength+w) );
+	  		ave_data = mean(data.(var(i).name)(:,sss),2);
 
-        for w = 1:windowLength
-	  		sss = find(timesteps >= (var(i).daterange(1)+w) & timesteps < (var(i).daterange(1)+w+1) );
-			ave_data(:) =mean(data.(var(i).name)(:,sss),2);
-%            mmm = find(ave_data(:) > max_wettime(:) );
-            mmm = find(ave_data(:) > 41 & ave_data(:)<43 );
-            max_wetdate(mmm) = w;   
-            mmm = find( ave_data(:) > max_wettime(:) & ave_data(:)<43 );
-            max_wettime(mmm) = ave_data(mmm);
-            mmm = find( ave_data(:)>43 );
-            max_wettime(mmm) = 43.;            
+            mmm = find(ave_data(:) > max_ave_data(:) );
+            max_ave_data(mmm) = ave_data(mmm);
+
             clear sss mmm;
-           
+%        if(i==4)
+%        		malg=load('D:\Cloud\Dropbox\Data_Lowerlakes\Illustrator Processing\008_2015_10SC_Nuts\Sheets\malg\Ulva_TotalBiomass.mat')
+%      		ave_data = malg.min_cdata;
+%      		ssss = find(ave_data > 25.);
+%      		ave_data(:) = 1.0;
+%      		ave_data(ssss) = 0.;
+%       end
         end
-    end
-    
-        ave_data(:) = max_wettime(:) *0.0 ;
-        sss = find(max_wettime >= 42);
-        ave_data(sss) = 1.0;
-        sss = find(max_wettime > 15 & max_wettime < 42 );
-        ave_data(sss) = (max_wettime(sss)-15)./(42-15);
-        
-        %ave_data(:) = max_wettime(:) ;
-	    data1 = tfv_readnetcdf(ncfile,'names',{var(i-1).name;'D'});
-        drytime =  data1.(var(i-1).name)(:,:);
-        for cc = 1:length(ave_data)
-	  		sss = find(timesteps >= (var(i).daterange(1)+max_wetdate(cc)) & timesteps < (var(i).daterange(2)) );
-            if(max(drytime(cc,sss),2) > 7.);
-              ave_data(cc) = 0.0;
-              disp(cc)
-            end
-        end
- 
- 
-	max_data(:,5) = ave_data;
-end
-
-
-
-
-%__________________________________________________________________________
-% Loop through the limiting vars
-for i = 1:4 %length(var)-2
-
-	data = tfv_readnetcdf(ncfile,'names',{var(i).name;'D'});
-
-	vert(:,1) = dat.node_X;
-	vert(:,2) = dat.node_Y;
-
-	faces = dat.cell_node';
-	%--% Fix the triangles
-	faces(faces(:,4)== 0,4) = faces(faces(:,4)== 0,1);
-
+        ave_data(:) = max_ave_data(:);
+	else
 	  	% just do average over the window
 	  	sss = find(timesteps >= var(i).daterange(1) & timesteps < var(i).daterange(2));
 	  	ave_data = mean(data.(var(i).name)(:,sss),2);
 	  	% Special post-processing of FA (malg) for this dude
-	  	%if(i==4)
-      	%	malg=load(['D:\Cloud\Dropbox\Data_Lowerlakes\Illustrator Processing\',scenario,'\Sheets\malg\Ulva_TotalBiomass.mat'])
-    	%	ave_data = malg.min_cdata;
-    	%	ssss = find(ave_data > 25.);
-    	%	ave_data(:) = 1.0;
-    	%	ave_data(ssss) = 0.;
-     	%end
+	  	if(i==4)
+      		malg=load(['D:\Cloud\Dropbox\Data_Lowerlakes\Illustrator Processing\',scenario,'\Sheets\malg\Ulva_TotalBiomass.mat'])
+    		ave_data = malg.min_cdata;
+    		ssss = find(ave_data > 25.);
+    		ave_data(:) = 1.0;
+    		ave_data(ssss) = 0.;
+     	end
+	end
 
 	max_data(:,i) = ave_data;
 
 end
-
 %%%%%%%%%%%%%%%%%
 
 
 min_cdata = min(max_data,[],2);
+
 
 % sss = find(min_cdata < 0.3);   % critical overall HSI we clip at
 % min_cdata(sss) = 0.;
@@ -282,7 +230,7 @@ axes('position',[ 0.29 0.0  1.0 1.0]);
     axis off;%set(gca,'xticklabel',[],'yticklabel',[]);
     camroll(-25)
 
-    text(0.41,0.95,'HSI (Seed)','Units','Normalized','fontsize',12);
+    text(0.41,0.95,'HSI (Turion viability)','Units','Normalized','fontsize',12);
 
 
 set(gcf, 'PaperPositionMode', 'manual');
@@ -293,10 +241,28 @@ xLeft = (21-xSize)/2;
 yTop = (30-ySize)/2;
 set(gcf,'paperposition',[0 0 xSize ySize])
 
-saveas(gcf,[outdir,'HSI_seed.png']);
-save([outdir,'HSI_seed.mat'],'min_cdata','-mat');
+saveas(gcf,[outdir,'HSI_turionviability.png']);
+save([outdir,'HSI_turionviability.mat'],'min_cdata','-mat');
 
-export_area([outdir,'HSI_seed.csv'],min_cdata,Area);
+export_area([outdir,'HSI_turionviability.csv'],min_cdata,Area);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
