@@ -1,5 +1,5 @@
 
-![image](sandbox/coorong_banner.jpeg)
+![image](admin/coorong_banner.jpeg)
 
 # CDM : Coorong Dynamics Model
 
