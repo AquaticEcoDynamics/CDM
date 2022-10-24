@@ -1,0 +1,15 @@
+structure == zone, 1
+	polygon file == ../zone/zone_poly_Coorong_HD_007.csv
+	bed adjust == bathy_database
+	bathy database == ../database/bathy_database_flow_001_drought.csv
+	update dt == 1. ! hrs
+	
+	control == timeseries
+		control parameter == bathy_control
+		control header == FLOW_m3_s
+		control update dt == 168. ! hrs
+		start control state == 0.
+		response parameters == 336, 2016. ! hrs
+		control file == ../../bc_dbase/calibration/inflows/Barrage_WQ_Tauwitchere_001_20120115_20210701.csv
+	end control	
+end structure

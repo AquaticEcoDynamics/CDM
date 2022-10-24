@@ -1,0 +1,165 @@
+! Coorong Release Modelling - 2022
+! Calibration
+!_________________________________________________________________
+
+output dir == ./output/
+
+! GIS 
+!_________________________________________________________________
+GIS format == shp
+shp projection == ../../model/detailed_rma/gis/shp/projection.prj
+
+
+! TIME COMANDS
+!_________________________________________________________________
+time format == ISODATE
+start time == 01/03/2013 00:00:00
+end time == 01/03/2016 00:00:00
+
+timestep limits == 0.1, 15
+display dt == 3600.
+cfl external == 0.9
+cfl internal == 0.9
+
+
+! SIMULATION CONFIGURATION
+!_________________________________________________________________
+include salinity == 1,1
+include temperature == 1,1
+include sediment == 0,0
+spatial order == 1,2
+horizontal gradient limiter == LCD
+vertical gradient limiter == MC
+bottom drag model == ks
+equation of state == UNESCO
+
+!water quality model == EXTERNAL
+!external water quality model dir == ../../external/AED/
+
+
+! MODEL PARAMETERS
+!_________________________________________________________________
+stability limits == 100.,500.
+cell wet/dry depths == 1.0e-4, 4.0e-2
+g == 9.81
+reference density == 1025.
+latitude == -35.8
+Wind Stress Params == 0., 0.8E-03, 50., 4.05E-03
+
+
+! HEAT PARAMETERS
+!_________________________________________________________________
+include heat == 1,0
+longwave radiation model == 1
+Shortwave radiation albedo == 0.05
+Shortwave radiation fractions == 0.500, 0.463, 0.036, 0.001
+Shortwave radiation extinction coefficients == 2.0, 1.2, 2.0, 2.5
+Bulk Latent Heat Coefficient == 1.55e-3 ! Default 1.3e-3
+Vapour pressure salinity params == 4.61e-4, 6.51e-7, 0.7 ! a, b, c defaults
+
+
+! TURBULENCE PARAMETERS
+!_________________________________________________________________
+momentum mixing model == SMAGORINSKY
+scalar mixing model == ELDER
+vertical mixing model == external
+external turbulence model dir == ../../external/GOTM/detailed/
+global horizontal eddy viscosity == 0.2
+global horizontal scalar diffusivity == 250.0,25.0
+
+
+! TRACER PARAMETERS
+!_________________________________________________________________
+Ntracer == 5
+tracer == 1 ! Initial CSL passive tracer - initial concentration 100 in CSL
+end tracer
+tracer == 2 ! Ocean water passive tracer - concentration 100 at ocean boundaries including pump connections
+end tracer
+tracer == 3 ! Barrage flow passive tracer - concentration 100 in barrage flow
+end tracer
+tracer == 4 ! Salt Creek passive tracer - concentration 100 in salt creek flow
+end tracer
+tracer == 5 ! Water age passive tracer - initial concentration 0 and all inflow concentrations 0
+	water age == 1
+end tracer
+
+
+! GEOMETRY
+!_________________________________________________________________
+geometry 2d == ../../model/detailed_rma/mesh/Coorong_detailed_rma_001.2dm
+echo geometry == 1
+
+Read GIS Nodestring == ../../model/detailed_rma/gis/shp/2d_ns_CoorongBGC_001_L.shp
+
+Read GIS Mat == ../../model/detailed_rma/gis/shp/2d_mat_CoorongBGC_001_R.shp
+include == ../../model/materials/Coorong_materials_001.fvm
+
+
+! SCENARIO INPUTS
+!_________________________________________________________________
+
+
+! BOUNDARY CONDITIONS
+!_________________________________________________________________
+! Tide
+include == ../../bc_dbase/calibration/include/tide_WQ_001_20130101_20210701.fvc
+
+! Inflows
+include == ../../bc_dbase/calibration/include/inflow_WQ_Goolwa_001_20120115_20210701.fvc
+include == ../../bc_dbase/calibration/include/inflow_WQ_Mundoo_001_20120115_20210701.fvc
+include == ../../bc_dbase/calibration/include/inflow_WQ_BoundaryCreek_001_20120115_20210701.fvc
+include == ../../bc_dbase/calibration/include/inflow_WQ_EweIsland_001_20120115_20210701.fvc
+include == ../../bc_dbase/calibration/include/inflow_WQ_Tauwitchere_001_20120115_20210701.fvc
+include == ../../bc_dbase/calibration/include/inflow_WQ_SaltCreek_001_20120101_20210531.fvc
+
+! BARRA Met BCs
+include == ../../bc_dbase/calibration/include/BARRA_Coorong_5km_199001_201903.fvc
+
+! SILO Met BCs
+include == ../../bc_dbase/calibration/include/SILO_rel_hum_002_19900101_20210625.fvc
+include == ../../bc_dbase/calibration/include/SILO_precip_005_19900101_20210625.fvc
+
+
+! INITIAL CONDITIONS
+!_________________________________________________________________
+Initial Condition 2D == ../../bc_dbase/calibration/initial/detailed_rma/IC_Coorong_detailed_rma_001_20130301_v01.csv
+
+
+! OUTPUT COMMANDS
+!_________________________________________________________________
+
+!Write Check Files  == ./log/check/
+
+!output == flux
+!  output interval == 7200
+!end output
+
+output == netcdf
+  output parameters == H,V,D,SAL,TEMP,TRACE_1,TRACE_2,TRACE_3,TRACE_4,TRACE_5
+  output interval == 10800
+  output compression == 1
+  suffix == hd
+end output
+
+!output == netcdf
+!  output parameters == H,V,D,SAL,TEMP,WQ_DIAG_HAB_RUPPIA_HSI,WQ_DIAG_TOT_TN,WQ_DIAG_TOT_TP,WQ_DIAG_PHY_TCHLA,WQ_NIT_AMM,WQ_NIT_NIT,WQ_PHS_FRP,WQ_OXY_OXY,WQ_DIAG_TOT_TSS,WQ_DIAG_TOT_TURBIDITY,WQ_OGM_DOP,WQ_OGM_DON,WQ_DIAG_MA2_TMALG
+!  output interval == 10800
+!  output compression == 1
+!  suffix == wq
+!end output
+
+!output == netcdf
+!  output parameters == H,V,D,SAL,TEMP,wq_all,wq_diag_all
+!  output interval == 43200
+!  output compression == 1
+!  suffix == all
+!end output
+
+output == points
+	output points file == ../../model/output_points/output_points_002.csv
+	vertical averaging == sigma-range, 0, 1
+	output parameters == H,SAL,TEMP,AIR_TEMP,EVAP,PRECIP,TRACE_1,TRACE_2,TRACE_3,TRACE_4,TRACE_5
+	output interval == 3600		! Need sufficient frequency for DTR analysis
+end output
+
+write restart dt == 24.

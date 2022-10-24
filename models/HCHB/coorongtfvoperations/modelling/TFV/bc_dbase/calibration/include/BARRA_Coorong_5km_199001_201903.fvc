@@ -1,0 +1,75 @@
+! Wind
+grid definition file == ../met/BARRA/BARRA_Coorong_wind_199001_201903_5km.nc
+	grid definition variables == x,y
+	grid definition label == wind
+end grid
+
+bc == W10_grid, wind, ../met/BARRA/BARRA_Coorong_wind_199001_201903_5km.nc
+	bc header == time,av_uwnd10m,av_vwnd10m
+	bc update dt == 3600.
+	bc time units == hours
+	bc reference time == 01/01/1990 13:00	! +9.5 assuming UTC+9.5
+	bc default == NaN,NaN
+end bc
+
+
+! Temperature
+grid definition file == ../met/BARRA/BARRA_Coorong_atmos_199001_201903_5km.nc
+	grid definition variables == x,y
+	grid definition label == airtemp
+end grid
+
+bc == AIR_TEMP_GRID, airtemp, ../met/BARRA/BARRA_Coorong_atmos_199001_201903_5km.nc
+	bc header == time,av_temp_scrn
+	bc update dt == 3600.
+	bc time units == hours
+	bc reference time == 01/01/1990 13:00	! +9.5 assuming UTC+9.5
+	bc offset == -273.15	! convert from degrees kelvin to degrees centigrade
+	bc default == NaN
+end bc
+
+
+! MSLP
+grid definition file == ../met/BARRA/BARRA_Coorong_atmos_199001_201903_5km.nc
+	grid definition variables == x,y
+	grid definition label == mslp
+end grid
+
+bc == MSLP_GRID, mslp, ../met/BARRA/BARRA_Coorong_atmos_199001_201903_5km.nc
+	bc header == time,av_mslp
+	bc update dt == 3600.
+	bc time units == hours
+	bc reference time == 01/01/1990 13:00	! +9.5 assuming UTC+9.5
+	bc scale == 0.01
+	bc default == NaN
+end bc
+
+
+! SW Radiation
+grid definition file == ../met/BARRA/BARRA_Coorong_atmos_199001_201903_5km.nc
+	grid definition variables == x,y
+	grid definition label == swdown
+end grid
+
+bc == SW_RAD_GRID, swdown, ../met/BARRA/BARRA_Coorong_atmos_199001_201903_5km.nc
+	bc header == time,av_swsfcdown
+	bc update dt == 3600.
+	bc time units == hours
+	bc reference time == 01/01/1990 13:00	! +9.5 assuming UTC+9.5
+	bc default == NaN
+end bc
+
+
+! LW Radiation
+grid definition file == ../met/BARRA/BARRA_Coorong_atmos_199001_201903_5km.nc
+	grid definition variables == x,y
+	grid definition label == netlw
+end grid
+
+bc == LW_NET_GRID, netlw, ../met/BARRA/BARRA_Coorong_atmos_199001_201903_5km.nc
+	bc header == time,av_netlwsfc
+	bc update dt == 3600.
+	bc time units == hours
+	bc reference time == 01/01/1990 13:00	! +9.5 assuming UTC+9.5
+	bc default == NaN
+end bc
