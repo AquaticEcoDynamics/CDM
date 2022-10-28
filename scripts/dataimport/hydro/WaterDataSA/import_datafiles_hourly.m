@@ -42,6 +42,8 @@ for i = 3:length(dirlist)
     
     disp(thesite);
     
+    
+    
     for j = 1:length(thefiles)
         
         thevar = regexprep(thefiles(j).name,'.csv','');

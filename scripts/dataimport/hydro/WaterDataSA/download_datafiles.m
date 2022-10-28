@@ -12,12 +12,12 @@ thesites = [];
 allsites = fieldnames(sdata);
 
 for i = 1:length(allsites)
-        
+    
     if inpolygon(sdata.(allsites{i}).X,sdata.(allsites{i}).Y,shp.X,shp.Y)
         thesites = [thesites;allsites(i)];
     end
 end
-    
+
 %thesites = {'A4261159'};
 
 %thesites = fieldnames(sitelist);
@@ -44,45 +44,51 @@ options = weboptions('Timeout',Inf);
 
 
 for bb = 1:length(thesites)
-    
     thesite = thesites{bb};
-    
-    outdir = ['Output/',thesite,'/'];
-    
-    if ~exist(outdir,'dir')
-        mkdir(outdir);
-    end
-    
-    
-    disp(thesite);
-
-    tic
-    for i = 1:length(dataset)
+    if strcmpi(thesite,'A4261075') == 1
         
-        filename = [outdir,dataset(i).Name{1},'.csv'];
+        outdir = ['Output/',thesite,'/'];
         
-
-
-        theaddress = [header,dataset(i).Name{2},thesite,dataset(i).Name{3}];
-
-        try
-            outfilename = websave('temp.csv',theaddress,options);
-        catch
-            % Continue on error
+        if ~exist(outdir,'dir')
+            mkdir(outdir);
         end
         
         
+        disp(thesite);
         
-        s=dir('temp.csv');
-        the_size=s.bytes;
-        
-        if the_size < 1000
-            delete('temp.csv');
-        else
-            copyfile('temp.csv',filename, 'f');
-            delete('temp.csv');
+        tic
+        for i = 1:length(dataset)
+            
+            filename = [outdir,dataset(i).Name{1},'.csv'];
+            
+            
+            
+            theaddress = [header,dataset(i).Name{2},thesite,dataset(i).Name{3}];
+            
+            try
+                outfilename = websave('temp.csv',theaddress,options);
+            catch
+                % Continue on error
+            end
+            
+            
+            
+            s=dir('temp.csv');
+            try
+                the_size=s.bytes;
+                
+                if the_size < 1000
+                    delete('temp.csv');
+                else
+                    copyfile('temp.csv',filename, 'f');
+                    delete('temp.csv');
+                end
+            catch
+                
+            end
+            
         end
-
+        
     end
     toc
 end

@@ -19,10 +19,14 @@ dataset(i).Name = {'TEMP_SURFACE','Water%20Temp.Best%20Available--Sensor%20near%
 %dataset(i).Name = {'TEMP_Bottom','Water%20Temp.Best%20Available--Continuous%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=169&_=1628812025608'};i = i+1;
 dataset(i).Name = {'TEMP','Water%20Temp.Best%20Available--Continuous%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=169'}; i = i+1;
 dataset(i).Name = {'TEMP_Master','Water%20Temp.Master%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=169'}; i = i+1;
+%dataset(i).Name = {'TEMP','Water%20Temp.Best%20Available--Continuous%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=169'}; i = i+1;
+
 %EC______________________________________________________
 dataset(i).Name = {'COND_SURFACE','EC%20Corr.Master--Sensor%20near%20bed%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=45&_=1628811029492'}; i = i+1;					
 dataset(i).Name = {'COND_BOTTOM','EC%20Corr.Master--Sensor%20near%20surface%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=45'}; i = i+1;
 dataset(i).Name = {'COND','EC%20Corr.Best%20Available%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=45'}; i = i+1;
+
+
 
 %Velocity
 dataset(i).Name = {'Velocity','Water%20Velocity.Telem--Mean%20X%20Section%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=185'}; i = i+1;
@@ -34,6 +38,8 @@ dataset(i).Name = {'LEVEL','Lake%20Level.Best%20Available--Continuous%40','&Data
 dataset(i).Name = {'LEVEL','Water%20Level.Best%20Available--Continuous%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=82'}; i = i+1;
 
 dataset(i).Name = {'LEVEL','Tide%20Height.Best%20Available--Continuous%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=82'}; i = i+1;
+dataset(i).Name = {'LEVEL','Water%20Level.Master--Daily%20Read%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=82'}; i = i+1;
+
 %pH_____________________________________________________
 dataset(i).Name = {'WQ_CAR_PH','pH.Best%20Available--Continuous%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=133'}; i = i+1;
 %dataset(i).Name = {'pH','pH.Best%20Available--Continuous%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=133'}; i = i+1;
@@ -41,8 +47,13 @@ dataset(i).Name = {'WQ_CAR_PH','pH.Best%20Available--Continuous%40','&Datasets[0
 %Flow______________________________________________________
 dataset(i).Name = {'FLOW','Discharge.Best%20Available%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=239'};i = i+1;
 dataset(i).Name = {'FLOW','Discharge.Telem--ML%2Fday%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=241'};i = i+1;
+dataset(i).Name = {'FLOW','Discharge.Master--Daily%20Read--ML%2Fday%40','&Datasets[0].Calculation=Instantaneous&Datasets[0].UnitId=239'};i = i+1;
+dataset(i).Name = {'FLOW','Discharge.Best%20Available%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=239'};i = i+1;
 
-%TDS
+
+
+
+
 dataset(i).Name = {'WQ_DIAG_TOT_TDS',  'TDS%20from%20EC.Calculated%20from%20Corrected%20EC%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=35'}; i = i+1;
 
 %Turbidity
