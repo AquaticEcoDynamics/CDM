@@ -3,15 +3,15 @@ clear all; close all;
 addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
 
-dirlist = dir(['BC1/','*.csv']);
+dirlist = dir(['HCHB2022/','*.csv']);
 
 for bb = 1:length(dirlist)
     
     bar_name = regexprep(dirlist(bb).name,'.csv','');
-    outdir = ['Images/',bar_name,'/']; mkdir(outdir);
+    outdir = ['Images_2022/',bar_name,'/']; mkdir(outdir);
     
-    old = tfv_readBCfile(['BC1/',dirlist(bb).name]);
-    new = tfv_readBCfile(['BC2/',dirlist(bb).name]);
+    old = tfv_readBCfile(['HCHB2022/',dirlist(bb).name]);
+    new = tfv_readBCfile(['MER2022/',dirlist(bb).name]);
 %     s2021 = tfv_readBCfile(['2021/',dirlist(bb).name]);
 %     s2022 = tfv_readBCfile(['2022/',dirlist(bb).name]);
     % sCIIP = tfv_readBCfile(['CIIP/',dirlist(bb).name]);
@@ -44,7 +44,7 @@ for bb = 1:length(dirlist)
                     
                     
                     
-                    datearray = datenum(2012,01:06:120,01);
+                    datearray = datenum(2012,01:06:137,01);
                     
                     
                     xlim([datearray(1) datearray(end)]);
@@ -78,6 +78,6 @@ for bb = 1:length(dirlist)
         
     end
 end
-create_html_for_directory('Images/');
+create_html_for_directory('Images_2022/');
 
 

@@ -45,7 +45,7 @@ options = weboptions('Timeout',Inf);
 
 for bb = 1:length(thesites)
     thesite = thesites{bb};
-    if strcmpi(thesite,'A4261075') == 1
+    %if strcmpi(thesite,'A4261075') == 1
         
         outdir = ['Output/',thesite,'/'];
         
@@ -87,7 +87,7 @@ for bb = 1:length(thesites)
                 
             end
             
-        end
+        %end
         
     end
     toc

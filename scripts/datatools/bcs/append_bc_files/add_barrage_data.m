@@ -24,7 +24,7 @@ for bb = 1:length(sites)
 
         
         
-        filename = ['../BC from Field Data/BCs_BAR_2019_2022_V6/',thesite,'_20120101_20220101.csv'];
+        filename = ['../BC from Field Data/BCs_BAR_2019_2022_V7_EXT/',thesite,'_20120101_20221101.csv'];
         
         
         
@@ -46,7 +46,7 @@ for bb = 1:length(sites)
         
         
         
-        fid = fopen([thesite,'_20120101_20220101_v4.csv'],'wt');
+        fid = fopen([thesite,'_20120101_20221101_v4.csv'],'wt');
         
         for i = 1:length(vars)
             if i == length(vars)
