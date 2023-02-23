@@ -1,5 +1,5 @@
-%function export_transect_2_csv
-clear all; close all;
+function export_transect_2_csv
+%clear all; close all;
 addpath(genpath('../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
 output_dir = ['Transects/'];
@@ -23,6 +23,7 @@ if ~exist(output_dir,'dir')
 end
 
 for gg = 1:length(export)
+
     
     filename = export(gg).filename;
     
@@ -107,4 +108,8 @@ for gg = 1:length(export)
     end
     fclose(fid);
     
+    
+
+    
+    clear data dist surfIndex thetime extent;
 end
