@@ -1,6 +1,6 @@
-%header = 'https://water.data.sa.gov.au/Export/BulkExport?DateRange=EntirePeriodOfRecord&TimeZone=9.5&Calendar=CALENDARYEAR&Interval=Hourly&Step=1&ExportFormat=csv&TimeAligned=True&RoundData=False&IncludeGradeCodes=False&IncludeApprovalLevels=False&IncludeInterpolationTypes=False&Datasets[0].DatasetName=';
-
-header = 'https://water.data.sa.gov.au/Export/BulkExport?DateRange=Days7&TimeZone=9.5&Calendar=CALENDARYEAR&Interval=Hourly&Step=1&ExportFormat=csv&TimeAligned=True&RoundData=False&IncludeGradeCodes=False&IncludeApprovalLevels=False&IncludeInterpolationTypes=False&Datasets[0].DatasetName=';
+header = 'https://water.data.sa.gov.au/Export/BulkExport?DateRange=EntirePeriodOfRecord&TimeZone=9.5&Calendar=CALENDARYEAR&Interval=Hourly&Step=1&ExportFormat=csv&TimeAligned=True&RoundData=False&IncludeGradeCodes=False&IncludeApprovalLevels=False&IncludeInterpolationTypes=False&Datasets[0].DatasetName=';
+%header = 'https://water.data.sa.gov.au/Export/BulkExport?DateRange=EntirePeriodOfRecord&TimeZone=9.5&Calendar=CALENDARYEAR&Interval=Hourly&Step=1&ExportFormat=csv&TimeAligned=True&RoundData=True&IncludeGradeCodes=False&IncludeApprovalLevels=False&IncludeQualifiers=False&IncludeInterpolationTypes=False&Datasets[0].DatasetName=';
+%header = 'https://water.data.sa.gov.au/Export/BulkExport?DateRange=Days7&TimeZone=9.5&Calendar=CALENDARYEAR&Interval=Hourly&Step=1&ExportFormat=csv&TimeAligned=True&RoundData=False&IncludeGradeCodes=False&IncludeApprovalLevels=False&IncludeInterpolationTypes=False&Datasets[0].DatasetName=';
 
 %Days7
 % Master list of the strings required.
@@ -25,7 +25,7 @@ dataset(i).Name = {'TEMP_SURFACE','Water%20Temp.Best%20Available--Sensor%20near%
 dataset(i).Name = {'TEMP','Water%20Temp.Best%20Available--Continuous%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=169'}; i = i+1;
 dataset(i).Name = {'TEMP_Master','Water%20Temp.Master%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=169'}; i = i+1;
 %dataset(i).Name = {'TEMP','Water%20Temp.Best%20Available--Continuous%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=169'}; i = i+1;
-
+dataset(i).Name = {'TEMP','Water%20Temp.Telem--DO%20Sensor%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=169'};i = i+1;
 %EC______________________________________________________
 dataset(i).Name = {'COND_SURFACE','EC%20Corr.Master--Sensor%20near%20bed%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=45&_=1628811029492'}; i = i+1;					
 dataset(i).Name = {'COND_BOTTOM','EC%20Corr.Master--Sensor%20near%20surface%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=45'}; i = i+1;
@@ -76,6 +76,8 @@ dataset(i).Name = {'WQ_OXY_OXY_SAT_SONDE','Dis%20Oxygen%20Sat.Telem--Sonde%20Sen
 
 dataset(i).Name = {'WQ_OXY_OXY_SONDE','O2%20(Dis).Best%20Available--Sonde%20sensor%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=41'}; i = i+1;
 dataset(i).Name = {'WQ_OXY_OXY_SONDE','O2%20(Dis).Telem--Sonde%20Sensor%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=35'}; i = i+1;
+dataset(i).Name = {'WQ_OXY_OXY_SONDE','O2%20(Dis).Telem--Sonde%20Sensor%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=35'}; i = i+1;
+dataset(i).Name = {'WQ_OXY_OXY_SONDE','O2%20(Dis).Telem%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=41'}; i = i+1;
 
 dataset(i).Name = {'WQ_CAR_PH_SONDE','pH.Best%20Available--Sonde%20sensor%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=133'}; i = i+1;
 dataset(i).Name = {'WQ_CAR_PH','pH.Best%20Available--Continuous%40','&Datasets[0].Calculation=Aggregate&Datasets[0].UnitId=133'}; i = i+1;

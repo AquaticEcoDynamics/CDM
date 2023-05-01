@@ -1,31 +1,41 @@
 clear all; close all;
 addpath(genpath('Functions'));
 
-sdata =  download_Site_Info;
-
-
-shp = shaperead('bounding.shp');
-
-clipsites = 0;
-
-thesites = [];
-
-allsites = fieldnames(sdata);
+runsites = 1;
 
 fidout = fopen('theaddress.txt','wt');
 
-for i = 1:length(allsites)
-    if clipsites
-        if inpolygon(sdata.(allsites{i}).X,sdata.(allsites{i}).Y,shp.X,shp.Y)
+if runsites
+    
+    sdata =  download_Site_Info;
+    
+    
+    shp = shaperead('bounding.shp');
+    
+    clipsites = 0;
+    
+    thesites = [];
+    
+    allsites = fieldnames(sdata);
+    
+    
+    
+    for i = 1:length(allsites)
+        if clipsites
+            if inpolygon(sdata.(allsites{i}).X,sdata.(allsites{i}).Y,shp.X,shp.Y)
+                thesites = [thesites;allsites(i)];
+            end
+        else
             thesites = [thesites;allsites(i)];
         end
-    else
-        thesites = [thesites;allsites(i)];
     end
+    
+else
+    
+    thesites = [];
+    
+    thesites = {'A4261204'};
 end
-
-%thesites = {'A4261159'};
-
 %thesites = fieldnames(sitelist);
 
 
@@ -70,7 +80,7 @@ for bb = 1:length(thesites)
         
         
         theaddress = [header,dataset(i).Name{2},thesite,dataset(i).Name{3}];
-        
+        theaddress
         try
             outfilename = websave('temp.csv',theaddress,options);
         catch
@@ -99,8 +109,9 @@ for bb = 1:length(thesites)
                     if the_size < 1000
                         delete('temp.csv');
                     else
+                        %stop
                         fprintf(fidout,'%s,%s\n',thesite,theaddress);
-                        %copyfile('temp.csv',filename, 'f');
+                        copyfile('temp.csv',filename, 'f');
                         delete('temp.csv');
                     end
                     
@@ -121,9 +132,9 @@ for bb = 1:length(thesites)
         
     end
     
-    end
-    
 end
+
+
 
 
 switch theinterval
