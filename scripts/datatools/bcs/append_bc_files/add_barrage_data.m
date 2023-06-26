@@ -24,11 +24,11 @@ for bb = 1:length(sites)
 
         
         
-        filename = ['../BC from Field Data/BCs_BAR_2019_2022_V7_EXT/',thesite,'_20120101_20221101.csv'];
+        filename = ['../BC from Field Data/BCs_BAR_2019_2023_V1/',thesite,'_20120101_20230601.csv'];
         
         
         
-        outdir = ['Images/',thesite,'/'];
+        outdir = ['Images2023/',thesite,'/'];
         
         if ~exist(outdir,'dir')
             mkdir(outdir)
@@ -46,7 +46,7 @@ for bb = 1:length(sites)
         
         
         
-        fid = fopen([thesite,'_20120101_20221101_v4.csv'],'wt');
+        fid = fopen([thesite,'_20120101_20230601_v1.csv'],'wt');
         
         for i = 1:length(vars)
             if i == length(vars)
@@ -106,6 +106,6 @@ for bb = 1:length(sites)
             end
         end
         
-        create_html_for_directory('Images/');
+        create_html_for_directory('Images2023/');
     end
 end

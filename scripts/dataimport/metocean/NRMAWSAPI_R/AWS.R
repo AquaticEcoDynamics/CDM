@@ -25,6 +25,8 @@ token<-A[[3]]$`x-token`
 url<-"https://api.awsnetwork.com.au/v3/sensor-groups"
 A<-GET(url,add_headers(Authorization=paste("Bearer",token)))
 
+print(url)
+
 stations<-fromJSON(rawToChar(A[[6]]))
 
 stations<-tibble(stations$data)
@@ -43,7 +45,11 @@ for(sensorid in sensors$data$id)
               "/readings?start=",startDate,
               "&end=",endDate,
               "&perPage=1000000&page=1")
+  
+  
+  
   A<-GET(url,add_headers(Authorization=paste("Bearer",token)))
+  print(A)
   data<-data %>% bind_rows(fromJSON(rawToChar(A[[6]]))$data)
 }
 
@@ -73,7 +79,6 @@ NRMAWSStationNames<-function()
   token<-A[[3]]$`x-token`
   url<-"https://api.awsnetwork.com.au/v3/sensor-groups"
   A<-GET(url,add_headers(Authorization=paste("Bearer",token)))
-  
   stations<-fromJSON(rawToChar(A[[6]]))
   
   stations<-tibble(stations$data)
@@ -85,10 +90,10 @@ siteName<-"Narrung" #can use NRMStationNames() to see what sites are available w
 
 
 
-theyear<-"2022"
+theyear<-"2020"
 startDate<-paste0(theyear,"-01-01")
-endDate<-Sys.Date()
-#endDate<-paste0(theyear,"-12-31")
+#endDate<-Sys.Date()
+endDate<-paste0(theyear,"-12-31")
 
 data<-NRMAWSData(siteName,startDate,endDate)
 write.csv(data,paste0(siteName,"_",theyear,".csv"),row.names = FALSE)

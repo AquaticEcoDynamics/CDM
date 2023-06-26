@@ -273,7 +273,7 @@ end
 
 
 
-save ../../../../data/store/hydro/dew_WaterDataSA_hourly.mat dew -mat;
+save ../../../../data/store/hydro/dew_WaterDataSA_hourly.mat dew -mat -v7.3;
 
 % Older Cal.
 % if temp_corrected

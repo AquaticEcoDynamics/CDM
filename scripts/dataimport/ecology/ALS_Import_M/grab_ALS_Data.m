@@ -3,7 +3,7 @@ function out = grab_ALS_Data(filename)
 %filename = 'C:\Users\00065525\Github\CDM\data\incoming\DEW\wq\WQ_HCHB_Phase1\ALS Results\2021 Results\April\7_4_2021/EM2106129_0_ENMRG.CSV';
 
 int = 1;
-
+filename
 fid = fopen(filename,'rt');
 out.dates = [];
 out.sites = [];
@@ -11,14 +11,17 @@ while ~feof(fid)
     data = [];
     
     fline = fgetl(fid);
+    %fline
     if fline ~= -1
         str = split(fline,',');
+        
+        %str = regexprep(str,'----','');
         
         %length(str);
         
         if int == 3
             % Sites;
-            str(6:end)
+            str(6:end);
             out.dates = datenum(str(6:end),'dd/mm/yyyy');
         end
         if int == 4
@@ -91,6 +94,7 @@ while ~feof(fid)
                 out.Reactive_Silica.Var = str{1};
                 out.Reactive_Silica.Units = str{3};end
             case 'Ammonia as N'
+                str
                 thedata = str(6:end);if length(thedata) < 30
                 
                 out.Ammonia_as_N.data = str2double(thedata);

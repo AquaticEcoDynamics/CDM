@@ -92,12 +92,12 @@ end
 
 load ../../../../data/store/ecology/ALS.mat;
 
-sites = fieldnames(ALS);
-
-for i = 1:length(sites)
-    cllmm.(sites{i}) = ALS.(sites{i});
-    %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
-end
+% sites = fieldnames(ALS);
+% 
+% for i = 1:length(sites)
+%     cllmm.(sites{i}) = ALS.(sites{i});
+%     %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
+% end
 
 load ../../../../data/store/ecology/DO_Logger.mat;
 
@@ -130,6 +130,19 @@ for i = 1:length(sites)
     %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
 end
 
+load ../../../../data/store/ecology/AWQC_1B.mat;
+
+sites = fieldnames(AWQC);
+
+for i = 1:length(sites)
+   if isfield(AWQC.(sites{i}),'TEMP')
+        AWQC.(sites{i}) = rmfield(AWQC.(sites{i}),'TEMP');
+    end
+    cllmm.(sites{i}) = AWQC.(sites{i});
+    %lowerlakes.(sites{i}) = add_agency(lowerlakes.(sites{i}),'UA WQ');
+end
+
+
 
 load ../../../../data/store/hydro/UA_temperature_loggers.mat;
 
@@ -156,7 +169,7 @@ cllmm = check_XY(cllmm);
 cllmm = add_offset(cllmm);
 
 %datearray(:,1) = datenum(2008,01:180,01);
-datearray(:,1) = [datenum(2008,01,01):01:datenum(2023,01,01)];
+datearray(:,1) = [datenum(2008,01,01):01:datenum(2024,01,01)];
 
 %cllmm = cleanse_sites(cllmm);
 
@@ -170,7 +183,7 @@ export_shapefile(cllmm,'../../../../gis/mapping/field/fieldsites.shp');
 cllmm = remove_nans(cllmm);
 
 
-save ../../../../data/store/archive/cllmm.mat cllmm -mat;
+save ../../../../data/store/archive/cllmm.mat cllmm -mat -v7.3;
 
 agency_all = [];
 sites = fieldnames(cllmm);
@@ -221,19 +234,19 @@ cllmm = check_XY(cllmm);
 cllmm = add_offset(cllmm);
 
 %datearray(:,1) = datenum(2008,01:180,01);
-datearray(:,1) = [datenum(2008,01,01):01:datenum(2023,01,01)];
+datearray(:,1) = [datenum(2008,01,01):01:datenum(2024,01,01)];
 cllmm = cleanse_sites(cllmm);
 
 
 
 
 cllmm_sec = add_secondary_data(cllmm,datearray);
-save ../../../../data/store/archive/cllmm_sec.mat cllmm_sec -mat;
+save ../../../../data/store/archive/cllmm_sec.mat cllmm_sec -mat -v7.3;
 
 
 coorong = remove_Lake_Sites(cllmm,'GIS/Coorong_Boundary1.shp');
 
-save('../../../../data/store/archive/coorong.mat','coorong','-mat');
+save('../../../../data/store/archive/coorong.mat','coorong','-mat', '-v7.3');
 
 run('../../../../data/store/archive/merge_sites_within_matfile');
 

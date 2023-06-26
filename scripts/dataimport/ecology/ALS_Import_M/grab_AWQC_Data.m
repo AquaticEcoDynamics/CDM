@@ -1,4 +1,4 @@
-function out = grab_ALS_Data(fullname)
+function out = grab_ALS_Data(fullname,outfile)
 
 filename = [fullname.folder,'\',fullname.name];
 

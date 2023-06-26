@@ -10,7 +10,7 @@ if runsites
     sdata =  download_Site_Info;
     
     
-    shp = shaperead('bounding.shp');
+    shp = shaperead('Bounding_Small.shp');
     
     clipsites = 0;
     

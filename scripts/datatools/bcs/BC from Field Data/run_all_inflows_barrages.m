@@ -2,7 +2,7 @@ clear all; close all;
 
 addpath(genpath('Functions'));
 
-outdir = 'BCs_BAR_2019_2022_V7_EXT/';
+outdir = 'BCs_BAR_2019_2023_V1/';
 
 if ~exist(outdir,'dir')
     mkdir(outdir);
@@ -13,7 +13,7 @@ load '../../../../data/store/archive/cllmm_BC.mat';
 
 %lowerlakes = limit_datasites(cllmm,1);
 lowerlakes = cllmm;
-datearray(:,1) = datenum(2012,01,01,00,00,00):1:datenum(2022,11,01,00,00,00);
+datearray(:,1) = datenum(2012,01,01,00,00,00):1:datenum(2023,06,01,00,00,00);
 
 
 lowerlakes = rmfield(lowerlakes,'TLM_Mundoo_Channel');
@@ -58,79 +58,79 @@ headers = {...
 % % %
 % % % % ____________________________________________________
 
-% % % filename = [outdir,'Salt_Creek_20120101_20221101.csv'];
-% % % subdir = [outdir,'Salt_Creek/'];
-% % % 
-% % % X = 378834.;
-% % % Y = 6001351.5;
-% % % 
-% % % create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Salt_Creek');
-% % % 
-% % % 
-% % % 
-% % % filename = [outdir,'Tauwitchere_20120101_20221101.csv'];
-% % % subdir = [outdir,'Tauwitchere/'];
-% % % 
-% % % % X = 321940.0;
-% % % % Y = 6061790.0;
-% % % 
-% % % X = 324305;	
-% % % Y = 6067057;
-% % % 
-% % % 
-% % % create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Tauwitchere');
-% % % 
-% % % 
-% % % filename = [outdir,'Ewe_20120101_20221101.csv'];
-% % % subdir = [outdir,'Ewe/'];
-% % % 
-% % % % X = 317190.0;
-% % % % Y = 6063300.0;
-% % % 
-% % % X = 324305;	
-% % % Y = 6067057;
-% % % 
-% % % create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Ewe');
-% % % 
-% % % 
-% % % filename = [outdir,'Boundary_20120101_20221101.csv'];
-% % % subdir = [outdir,'Boundary/'];
-% % % % X = 314700;
-% % % % Y = 6064000;
-% % % % X = 324507;	
-% % % % Y = 6068128;
-% % % X = 316257;	
-% % % Y = 6067122;
-% % % 
-% % % 
-% % % 
-% % % % X = 315780.0;
-% % % % Y = 6067390.0;
-% % % 
-% % % create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Boundary');
-% % % 
-% % % 
-% % % filename = [outdir,'Mundoo_20120101_20221101.csv'];
-% % % subdir = [outdir,'Mundoo/'];
-% % % % X = 310500;
-% % % % Y = 6065700;
-% % % 
-% % % % X = 314110.0;
-% % % % Y = 6068270.0;
-% % % X = 316257;	
-% % % Y = 6067122;
-% % % create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Mundoo');
-% % % 
-% % % 
-% % % filename = [outdir,'Goolwa_20120101_20221101.csv'];
-% % % subdir = [outdir,'Goolwa/'];
-% % % 
-% % % % X = 299425.0;
-% % % % Y = 6067810.0;
-% % % X = 300692;
-% % % Y = 6067199;
-% % % 
-% % % create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Goolwa');
+filename = [outdir,'Salt_Creek_20120101_20230601.csv'];
+subdir = [outdir,'Salt_Creek/'];
+
+X = 378834.;
+Y = 6001351.5;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Salt_Creek');
+
+
+
+filename = [outdir,'Tauwitchere_20120101_20230601.csv'];
+subdir = [outdir,'Tauwitchere/'];
+
+% X = 321940.0;
+% Y = 6061790.0;
+
+X = 324305;	
+Y = 6067057;
+
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Tauwitchere');
+
+
+filename = [outdir,'Ewe_20120101_20230601.csv'];
+subdir = [outdir,'Ewe/'];
+
+% X = 317190.0;
+% Y = 6063300.0;
+
+X = 324305;	
+Y = 6067057;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Ewe');
+
+
+filename = [outdir,'Boundary_20120101_20230601.csv'];
+subdir = [outdir,'Boundary/'];
+% X = 314700;
+% Y = 6064000;
+% X = 324507;	
+% Y = 6068128;
+X = 316257;	
+Y = 6067122;
+
+
+
+% X = 315780.0;
+% Y = 6067390.0;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Boundary');
+
+
+filename = [outdir,'Mundoo_20120101_20230601.csv'];
+subdir = [outdir,'Mundoo/'];
+% X = 310500;
+% Y = 6065700;
+
+% X = 314110.0;
+% Y = 6068270.0;
+X = 316257;	
+Y = 6067122;
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Mundoo');
+
+
+filename = [outdir,'Goolwa_20120101_20230601.csv'];
+subdir = [outdir,'Goolwa/'];
+
+% X = 299425.0;
+% Y = 6067810.0;
+X = 300692;
+Y = 6067199;
+
+create_tfv_inflow_file(lowerlakes,headers,datearray,filename,X,Y,subdir,'Goolwa');
 
 % 
 % % filename = [outdir,'Albert_Opening_Phase_II_20130101_20200701.csv'];
@@ -181,12 +181,12 @@ headers = {...
 % 
 
 clear datearray;
- datearray(:,1) = datenum(2012,01,01,00,00,00):30/(60*24):datenum(2022,11,01,00,00,00);
+ datearray(:,1) = datenum(2012,01,01,00,00,00):30/(60*24):datenum(2023,06,01,00,00,00);
 % 
 % 
 headers{1} = 'H';
 
-filename = [outdir,'BK_20120101_20221101.csv'];
+filename = [outdir,'BK_20120101_20230601.csv'];
 subdir = [outdir,'BK/'];
 
 X = 309703.3;

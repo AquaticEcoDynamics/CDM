@@ -1,0 +1,32 @@
+Output Dir == ../../../output_basecase_005/		! Might need to move to top if outputs are defined in "scenario inputs"
+
+output == flux
+  output interval == 1800
+end output
+
+output == netcdf
+  output parameters == h,v,d,Sal,Temp,trace_1,trace_2,trace_3,trace_4,trace_5,W10,Evap,precip,Air_temp
+  output interval == 14400
+  output compression == 1
+  suffix == hd
+end output
+
+!output == netcdf
+!  output parameters == W10,h,v,d,Sal,Temp,WQ_DIAG_TOT_TN,WQ_DIAG_TOT_TP,WQ_DIAG_PHY_TCHLA,WQ_NIT_AMM,WQ_NIT_NIT,WQ_PHS_FRP,WQ_OXY_OXY,WQ_DIAG_TOT_TSS,WQ_DIAG_TOT_TURBIDITY,WQ_OGM_DOP,WQ_OGM_DON
+!  output interval == 10800
+!  output compression == 1
+!  suffix == wq
+!end output
+
+output == netcdf
+  output parameters == W10,h,v,d,evap,precip,Sal,Temp,wq_all,wq_diag_all
+  output interval == 14400
+  output compression == 1
+  suffix == all
+end output
+
+!Output == points
+!	Output points file == ../../../model/geo/points/output_points_001.csv
+!	Output parameters == h,sal,temp,air_temp,evap,precip,trace_1,trace_2,trace_3,trace_4,trace_5
+!	Output interval == 10800
+!end output
