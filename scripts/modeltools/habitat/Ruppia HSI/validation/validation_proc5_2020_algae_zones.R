@@ -7,6 +7,7 @@ library(ggnewscale)
 library(ggsn)
 library(ggpubr)
 library(stringr)
+library(ggrepel)
 
 #_______________process field data________________
 
@@ -18,7 +19,8 @@ poly <- readOGR("C:/Users/00101765/AED Dropbox/AED_Coorong_db/7_hchb/Ruppia/GIS/
 poly <- st_as_sf(poly)
 poly <-st_transform(poly,32754) #zone54S, datum WGS84
 
-zone <- readOGR("C:/Users/00101765/AED Dropbox/AED_Coorong_db/7_hchb/Ruppia/GIS/31_material_zones.shp")
+#zone <- readOGR("C:/Users/00101765/AED Dropbox/AED_Coorong_db/7_hchb/Ruppia/GIS/31_material_zones.shp")
+zone <- readOGR("C:/Users/00101765/AED Dropbox/AED_Coorong_db/7_hchb/Ruppia/GIS/36_material_zones_v06_005.shp") #newMesh
 zone <- st_as_sf(zone)
 zone <-st_transform(zone,32754) #zone54S, datum WGS84
 
@@ -56,7 +58,8 @@ dat20 <-st_transform(dat20,32754) #zone54S, datum WGS84
 
 #______________process model data_____________________
 
-setwd("D:/newmag_0616/Plotting_Ruppia/eWater2021_basecase_t3_all/Sheets/shp") #set the folder of all the files to be looped
+#setwd("D:/newmag_0616/Plotting_Ruppia/eWater2021_basecase_t3_all/Sheets/shp") #set the folder of all the files to be looped
+setwd("E:/HCHB_GEN2_4yrs_20220620_v2/Plotting_Ruppia_all/hchb_Gen2_201707_202201_all/Sheets/shp")
 listshp <- dir(pattern = "*.shp") #creates a list of all the shp files in the directory
 nmod <- list() #creates an empty list for all input data
 names <- list()
@@ -73,6 +76,8 @@ for (i in 1:length(listshp)){
 
 
 ########### validation loop ##############
+
+outdir <- "C:/Users/00101765/AED Dropbox/AED_Coorong_db/7_hchb/Ruppia/R plots/validation_newMesh_BB_v4/"
 
 #yr <- 2020  #model years
 
@@ -106,11 +111,12 @@ for (y in 1:length(yr)){
   mod_zoneave[[y]] <- aggregate(cbind(area, HSI_area) ~ Mat, data=mod_zone[[y]],FUN=sum, na.action=na.pass,na.rm=TRUE )  #calculate total area and HSI x area in each zone 
   mod_zoneave[[y]]$HSI_wght <- mod_zoneave[[y]]$HSI_area/mod_zoneave[[y]]$area  #weighted average HSI/biomass in each zone = sum of weighted HSI x area for each zone divided by total area of each zone
   
-  if (yr[y] == 2021){ 
+  if (yr[y] == 2021){
     dat[[y]] <- subset(dat20, YM == gsub(" ","",paste(yr[y],"-12-01"),fixed=TRUE))
     } else {
     dat[[y]] <- subset(dat20, YM == gsub(" ","",paste(yr[y],"-09-01"),fixed=TRUE)) #gsub removes space between year and -09-01
-    }
+  }
+  # dat[[y]] <- subset(dat20, YM == gsub(" ","",paste(yr[y],"-09-01"),fixed=TRUE))
   #dat_buff[[y]] <- st_buffer(dat[[y]],bufsize)
   dat_zone[[y]] <- st_intersection(dat[[y]],zone)  #intersect with zone map
   col <- grep("algaebiomass",colnames(dat_zone[[y]]),ignore.case = TRUE)  #filter field data life stage
@@ -123,13 +129,13 @@ for (y in 1:length(yr)){
 
 alldat <- do.call(rbind, df_valid)
 
-  R <- format(cor(alldat[2],alldat[5],use="complete.obs"), digits = 2)
+  R <- format(cor(alldat[2],alldat[5],use="complete.obs",method = "spearman"), digits = 2)
   
   ggplot(alldat,aes_string(x=names(alldat)[2],y=names(alldat)[5]))+
     geom_point(aes(colour=factor(year)), #position=position_jitter(h=2, w=2),
                 alpha = 0.4, size = 2, show.legend = T)+
-    geom_smooth(method="lm",se = FALSE,show.legend = FALSE, colour="grey30")+
-    annotate(geom = "text", label= paste0("R = ",R), x = -Inf, y = Inf, hjust = -2.3, vjust = 1, colour="grey30")+
+    #geom_smooth(method="lm",se = FALSE,show.legend = FALSE, colour="grey30")+
+    annotate(geom = "text", label= paste0("rs = ",R), x = -Inf, y = Inf, hjust = -2.3, vjust = 1, colour="grey30")+
     #geom_text(aes(label=Mat),position=position_jitter(width=5,height=5))+ #hjust=0.5, vjust=-0.5, size=3)+
     geom_text_repel(aes(label=Mat), max.overlaps = 100)+
     theme_bw()+
@@ -139,7 +145,7 @@ alldat <- do.call(rbind, df_valid)
     ylab(paste("Modelled BIOMASS ULVA Nov (g/m2)"))+
     xlab(paste("Field algae biomass Sep-Dec (g/m2)"))
   
-  ggsave(paste0("C:/Users/00101765/AED Dropbox/AED_Coorong_db/7_hchb/Ruppia/R plots/validation_mag0621/algae_biomass_zone_label.png"), 
+  ggsave(paste0(outdir,"algae_biomass_zone_label.png"), 
          width = 12, height = 10, units = "cm",dpi = 300)
 
   
@@ -158,11 +164,12 @@ alldat <- do.call(rbind, df_valid)
     mod_zoneave[[y]]$HSI_wght <- mod_zoneave[[y]]$HSI_area/mod_zoneave[[y]]$area  #weighted average HSI/biomass in each zone = sum of weighted HSI x area for each zone divided by total area of each zone
     mod_zoneave[[y]]$HSI_scale <- mod_zoneave[[y]]$HSI_wght/max(mod_zoneave[[y]]$HSI_wght)
     
-    if (yr[y] == 2021){ 
+    if (yr[y] == 2021){
       dat[[y]] <- subset(dat20, YM == gsub(" ","",paste(yr[y],"-12-01"),fixed=TRUE))
-    } else {
+      } else {
       dat[[y]] <- subset(dat20, YM == gsub(" ","",paste(yr[y],"-09-01"),fixed=TRUE)) #gsub removes space between year and -09-01
     }
+    #dat[[y]] <- subset(dat20, YM == gsub(" ","",paste(yr[y],"-09-01"),fixed=TRUE))
     #dat_buff[[y]] <- st_buffer(dat[[y]],bufsize)
     dat_zone[[y]] <- st_intersection(dat[[y]],zone)  #intersect with zone map
     col <- grep("algaebiomass",colnames(dat_zone[[y]]),ignore.case = TRUE)  #filter field data life stage
@@ -175,12 +182,12 @@ alldat <- do.call(rbind, df_valid)
   
   alldat <- do.call(rbind, df_valid)
   
-  R <- format(cor(alldat[2],alldat[6],use="complete.obs"), digits = 2)
+  R <- format(cor(alldat[2],alldat[6],use="complete.obs",method = "spearman"), digits = 2)
   
   ggplot(alldat,aes_string(x=names(alldat)[2],y=names(alldat)[6]))+
     geom_point(aes(colour=factor(year)),show.legend = T)+
-    geom_smooth(method="lm",se = FALSE,show.legend = FALSE, colour="grey30")+
-    annotate(geom = "text", label= paste0("R = ",R), x = -Inf, y = Inf, hjust = -0.5, vjust = 1, colour="grey30")+
+    #geom_smooth(method="lm",se = FALSE,show.legend = FALSE, colour="grey30")+
+    annotate(geom = "text", label= paste0("rs = ",R), x = -Inf, y = Inf, hjust = -0.5, vjust = 1, colour="grey30")+
     geom_text(aes(label=Mat),hjust=0.5, vjust=-0.5, size=3)+
     theme_bw()+
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -189,7 +196,7 @@ alldat <- do.call(rbind, df_valid)
     ylab(paste("Modelled HSI ULVA Nov (g/m2)"))+
     xlab(paste("Field algae biomass Sep-Dec (g/m2)"))
   
-  ggsave(paste0("C:/Users/00101765/AED Dropbox/AED_Coorong_db/7_hchb/Ruppia/R plots/validation_mag0621/HSI_biomass_zone.png"), 
+  ggsave(paste0(outdir,"HSI_biomass_zone.png"), 
          width = 12, height = 10, units = "cm",dpi = 300)
  
   
@@ -205,12 +212,13 @@ alldat <- do.call(rbind, df_valid)
     mod_zone[[y]]$HSI_area <- mod_zone[[y]]$area * mod_zone[[y]]$HSI   # calculate HSI x area
     mod_zoneave[[y]] <- aggregate(cbind(area, HSI_area) ~ Mat, data=mod_zone[[y]],FUN=sum, na.action=na.pass,na.rm=TRUE )  #calculate total area and HSI x area in each zone 
     mod_zoneave[[y]]$HSI_wght <- mod_zoneave[[y]]$HSI_area/mod_zoneave[[y]]$area  #weighted average HSI/biomass in each zone = sum of weighted HSI x area for each zone divided by total area of each zone
-    
-    if (yr[y] == 2021){ 
+
+    if (yr[y] == 2021){
       dat[[y]] <- subset(dat20, YM == gsub(" ","",paste(yr[y],"-12-01"),fixed=TRUE))
-    } else {
+      } else {
       dat[[y]] <- subset(dat20, YM == gsub(" ","",paste(yr[y],"-09-01"),fixed=TRUE)) #gsub removes space between year and -09-01
     }
+    #dat[[y]] <- subset(dat20, YM == gsub(" ","",paste(yr[y],"-09-01"),fixed=TRUE))
     #dat_buff[[y]] <- st_buffer(dat[[y]],bufsize)
     dat_zone[[y]] <- st_intersection(dat[[y]],zone)  #intersect with zone map
     col <- grep("algaebiomass",colnames(dat_zone[[y]]),ignore.case = TRUE)  #filter field data life stage
@@ -223,12 +231,12 @@ alldat <- do.call(rbind, df_valid)
   
   alldat <- do.call(rbind, df_valid)
   
-  R <- format(cor(alldat[2],alldat[5],use="complete.obs"), digits = 2)
+  R <- format(cor(alldat[2],alldat[5],use="complete.obs",method = "spearman"), digits = 2)
   
   ggplot(alldat,aes_string(x=names(alldat)[2],y=names(alldat)[5]))+
     geom_point(aes(colour=factor(year)),show.legend = T)+
-    geom_smooth(method="lm",se = FALSE,show.legend = FALSE, colour="grey30")+
-    annotate(geom = "text", label= paste0("R = ",R), x = -Inf, y = Inf, hjust = -0.5, vjust = 1, colour="grey30")+
+    #geom_smooth(method="lm",se = FALSE,show.legend = FALSE, colour="grey30")+
+    annotate(geom = "text", label= paste0("rs = ",R), x = -Inf, y = Inf, hjust = -0.5, vjust = 1, colour="grey30")+
     geom_text(aes(label=Mat),hjust=0.5, vjust=-0.5, size=3)+
     theme_bw()+
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -237,7 +245,7 @@ alldat <- do.call(rbind, df_valid)
     ylab(paste("Modelled BENTHIC ULVA Nov (g/m2)"))+
     xlab(paste("Field algae biomass Sep-Dec (g/m2)"))
   
-  ggsave(paste0("C:/Users/00101765/AED Dropbox/AED_Coorong_db/7_hchb/Ruppia/R plots/validation_mag0621/algae_benthic_zone.png"), 
+  ggsave(paste0(outdir,"algae_benthic_zone.png"), 
          width = 12, height = 10, units = "cm",dpi = 300)
   
   
