@@ -17,3 +17,6 @@ This is the repository for the Coorong Dynamics Model Generation 2.1 (CDM Gen 2.
 - `external`: AED setting files;
 - `model`: repository for model structure, such as mesh, bathymetry, material zones, node-strings;
 - `run`: configuration files of TFV;
+
+![2_panel_mesh_materials](https://github.com/AquaticEcoDynamics/CDM/assets/19967037/8f319a3e-2e8c-4f71-8466-1cf82883418c)
+Gen 2.1 upgraded mesh & material zones
