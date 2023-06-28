@@ -3,14 +3,14 @@
 # CDM Gen 2.1 
 
 ## Overview
-This is the repository for the Coorong Dynamics Model Generation 2.1 (CDM Gen 2.1), which was updated from Gen 2.0 (see below) and includes a time frame of 07/2017 - 11/2022.  
+This is the repository for the Coorong Dynamics Model Generation 2.1 (CDM Gen 2.1), which was updated from Gen 2.0 (see below) and includes a time frame of 07/2017 - 11/2022. The model time frame will be extended to 2023 once the tide and weather data were updated.
 
 ## Updates from Gen 2.0
 - `model domain`: model domain has been extended in North Lagoon and South Lagoon to include Ruppia sampling locations at the shoreline; 
-- `bathymetry`: Integrated the latest bathymetry data at Parnka channel and Murray Mouth;
-- `material zones`: refine the material zone settings around the Parnka Point and Murray Mouth;
-- `aed`: update AED initial condition and sediment fluxes to adapt the new mesh and material zones;
-- `time frame`: update CDM to Nov 2011, including the tide, weather, and flows;
+- `bathymetry`: latest bathymetry data at Parnka channel and Murray Mouth was integrated int the momdel;
+- `material zones`: the material zone settings around the Parnka Point and Murray Mouth were refined for better resolving the local bathymetry and nutrient fluxes;
+- `aed`: AED initial condition and sediment fluxes were updated to adapt to the new mesh and material zones;
+- `time frame`: all boundary conditions were updated to Nov 2022, including the tide, weather, and flows; to be updated to 2023 once the tide and weather data were updated. 
 
 ## Folder Structure
 - `bc_dbase`: database for boundary conditions, including tide, inflows, weather, barrage flow, and initial conditions; 
