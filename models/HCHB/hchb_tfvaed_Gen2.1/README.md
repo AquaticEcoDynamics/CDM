@@ -24,6 +24,5 @@ This is the repository for the Coorong Dynamics Model Generation 2.1 (CDM Gen 2.
 ![2_panel_mesh_materials](https://github.com/AquaticEcoDynamics/CDM/assets/19967037/8f319a3e-2e8c-4f71-8466-1cf82883418c)
 Gen 2.1 upgraded mesh & material zones
 
-
-![Gen2 1 Mesh Upgrade](https://github.com/AquaticEcoDynamics/CDM/assets/19967037/5ca761f5-20a7-40fc-838c-fc595c3dc86f)
+![Gen2 1 Mesh Upgrade](https://github.com/AquaticEcoDynamics/CDM/assets/19967037/ca38441d-19e7-41d0-b954-e7c3409d8949)
 Gen 2.1 upgraded mesh showing the refinement of the mesh in shallow regions to imrove habitat modelling
