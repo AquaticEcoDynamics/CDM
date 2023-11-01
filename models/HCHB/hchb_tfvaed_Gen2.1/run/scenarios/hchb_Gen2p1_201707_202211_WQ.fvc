@@ -1,0 +1,156 @@
+! Coorong Release Modelling - 2022
+! Calibration
+!_________________________________________________________________
+Hardware == GPU
+
+! GIS 
+!_________________________________________________________________
+GIS format == shp
+shp projection == ../../model/detailed/gis/shp/projection.prj
+GIS Projection Check == WARNING
+
+! TIME COMMANDS
+!_________________________________________________________________
+time format == ISODATE
+start time == 01/04/2017 00:00:00
+end time == 01/11/2022 00:00:00
+
+timestep limits == 0.1, 15
+display dt == 3600.
+cfl external == 0.9
+cfl internal == 0.9
+
+
+! SIMULATION CONFIGURATION
+!_________________________________________________________________
+include salinity == 1,1
+include temperature == 1,1
+include sediment == 0,0
+spatial order == 1,2
+horizontal gradient limiter == LCD
+vertical gradient limiter == MC
+bottom drag model == ks
+equation of state == UNESCO
+
+water quality model == EXTERNAL
+external water quality model dir == ../../external/AED/
+
+
+! MODEL PARAMETERS
+!_________________________________________________________________
+stability limits == 10.,10.
+cell wet/dry depths == 5.0e-2, 5.0e-2
+g == 9.81
+reference density == 1025.
+latitude == -35.8
+Wind Stress Params == 0., 0.8E-03, 50., 4.05E-03
+
+
+! HEAT PARAMETERS
+!_________________________________________________________________
+include heat == 1,0
+longwave radiation model == 3
+Shortwave radiation albedo == 0.05
+Shortwave radiation fractions == 0.500, 0.463, 0.036, 0.001
+Shortwave radiation extinction coefficients == 2.0, 1.2, 2.0, 2.5
+Bulk Latent Heat Coefficient == 1.5e-3 ! Default 1.3e-3
+!Vapour pressure salinity params == 4.61e-4, 6.51e-7, 0.7 ! a, b, c defaults
+
+! GEN 2 settings
+!include heat == 1,0
+!LONGWAVERADIATIONMODEL == 3
+!Shortwave radiation albedo == 0.05
+!Shortwave radiation fractions == 0.500, 0.463, 0.036, 0.001
+!Shortwave radiation extinction coefficients == 2.0, 1.2, 2.0, 2.5
+!Bulk Latent Heat Coefficient == 1.5e-3 ! Default 1.3e-3
+
+
+! TURBULENCE AND SCALAR PARAMETERS
+!_________________________________________________________________
+momentum mixing model == SMAGORINSKY
+scalar mixing model == ELDER
+vertical mixing model == external
+external turbulence model dir == ../../external/GOTM/detailed/
+global horizontal eddy viscosity == 0.2
+global horizontal scalar diffusivity == 250.0,25.0
+global horizontal scalar diffusivity limits == 1.0, 50.0
+
+
+! TRACER PARAMETERS
+!_________________________________________________________________
+Ntracer == 5
+tracer == 1 ! Initial CSL passive tracer - initial concentration 100 in CSL
+end tracer
+tracer == 2 ! Ocean water passive tracer - concentration 100 at ocean boundaries including pump connections
+end tracer
+tracer == 3 ! Barrage flow passive tracer - concentration 100 in barrage flow
+end tracer
+tracer == 4 ! Salt Creek passive tracer - concentration 100 in salt creek flow
+end tracer
+tracer == 5 ! Water age passive tracer - initial concentration 0 and all inflow concentrations 0
+	water age == 1
+end tracer
+
+
+! GEOMETRY
+!_________________________________________________________________
+geometry 2d == ../../model/detailed/mesh/Coorong_detailed_006_AED_v5.2dm
+Cell elevation file == ../../model/detailed/cc/Coorong_detailed_006_AED_v6.csv
+
+echo geometry == 1
+
+Read GIS Nodestring == ../../model/detailed/gis/shp/ss/2d_ns_Coorong_Detailed_003_L.shp
+
+include == ../../model/materials/Material_Roughness_z36_final.fvc
+Read GIS Mat == ../../model/detailed/gis/shp/36_material_zones_v06_005.shp
+
+
+! SCENARIO INPUTS
+!_________________________________________________________________
+
+
+! BOUNDARY CONDITIONS
+!_________________________________________________________________
+! Tide
+
+include == ./includes/flows_hchb_Gen2p1.fvc
+
+! Met BCs
+
+bc == W10, ../../bc_dbase/calibration/met/Narrung_met_20160201_20221101.csv
+  bc header == ISOTime,Wx,Wy
+  bc scale == 1.50,1.50
+end bc
+
+bc == AIR_TEMP, ../../bc_dbase/calibration/met/Narrung_met_20160201_20221101.csv
+  bc header == ISOTime,ATemp
+end bc
+
+bc == REL_HUM, ../../bc_dbase/calibration/met/Narrung_met_20160201_20221101.csv
+  bc header == ISOTime,Rel_Hum
+end bc
+
+bc == SW_RAD, ../../bc_dbase/calibration/met/Narrung_met_20160201_20221101.csv
+  bc header == ISOTime,Sol_Rad
+  bc scale == 0.95
+end bc
+
+bc == CLOUD, ../../bc_dbase/calibration/met/Narrung_met_20160201_20221101.csv
+  bc header == ISOTime,Clouds
+!  bc scale == 1.1
+end bc
+bc == PRECIP, ../../bc_dbase/calibration/met/Narrung_rain_20160201_20221101.csv
+  bc header == ISOTime,Precip
+end bc
+
+! INITIAL CONDITIONS
+!_________________________________________________________________
+Initial Condition 2D == ../../bc_dbase/calibration/initial/detailed/init_conditions_20170401.csv
+
+
+! OUTPUT COMMANDS
+!_________________________________________________________________
+Write Check Files  == ./check/
+include == ./includes/output_hchb_Gen2p1_WQ.fvc
+
+write restart dt == 240.
