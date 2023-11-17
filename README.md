@@ -18,11 +18,24 @@ For an overview of the CDM model, refer to the [CDM Documentation](https://aquat
 
 <br>
 
+## Citing this code
+
+[![DOI](https://zenodo.org/badge/246998446.svg)](https://zenodo.org/doi/10.5281/zenodo.10148552)
+
+These model input files are citable, and associated with the manuscript by Huang et al, submitted to JGR Biogeosciences.
+
+Citing a specific model version bundle, please use the appropriate DOI.
+
+
+<br>
+
 ## Repository organisation
 
 
 <img src="https://user-images.githubusercontent.com/19967037/127596869-b62ce358-925f-45cc-82cd-0f55aea5b991.png" alt="Fodler structure" width="500"/>
 Figure 1. Design schematic for the CDM repository
+
+<br>
 
 <br>
 
@@ -53,4 +66,10 @@ If you want to create an archive of all the code (including the submodules), fir
 See repository Wiki for additional information on editing the repository and adding new content.
 
 <br>
+
+
+
+
+
+
 
