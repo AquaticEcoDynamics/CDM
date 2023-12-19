@@ -3,8 +3,8 @@ clear al; close all;
 addpath(genpath('Functions'));
 
 disp('Downloading site information');
-sdata =  download_Site_Info;
-
+%sdata =  download_Site_Info;
+load siteinfo.mat;
 disp('DONE');
 
 

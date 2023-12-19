@@ -7,8 +7,8 @@ fidout = fopen('theaddress.txt','wt');
 
 if runsites
     
-    sdata =  download_Site_Info;
-    
+    %sdata =  download_Site_Info;
+    load siteinfo.mat;
     
     shp = shaperead('Bounding_Small.shp');
     
