@@ -35,33 +35,47 @@ conv = snum(:,1);
 AWQC = [];
 
 for i = 1:length(data)
-    
+
     if ~isnan(data(i))
-        
+
         sss = find(strcmpi(oldsite,sites{i}) == 1);
         ttt = find(strcmpi(oldvar,vars{i}) == 1);
         if isempty(sss)
             stop;
         end
-        if isempty(ttt)
-            stop;
-        end
-        
-        
-        if strcmpi(newvar{ttt(1)},'Ignore') == 0
-            
-            
-            filesite = [newsite{sss(1)}];
-            
-            
-            if isfield(AWQC,filesite)
-                
-                if isfield(AWQC.(filesite),newvar{ttt(1)})
-                    
-                    AWQC.(filesite).(newvar{ttt(1)}).Date = [AWQC.(filesite).(newvar{ttt(1)}).Date;mdates(i)];
-                    AWQC.(filesite).(newvar{ttt(1)}).Data = [AWQC.(filesite).(newvar{ttt(1)}).Data;data(i) * conv(ttt(1))];
-                    AWQC.(filesite).(newvar{ttt(1)}).Depth = [AWQC.(filesite).(newvar{ttt(1)}).Depth;0];
-                    
+        if ~isempty(ttt)
+
+
+
+
+            if strcmpi(newvar{ttt(1)},'Ignore') == 0
+
+
+                filesite = [newsite{sss(1)}];
+
+
+                if isfield(AWQC,filesite)
+
+                    if isfield(AWQC.(filesite),newvar{ttt(1)})
+
+                        AWQC.(filesite).(newvar{ttt(1)}).Date = [AWQC.(filesite).(newvar{ttt(1)}).Date;mdates(i)];
+                        AWQC.(filesite).(newvar{ttt(1)}).Data = [AWQC.(filesite).(newvar{ttt(1)}).Data;data(i) * conv(ttt(1))];
+                        AWQC.(filesite).(newvar{ttt(1)}).Depth = [AWQC.(filesite).(newvar{ttt(1)}).Depth;0];
+
+                    else
+                        AWQC.(filesite).(newvar{ttt(1)}).Date = mdates(i);
+                        AWQC.(filesite).(newvar{ttt(1)}).Data = data(i) * conv(ttt(1));
+                        AWQC.(filesite).(newvar{ttt(1)}).Depth = 0;
+                        AWQC.(filesite).(newvar{ttt(1)}).X = X(sss(1));
+                        AWQC.(filesite).(newvar{ttt(1)}).Y = Y(sss(1));
+                        AWQC.(filesite).(newvar{ttt(1)}).Units = newunits{ttt(1)};
+                        AWQC.(filesite).(newvar{ttt(1)}).Name = oldsite{sss(1)};
+                        AWQC.(filesite).(newvar{ttt(1)}).OldVar = oldvar{ttt(1)};
+                        AWQC.(filesite).(newvar{ttt(1)}).OldUnits = units{i};
+                        AWQC.(filesite).(newvar{ttt(1)}).Agency = 'AWQC (DEW)';
+
+                    end
+
                 else
                     AWQC.(filesite).(newvar{ttt(1)}).Date = mdates(i);
                     AWQC.(filesite).(newvar{ttt(1)}).Data = data(i) * conv(ttt(1));
@@ -73,24 +87,10 @@ for i = 1:length(data)
                     AWQC.(filesite).(newvar{ttt(1)}).OldVar = oldvar{ttt(1)};
                     AWQC.(filesite).(newvar{ttt(1)}).OldUnits = units{i};
                     AWQC.(filesite).(newvar{ttt(1)}).Agency = 'AWQC (DEW)';
-                    
+
                 end
-                
-            else
-                AWQC.(filesite).(newvar{ttt(1)}).Date = mdates(i);
-                AWQC.(filesite).(newvar{ttt(1)}).Data = data(i) * conv(ttt(1));
-                AWQC.(filesite).(newvar{ttt(1)}).Depth = 0;
-                AWQC.(filesite).(newvar{ttt(1)}).X = X(sss(1));
-                AWQC.(filesite).(newvar{ttt(1)}).Y = Y(sss(1));
-                AWQC.(filesite).(newvar{ttt(1)}).Units = newunits{ttt(1)};
-                AWQC.(filesite).(newvar{ttt(1)}).Name = oldsite{sss(1)};
-                AWQC.(filesite).(newvar{ttt(1)}).OldVar = oldvar{ttt(1)};
-                AWQC.(filesite).(newvar{ttt(1)}).OldUnits = units{i};
-                AWQC.(filesite).(newvar{ttt(1)}).Agency = 'AWQC (DEW)';
-                
             end
         end
-        
     end
 end
 
