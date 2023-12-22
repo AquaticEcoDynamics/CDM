@@ -7,7 +7,7 @@ fdata = cllmm_sec;
 clear cllmm_sec;
 
 
-distance = 5; % in m;
+distance = 1; % in m;
 
 sites = fieldnames(fdata);
 

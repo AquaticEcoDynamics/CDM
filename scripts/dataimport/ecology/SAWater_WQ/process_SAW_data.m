@@ -1,6 +1,8 @@
+clear all; close all;
+
 addpath(genpath('Functions'));
 
-filename = '../../../../data/incoming/SAWATER/River Murray Water Quality Data - Brendan Busch.xlsx';
+filename = '../../../../data/incoming/SAWATER/River Murray Water Quality Data - Brendan Busch 21-22.xlsx';
 
 % Raw Data import
 sheet = 'WQ DATA';
@@ -109,7 +111,7 @@ SAW_WQ = merge_sites(SAW_WQ);
 
 
 
-save ../../../../data/store/ecology/SAW_WQ.mat SAW_WQ -mat
+save ../../../../data/store/ecology/SAW_WQ_2022.mat SAW_WQ -mat
 
 
 % summerise_data('saw_2021.mat','saw_2020/');

@@ -1,14 +1,14 @@
 clear all; close all;
 
 
-filename = '../../../../data/incoming/DEW/barrages/barrage_daily_total.csv';
+filename = '../../../../data/incoming/DEW/barrages/barrage_daily_total_2023.csv';
 
-options = weboptions('Timeout',Inf);
-
-url = 'https://water.data.sa.gov.au/Export/BulkExport?DateRange=EntirePeriodOfRecord&TimeZone=9.5&Calendar=CALENDARYEAR&Interval=PointsAsRecorded&Step=1&ExportFormat=csv&TimeAligned=True&RoundData=False&IncludeGradeCodes=False&IncludeApprovalLevels=False&IncludeInterpolationTypes=False&Datasets[0].DatasetName=Discharge.Total%20Barrage%20Flow--Daily%20Totals%20(ML)%40A4261005&Datasets[0].Calculation=Instantaneous&Datasets[0].UnitId=239&Datasets[1].DatasetName=Discharge.Total%20Barrage%20Flow--Daily%20Totals%20(ML)%40A4261006&Datasets[1].Calculation=Instantaneous&Datasets[1].UnitId=239&Datasets[2].DatasetName=Discharge.Total%20Barrage%20Flow--Daily%20Totals%20(ML)%40A4260526&Datasets[2].Calculation=Instantaneous&Datasets[2].UnitId=239&Datasets[3].DatasetName=Discharge.Total%20Barrage%20Flow--Daily%20Total%20(ML)%40A4260570&Datasets[3].Calculation=Instantaneous&Datasets[3].UnitId=239&Datasets[4].DatasetName=Discharge.Total%20Barrage%20Flow--Daily%20Totals%20(ML)%40A4260571&Datasets[4].Calculation=Instantaneous&Datasets[4].UnitId=239&_=1644291031234';
-
-
-outfilename = websave(filename,url,options);
+% options = weboptions('Timeout',Inf);
+% 
+% url = 'https://water.data.sa.gov.au/Export/BulkExport?DateRange=EntirePeriodOfRecord&TimeZone=9.5&Calendar=CALENDARYEAR&Interval=PointsAsRecorded&Step=1&ExportFormat=csv&TimeAligned=True&RoundData=False&IncludeGradeCodes=False&IncludeApprovalLevels=False&IncludeInterpolationTypes=False&Datasets[0].DatasetName=Discharge.Total%20Barrage%20Flow--Daily%20Totals%20(ML)%40A4261005&Datasets[0].Calculation=Instantaneous&Datasets[0].UnitId=239&Datasets[1].DatasetName=Discharge.Total%20Barrage%20Flow--Daily%20Totals%20(ML)%40A4261006&Datasets[1].Calculation=Instantaneous&Datasets[1].UnitId=239&Datasets[2].DatasetName=Discharge.Total%20Barrage%20Flow--Daily%20Totals%20(ML)%40A4260526&Datasets[2].Calculation=Instantaneous&Datasets[2].UnitId=239&Datasets[3].DatasetName=Discharge.Total%20Barrage%20Flow--Daily%20Total%20(ML)%40A4260570&Datasets[3].Calculation=Instantaneous&Datasets[3].UnitId=239&Datasets[4].DatasetName=Discharge.Total%20Barrage%20Flow--Daily%20Totals%20(ML)%40A4260571&Datasets[4].Calculation=Instantaneous&Datasets[4].UnitId=239&_=1644291031234';
+% 
+% 
+% outfilename = websave(filename,url,options);
 
 
 fid = fopen(filename,'rt');

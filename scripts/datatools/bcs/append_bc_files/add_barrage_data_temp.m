@@ -26,11 +26,11 @@ for bb = 1:length(sites)
 
         
         
-        filename = [thesite,'_20120101_20230601_v1.csv'];
+        filename = [thesite,'_20120101_20230701_v2.csv'];
         
-        filename_new = [thesite,'_20120101_20230601_v2.csv'];
+        filename_new = [thesite,'_20120101_20230701_v3.csv'];
         
-        outdir = ['Images2023/',thesite,'/'];
+        outdir = ['Images2023_1/',thesite,'/'];
         
         if ~exist(outdir,'dir')
             mkdir(outdir)
@@ -114,6 +114,6 @@ for bb = 1:length(sites)
             end
         end
         
-        create_html_for_directory('Images2023/');
+        create_html_for_directory('Images2023_1/');
     end
 end

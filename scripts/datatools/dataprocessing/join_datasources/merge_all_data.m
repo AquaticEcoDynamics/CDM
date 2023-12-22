@@ -65,6 +65,25 @@ for i = 1:length(sites)
     cllmm.(['SAW2020_',sites{i}]) = SAW_WQ.(sites{i});
     cllmm.(['SAW2020_',sites{i}]) = add_agency(cllmm.(['SAW2020_',sites{i}]),'SA Water');
 end
+clear SAW_WQ;
+load ../../../../data/store/ecology/SAW_WQ_2022.mat;
+
+sites = fieldnames(SAW_WQ);
+
+for i = 1:length(sites)
+    cllmm.(['SAW2022_',sites{i}]) = SAW_WQ.(sites{i});
+    cllmm.(['SAW2022_',sites{i}]) = add_agency(cllmm.(['SAW2022_',sites{i}]),'SA Water');
+end
+
+clear SAW_WQ;
+load ../../../../data/store/ecology/SAW_WQ_2023.mat;
+
+sites = fieldnames(SAW_WQ);
+
+for i = 1:length(sites)
+    cllmm.(['SAW2023_',sites{i}]) = SAW_WQ.(sites{i});
+    cllmm.(['SAW2023_',sites{i}]) = add_agency(cllmm.(['SAW2023_',sites{i}]),'SA Water');
+end
 
 load ../../../../data/store/ecology/ruppia.mat;
 
@@ -242,6 +261,7 @@ cllmm = cleanse_sites(cllmm);
 
 cllmm_sec = add_secondary_data(cllmm,datearray);
 save ../../../../data/store/archive/cllmm_sec.mat cllmm_sec -mat -v7.3;
+save ../../../../data/store/archive/cllmm.mat cllmm -mat -v7.3;
 
 
 coorong = remove_Lake_Sites(cllmm,'GIS/Coorong_Boundary1.shp');

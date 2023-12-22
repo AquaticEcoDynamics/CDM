@@ -16,10 +16,16 @@ for i = 1:length(vars)
     bar.Ewe.(vars{i}).Data = cllmm.A4261206.(vars{i}).Data;
     [bar.Ewe.(vars{i}).Adate,bar.Ewe.(vars{i}).Adata] = calculate_daily_ave(bar.Ewe.(vars{i}).Date,bar.Ewe.(vars{i}).Data);
     
-    bar.Mundoo.(vars{i}).Date = cllmm.A4261204.(vars{i}).Date;;
-    bar.Mundoo.(vars{i}).Data = cllmm.A4261204.(vars{i}).Data;
-    [bar.Mundoo.(vars{i}).Adate,bar.Mundoo.(vars{i}).Adata] = calculate_daily_ave(bar.Mundoo.(vars{i}).Date,bar.Mundoo.(vars{i}).Data);
-    
+
+    if i == 1
+        bar.Mundoo.(vars{i}).Date = cllmm.A4261205.(vars{i}).Date;;
+        bar.Mundoo.(vars{i}).Data = cllmm.A4261205.(vars{i}).Data;
+        [bar.Mundoo.(vars{i}).Adate,bar.Mundoo.(vars{i}).Adata] = calculate_daily_ave(bar.Mundoo.(vars{i}).Date,bar.Mundoo.(vars{i}).Data);
+    else
+        bar.Mundoo.(vars{i}).Date = cllmm.A4261204.(vars{i}).Date;;
+        bar.Mundoo.(vars{i}).Data = cllmm.A4261204.(vars{i}).Data;
+        [bar.Mundoo.(vars{i}).Adate,bar.Mundoo.(vars{i}).Adata] = calculate_daily_ave(bar.Mundoo.(vars{i}).Date,bar.Mundoo.(vars{i}).Data);
+    end
     bar.Boundary.(vars{i}).Date = cllmm.A4261205.(vars{i}).Date;;
     bar.Boundary.(vars{i}).Data = cllmm.A4261205.(vars{i}).Data;
     [bar.Boundary.(vars{i}).Adate,bar.Boundary.(vars{i}).Adata] = calculate_daily_ave(bar.Boundary.(vars{i}).Date,bar.Boundary.(vars{i}).Data);
