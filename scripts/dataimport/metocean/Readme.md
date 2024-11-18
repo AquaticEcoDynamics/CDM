@@ -53,9 +53,9 @@ This repository contains scripts and instructions for updating meteorological da
    ```
 
    > [!NOTE]
-   > - The script is currently adapted for MacOS path structure
-   > - On line 32, the loop starts from 4 (`for i = 4:length(dirlist)`) to skip `.DS_store`
-   > - For other operating systems, modify to start from 3
+   > The script is currently adapted for MacOS path structure.
+   > On line 32, the loop starts from 4 (`for i = 4:length(dirlist)`) to skip `.DS_store`.
+   > For other operating systems, modify to start from 3.
 
 2. The script will generate `NRM_metdata.mat` into:
    ```
