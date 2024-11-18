@@ -27,7 +27,7 @@ dirlist = dir(maindir);
 
 dew = [];
 
-for i = 3:length(dirlist)
+for i = 4:length(dirlist)
     
     thesite = dirlist(i).name;
     
@@ -61,7 +61,7 @@ for i = 3:length(dirlist)
         fclose(fid);
         
         thedate = datenum(datacell{1},'yyyy-mm-dd HH:MM:SS');% +0.5
-        thedata = str2doubleq(datacell{3});
+        thedata = str2double(datacell{3});
         thedata = thedata * conv(tt);
         
         sss = find(thedate >= clipdate);
