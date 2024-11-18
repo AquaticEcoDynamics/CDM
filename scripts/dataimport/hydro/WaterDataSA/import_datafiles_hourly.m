@@ -34,10 +34,13 @@ for i = 4:length(dirlist)
     
     
     thefiles = dir([maindir,thesite,'/*.csv']);
-    
-    X = sdata.(thesite).X;
-    Y = sdata.(thesite).Y;
-    sName = sdata.(thesite).disc;
+    if isfield(sdata, thesite)
+        X = sdata.(thesite).X;
+        Y = sdata.(thesite).Y; 
+        sName = sdata.(thesite).disc;
+    else
+        continue; % Skip this site if not found in sdata
+    end
     
     
     disp(thesite);
