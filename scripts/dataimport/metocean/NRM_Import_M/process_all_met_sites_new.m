@@ -2,13 +2,13 @@ clear all; close all;
 
 addpath(genpath('Functions'));
 
-load Locations\sites.mat;
+load Locations/sites.mat;
 
 for i = 1:length(sites)
     sitenames{i} = sites(i).name;
 end
 
-dirlist = dir('../../../..\data\incoming\NRM/');
+dirlist = dir('../../../../data/incoming/NRM/');
 
 
 cHeader = { ...
@@ -29,7 +29,7 @@ cHeader = { ...
     };
 
 
-for i = 3:length(dirlist)
+for i = 4:length(dirlist)
     
     
     siteN = dirlist(i).name;
@@ -40,14 +40,14 @@ for i = 3:length(dirlist)
     
     disp(siteID)
     
-    filelist = dir(['../../../..\data\incoming\NRM/',dirlist(i).name,'/','*.csv']);
+    filelist = dir(['../../../../data/incoming/NRM/',dirlist(i).name,'/','*.csv']);
     
     metdata = [];
     
     for j = 1:length(filelist)
         disp(filelist(j).name)
         
-        fid = fopen(['../../../..\data\incoming\NRM/',dirlist(i).name,'/',filelist(j).name],'rt');
+        fid = fopen(['../../../../data/incoming/NRM/',dirlist(i).name,'/',filelist(j).name],'rt');
         x  = length(cHeader);
         textformat = [repmat('%s ',1,x)];
         datacell = textscan(fid,textformat,...
@@ -69,7 +69,7 @@ for i = 3:length(dirlist)
                 case 'Station'
                     met.(cHeader{iHeader}) = datacell{iHeader};
                 otherwise
-                    met.(cHeader{iHeader}) = str2doubleq(datacell{iHeader});
+                    met.(cHeader{iHeader}) = str2double(datacell{iHeader});
             end
         end
         
@@ -102,7 +102,7 @@ for i = 3:length(dirlist)
         
     end
     
-    outdir = (['../../../..\data\store\metocean/']);
+    outdir = (['../../../../data/store/metocean/']);
     
     if ~exist(outdir,'dir')
         mkdir(outdir)
@@ -115,7 +115,3 @@ for i = 3:length(dirlist)
 
     
 end
-
-
-
-
