@@ -2,21 +2,21 @@ clear all; close all;
 
 addpath(genpath('Functions'));
 
-load('../../../../../..\CDM\data\store\metocean\NRM_metdata.mat');
+load('../../../../../../CDM/data/store/metocean/NRM_metdata.mat');
 
-load('../../../../../../CDM\data\store\hydro\dew_WaterDataSA_hourly.mat');
+load('../../../../../../CDM/data/store/hydro/dew_WaterDataSA_hourly.mat');
 
 
 
 data_file = metdata.RMPW18;
 
-metfile = '../../../../../../CDM\data\store\metocean\Narrung_met_20160201_20221101.csv';
-rainfile = '../../../../../../CDM\data\store\metocean\Narrung_rain_20160201_20221101.csv';
-imagefile = '../../../../../../CDM\data\store\metocean\Narrung_20160201_20221101.png';
+metfile = '../../../../../../CDM/data/store/metocean/Narrung_met_20160201_20241113.csv';
+rainfile = '../../../../../../CDM/data/store/metocean/Narrung_rain_20160201_20241113.csv';
+imagefile = '../../../../../../CDM/data/store/metocean/Narrung_20160201_20241113.png';
 
 
 startdate = datenum(2016,02,01);
-enddate = datenum(2022,11,01);
+enddate = datenum(2024,11,13);
 
 TZ = 9.5;
 
