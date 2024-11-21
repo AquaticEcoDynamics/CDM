@@ -20,7 +20,7 @@ This repository contains scripts for creating boundary condition (BC) files from
      CDM/scripts/datatools/bcs/BC from Field Data/BCs_BAR_2012_2024_V1/Salt_Creek_20230702_20241114.csv
      ```
 
-> [!NOTE]
+> [!IMPORTANT]
 > To run this script, please ensure that the mat file containing the hourly water data (`CDM/data/store/hydro/dew_WaterDataSA_hourly.mat`) for the Coorong region is in the correct format and is up to date. If not, please refer to the [Readme](../../../dataimport/hydro/WaterDataSA/Readme.md) for the process to update the mat file.
 
 2. Append the data in `Salt_Creek_20230702_20241114.csv` to the existing csv file:
@@ -33,4 +33,4 @@ This repository contains scripts for creating boundary condition (BC) files from
    ```
 
 > [!NOTE]
-> The existing csv file `Salt_Creek_20120101_20230701_appended.csv` was revised to better calinrate the south Coorong in the simulation. Thus, the data will be different from the raw field data.
+> The existing csv file `Salt_Creek_20120101_20230701_appended.csv` was revised to better calibrate the south Coorong in the simulation. Thus, the data will be different from the raw field data.
