@@ -1,4 +1,4 @@
-# Narrung Met and Rain BC Files Update Process
+# CoorongNarrung Met and Rain BC Files Update Process
 
 This repository contains scripts for creating boundary condition (BC) files of meteorological data for the Narrung region.
 
