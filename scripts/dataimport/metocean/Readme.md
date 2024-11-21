@@ -46,6 +46,9 @@ This repository contains scripts and instructions for updating meteorological da
    CDM/data/incoming/NRM/Narrung
    ```
 
+> [!NOTE]
+> Solar Radiation data from 2022-11-07 01:30:00 onwards is estimated from the median solar radiation values for each datetime from historical data.
+
 ### MATLAB Processing
 1. Run the MATLAB script in matlab:
    ```

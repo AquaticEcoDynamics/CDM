@@ -5,6 +5,23 @@ import numpy as np
 downloaded_data_dir = "narrung_met_raw_data"
 incoming_data_dir = "../../../../data/incoming/NRM/Narrung"
 
+historical_data_lst = []
+for file in os.listdir(incoming_data_dir):
+    if file.endswith(".csv") and "py_" not in file:
+        hist_sr_df = pd.read_csv(os.path.join(incoming_data_dir, file),usecols=[0,8])
+        hist_sr_df["time"] = pd.to_datetime(hist_sr_df["time"],format="%Y-%m-%d %H:%M:%S")
+        historical_data_lst.append(hist_sr_df)
+historical_data_df = pd.concat(historical_data_lst)
+historical_data_df = historical_data_df.sort_values(by="time")
+
+# Extract month, day, hour, minute, second
+historical_data_df["time_of_year"] = historical_data_df["time"].dt.strftime("%m-%d %H:%M:%S")
+
+# Group by time_of_year and calculate median solar radiation
+median_sr_df = historical_data_df.groupby("time_of_year").agg({historical_data_df.columns[1]: "median"}).reset_index()
+median_sr_df = median_sr_df.rename(columns={historical_data_df.columns[1]: "solar_radiation"})
+print(median_sr_df)
+
 dfs = []
 
 for file in os.listdir(downloaded_data_dir):
@@ -80,6 +97,19 @@ for year in merged_df['year'].unique():
     
     # Drop the temporary year column
     year_df = year_df.drop('year', axis=1)
+    
+    # Create a datetime index without year for year_df
+    year_df['datetime_no_year'] = pd.to_datetime(year_df['time']).dt.strftime('%m-%d %H:%M:%S')
+    
+    # Create a mapping from datetime_no_year to solar radiation values
+    sr_mapping = dict(zip(median_sr_df['time_of_year'], median_sr_df['solar_radiation']))
+    
+    # Only fill solar radiation values for dates after 2022-11-07 01:30:00
+    mask = pd.to_datetime(year_df['time']) > pd.to_datetime('2022-11-07 01:30:00')
+    year_df.loc[mask, 'Solar Radiation_average_W/m^2'] = year_df.loc[mask, 'datetime_no_year'].map(sr_mapping)
+    
+    # Remove the temporary datetime_no_year column
+    year_df = year_df.drop('datetime_no_year', axis=1)
     
     # Create output filename
     output_filename = f'py_Narrung_{year}.csv'
