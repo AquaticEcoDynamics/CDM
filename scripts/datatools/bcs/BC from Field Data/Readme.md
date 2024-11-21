@@ -46,3 +46,6 @@ This repository contains scripts for creating boundary condition (BC) files from
      ```
      CDM/scripts/datatools/bcs/BC from Field Data/BCs_BAR_2012_2024_V1/Salt_Creek_20120101_20241114_interpolated.csv
      ```
+
+> [!WARNING]
+> Stop on step 2 if you do not need to interpolate the water quality data.
