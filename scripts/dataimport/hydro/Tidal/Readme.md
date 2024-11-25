@@ -5,6 +5,7 @@ This repository contains scripts and instructions for updating tidal data from t
 ## Prerequisites
 
 - MATLAB
+- Python
 - Access to water.data.sa.gov.au
 
 ## Data Collection
@@ -29,6 +30,18 @@ This repository contains scripts and instructions for updating tidal data from t
    ```
 
 ## Data Processing
+### Python Processing
+1. Run the Python script in python:
+   ```
+   CDM/scripts/dataimport/hydro/Tidal/process_tidal_prediction_Claire.py
+   ```
+
+   This script will:
+   - Fill in missing data using a linear interpolation method using the predicted tide levels (CDM/data/incoming/DEW/hydrology/compiled/Tide_Level_Prediction_Jan2023-Jun2024.csv) from Claire's model.
+   - Generate `VH_Tide_2024_filled.csv` into:
+     ```
+     CDM/data/incoming/DEW/hydrology/compiled/
+     ```
 
 ### MATLAB Processing
 1. Run the MATLAB script in matlab:

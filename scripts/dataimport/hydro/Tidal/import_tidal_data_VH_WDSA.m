@@ -3,7 +3,8 @@ clear all; close all;
 addpath(genpath('../../../../../aed_matlab_modeltools/TUFLOWFV/tuflowfv/'));
 
 % filename = '../../../../data/incoming/DEW/hydrology/compiled/VH_Tide_2023.csv';
-filename = '../../../../data/incoming/DEW/hydrology/compiled/VH_Tide_2024.csv';
+% filename = '../../../../data/incoming/DEW/hydrology/compiled/VH_Tide_2024.csv';
+filename = '../../../../data/incoming/DEW/hydrology/compiled/VH_Tide_2024_filled.csv';
 
 %[snum,sstr] = xlsread(filename,'A2:B762626');
 fid = fopen(filename,'rt');
