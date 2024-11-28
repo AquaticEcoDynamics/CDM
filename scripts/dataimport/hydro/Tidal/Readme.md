@@ -30,7 +30,7 @@ This repository contains scripts and instructions for updating tidal data from t
    ```
 
 ## Data Processing
-### Python Processing
+### Python Processing (remember to navigate to the respective directory before running the code)
 1. Run the Python script in python:
    ```
    CDM/scripts/dataimport/hydro/Tidal/process_tidal_prediction_Claire.py
