@@ -10,7 +10,8 @@ This repository contains scripts for creating boundary condition (BC) files from
 
 ## Data Processing
 ### Salt Creek and Barker Knoll BC Files - BCs_BAR_2012_2024_V2
-### (consider WaterData SA and DataSA data)
+(consider WaterData SA and DataSA data)
+
 1. Run the MATLAB script:
    ```
    CDM/scripts/datatools/dataprocessing/join_datasources/merge_bc_inflow_files.m
@@ -70,7 +71,8 @@ This repository contains scripts for creating boundary condition (BC) files from
 > - POP / 2
 
 ### Salt Creek BC File - BCs_BAR_2012_2024_V1
-### (only consider dew_WaterDataSA_hourly data)
+(consider only dew_WaterDataSA_hourly data)
+
 1. Run the MATLAB script:
    ```
    CDM/scripts/datatools/bcs/BC from Field Data/create_saltCreek_bc_files.m
