@@ -26,7 +26,7 @@ This repository contains scripts for importing water quality data from DataSA in
 ## Data Processing
 
 ### Import Raw Data into .mat File
-1. Run the Python script:
+1. Run the Python script (remember to navigate to the respective directory before running the code):
    ```
    CDM/scripts/dataimport/ecology/DataSA_WQ/import_DataSA.py
    ```
@@ -38,7 +38,7 @@ This repository contains scripts for importing water quality data from DataSA in
      CDM/data/store/ecology/wq_hchb_2024.mat
      ```
 
-2. Run the Python script:
+2. Run the Python script (remember to navigate to the respective directory before running the code):
    ```
    CDM/scripts/dataimport/ecology/DataSA_WQ/import_DataSA_agency.py
    ```
