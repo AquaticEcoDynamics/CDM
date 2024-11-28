@@ -8,6 +8,21 @@ This repository contains scripts for importing water quality data from DataSA in
 - Python
 - Access to data.sa.gov.au
 
+## Data Collection
+
+1. Navigate to [data.sa.gov.au](https://data.sa.gov.au/data/dataset/coorong-water-quality-monitoring)
+   
+2. Data Selection:
+   - Select the "Coorong Water Quality Monitoring" dataset.
+   - Click "Explore", then click "Download".
+   ![Data Selection](DataSAportal.png)
+
+3. Save the downloaded data to:
+   ```
+   CDM/data/incoming/DEW/wq/WQ_HCHB_2024/Coorong Water Quality Jan 1998 to Dec 2019.csv
+   CDM/data/incoming/DEW/wq/WQ_HCHB_2024/Coorong Water Quality Jul 2020.csv
+   ```
+
 ## Data Processing
 
 ### Import Raw Data into .mat File
@@ -37,7 +52,7 @@ This repository contains scripts for importing water quality data from DataSA in
      ```
 
 > [!IMPORTANT]
-> Adjustment made to downloaded data before converted into tfv_unit:
+> Adjustment made to downloaded data before converted into tfv_unit to match up with historical data:
 > - Ammonia_as_N_mg_L / 2000
 > - Nitrate_Nitrite_as_N_mg_L / 2000
 > - Silica_Reactive_mg_L / 3.15
