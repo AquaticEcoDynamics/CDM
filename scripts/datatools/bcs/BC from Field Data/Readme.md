@@ -44,18 +44,25 @@ This repository contains scripts for creating boundary condition (BC) files from
    - Append the recent data to the existing historical data.
    - Calculate derived variables, additional adjustments made to match up with historical data:
      - FRP = (AMM + NIT)/16
-     - FRP_ADS = 0.49 * FRP
+     - FRP_ADS = 0.1 * FRP
      - POC = (1/4) * DOC
      - DON = (TOT_TN - NIT - AMM) * 0.8
-     - PON = (TOT_TN - NIT - AMM) * 0.2 * 2
-     - DOP = (1/16) * DON / 3
-     - POP = (1/16) * PON / 2
+     - PON = (TOT_TN - NIT - AMM) * 0.2
+     - DOP = (1/16) * DON
+     - POP = (1/16) * PON
    - Interpolate the water quality data from 2023-07-01 00:00:00 onwards using the median water quality data for each datetime from historical data.
    - Save the interpolated data to:
      ```
      CDM/scripts/datatools/bcs/BC from Field Data/BCs_BAR_2012_2024_V2/Salt_Creek_20120101_20241114_interpolated.csv
      CDM/scripts/datatools/bcs/BC from Field Data/BCs_BAR_2012_2024_V2/BK_20160101_20241114_interpolated.csv
      ```
+
+> [!IMPORTANT]
+> Additional adjustments made to derived variables to match up with historical data:
+> - FRP_ADS * 4.9
+> - PON * 2
+> - DOP / 3
+> - POP / 2
 
 ### Salt Creek BC File - BCs_BAR_2012_2024_V1 (only consider dew_dew_WaterDataSA_hourly data)
 1. Run the MATLAB script:
