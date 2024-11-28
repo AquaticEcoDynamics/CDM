@@ -32,7 +32,7 @@ This repository contains scripts and instructions for updating meteorological da
 ## Data Processing
 
 ### Python Processing
-1. Navigate to the Python processing directory:
+1. Navigate to the Python processing directory, for example:
    ```bash
    cd CDM/scripts/dataimport/metocean/NRM_Import_py
    ```
