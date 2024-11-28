@@ -22,6 +22,10 @@ This repository contains scripts for creating boundary condition (BC) files from
      CDM/data/store/merged/bc_inflow.mat
      ```
 
+> [!IMPORTANT]
+> To run this script, please ensure that the mat file containing the hourly water data (`CDM/data/store/hydro/dew_WaterDataSA_hourly.mat`) for the Coorong region is in the correct format and is up to date. If not, please refer to the [Readme](../../../dataimport/hydro/WaterDataSA/Readme.md) for the process to update the mat file.
+> Also for the DataSA water quality data (`CDM/data/store/ecology/wq_hchb_2024.mat`). If not, please refer to the [Readme](../../../dataimport/ecology/DataSA_WQ/Readme.md) for the process to update the data.
+
 2. Run the MATLAB script:
    ```
    CDM/scripts/datatools/bcs/BC from Field Data/create_bc_files.m
@@ -43,7 +47,7 @@ This repository contains scripts for creating boundary condition (BC) files from
    This script will:
    - Append the recent data to the existing historical data.
    - Calculate derived variables, additional adjustments made to match up with historical data:
-     - FRP = (AMM + NIT)/16
+     - FRP = (AMM + NIT) / 16
      - FRP_ADS = 0.1 * FRP
      - POC = (1/4) * DOC
      - DON = (TOT_TN - NIT - AMM) * 0.8
