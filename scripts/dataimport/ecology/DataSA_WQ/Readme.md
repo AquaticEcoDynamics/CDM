@@ -13,7 +13,7 @@ This repository contains scripts for importing water quality data from DataSA in
 ### Import Raw Data into .mat File
 1. Run the Python script:
    ```
-   CDM/scripts/dataimport/ecology/WaterDataSA_DataSA/import_DataSA.py
+   CDM/scripts/dataimport/ecology/DataSA_WQ/import_DataSA.py
    ```
 
    This script will:
@@ -25,7 +25,7 @@ This repository contains scripts for importing water quality data from DataSA in
 
 2. Run the Python script:
    ```
-   CDM/scripts/dataimport/ecology/WaterDataSA_DataSA/import_DataSA_agency.py
+   CDM/scripts/dataimport/ecology/DataSA_WQ/import_DataSA_agency.py
    ```
 
    This script will:
@@ -45,4 +45,4 @@ This repository contains scripts for importing water quality data from DataSA in
 > - Total_Organic_Carbon_mg_L * 2.9
 > - Nitrogen_Total_as_N_mg_L * 2
 >
-> Then, variables are renamed to match TFV standards, and converted to TFV units using the conversion factors listed in the table ```CDM/scripts/dataimport/ecology/WaterDataSA_DataSA/Var_Conv.csv```.
+> Then, variables are renamed to match TFV standards, and converted to TFV units using the conversion factors listed in the table ```CDM/scripts/dataimport/ecology/DataSA_WQ/Var_Conv.csv```.
