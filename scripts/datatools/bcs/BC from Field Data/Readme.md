@@ -9,7 +9,8 @@ This repository contains scripts for creating boundary condition (BC) files from
 - Microsoft Excel
 
 ## Data Processing
-### Salt Creek and Barker Knoll BC Files - BCs_BAR_2012_2024_V2 (consider WaterData SA and DataSA data)
+### Salt Creek and Barker Knoll BC Files - BCs_BAR_2012_2024_V2
+### (consider WaterData SA and DataSA data)
 1. Run the MATLAB script:
    ```
    CDM/scripts/datatools/dataprocessing/join_datasources/merge_bc_inflow_files.m
@@ -23,8 +24,8 @@ This repository contains scripts for creating boundary condition (BC) files from
      ```
 
 > [!IMPORTANT]
-> To run this script, please ensure that the mat file containing the hourly water data (`CDM/data/store/hydro/dew_WaterDataSA_hourly.mat`) for the Coorong region is in the correct format and is up to date. If not, please refer to the [Readme](../../../dataimport/hydro/WaterDataSA/Readme.md) for the process to update the mat file.
-> Also for the DataSA water quality data (`CDM/data/store/ecology/wq_hchb_2024.mat`). If not, please refer to the [Readme](../../../dataimport/ecology/DataSA_WQ/Readme.md) for the process to update the data.
+> - To run this script, please ensure that the mat file containing the hourly water data (`CDM/data/store/hydro/dew_WaterDataSA_hourly.mat`) for the Coorong region is in the correct format and is up to date. If not, please refer to the [Readme](../../../dataimport/hydro/WaterDataSA/Readme.md) for the process to update the mat file.
+> - Also for the DataSA water quality data (`CDM/data/store/ecology/wq_hchb_2024.mat`). If not, please refer to the [Readme](../../../dataimport/ecology/DataSA_WQ/Readme.md) for the process to update the data.
 
 2. Run the MATLAB script:
    ```
@@ -68,7 +69,8 @@ This repository contains scripts for creating boundary condition (BC) files from
 > - DOP / 3
 > - POP / 2
 
-### Salt Creek BC File - BCs_BAR_2012_2024_V1 (only consider dew_dew_WaterDataSA_hourly data)
+### Salt Creek BC File - BCs_BAR_2012_2024_V1
+### (only consider dew_WaterDataSA_hourly data)
 1. Run the MATLAB script:
    ```
    CDM/scripts/datatools/bcs/BC from Field Data/create_saltCreek_bc_files.m
