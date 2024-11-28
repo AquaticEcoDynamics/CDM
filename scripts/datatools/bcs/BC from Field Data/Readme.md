@@ -41,7 +41,7 @@ This repository contains scripts for creating boundary condition (BC) files from
      CDM/scripts/datatools/bcs/BC from Field Data/BCs_BAR_2012_2024_V2/BK_20230701_20241114.csv
      ```
 
-3. Run the python script:
+3. Run the python script (remember to navigate to the respective directory before running the code):
    ```
    CDM/scripts/datatools/bcs/BC from Field Data/BCs_BAR_2012_2024_V2/append_interpolate_bcfiles.py
    ```
@@ -100,7 +100,7 @@ This repository contains scripts for creating boundary condition (BC) files from
 > [!NOTE]
 > The existing csv file `Salt_Creek_20120101_20230701_appended.csv` was revised to better calibrate the south Coorong in the simulation. Thus, the data will be different from the raw field data.
 
-3. Run the python script:
+3. Run the python script (remember to navigate to the respective directory before running the code):
    ```
    CDM/scripts/datatools/bcs/BC from Field Data/BCs_BAR_2012_2024_V1/interpolated_salt_creek_wq.py
    ```
