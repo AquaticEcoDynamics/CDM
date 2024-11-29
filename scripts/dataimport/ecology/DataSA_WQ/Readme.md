@@ -60,4 +60,19 @@ This repository contains scripts for importing water quality data from DataSA in
 > - Total_Organic_Carbon_mg_L * 2.9
 > - Nitrogen_Total_as_N_mg_L * 2
 >
-> Then, variables are renamed to match TFV standards, and converted to TFV units using the conversion factors listed in the table ```CDM/scripts/dataimport/ecology/DataSA_WQ/Var_Conv.csv```.
+> Then, variables are renamed to match TFV standards, and converted to TFV units using the conversion factors listed in the table `CDM/scripts/dataimport/ecology/DataSA_WQ/Var_Conv.csv`.
+
+3. Run the Python script (remember to navigate to the respective directory before running the code): 
+   ```
+   CDM/scripts/dataimport/ecology/DataSA_WQ/import_DataSA_1998_2019.py
+   ```
+
+   This script will:
+   - Process and convert raw data from DataSA into a MATLAB .mat file
+   - Save the output as:
+     ```
+     CDM/data/store/ecology/wq_hchb_1998_2019.mat
+     ```
+
+   > [!NOTE]
+   > Variables are renamed to match TFV standards, and converted to TFV units using the conversion factors listed in the table `CDM/scripts/dataimport/ecology/DataSA_WQ/Var_Conv_1998_2019.csv`.
