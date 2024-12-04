@@ -21,12 +21,13 @@ This repository contains scripts for creating boundary condition (BC) files from
    - Merge the WaterData SA and DataSA data into a single mat file.
    - Save the merged data to:
      ```
-     CDM/data/store/merged/bc_inflow.mat
+     CDM/data/store/merged/clllm_BC.mat
      ```
 
 > [!IMPORTANT]
 > - To run this script, please ensure that the mat file containing the hourly water data (`CDM/data/store/hydro/dew_WaterDataSA_hourly.mat`) for the Coorong region is in the correct format and is up to date. If not, please refer to the [Readme](../../../dataimport/hydro/WaterDataSA/Readme.md) for the process to update the mat file.
-> - Also for the DataSA water quality data (`CDM/data/store/ecology/wq_hchb_2024.mat`). If not, please refer to the [Readme](../../../dataimport/ecology/DataSA_WQ/Readme.md) for the process to update the data.
+> - Also for the DataSA water quality data (`CDM/data/store/ecology/wq_hchb_2024.mat` and `CDM/data/store/ecology/wq_hchb_1998_2019.mat`). If not, please refer to the [Readme](../../../dataimport/ecology/DataSA_WQ/Readme.md) for the process to update the data.
+> - Also for the barrage flow data (`CDM/data/store/hydro/dew_barrage_2024.mat`). If not, please refer to the [Readme](../../../dataimport/hydro/barrage/Readme.md) for the process to update the data.
 
 2. Run the MATLAB script:
    ```
@@ -34,11 +35,16 @@ This repository contains scripts for creating boundary condition (BC) files from
    ```
 
    This script will:
-   - Read the bc_inflow mat file created in step 1.
+   - Read the clllm_BC mat file created in step 1.
    - Create a csv file combining all sites with the date range specified:
      ```
      CDM/scripts/datatools/bcs/BC from Field Data/BCs_BAR_2012_2024_V2/Salt_Creek_20230701_20241114.csv
      CDM/scripts/datatools/bcs/BC from Field Data/BCs_BAR_2012_2024_V2/BK_20230701_20241114.csv
+     CDM/scripts/datatools/bcs/BC from Field Data/BCs_BAR_2012_2024_V2/Goolwa_20230701_20241114.csv
+     CDM/scripts/datatools/bcs/BC from Field Data/BCs_BAR_2012_2024_V2/Tauwitchere_20230701_20241114.csv
+     CDM/scripts/datatools/bcs/BC from Field Data/BCs_BAR_2012_2024_V2/Mundoo_20230701_20241114.csv
+     CDM/scripts/datatools/bcs/BC from Field Data/BCs_BAR_2012_2024_V2/Boundary_20230701_20241114.csv
+     CDM/scripts/datatools/bcs/BC from Field Data/BCs_BAR_2012_2024_V2/Ewe_20230701_20241114.csv
      ```
 
 3. Run the python script (remember to navigate to the respective directory before running the code):
@@ -64,7 +70,7 @@ This repository contains scripts for creating boundary condition (BC) files from
      ```
 
 > [!IMPORTANT]
-> Additional adjustments made to derived variables to match up with historical data:
+> (Removed) Additional adjustments made to derived variables to match up with historical data:
 > - FRP_ADS * 4.9
 > - PON * 2
 > - DOP / 3

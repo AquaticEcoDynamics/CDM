@@ -15,6 +15,14 @@ var_conv_dict = {row['Old Name']: {'new_name': row['New Name'], 'conv': row['Con
                  for _, row in var_conv_df.iterrows()}
 print(var_conv_dict)
 
+# Read the site conversion file
+site_conv_df = pd.read_csv('Site_Conv.csv')
+
+# After reading the site conversion file
+print("\nSite conversion file columns:", site_conv_df.columns.tolist())
+print("\nFirst few rows of site_conv_df:")
+print(site_conv_df.head())
+
 # Initialize dictionary to store data
 data_dict = {}
 
@@ -34,44 +42,95 @@ def matlab_datenum(dt):
     datenum = delta_days + offset_days + (dt.hour / 24.0) + (dt.minute / 1440.0) + (dt.second / 86400.0)
     return datenum
 
-# Move idx initialization outside the site loop
-idx = 1
+# Add debugging counters
+total_sites = 0
+matched_sites = 0
+unique_combinations = set()
 
 for csv_file in csv_files:
     if csv_file == 'Coorong Water Quality Jan 1998 to Dec 2019.csv':
         print(csv_file)
-        df = pd.read_csv(os.path.join(input_dir, csv_file))
+        df = pd.read_csv(os.path.join(input_dir, csv_file),header=0)
+        print(df.head())
+
+         # Print unique combinations of Site_ID, Easting, and Northing
+        for idx, row in df.groupby(['Sampling_point', 'Easting', 'Northing']).first().reset_index().iterrows():
+            total_sites += 1
+            combo = (row['Sampling_point'], row['Easting'], row['Northing'])
+            unique_combinations.add(combo)
+            print(f"\nChecking combination:")
+            print(f"Site_ID: {combo[0]}")
+            print(f"Easting: {combo[1]}")
+            print(f"Northing: {combo[2]}")
+            
+            # Find matching site in conversion table
+            site_match = site_conv_df[
+                (site_conv_df['old_NAME'] == combo[0]) &
+                (site_conv_df['Agency'] == 'AWQC') &
+                (site_conv_df['Easting'] == combo[1]) &
+                (site_conv_df['Northing'] == combo[2])
+            ]
+            
+            if len(site_match) > 0:
+                matched_sites += 1
+                print(f"Matched to: {site_match['new_NAME'].iloc[0]}")
+            else:
+                print(f"NO MATCH FOUND for this combination")
+
         df['Date'] = pd.to_datetime(df['Date'],format='mixed')
 
-        df['Ammonia_as_N_mg_L'] = pd.to_numeric(df['Ammonia_as_N_mg_L'], errors='coerce')
-        df.loc[df['Date'] > '2023-07-01', 'Ammonia_as_N_mg_L'] /= 2000
+        # df['Ammonia_as_N_mg_L'] = pd.to_numeric(df['Ammonia_as_N_mg_L'], errors='coerce')
+        # df.loc[df['Date'] > '2023-07-01', 'Ammonia_as_N_mg_L'] /= 2000
 
-        df['Nitrate_Nitrite_as_N_mg_L'] = pd.to_numeric(df['Nitrate_Nitrite_as_N_mg_L'], errors='coerce')
-        df.loc[df['Date'] > '2023-07-01', 'Nitrate_Nitrite_as_N_mg_L'] /= 2000
+        # df['Nitrate_Nitrite_as_N_mg_L'] = pd.to_numeric(df['Nitrate_Nitrite_as_N_mg_L'], errors='coerce')
+        # df.loc[df['Date'] > '2023-07-01', 'Nitrate_Nitrite_as_N_mg_L'] /= 2000
 
-        df['Silica_Reactive_mg_L'] = pd.to_numeric(df['Silica_Reactive_mg_L'], errors='coerce')
-        df.loc[df['Silica_Reactive_mg_L'] > 10, 'Silica_Reactive_mg_L'] /= 3.15
+        # df['Silica_Reactive_mg_L'] = pd.to_numeric(df['Silica_Reactive_mg_L'], errors='coerce')
+        # df.loc[df['Silica_Reactive_mg_L'] > 10, 'Silica_Reactive_mg_L'] /= 3.15
 
-        df['Dissolved_Organic_Carbon_mg_L'] = pd.to_numeric(df['Dissolved_Organic_Carbon_mg_L'], errors='coerce')
-        df.loc[df['Date'] > '2023-07-01', 'Dissolved_Organic_Carbon_mg_L'] *= 2.4
+        # df['Dissolved_Organic_Carbon_mg_L'] = pd.to_numeric(df['Dissolved_Organic_Carbon_mg_L'], errors='coerce')
+        # df.loc[df['Date'] > '2023-07-01', 'Dissolved_Organic_Carbon_mg_L'] *= 2.4
 
-        df['Total_Organic_Carbon_mg_L'] = pd.to_numeric(df['Total_Organic_Carbon_mg_L'], errors='coerce')
-        df.loc[df['Date'] > '2023-07-01', 'Total_Organic_Carbon_mg_L'] *= 2.9
+        # df['Total_Organic_Carbon_mg_L'] = pd.to_numeric(df['Total_Organic_Carbon_mg_L'], errors='coerce')
+        # df.loc[df['Date'] > '2023-07-01', 'Total_Organic_Carbon_mg_L'] *= 2.9
 
-        df['Nitrogen_Total_mg_L'] = pd.to_numeric(df['Nitrogen_Total_mg_L'], errors='coerce')
-        df.loc[df['Date'] > '2023-07-01', 'Nitrogen_Total_mg_L'] *= 2
+        # df['Nitrogen_Total_mg_L'] = pd.to_numeric(df['Nitrogen_Total_mg_L'], errors='coerce')
+        # df.loc[df['Date'] > '2023-07-01', 'Nitrogen_Total_mg_L'] *= 2
         
         # Get list of variable columns (excluding specified columns)
         exclude_cols = ['Sampling_point', 'Date', 'Easting', 'Northing']
         variable_cols = [col for col in df.columns if col not in exclude_cols]
         
-        # Process each site
-        for site_id in df['Sampling_point'].unique():
-            site_data = df[df['Sampling_point'] == site_id]
-            site_idx = f'site_{idx}'  # Use current idx value
+        # Process each unique combination of Site_ID, Easting, and Northing
+        for _, combo in df[['Sampling_point', 'Easting', 'Northing']].drop_duplicates().iterrows():
+            site_id = combo['Sampling_point']
+            easting = combo['Easting']
+            northing = combo['Northing']
             
-            if site_idx not in data_dict:
-                data_dict[site_idx] = {}
+            site_data = df[
+                (df['Sampling_point'] == site_id) & 
+                (df['Easting'] == easting) &
+                (df['Northing'] == northing)
+            ]
+            
+            # Find matching site in conversion table
+            site_match = site_conv_df[
+                (site_conv_df['old_NAME'] == combo[0]) &
+                (site_conv_df['Agency'] == 'AWQC') &
+                (site_conv_df['Easting'] == combo[1]) &
+                (site_conv_df['Northing'] == combo[2])
+            ]
+            
+            if len(site_match) > 0:
+                # Add agency prefix to the site name
+                agency_prefix = 'AWQC' + '_'
+                site_name = agency_prefix + site_match['new_NAME'].iloc[0]
+            else:
+                print(f"Warning: No matching site found for {site_id} at coordinates ({easting}, {northing})")
+                continue
+            
+            if site_name not in data_dict:
+                data_dict[site_name] = {}
             
             # Process each variable
             for var in variable_cols:
@@ -95,8 +154,8 @@ for csv_file in csv_files:
                 new_var_name = var_conv_dict[var]['new_name']
                 conv_factor = var_conv_dict[var]['conv']
                 
-                if new_var_name not in data_dict[site_idx]:
-                    data_dict[site_idx][new_var_name] = {
+                if new_var_name not in data_dict[site_name]:
+                    data_dict[site_name][new_var_name] = {
                         'Date': [],
                         'Data': [],
                         'Depth': [],
@@ -111,35 +170,44 @@ for csv_file in csv_files:
                 
                 # Apply conversion factor to the data
                 converted_data = var_data[var].values * conv_factor
-                if var == 'Silica_Reactive_mg_L' and site_id == 'Villa de Yumpa':
-                    print(f'converted_data: {converted_data}')
                 
-                data_dict[site_idx][new_var_name]['Date'].extend(dates)
-                data_dict[site_idx][new_var_name]['Data'].extend(converted_data)
-                data_dict[site_idx][new_var_name]['Depth'].extend([0] * len(var_data))
-                data_dict[site_idx][new_var_name]['X'].extend(var_data['Easting'].values)
-                data_dict[site_idx][new_var_name]['Y'].extend(var_data['Northing'].values)
-                data_dict[site_idx][new_var_name]['Name'].extend([site_id] * len(var_data))
+                data_dict[site_name][new_var_name]['Date'].extend(dates)
+                data_dict[site_name][new_var_name]['Data'].extend(converted_data)
+                data_dict[site_name][new_var_name]['Depth'].extend([0] * len(var_data))
+                data_dict[site_name][new_var_name]['X'].extend(var_data['Easting'].values)
+                data_dict[site_name][new_var_name]['Y'].extend(var_data['Northing'].values)
+                data_dict[site_name][new_var_name]['Name'].extend([site_id] * len(var_data))
+                data_dict[site_name][new_var_name]['Agency'].extend('AWQC' * len(var_data))
 
             idx += 1  # Increment idx after processing each site
 
 # Convert lists to numpy arrays and create final MATLAB structure
-matlab_dict = {'wqDataSA': {}}
+matlab_dict = {'wqDataSAhist': {}}
 for site_idx, variables in data_dict.items():
-    matlab_dict['wqDataSA'][site_idx] = {}
+    matlab_dict['wqDataSAhist'][site_idx] = {}
     for var_name, var_data in variables.items():
         # Convert dates to MATLAB format
         matlab_dates = np.array([matlab_datenum(d) for d in var_data['Date']])[:,None]
         
-        matlab_dict['wqDataSA'][site_idx][var_name] = {
+        matlab_dict['wqDataSAhist'][site_idx][var_name] = {
             'Date': matlab_dates,
             'Data': np.array(var_data['Data'])[:,None],
             'Depth': np.array(var_data['Depth'])[:,None],
             'X': var_data['X'][0],
             'Y': var_data['Y'][0],
-            'Name': var_data['Name'][0]
+            'Name': var_data['Name'][0],
+            'Agency': 'AWQC'
         }
 
 # Save to MAT file
 output_file = '../../../../data/store/ecology/wq_hchb_1998_2019.mat'
 sio.savemat(output_file, matlab_dict)
+
+# At the end of the script, print summary
+print(f"\nSummary:")
+print(f"Total unique site combinations found: {total_sites}")
+print(f"Successfully matched sites: {matched_sites}")
+print(f"Unmatched sites: {total_sites - matched_sites}")
+print("\nUnique combinations that were processed:")
+for combo in sorted(unique_combinations):
+    print(f"Site_ID: {combo[0]}, Easting: {combo[1]}, Northing: {combo[2]}")

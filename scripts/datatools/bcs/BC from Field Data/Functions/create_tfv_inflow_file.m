@@ -1,4 +1,4 @@
-function create_tfv_inflow_file(data,headers,datearray,filename,X,Y,subdir,sitename)
+function create_tfv_inflow_file(data,headers,datearray,filename,X,Y,subdir,sitename,preferred_sites)
 
 
 if ~exist(subdir,'dir');
@@ -15,8 +15,13 @@ fid1 = fopen([subdir,sitename,'_summery.csv'],'wt');
 fprintf(fid1,'Variable,Site\n');
 
 for i = 1:length(headers)
+    % Get preferred site for this variable if specified
+    preferred_site = '';
+    if exist('preferred_sites','var') && isfield(preferred_sites, headers{i})
+        preferred_site = preferred_sites.(headers{i});
+    end
     
-    [site_ID,site_X,site_Y,site_Name] = find_site(data,sites,headers{i},10,XX,YY);
+    [site_ID,site_X,site_Y,site_Name] = find_site(data,sites,headers{i},10,XX,YY,preferred_site);
     if site_ID < 900
         disp(['Data found for: ',headers{i},' at ',sites{site_ID}]);
     else
@@ -182,11 +187,43 @@ shapewrite(S,shapename);
 end
 
 
-function [site_id,site_X,site_Y,site_Name] = find_site(data,sites,varname,num_sample,XX,YY)
+function [site_id,site_X,site_Y,site_Name] = find_site(data,sites,varname,num_sample,XX,YY,preferred_site)
+% Add preferred_site as optional parameter
+if nargin < 7
+    preferred_site = '';
+end
+
 isfound = 0;
 site_id = 999; % Default for no data found...
 
-while num_sample > 0 & isfound == 0
+% First check preferred site if specified
+if ~isempty(preferred_site)
+    % Find the index of preferred site
+    preferred_idx = find(strcmp(sites, preferred_site));
+    
+    disp(['Checking preferred site: ', preferred_site, ' for variable: ', varname]);
+    
+    if ~isempty(preferred_idx)
+        if isfield(data.(preferred_site), varname)
+            if length(data.(preferred_site).(varname).Data) > num_sample
+                site_id = preferred_idx;
+                isfound = 1;
+                disp(['Using preferred site: ', preferred_site]);
+            else
+                disp(['Preferred site found but insufficient data (samples: ', ...
+                    num2str(length(data.(preferred_site).(varname).Data)), ...
+                    ', required: ', num2str(num_sample), ')']);
+            end
+        else
+            disp(['Preferred site found but missing variable: ', varname]);
+        end
+    else
+        disp(['Preferred site not found: ', preferred_site]);
+    end
+end
+
+% If preferred site not found or not specified, continue with original logic
+while num_sample > 0 && isfound == 0
     for j = 1:length(sites)
         if ~isfound
             if isfield(data.(sites{j}),varname)
@@ -236,21 +273,13 @@ u_date = unique(tt_date);
 t_data(1:length(u_date)) = NaN;
 t_date(1:length(u_date)) = NaN;
 for iii = 1:length(u_date)
-    [min_val,sss] = min(abs(tt_date - u_date(iii)));
+    % Find indices where dates match
+    sss = find(tt_date == u_date(iii));
     
-%     switch depth
-%         case 'Bottom'
-%             [~,ind] = min(t_depth(sss));
-%         case 'Surface'
-%             [~,ind] = max(t_depth(sss));
-%         otherwise
-%             disp('Not a valid depth name');
-%     end
-    if min_val < 2
-        t_data(iii) = tt_data(sss);
-        t_date(iii) = data.(varname).Date(sss);
-    else
-        stop
+    % Add safety check to ensure valid indices
+    if ~isempty(sss) && min(sss) <= length(tt_data)
+        t_data(iii) = tt_data(sss(1));  % Take first matching value
+        t_date(iii) = data.(varname).Date(sss(1));
     end
 end
 
@@ -259,14 +288,9 @@ ss = find(~isnan(t_data) == 1);
 t_date_NoNaN = t_date(ss);
 t_data_NoNaN = t_data(ss);
 
-
-
 [t_date_NoNaN_years,t_data_NoNaN_years] = replicate_years(t_date_NoNaN,t_data_NoNaN,mtime);
 
-%disp(['Number of sameples to be interp: ',num2str(size(t_data_NoNaN_years))]);
-
 if length(t_date_NoNaN_years) > 1
-    %var = interp1(t_date_NoNaN_years,t_data_NoNaN_years,mtime,'linear',mean(t_data_NoNaN_years));
     var = interp1(t_date_NoNaN_years,t_data_NoNaN_years,mtime,'linear');
 else
     var(1:length(mtime),1) = mean(t_data_NoNaN_years);

@@ -52,7 +52,7 @@ This repository contains scripts for importing water quality data from DataSA in
      ```
 
 > [!IMPORTANT]
-> Adjustment made to downloaded data before converted into tfv_unit to match up with historical data:
+> (REMOVED) Adjustment made to downloaded data before converted into tfv_unit to match up with historical data:
 > - Ammonia_as_N_mg_L / 2000
 > - Nitrate_Nitrite_as_N_mg_L / 2000
 > - Silica_Reactive_mg_L / 3.15
