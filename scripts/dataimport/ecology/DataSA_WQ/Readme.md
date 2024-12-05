@@ -51,6 +51,9 @@ This repository contains scripts for importing water quality data from DataSA in
      CDM/data/store/ecology/AWQC_wq_hchb_2024.mat
      ```
 
+> [!NOTE]
+> Run `CDM/scripts/dataimport/ecology/DataSA_WQ/import_cllmm_agency_2020_2024.py` to generate 2020-2024 data with site names and agency information, and save as `CDM/data/store/ecology/cllmm_ALS_2020_2024.mat` and `CDM/data/store/ecology/cllmm_AWQC_2020_2024.mat`.
+
 > [!IMPORTANT]
 > (REMOVED) Adjustment made to downloaded data before converted into tfv_unit to match up with historical data:
 > - Ammonia_as_N_mg_L / 2000
@@ -74,5 +77,6 @@ This repository contains scripts for importing water quality data from DataSA in
      CDM/data/store/ecology/wq_hchb_1998_2019.mat
      ```
 
-   > [!NOTE]
-   > Variables are renamed to match TFV standards, and converted to TFV units using the conversion factors listed in the table `CDM/scripts/dataimport/ecology/DataSA_WQ/Var_Conv_1998_2019.csv`.
+> [!NOTE]
+> Variables are renamed to match TFV standards, and converted to TFV units using the conversion factors listed in the table `CDM/scripts/dataimport/ecology/DataSA_WQ/Var_Conv_1998_2019.csv`.
+> Run `CDM/scripts/dataimport/ecology/DataSA_WQ/import_cllmm_DATASA_1998_2019.py` to generate historical data with site names and agency information, and save as `CDM/data/store/ecology/cllmm_DATASA_1998_2019.mat`.
