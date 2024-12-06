@@ -17,8 +17,8 @@ historical_data_df = historical_data_df.sort_values(by="time")
 # Extract month, day, hour, minute, second
 historical_data_df["time_of_year"] = historical_data_df["time"].dt.strftime("%m-%d %H:%M:%S")
 
-# Group by time_of_year and calculate median solar radiation
-median_sr_df = historical_data_df.groupby("time_of_year").agg({historical_data_df.columns[1]: "median"}).reset_index()
+# Group by time_of_year and calculate median solar radiation, skipping NaN values
+median_sr_df = historical_data_df.groupby("time_of_year").agg({historical_data_df.columns[1]: lambda x: x.median(skipna=True)}).reset_index()
 median_sr_df = median_sr_df.rename(columns={historical_data_df.columns[1]: "solar_radiation"})
 print(median_sr_df)
 
@@ -98,15 +98,22 @@ for year in merged_df['year'].unique():
     # Drop the temporary year column
     year_df = year_df.drop('year', axis=1)
     
-    # Create a datetime index without year for year_df
-    year_df['datetime_no_year'] = pd.to_datetime(year_df['time']).dt.strftime('%m-%d %H:%M:%S')
+    # Create a datetime index without year for year_df, rounding to the nearest minute
+    year_df['datetime_no_year'] = pd.to_datetime(year_df['time']).dt.strftime('%m-%d %H:%M:00')
     
     # Create a mapping from datetime_no_year to solar radiation values
     sr_mapping = dict(zip(median_sr_df['time_of_year'], median_sr_df['solar_radiation']))
     
     # Only fill solar radiation values for dates after 2022-11-07 01:30:00
     mask = pd.to_datetime(year_df['time']) > pd.to_datetime('2022-11-07 01:30:00')
+    if year == 2024:
+        print("DEBUG:sr_mapping",list(sr_mapping.items())[:10])
+        print("Sample datetime_no_year values:")
+        print(year_df.loc[mask, 'datetime_no_year'].head(10))
+        print("\nCorresponding mapped values:")
+        print(year_df.loc[mask, 'datetime_no_year'].map(sr_mapping).head(10))
     year_df.loc[mask, 'Solar Radiation_average_W/m^2'] = year_df.loc[mask, 'datetime_no_year'].map(sr_mapping)
+    
     
     # Remove the temporary datetime_no_year column
     year_df = year_df.drop('datetime_no_year', axis=1)
@@ -119,5 +126,7 @@ for year in merged_df['year'].unique():
     year_df.to_csv(output_path, index=False)
     print(f'Saved data for year {year} to {output_filename}')
 
+
 # Drop temporary year column from main dataframe
 merged_df = merged_df.drop('year', axis=1)
+
