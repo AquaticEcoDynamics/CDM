@@ -5,6 +5,24 @@ import numpy as np
 downloaded_data_dir = "narrung_met_raw_data"
 incoming_data_dir = "../../../../data/incoming/NRM/Narrung"
 
+# Add Wellington East data processing before historical data processing
+wellington_data_lst = []
+for year in [2023, 2024]:
+    wellington_file = f"../NRM_API_py/WellingtonEast_{year}.csv"
+    print(f"\nTrying to load Wellington file: {wellington_file}")
+    if os.path.exists(wellington_file):
+        print(f"File exists, loading {wellington_file}")
+        well_df = pd.read_csv(wellington_file)
+        well_df["time"] = pd.to_datetime(well_df["time"])
+        # Filter Wellington data to only include dates after 2022-11-07 01:30:00
+        well_df = well_df[well_df["time"] > pd.to_datetime("2022-11-07 01:30:00")]
+        wellington_data_lst.append(well_df)
+        print(f"Loaded columns: {well_df.columns.tolist()}")
+    else:
+        print(f"File not found: {wellington_file}")
+
+wellington_data_df = pd.concat(wellington_data_lst) if wellington_data_lst else None
+
 historical_data_lst = []
 for file in os.listdir(incoming_data_dir):
     if file.endswith(".csv") and "py_" not in file:
@@ -26,17 +44,23 @@ dfs = []
 
 for file in os.listdir(downloaded_data_dir):
     if file.endswith(".csv"):
-        # print(file)
         variable = file.split("DataSetExport-")[1].split(".Best Available")[0] + " " + file.split("--")[1].split("@")[0].replace("Avg","average").replace("Max","maximum").replace("Min","minimum")
-        df = pd.read_csv(os.path.join(downloaded_data_dir, file),skiprows=1, usecols=[0,2])
+        df = pd.read_csv(os.path.join(downloaded_data_dir, file), skiprows=1, usecols=[0,2])
+        
         # Convert to datetime and subtract 10.5 hours to go from UTC+10:30 to UTC+0:00
-        df["time"] = pd.to_datetime(df["Timestamp (UTC+09:30)"],format="%Y-%m-%d %H:%M:%S") - pd.Timedelta(hours=10, minutes=30)
+        df["time"] = pd.to_datetime(df["Timestamp (UTC+09:30)"], format="%Y-%m-%d %H:%M:%S") - pd.Timedelta(hours=10, minutes=30)
+        
+        # Round to nearest 15 minutes
+        df['time'] = df['time'].dt.round('15min')
+        
         unit = df.columns[1].split("(")[1].split(")")[0]
         var_unit = variable.replace(" ","_") + "_" + unit
         df[var_unit] = df[df.columns[1]]
-        df = df[["time",var_unit]]
+        
+        # Group by rounded time and calculate mean for duplicate timestamps
+        df = df.groupby('time')[var_unit].mean().reset_index()
+        
         dfs.append(df)
-        # print(df)
 
 # Merge all dataframes on time column
 merged_df = pd.concat([df.set_index('time') for df in dfs], axis=1)
@@ -78,6 +102,19 @@ for col in required_columns:
     if col not in merged_df.columns:
         merged_df[col] = np.nan
 
+# After renaming columns but before filling NaN values, add Wellington East data filling
+if wellington_data_df is not None:
+    print("\nColumns in Wellington East data:", wellington_data_df.columns.tolist())
+    # For each column in required columns
+    for col in required_columns:
+        if col != 'time':
+            if col in wellington_data_df.columns:
+                print(f"Filling NaN values in {col} with Wellington East data")
+                # Create a time-based mapping from Wellington East data
+                well_values = dict(zip(wellington_data_df['time'], wellington_data_df[col]))
+                # Only fill NaN values with Wellington East data
+                merged_df[col] = merged_df[col].fillna(merged_df['time'].map(well_values))
+
 # Reorder columns to match required format
 merged_df = merged_df[required_columns]
 print(merged_df)
@@ -89,6 +126,9 @@ merged_df['year'] = pd.to_datetime(merged_df['time']).dt.year
 # Remove rows where all columns except time are missing
 value_columns = [col for col in merged_df.columns if col not in ['time', 'year']]
 merged_df = merged_df.dropna(subset=value_columns, how='all')
+
+# Filter merged_df to only include dates after 2022-11-07 01:30:00
+merged_df = merged_df[merged_df["time"] > pd.to_datetime("2022-11-07 01:30:00")]
 
 # Iterate through unique years and save separate files
 for year in merged_df['year'].unique():
@@ -104,19 +144,31 @@ for year in merged_df['year'].unique():
     # Create a mapping from datetime_no_year to solar radiation values
     sr_mapping = dict(zip(median_sr_df['time_of_year'], median_sr_df['solar_radiation']))
     
-    # Only fill solar radiation values for dates after 2022-11-07 01:30:00
-    mask = pd.to_datetime(year_df['time']) > pd.to_datetime('2022-11-07 01:30:00')
+    # Only fill solar radiation values that are still NaN after Wellington data filling
+    mask = (pd.to_datetime(year_df['time']) > pd.to_datetime('2022-11-07 01:30:00')) & \
+           (year_df['Solar Radiation_average_W/m^2'].isna())
+           
     if year == 2024:
         print("DEBUG:sr_mapping",list(sr_mapping.items())[:10])
         print("Sample datetime_no_year values:")
         print(year_df.loc[mask, 'datetime_no_year'].head(10))
         print("\nCorresponding mapped values:")
         print(year_df.loc[mask, 'datetime_no_year'].map(sr_mapping).head(10))
-    year_df.loc[mask, 'Solar Radiation_average_W/m^2'] = year_df.loc[mask, 'datetime_no_year'].map(sr_mapping)
     
+    year_df.loc[mask, 'Solar Radiation_average_W/m^2'] = year_df.loc[mask, 'datetime_no_year'].map(sr_mapping)
     
     # Remove the temporary datetime_no_year column
     year_df = year_df.drop('datetime_no_year', axis=1)
+    
+    # Perform linear interpolation only on data after 2022-11-07 01:30:00
+    year_df = year_df.set_index('time')
+    cutoff_date = pd.to_datetime('2022-11-07 01:30:00')
+    mask = year_df.index > cutoff_date
+    
+    # Only interpolate rows after cutoff date
+    year_df.loc[mask] = year_df.loc[mask].interpolate(method='linear')
+    
+    year_df = year_df.reset_index()
     
     # Create output filename
     output_filename = f'py_Narrung_{year}.csv'
@@ -125,7 +177,6 @@ for year in merged_df['year'].unique():
     # Save to CSV
     year_df.to_csv(output_path, index=False)
     print(f'Saved data for year {year} to {output_filename}')
-
 
 # Drop temporary year column from main dataframe
 merged_df = merged_df.drop('year', axis=1)
