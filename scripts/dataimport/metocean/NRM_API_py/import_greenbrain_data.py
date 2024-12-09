@@ -25,6 +25,9 @@ for data_dir in data_dir_lst:
         df['Time'] = pd.to_datetime(df['Time'], dayfirst=True)
         # Subtract 10 hours and 30 minutes from timestamps
         df['Time'] = df['Time'] - pd.Timedelta(hours=10, minutes=30)
+        
+        # Round minutes to nearest 15-minute interval
+        df['Time'] = df['Time'].apply(lambda x: x.round('15min'))
         df['Time'] = df['Time'].dt.strftime('%Y-%m-%d %H:%M:%S')
         
         # Initialize merged_df with the first file
@@ -41,6 +44,15 @@ for data_dir in data_dir_lst:
     
     # Sort the final merged dataframe by Time
     merged_df = merged_df.sort_values(by="Time")
+    
+    # Convert Time back to datetime for grouping
+    merged_df['Time'] = pd.to_datetime(merged_df['Time'])
+    
+    # Group by Time and calculate mean for all numeric columns
+    merged_df = merged_df.groupby('Time').mean(numeric_only=True).reset_index()
+    
+    # Convert Time back to string format
+    merged_df['Time'] = merged_df['Time'].dt.strftime('%Y-%m-%d %H:%M:%S')
     
     # Remove rows where all columns except Time are NaN
     merged_df = merged_df.dropna(subset=[col for col in merged_df.columns if col != 'Time'], how='all')
