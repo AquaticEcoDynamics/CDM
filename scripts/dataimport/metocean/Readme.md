@@ -57,6 +57,12 @@ This repository contains scripts and instructions for updating meteorological da
    CDM/scripts/dataimport/metocean/NRM_API_py/GreenBrain_WellingtonEast_2024
    ```
 
+> [!NOTE]
+> Save daily precipitation data to:
+> ```
+> CDM/scripts/dataimport/metocean/NRM_API_py/Precip_data_2016-2024
+> ```
+
 ## Data Processing
 
 ### Python Processing
@@ -80,6 +86,17 @@ This repository contains scripts and instructions for updating meteorological da
    - Process the raw data, fill up the unavailable variables with the data from Wellington East, do interpolation, and save it in the required format to:
      ```
      CDM/data/incoming/NRM/Narrung
+     ```
+
+4. For daily precipitation data for sites other than Narrung, run the processing script (remember to navigate to the respective directory before running the code):
+   ```
+   CDM/scripts/dataimport/metocean/NRM_API_py/import_greenbrain_prep_data.py
+   ```
+
+   This script will:
+   - Process the raw data and save it in the required format to:
+     ```
+     CDM/data/store/metocean
      ```
 
 ### MATLAB Processing
